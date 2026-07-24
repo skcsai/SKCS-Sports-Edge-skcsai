@@ -303,6 +303,14 @@ Governed by: SXE-FIP-LAB-001
 Blocked by: SEM-GOV-001D-UI3-I11
 Blocks: none
 
+Scout handoff children:
+
+- SXE-FIP-LAB-001B — TESTED
+- SXE-FIP-LAB-001C — TESTED
+- SXE-FIP-LAB-001D — TESTED
+
+Edge implementation publication is complete and identity-locked. The parent remains IN_PROGRESS because no genuine canonical Scout FIP has been consumed. Operational sequencing returns to Scout only after the governance reconciliation is published. Edge is not deployed or operationally activated.
+
 ## SXE-FIP-LAB-001B — Edge Canonical FIP Intake Boundary Hardening
 
 Status: TESTED
@@ -314,5 +322,12 @@ Blocks: none
 
 Status: TESTED
 Governed by: SXE-FIP-LAB-001C
+Blocked by: none
+Blocks: none
+
+## SXE-FIP-LAB-001D — Edge Post-Publication Metadata Reconciliation
+
+Status: TESTED
+Governed by: SXE-FIP-LAB-001D
 Blocked by: none
 Blocks: none
