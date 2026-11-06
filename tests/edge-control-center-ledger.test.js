@@ -21,6 +21,8 @@ const {
   evaluateControlCenterProposal,
   loadControlCenterDocument,
   loadLedger,
+  loadAssetRegister,
+  getTotalGovernedAssets,
   validateLedger,
   validateControlCenterPolicy,
   getMarriageState,
@@ -152,7 +154,10 @@ describe("Edge Control Center Ledger v1", () => {
       result.state.historical_per_asset_forensic_lifecycle,
       "PRESERVED_AS_HISTORY_ONLY"
     );
-    assert.equal(result.state.total_governed_assets, 927);
+    assert.equal(
+      result.state.total_governed_assets,
+      getTotalGovernedAssets(loadAssetRegister())
+    );
     assert.ok(documentText.includes("### Historical Control Center evidence"));
     assert.ok(
       documentText.includes("## PHASE 8 FINAL REPOSITORY VALIDATION EVIDENCE")
