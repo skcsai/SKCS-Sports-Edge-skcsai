@@ -4,7 +4,7 @@
   "generated_at": "2026-07-05",
   "source_ledger": "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
   "project_policy": "The Master Project Register owns project/workstream truth. Exact project_id to ledger.task_id overlaps must mirror canonical Control Center sequencing state. Files are assets, not automatically projects.",
-  "project_count": 48,
+  "project_count": 49,
   "projects": [
     {
       "project_id": "ECC-001",
@@ -644,7 +644,8 @@
         "EAI-001",
         "EUI-001",
         "E2E-001",
-        "SEM-GOV-001A"
+        "SEM-GOV-001A",
+        "EPI-001-D1-R1"
       ],
       "affected_layers": [
         "prediction",
@@ -2892,6 +2893,96 @@
         "No application runtime, prediction, database, provider, deployment, publication, Scout/FIP activation or marriage-gate behavior was modified by ESA-RR-004."
       ],
       "open_gaps": []
+    },
+    {
+      "project_id": "EPI-001-D1-R1",
+      "project_name": "EPI-001-D1-R1 Governed D1 Prediction Provenance Integration",
+      "category": "Prediction Pipeline Implementation",
+      "description": "Preserve the minimal governed Scout FIP R1 provenance reference from EFI EdgeAnalysisEnvelope into existing Edge D1 raw prediction metadata. Edge performs prediction; Scout remains sports-truth/FIP authority only. Code-and-test proof only; no schema or live activation.",
+      "why_it_matters": "E2E readiness explicitly blocks on absent governed D1 prediction and R1 provenance integration. Without this linkage Edge predictions cannot prove which validated Scout FIP produced them.",
+      "current_status": "IN_PROGRESS",
+      "priority": "critical",
+      "startable": true,
+      "blocked_by": [
+        "EPI-001",
+        "EFI-001",
+        "EST-001",
+        "ESA-RR-004"
+      ],
+      "blocks": [
+        "E2E-001"
+      ],
+      "affected_layers": [
+        "prediction",
+        "FIP intake mapping",
+        "provenance",
+        "governance"
+      ],
+      "related_tasks": [
+        "EPI-001-D1-R1"
+      ],
+      "related_contracts": [
+        "control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md",
+        "control-center/EFI-001_FIP_INTAKE_HANDSHAKE_CONTRACT.v1.md",
+        "control-center/EST-001_SUPABASE_STORAGE_AND_FIP_RETENTION_CONTRACT.v1.md",
+        "control-center/FIP-001_SCOUT_FIP_AUTHORITY_CONTRACT.v1.md"
+      ],
+      "related_files": [
+        "backend/services/fipIntakeService.js",
+        "backend/services/aiPipeline.js",
+        "tests/epi-001-d1-r1-provenance.test.js",
+        "package.json",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "D1 raw prediction construction currently drops governed FIP provenance metadata from EdgeAnalysisEnvelope.",
+        "Dedicated predictions_raw R1 provenance columns are reserved by EST-001 but not implemented; schema work is excluded from this packet."
+      ],
+      "required_decisions": [],
+      "completion_definition": "EPI-001-D1-R1 is TESTED only when a governed SCOUT_FIP EdgeAnalysisEnvelope carries the complete minimal R1 provenance reference into an existing D1 predictions_raw row metadata shape; non-Scout/provider input does not receive invented FIP provenance; missing required R1 fields fail closed; full FIP bodies/Scout evidence/provider payloads are never copied into D1 metadata; existing prediction validation remains compatible; P1-B01 provider-bypass behaviour remains green; EPI baseline prediction/ACCA regression remains green; marriage/storage/provider/E2E gates remain BLOCKED; and no SQL, migration, Supabase mutation, route, deployment, provider-removal or Scout prediction logic is introduced.",
+      "proof_required": [
+        "Baseline EPI prediction-pipeline contract regression PASS",
+        "P1-B01 configured Scout FIP input/provider bypass regression PASS",
+        "EdgeAnalysisEnvelope exposes complete R1 reference: fip_id, fip_schema_version, validation_hash, validated_at, scout_run_id, intake_id, idempotency_key, sports_truth_origin",
+        "D1 metadata whitelist preserves only minimal R1 reference fields for SCOUT_FIP",
+        "Missing R1 field fails closed before D1 persistence",
+        "Provider/non-Scout input retains existing behaviour and receives no fabricated FIP provenance",
+        "Raw prediction validation accepts D1 row with whitelisted provenance metadata",
+        "No fip_body/raw_fip/Scout evidence/provider payload copied to D1 metadata",
+        "No SQL/migration/Supabase mutation/runtime route/deployment/provider removal",
+        "Edge Control Center/project/asset/classification/runtime/governor regression PASS"
+      ],
+      "risks_if_ignored": [
+        "D1 predictions cannot be traced to validated Scout FIP",
+        "E2E-001 remains blocked",
+        "Provider-removal proof cannot establish governed replacement lineage"
+      ],
+      "recommended_order": 49,
+      "next_action": "Implement a minimal fail-closed R1 provenance whitelist from SCOUT_FIP EdgeAnalysisEnvelope into existing D1 predictions_raw metadata, add focused isolated tests, and run EPI/P1-B01/Control Center regression. Do not add SQL, migrations, live DB writes, routes, deployments, provider removal or gate clearance.",
+      "owner_note": "Stephen authorized continuation on 2026-11-07. Scout must not make predictions; all D1 derivation remains Edge-owned.",
+      "last_updated": "2026-11-07",
+      "governed_by_control_task_id": "EPI-001-D1-R1",
+      "current_evidence": [
+        "2026-11-07 ESA-RR-004 TESTED/CLOSED at 9fac151d3815d41be452d6fd6e831faa1440c1f2; Edge runtime inventory authority is green.",
+        "EPI-001-C1 TESTED and requires baseline behaviour, FIP input mapping, raw prediction compatibility, ACCA compatibility, provider bypass, no-storage-drift and blocked-gate proof before runtime prediction change.",
+        "EFI-001-I1 TESTED; fipIntakeService maps validated Scout FIP to EdgeAnalysisEnvelope and already carries fip_id, fip_schema_version, validation_hash, scout_run_id, intake_id, idempotency_key and SCOUT_FIP origin.",
+        "P1-B01 existing test proves valid governed FIP input bypasses provider acquisition and emits mapped envelopes only; provider path remains unchanged when fip_envelopes is absent.",
+        "EST-001 TESTED permits R1 minimal provenance linked to D1 prediction rows and forbids full FIP body/Scout mirror persistence. Dedicated provenance columns on predictions_raw are not currently implemented, so this packet uses existing JSONB metadata only and performs no schema work.",
+        "2026-11-07 scope refinement before implementation: new focused test asset requires asset-register/classification/map/count reconciliation; aiPipeline runtime-source change requires deterministic generated EDGE_SYSTEM_RUNTIME_INVENTORY/MAP refresh and immediate read-only replay under existing ESA-RR-004 checker. Checker code itself remains out of scope."
+      ],
+      "open_gaps": [
+        "R1 provenance is available at EFI intake but is currently dropped by D1 raw prediction construction."
+      ]
     }
   ]
 }

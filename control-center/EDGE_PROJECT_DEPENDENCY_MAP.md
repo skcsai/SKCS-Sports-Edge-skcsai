@@ -337,3 +337,10 @@ Status: TESTED
 Governed by: ESA-RR-004
 Blocked by: ESA-RR-003
 Blocks: none
+
+## EPI-001-D1-R1 - EPI-001-D1-R1 Governed D1 Prediction Provenance Integration
+
+Status: IN_PROGRESS
+Governed by: EPI-001-D1-R1
+Blocked by: EPI-001, EFI-001, EST-001, ESA-RR-004
+Blocks: E2E-001
