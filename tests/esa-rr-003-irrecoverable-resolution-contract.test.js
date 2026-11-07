@@ -24,7 +24,7 @@ function contractText() { return fs.readFileSync(CONTRACT, "utf8"); }
 
 test("ESA-RR-003 contract exists and is contract-only", () => {
   const text = contractText();
-  assert.equal(text.includes("ESA-RR-003 STATUS: IN_PROGRESS — CONTRACT-ONLY"), true);
+  assert.equal(text.includes("ESA-RR-003 STATUS: TESTED — CONTRACT-ONLY"), true);
   assert.equal(text.includes("does **not** implement runtime repair"), true);
   assert.equal(text.includes("No runtime application code changes"), true);
 });
@@ -94,12 +94,12 @@ test("ESA-RR-003 future implementation boundary is checker tests and generated o
   assert.equal(text.includes("must not create T17"), true);
 });
 
-test("ESA-RR-003 is registered IN_PROGRESS and gates remain blocked", () => {
+test("ESA-RR-003 is registered TESTED and gates remain blocked", () => {
   const ledger = readJson(LEDGER);
   const task = ledger.tasks.find((entry) => entry.task_id === "ESA-RR-003");
   assert.ok(task);
-  assert.equal(task.status, "IN_PROGRESS");
-  assert.equal(task.startable, true);
+  assert.equal(task.status, "TESTED");
+  assert.equal(task.startable, false);
   assert.deepEqual(task.blocked_by, ["ESA-RR-002", "EAC-001"]);
   assert.equal(ledger.scout_edge_marriage_gate?.status || "BLOCKED", "BLOCKED");
   assert.notEqual(ledger.supabase_storage_gate?.status, "CLEARED");
@@ -109,7 +109,7 @@ test("project register mirrors ESA-RR-003 and control suite includes proof", () 
   const register = readJson(REGISTER);
   const project = register.projects.find((entry) => entry.project_id === "ESA-RR-003");
   assert.ok(project);
-  assert.equal(project.current_status, "IN_PROGRESS");
+  assert.equal(project.current_status, "TESTED");
   assert.equal(project.governed_by_control_task_id, "ESA-RR-003");
   const pkg = readJson(PACKAGE);
   assert.equal(pkg.scripts["test:control-center"].includes("tests/esa-rr-003-irrecoverable-resolution-contract.test.js"), true);

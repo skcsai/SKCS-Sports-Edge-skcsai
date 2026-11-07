@@ -326,7 +326,7 @@ Blocks: none
 
 ## ESA-RR-003 — ESA-RR-003 Irrecoverable Preserved-Candidate Resolution Contract
 
-Status: IN_PROGRESS
+Status: TESTED
 Governed by: ESA-RR-003
 Blocked by: ESA-RR-002, EAC-001
 Blocks: none

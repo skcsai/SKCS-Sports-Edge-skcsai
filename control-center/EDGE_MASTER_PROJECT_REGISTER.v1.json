@@ -2762,7 +2762,7 @@
       "category": "Governance and Contract Refinement",
       "description": "Seal a contract-only resolution law for the exact eight ESA-RR-002 preserved candidates whose real source bytes and valid relationship-evidence provenance are exhaustively unrecoverable. Preserve absence and historical discovery truth without inventing source content or runtime relationships. Define a future evidence-only tombstone representation and implementation boundary; do not change runtime checker behavior, runtime inventory/map, application code, prediction logic, database state, deployment, marriage gates, or provider state in this packet.",
       "why_it_matters": "Governed Edge work must remain visible to Control Center sequencing.",
-      "current_status": "IN_PROGRESS",
+      "current_status": "TESTED",
       "priority": "critical",
       "blocked_by": [
         "ESA-RR-002",
@@ -2802,7 +2802,7 @@
         "Control Center sequencing bypass"
       ],
       "recommended_order": 47,
-      "next_action": "Seal and test ESA-RR-003 contract-only packet including the exact Control Center governed-asset count reconciliation required by its two new governed assets. Do not modify runtime checker/inventory/map, application runtime, prediction pipeline, database, deployment, provider paths, or marriage gates. After TESTED closure, separately authorize ESA-RR-004 implementation.",
+      "next_action": "CLOSED. Preserve ESA-RR-003 evidence-only law. Do not modify runtime/prediction/database/provider/deployment surfaces under this project. Separately govern the existing ESA-RR-002 runtime-inventory drift and any ESA-RR-004 checker/generated-output implementation before EPI/D1 prediction work begins.",
       "owner_note": "Bootstrapped from the canonical Edge Control Center ledger. Exact task-ID overlaps mirror ledger sequencing state.",
       "last_updated": "2026-11-07",
       "governed_by_control_task_id": "ESA-RR-003",
@@ -2812,8 +2812,11 @@
         "2026-11-07 exhaustive recovery inspection: no exact-path copies in 161 SKCS/local roots; no connected Google Drive matches for the eight filenames; GitHub full path history reports zero commits for all eight source paths.",
         "2026-11-07 RCP-2 inspection across 13 GitHub revisions of EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json: all eight paths appear in historical revisions f6ac94957a9ea6bce72b2a08530bb622070ada57 and 3bc0b267cb95fb64cbdb6f40c2de2f0e70a8574f with no relationship_evidence_provenance, no source_content_sha256 and no relationship_evidence.",
         "Each path remains preserved in EDGE_REPOSITORY_ASSET_REGISTER.v1.json workspace_candidate_snapshot as PRE_EXISTING_UNTRACKED / PRESERVED_CANDIDATE under EPR-001; this proves path discovery only, not content or runtime authority.",
-        "2026-11-07 Edge Control Center/governor audit: repository asset register PASS at 1050 registered assets plus 1 explicit exclusion = 1051 tracked; ESA-RR-003 contract/test add two governed assets, so EDGE_CONTROL_CENTER.md governed-asset counts must reconcile from 1048 to 1050. Governor regression 35/35 PASS; no prediction/runtime/database/provider/deployment changes authorized."
-      ]
+        "2026-11-07 Edge Control Center/governor audit: repository asset register PASS at 1050 registered assets plus 1 explicit exclusion = 1051 tracked; ESA-RR-003 contract/test add two governed assets, so EDGE_CONTROL_CENTER.md governed-asset counts must reconcile from 1048 to 1050. Governor regression 35/35 PASS; no prediction/runtime/database/provider/deployment changes authorized.",
+        "2026-11-07 ESA-RR-003 closure proof: contract packet published at af3377f297d55da1665bd11bbdb02d49377f52b3; focused contract tests 9/9 PASS; Edge Control Center PASS; project register PASS; asset register PASS; classification 1050/1050 PASS; governor regression 35/35 PASS; runtime checker/inventory/map unchanged by this packet. Separate ESA-RR-002 runtime-inventory drift remains unresolved and is not cleared by this closure."
+      ],
+      "startable": false,
+      "open_gaps": []
     }
   ]
 }

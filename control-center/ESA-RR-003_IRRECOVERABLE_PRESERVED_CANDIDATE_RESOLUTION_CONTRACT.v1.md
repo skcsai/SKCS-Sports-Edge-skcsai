@@ -2,7 +2,7 @@
 
 ## Status
 
-**ESA-RR-003 STATUS: IN_PROGRESS — CONTRACT-ONLY**
+**ESA-RR-003 STATUS: TESTED — CONTRACT-ONLY**
 
 This contract is an additive governance resolution to the TESTED ESA-RR-002 Option A reproducibility law. It does **not** implement runtime repair.
 
