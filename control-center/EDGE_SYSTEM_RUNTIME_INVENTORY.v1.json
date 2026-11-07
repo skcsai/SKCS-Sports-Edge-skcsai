@@ -48,7 +48,6 @@
       "asset_path": "backend/apiClients.js",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
-        "DATABASE_SURFACE",
         "EXTERNAL_PROVIDER"
       ],
       "reachability_state": "CONFIRMED",
@@ -93,7 +92,7 @@
       "environment_key_names": [
         "SPORTSDATAIO_ALLOW_PAID_COMPETITIONS"
       ],
-      "database_role": "WRITE",
+      "database_role": "NONE",
       "database_objects": [],
       "schedule_or_trigger": "",
       "deployment_surface": "",
@@ -106,7 +105,7 @@
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
         "source_content_sha256": "4d76a55e8ee3473da067a6f849cb3e32698d7748ae34905802ffdd97b8d241b6",
-        "relationship_evidence_sha256": "cbc02f1fc69215905bd8a76fac5069d28ce66acb1e94f306e811dc6b62b1991e",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -478,11 +477,9 @@
         "skcsai.onrender.com"
       ],
       "environment_key_names": [
-        "ADMIN_API_KEY",
         "CRON_SECRET",
         "RENDER_EXTERNAL_URL",
         "SKCS_REFRESH_HOST",
-        "SKCS_REFRESH_KEY",
         "SKCS_TRIGGER_HOST",
         "TRIGGER_TIMEOUT_MS"
       ],
@@ -498,7 +495,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "fea30c55b443303273f7e0a6765ccdce5792f4236a8e304cc7bba3b1c1806ba0",
+        "source_content_sha256": "df8a76e393ecb9b6f4b232b76947d3b4768c3049129b8ed24f1da2cb9f986101",
         "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -524,6 +521,7 @@
         "backend/routes/user.js",
         "backend/routes/v1/acca.js",
         "backend/routes/v1/predictions.js",
+        "backend/routes/vip.js",
         "backend/server-express.js"
       ],
       "runtime_dependencies": [
@@ -534,11 +532,8 @@
       ],
       "external_providers": [],
       "environment_key_names": [
-        "ADMIN_API_KEY",
-        "ADMIN_BYPASS_EMAIL",
-        "ALLOW_LEGACY_USER_KEY",
-        "USER_API_KEY",
-        "USER_API_KEYS"
+        "ALLOW_TEST_USER_SUBSCRIPTION_BYPASS",
+        "NODE_ENV"
       ],
       "database_role": "CONNECTION_OR_CLIENT",
       "database_objects": [],
@@ -552,7 +547,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "e61b5137acf0e49d05a77d849abfd3174007de46a513c27129aa630909108553",
+        "source_content_sha256": "6e9d84a4940c0e21295d1a5f36e45fb87f847141be9f42e4337ce6c8d13207f4",
         "relationship_evidence_sha256": "7bc8a3c8d4b1a8a699f68f29ebb83a5ad6bee20d6982e31a6de2520ea5ba6fd8",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -648,8 +643,7 @@
       ],
       "runtime_dependencies": [
         "backend/controllers/edgeMindController.js",
-        "backend/middleware/supabaseJwt.js",
-        "backend/utils/auth.js"
+        "backend/middleware/supabaseJwt.js"
       ],
       "external_providers": [],
       "environment_key_names": [],
@@ -665,7 +659,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "b1c6384434ca5290c95f2e6e44cc661ee170f63c87ae53311fb4c421731b4f96",
+        "source_content_sha256": "749b66fd261e831837d976c4d7b8328c0780505cd554fd286d4d95b1a78db14c",
         "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -806,12 +800,11 @@
         "backend/semantic-layer/governanceGatekeeper.js",
         "backend/services/apiQuotaRouter.js",
         "backend/services/cricApiCacheService.js",
+        "backend/utils/auth.js",
         "scripts/publish-cricbuzz-cricket.js"
       ],
       "external_providers": [],
-      "environment_key_names": [
-        "CRON_SECRET"
-      ],
+      "environment_key_names": [],
       "database_role": "NONE",
       "database_objects": [],
       "schedule_or_trigger": "",
@@ -824,7 +817,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "d0324aaf240ff53e88c986080757fc717856ac5587e815e327d5facf37676053",
+        "source_content_sha256": "8c6a09a47aca10c6c5d1d2faf2cdc73aeb3a51b9fb5e508853caa9e861aeb61f",
         "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -1036,7 +1029,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "a95d9022066929a32329ac2f571cb0e9a235b4e5f0aadbf4baa69015da38d50e",
+        "source_content_sha256": "887193afc106f85aa06d9d14111133e767ad00d258b13c67d90075a83375d356",
         "relationship_evidence_sha256": "14fe147e3c07f2c8129844ca7fc4a5f1c5f1b635c37f873b93cdd7ad5ec3f6f2",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -1112,13 +1105,10 @@
         "skcsai.onrender.com"
       ],
       "environment_key_names": [
-        "ADMIN_API_KEY",
-        "CRON_SECRET",
         "DATA_MODE",
         "NODE_ENV",
         "ODDS_API_KEY",
         "SKCS_ALLOW_SYNC_WAIT",
-        "SKCS_REFRESH_KEY",
         "SUPABASE_ANON_KEY",
         "SUPABASE_KEY",
         "SUPABASE_URL",
@@ -1139,7 +1129,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "94ae9fd8a3bf7d8cf13f0d38d8b14c3fe2a1c5e2f60af393ced1bd5c604f1e3d",
+        "source_content_sha256": "726ea2f5d59296dc15a6f031c9fc841a9c6c0dcf25e3f56a9761da286bea9859",
         "relationship_evidence_sha256": "5964a88f4efcdaffc0c5c4404f54a67212741c33126d43bb84ac911d4bd73dad",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -1210,7 +1200,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "6dd367186fa47ff23877a2fb3af9c09d481f64ea1461eac62301fcf91a75e2a7",
+        "source_content_sha256": "733cdb2b139c95e95f4085dfae0ca6e63d69df75c675d799996d25ecfc901319",
         "relationship_evidence_sha256": "f8b35f2e7169ee81f9b3b66c5d25560e7cf90c8877b6e877e17f24fbfbd3737b",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -1283,11 +1273,11 @@
         "backend/services/canonicalEvents.js",
         "backend/services/contextEnrichmentService.js",
         "backend/services/dataProvider.js",
-        "backend/services/sportsrcHealthService.js"
+        "backend/services/sportsrcHealthService.js",
+        "backend/utils/auth.js"
       ],
       "external_providers": [],
       "environment_key_names": [
-        "ADMIN_API_KEY",
         "SUPABASE_SERVICE_ROLE_KEY",
         "SUPABASE_URL"
       ],
@@ -1303,7 +1293,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "dfbfa4717ca4369f30ea9f42147f9b8e85879651e29aed3ea4daa0293f466cb2",
+        "source_content_sha256": "21712a53bb613531e97bf08cbc9ba60256ce6e005a5efd272fca19861ed687ca",
         "relationship_evidence_sha256": "326a9573bbca6d1226a1fbff6900d39b6b30f32b194688b379a02bb214a5fb47",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -1591,7 +1581,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "46604ff729dfe219e97c51c867f95629be824b77a58d6a53b5623c5f308b7d3b",
+        "source_content_sha256": "5d06af8ed3f54e986e06503e44ec41335b1f32998055a94e8f6a5f6bb4c85c3f",
         "relationship_evidence_sha256": "627652c46efcf6c328a9fd8e6369b2ae4ae217e582b6738a4449353bfd297934",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -1688,7 +1678,7 @@
       "runtime_dependencies": [
         "backend/config/subscriptionMatrix.js",
         "backend/db.js",
-        "backend/utils/auth.js",
+        "backend/middleware/supabaseJwt.js",
         "backend/utils/contextInsights.js",
         "backend/utils/insightValidationMatrix.js"
       ],
@@ -1708,43 +1698,8 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "17b773bc6ebd463b0c1c64ff991097bac4e9beebb41c6f92cf5b9d45c4370833",
+        "source_content_sha256": "c49c9580db8cd173aba9fec5e1bda76bb3462051bb44f24906ebe8393546deff",
         "relationship_evidence_sha256": "4296cb4261f62a2367347f41c0a213ac79ee086e76ab77bafbba5fcdf350db23",
-        "captured_source_presence_state": "PRESENT_TRACKED"
-      }
-    },
-    {
-      "asset_path": "backend/semantic-layer/enforcementGuard.js",
-      "source_state": "COMMITTED_REPOSITORY",
-      "surface_classes": [
-        "DATABASE_SURFACE"
-      ],
-      "reachability_state": "CONFIRMED",
-      "mount_paths": [],
-      "runtime_callers": [],
-      "runtime_consumers": [
-        "backend/services/aiPipeline.js"
-      ],
-      "runtime_dependencies": [
-        "backend/semantic-layer/normalizer.js",
-        "backend/semantic-layer/violationLogger.js"
-      ],
-      "external_providers": [],
-      "environment_key_names": [],
-      "database_role": "WRITE",
-      "database_objects": [],
-      "schedule_or_trigger": "",
-      "deployment_surface": "",
-      "governance_reachability_type": "NONE",
-      "governed_by_control_task_id": "ESA-001",
-      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
-      "evidence": [
-        "Static package/deployment/import/mount evidence."
-      ],
-      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
-      "relationship_evidence_provenance": {
-        "source_content_sha256": "ca519a8c5e31282f175c16827da17f768004f7c171ac26d03085d8709acbade9",
-        "relationship_evidence_sha256": "cbc02f1fc69215905bd8a76fac5069d28ce66acb1e94f306e811dc6b62b1991e",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -1906,7 +1861,6 @@
         "direct_1x2_insights",
         "first",
         "fixture_processing_log",
-        "match_context_data",
         "prediction_publish_runs",
         "public_intelligence",
         "rapidapi_cache",
@@ -1925,8 +1879,8 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "af4f411af2c0b8dd1f3572afea142cd114923f88f1f4b0db786a37346f15cf1b",
-        "relationship_evidence_sha256": "a20e081592d59e638906ae9643942e8ce984729136bcc7aafa0fe304a1ada3eb",
+        "source_content_sha256": "af830d95e024b6a66f9c217b1ebe08a99b2980fa9ebce8ffa6d9f5e06b0dcec2",
+        "relationship_evidence_sha256": "13436e22023f379f25118f75c9ef4cca51c4720bdad81085ec1ffa36bce09120",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -2006,6 +1960,7 @@
       "source_state": "PRE_EXISTING_MODIFIED",
       "surface_classes": [
         "DATABASE_SURFACE",
+        "SCOUT_FIP_SURFACE",
         "SERVICE"
       ],
       "reachability_state": "CONFIRMED",
@@ -2028,6 +1983,7 @@
         "backend/services/dataProvider.js",
         "backend/services/direct1x2Engine.js",
         "backend/services/filterEngine.js",
+        "backend/services/fipIntakeService.js",
         "backend/services/footballH2HExtractor.js",
         "backend/services/footballHighlightsService.js",
         "backend/services/footballRankExtractor.js",
@@ -2043,8 +1999,6 @@
       "external_providers": [],
       "environment_key_names": [
         "SKCS_STALE_RUN_HOURS",
-        "SUPABASE_ANON_KEY",
-        "SUPABASE_KEY",
         "SUPABASE_SERVICE_ROLE_KEY",
         "SUPABASE_URL"
       ],
@@ -2063,7 +2017,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "c100e58181915829e8411fd1954655da964ef8e952cbc192a8971f9c579b8832",
+        "source_content_sha256": "4e83af5b61eb22cb487bc3ca9e232b0daa9fc57d73493b95ade1b0c3b4d71a32",
         "relationship_evidence_sha256": "30d8a7629c6c5d2b11dfeec78c560bbb114eb4b65833f78d22aabede9f0c8f6c",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -2121,7 +2075,6 @@
       "asset_path": "backend/services/aiProvider.js",
       "source_state": "PRE_EXISTING_MODIFIED",
       "surface_classes": [
-        "DATABASE_SURFACE",
         "EXTERNAL_PROVIDER",
         "SERVICE"
       ],
@@ -2151,7 +2104,7 @@
         "GROQ_KEY",
         "GROQ_MODEL"
       ],
-      "database_role": "WRITE",
+      "database_role": "NONE",
       "database_objects": [],
       "schedule_or_trigger": "",
       "deployment_surface": "",
@@ -2164,7 +2117,7 @@
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
         "source_content_sha256": "6326f8019e7b7a533b048ee3c1819fa878d71d262837eec96b914bc9e3d7bf03",
-        "relationship_evidence_sha256": "cbc02f1fc69215905bd8a76fac5069d28ce66acb1e94f306e811dc6b62b1991e",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -2248,7 +2201,6 @@
       "asset_path": "backend/services/antigravity/WorkflowEngine.js",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
-        "DATABASE_SURFACE",
         "SERVICE"
       ],
       "reachability_state": "CONFIRMED",
@@ -2262,7 +2214,7 @@
       "environment_key_names": [
         "GEMINI_API_KEY"
       ],
-      "database_role": "WRITE",
+      "database_role": "NONE",
       "database_objects": [],
       "schedule_or_trigger": "",
       "deployment_surface": "",
@@ -2275,7 +2227,7 @@
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
         "source_content_sha256": "77a7f5fbbdb8eff1c032659ed068e28dbc2e708a44dd8d11f8b9efc6c2b8296f",
-        "relationship_evidence_sha256": "cbc02f1fc69215905bd8a76fac5069d28ce66acb1e94f306e811dc6b62b1991e",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -2792,7 +2744,6 @@
       "asset_path": "backend/services/controlCenterReadService.js",
       "source_state": "PRE_EXISTING_MODIFIED",
       "surface_classes": [
-        "SCOUT_FIP_SURFACE",
         "SERVICE"
       ],
       "reachability_state": "CONFIRMED",
@@ -3076,7 +3027,6 @@
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
         "EXTERNAL_PROVIDER",
-        "SCOUT_FIP_SURFACE",
         "SERVICE"
       ],
       "reachability_state": "CONFIRMED",
@@ -3142,7 +3092,6 @@
       "asset_path": "backend/services/dataProviders.js",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
-        "DATABASE_SURFACE",
         "SERVICE"
       ],
       "reachability_state": "CONFIRMED",
@@ -3164,7 +3113,7 @@
         "RAPIDAPI_HOSTS_ACTIVE_ALL",
         "RAPIDAPI_HOST_FALLBACK_LIMIT"
       ],
-      "database_role": "WRITE",
+      "database_role": "NONE",
       "database_objects": [],
       "schedule_or_trigger": "",
       "deployment_surface": "",
@@ -3177,7 +3126,7 @@
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
         "source_content_sha256": "ec320da03827f01fe88dc50b6f13103b80adb27aa62891be198719461470556e",
-        "relationship_evidence_sha256": "cbc02f1fc69215905bd8a76fac5069d28ce66acb1e94f306e811dc6b62b1991e",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -3309,6 +3258,7 @@
       "asset_path": "backend/services/enhancedMatchDetailsService.js",
       "source_state": "PRE_EXISTING_MODIFIED",
       "surface_classes": [
+        "DATABASE_SURFACE",
         "SERVICE"
       ],
       "reachability_state": "CONFIRMED",
@@ -3325,7 +3275,7 @@
       ],
       "external_providers": [],
       "environment_key_names": [],
-      "database_role": "NONE",
+      "database_role": "CONNECTION_OR_CLIENT",
       "database_objects": [],
       "schedule_or_trigger": "",
       "deployment_surface": "",
@@ -3338,7 +3288,7 @@
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
         "source_content_sha256": "622468304525212cefc5118da4026cf9842f6586edd5e125db1e6a9070cbe579",
-        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
+        "relationship_evidence_sha256": "7bc8a3c8d4b1a8a699f68f29ebb83a5ad6bee20d6982e31a6de2520ea5ba6fd8",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -3428,10 +3378,9 @@
       }
     },
     {
-      "asset_path": "backend/services/fipIntakeService.js",
+      "asset_path": "backend/services/fipIntakeEvidenceService.js",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
-        "DATABASE_SURFACE",
         "SCOUT_FIP_SURFACE",
         "SERVICE"
       ],
@@ -3439,10 +3388,13 @@
       "mount_paths": [],
       "runtime_callers": [],
       "runtime_consumers": [],
-      "runtime_dependencies": [],
+      "runtime_dependencies": [
+        "backend/services/fipIntakeService.js",
+        "node:crypto"
+      ],
       "external_providers": [],
       "environment_key_names": [],
-      "database_role": "WRITE",
+      "database_role": "NONE",
       "database_objects": [],
       "schedule_or_trigger": "",
       "deployment_surface": "",
@@ -3454,16 +3406,15 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "e63f77a86035a715b1c27e4ec82887f66fb7aecd6e0b5dc2e952c5453394d9fe",
-        "relationship_evidence_sha256": "cbc02f1fc69215905bd8a76fac5069d28ce66acb1e94f306e811dc6b62b1991e",
+        "source_content_sha256": "f44d39442241074d987321c204ae87d6583cee7249d230a0f26727c4b57d74cd",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
     {
-      "asset_path": "backend/services/fipStoragePolicyService.js",
+      "asset_path": "backend/services/fipIntakeM2MAuthenticator.js",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
-        "DATABASE_SURFACE",
         "SCOUT_FIP_SURFACE",
         "SERVICE"
       ],
@@ -3471,10 +3422,81 @@
       "mount_paths": [],
       "runtime_callers": [],
       "runtime_consumers": [],
-      "runtime_dependencies": [],
+      "runtime_dependencies": [
+        "backend/services/fipIntakeService.js",
+        "node:crypto"
+      ],
       "external_providers": [],
       "environment_key_names": [],
-      "database_role": "WRITE",
+      "database_role": "NONE",
+      "database_objects": [],
+      "schedule_or_trigger": "",
+      "deployment_surface": "",
+      "governance_reachability_type": "NONE",
+      "governed_by_control_task_id": "ESA-001",
+      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
+      "evidence": [
+        "Static package/deployment/import/mount evidence."
+      ],
+      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
+      "relationship_evidence_provenance": {
+        "source_content_sha256": "f44eda245ec9df0b163ebcb25df1f16797be24267d58501f022dfbd706fbf5d5",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
+        "captured_source_presence_state": "PRESENT_TRACKED"
+      }
+    },
+    {
+      "asset_path": "backend/services/fipIntakeService.js",
+      "source_state": "COMMITTED_REPOSITORY",
+      "surface_classes": [
+        "SCOUT_FIP_SURFACE",
+        "SERVICE"
+      ],
+      "reachability_state": "CONFIRMED",
+      "mount_paths": [],
+      "runtime_callers": [],
+      "runtime_consumers": [
+        "backend/services/aiPipeline.js"
+      ],
+      "runtime_dependencies": [
+        "node:crypto"
+      ],
+      "external_providers": [],
+      "environment_key_names": [],
+      "database_role": "NONE",
+      "database_objects": [],
+      "schedule_or_trigger": "",
+      "deployment_surface": "",
+      "governance_reachability_type": "NONE",
+      "governed_by_control_task_id": "ESA-001",
+      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
+      "evidence": [
+        "Static package/deployment/import/mount evidence."
+      ],
+      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
+      "relationship_evidence_provenance": {
+        "source_content_sha256": "9eb6bcec29a2286dd6b19f0226e3424a004ab2bb96cc7265cad2725387c65262",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
+        "captured_source_presence_state": "PRESENT_TRACKED"
+      }
+    },
+    {
+      "asset_path": "backend/services/fipStoragePolicyService.js",
+      "source_state": "COMMITTED_REPOSITORY",
+      "surface_classes": [
+        "SCOUT_FIP_SURFACE",
+        "SERVICE"
+      ],
+      "reachability_state": "CANDIDATE",
+      "mount_paths": [],
+      "runtime_callers": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "node:crypto"
+      ],
+      "external_providers": [],
+      "environment_key_names": [],
+      "database_role": "NONE",
       "database_objects": [],
       "schedule_or_trigger": "",
       "deployment_surface": "",
@@ -3487,7 +3509,40 @@
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
         "source_content_sha256": "35f4e2240bc68d367b11fd7938c3ed292fc9048f555ac38489f83c1d7e1234f7",
-        "relationship_evidence_sha256": "cbc02f1fc69215905bd8a76fac5069d28ce66acb1e94f306e811dc6b62b1991e",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
+        "captured_source_presence_state": "PRESENT_TRACKED"
+      }
+    },
+    {
+      "asset_path": "backend/services/fixtureIdentityResolverService.js",
+      "source_state": "COMMITTED_REPOSITORY",
+      "surface_classes": [
+        "SCOUT_FIP_SURFACE",
+        "SERVICE"
+      ],
+      "reachability_state": "CANDIDATE",
+      "mount_paths": [],
+      "runtime_callers": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "backend/services/fipIntakeService.js"
+      ],
+      "external_providers": [],
+      "environment_key_names": [],
+      "database_role": "NONE",
+      "database_objects": [],
+      "schedule_or_trigger": "",
+      "deployment_surface": "",
+      "governance_reachability_type": "NONE",
+      "governed_by_control_task_id": "ESA-001",
+      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
+      "evidence": [
+        "Static package/deployment/import/mount evidence."
+      ],
+      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
+      "relationship_evidence_provenance": {
+        "source_content_sha256": "2b0b357a8856a895b2bfa70c5a5fdbdb4db2523317ef74f7cea9158adb1a3324",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -3631,10 +3686,81 @@
       }
     },
     {
+      "asset_path": "backend/services/governedFipIntakeAdapter.js",
+      "source_state": "COMMITTED_REPOSITORY",
+      "surface_classes": [
+        "SCOUT_FIP_SURFACE",
+        "SERVICE"
+      ],
+      "reachability_state": "CANDIDATE",
+      "mount_paths": [],
+      "runtime_callers": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "backend/services/fipIntakeM2MAuthenticator.js",
+        "backend/services/fipIntakeService.js"
+      ],
+      "external_providers": [],
+      "environment_key_names": [],
+      "database_role": "NONE",
+      "database_objects": [],
+      "schedule_or_trigger": "",
+      "deployment_surface": "",
+      "governance_reachability_type": "NONE",
+      "governed_by_control_task_id": "ESA-001",
+      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
+      "evidence": [
+        "Static package/deployment/import/mount evidence."
+      ],
+      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
+      "relationship_evidence_provenance": {
+        "source_content_sha256": "28b6cd9b92cd20639cb76db7784723c5471ae9c9534283c8b246ecef1c767b88",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
+        "captured_source_presence_state": "PRESENT_TRACKED"
+      }
+    },
+    {
+      "asset_path": "backend/services/governedFipIntakeComposition.js",
+      "source_state": "COMMITTED_REPOSITORY",
+      "surface_classes": [
+        "SCOUT_FIP_SURFACE",
+        "SERVICE"
+      ],
+      "reachability_state": "CANDIDATE",
+      "mount_paths": [],
+      "runtime_callers": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "backend/services/fipIntakeEvidenceService.js",
+        "backend/services/fipIntakeM2MAuthenticator.js",
+        "backend/services/fipIntakeService.js",
+        "backend/services/fixtureDisplayMetadataPersistenceService.js",
+        "backend/services/fixtureIdentityResolverService.js",
+        "backend/services/governedFipIntakeAdapter.js"
+      ],
+      "external_providers": [],
+      "environment_key_names": [],
+      "database_role": "NONE",
+      "database_objects": [],
+      "schedule_or_trigger": "",
+      "deployment_surface": "",
+      "governance_reachability_type": "NONE",
+      "governed_by_control_task_id": "ESA-001",
+      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
+      "evidence": [
+        "Static package/deployment/import/mount evidence."
+      ],
+      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
+      "relationship_evidence_provenance": {
+        "source_content_sha256": "43b76285b7942f839b141b91aa827cd424219c9476c8ac4400be8881d118fc29",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
+        "captured_source_presence_state": "PRESENT_TRACKED"
+      }
+    },
+    {
       "asset_path": "backend/services/gradingAccuracyCore.js",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
-        "DATABASE_SURFACE",
         "SERVICE"
       ],
       "reachability_state": "CONFIRMED",
@@ -3647,10 +3773,8 @@
       "runtime_dependencies": [],
       "external_providers": [],
       "environment_key_names": [],
-      "database_role": "READ",
-      "database_objects": [
-        "direct1x2_prediction_final"
-      ],
+      "database_role": "NONE",
+      "database_objects": [],
       "schedule_or_trigger": "",
       "deployment_surface": "",
       "governance_reachability_type": "NONE",
@@ -3662,7 +3786,7 @@
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
         "source_content_sha256": "077ff4a747d0dc37af853d9ce3018d4af5c151f4b254ff23ca569f0959309724",
-        "relationship_evidence_sha256": "d07f069faf7c78a848fe82d5dffad778f3ef969ec644d1cc41577640c9814c50",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -3706,6 +3830,7 @@
       "asset_path": "backend/services/hybridSportsDataService.js",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
+        "DATABASE_SURFACE",
         "EXTERNAL_PROVIDER",
         "SERVICE"
       ],
@@ -3735,7 +3860,7 @@
         "SPORTSAPI_PRO_FOOTBALL_RAPIDAPI_KEY",
         "X_RAPIDAPI_KEY"
       ],
-      "database_role": "NONE",
+      "database_role": "CONNECTION_OR_CLIENT",
       "database_objects": [],
       "schedule_or_trigger": "",
       "deployment_surface": "",
@@ -3748,7 +3873,7 @@
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
         "source_content_sha256": "483869e707235e5748454df192357ea4f74a376e793c6f9fb282f3367c0d9845",
-        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
+        "relationship_evidence_sha256": "7bc8a3c8d4b1a8a699f68f29ebb83a5ad6bee20d6982e31a6de2520ea5ba6fd8",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -3798,7 +3923,6 @@
       "asset_path": "backend/services/marketScoringEngine.js",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
-        "DATABASE_SURFACE",
         "SERVICE"
       ],
       "reachability_state": "CONFIRMED",
@@ -3814,7 +3938,7 @@
       ],
       "external_providers": [],
       "environment_key_names": [],
-      "database_role": "WRITE",
+      "database_role": "NONE",
       "database_objects": [],
       "schedule_or_trigger": "",
       "deployment_surface": "",
@@ -3827,7 +3951,7 @@
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
         "source_content_sha256": "daff733713479a8ec8bdf2de2f434164e0fe36cac663c1116ba69a26250917e4",
-        "relationship_evidence_sha256": "cbc02f1fc69215905bd8a76fac5069d28ce66acb1e94f306e811dc6b62b1991e",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -3835,7 +3959,6 @@
       "asset_path": "backend/services/masterRulebookRiskClassification.js",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
-        "DATABASE_SURFACE",
         "GOVERNANCE_ENFORCEMENT",
         "SERVICE"
       ],
@@ -3848,7 +3971,7 @@
       "runtime_dependencies": [],
       "external_providers": [],
       "environment_key_names": [],
-      "database_role": "WRITE",
+      "database_role": "NONE",
       "database_objects": [],
       "schedule_or_trigger": "",
       "deployment_surface": "",
@@ -3861,7 +3984,7 @@
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
         "source_content_sha256": "5d92ac20561795fc7f8f5144723ef387dbe5fc3f390ab36bb4919f5603f6cf73",
-        "relationship_evidence_sha256": "23a06f5b570ec4c1145610e0a7ae0f1f125272e209e1339292957668222b3b8a",
+        "relationship_evidence_sha256": "83b054412b43e81b0f4341802f853a76a2e684f54ee6de80d878167cb8682053",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -4013,7 +4136,6 @@
       "asset_path": "backend/services/proFootballDataService.js",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
-        "DATABASE_SURFACE",
         "SERVICE"
       ],
       "reachability_state": "CONFIRMED",
@@ -4030,7 +4152,7 @@
         "SPORTSAPI_PRO_FOOTBALL_RAPIDAPI_KEY",
         "X_RAPIDAPI_KEY"
       ],
-      "database_role": "WRITE",
+      "database_role": "NONE",
       "database_objects": [],
       "schedule_or_trigger": "",
       "deployment_surface": "",
@@ -4043,7 +4165,7 @@
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
         "source_content_sha256": "4d3791e4a35496b546269ac5de5f07da3969ddc6eeb59cf8610e25ec34a0e22b",
-        "relationship_evidence_sha256": "cbc02f1fc69215905bd8a76fac5069d28ce66acb1e94f306e811dc6b62b1991e",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -4125,7 +4247,6 @@
       "asset_path": "backend/services/safeHavenSelector.js",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
-        "DATABASE_SURFACE",
         "SERVICE"
       ],
       "reachability_state": "CONFIRMED",
@@ -4139,7 +4260,7 @@
       ],
       "external_providers": [],
       "environment_key_names": [],
-      "database_role": "READ",
+      "database_role": "NONE",
       "database_objects": [],
       "schedule_or_trigger": "",
       "deployment_surface": "",
@@ -4152,7 +4273,7 @@
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
         "source_content_sha256": "51ace16044d4b6630ce0a326efbaf66184a5098eb4a9ffde98e4f4bad194a336",
-        "relationship_evidence_sha256": "b268ca1e551ba86a4fccfad4d84c20838b914d19f781682b6c9efa1aa77f41a7",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -4311,7 +4432,6 @@
       "asset_path": "backend/services/skcsHeartbeat.js",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
-        "DATABASE_SURFACE",
         "SCHEDULED_EXECUTION",
         "SERVICE"
       ],
@@ -4337,7 +4457,7 @@
         "SPORTSAPI_PRO_FOOTBALL_RAPIDAPI_KEY",
         "X_RAPIDAPI_KEY"
       ],
-      "database_role": "WRITE",
+      "database_role": "NONE",
       "database_objects": [],
       "schedule_or_trigger": "setInterval",
       "deployment_surface": "",
@@ -4350,7 +4470,7 @@
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
         "source_content_sha256": "5814626f1dc364cba95a4ad7d9101e94edbab319098b3dd50fc1831dc8c29b1b",
-        "relationship_evidence_sha256": "aeab6d8bf53c1b50256f1780dc1e66806150496f38243b3e1b390e37d65fef41",
+        "relationship_evidence_sha256": "492c601162b892b518ec116a8bcf9aaec309977fa82bb586b3d7aa9a107c9d52",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -4695,7 +4815,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "9595b024aa9879b2c936ed2ba6b33bcd60cfb886e481d78ddd3c1054b1093b7f",
+        "source_content_sha256": "3a9c0d8e98d9858809b6c63c43da707a95f77743b38929a1251789eead52183d",
         "relationship_evidence_sha256": "bab1eddef93b36a63f5f00531e418365f68e690692a34b85b3a13365faa6a185",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -4848,116 +4968,6 @@
       }
     },
     {
-      "asset_path": "backend/utils/pipelineLogger.js",
-      "source_state": "COMMITTED_REPOSITORY",
-      "surface_classes": [
-        "DATABASE_SURFACE"
-      ],
-      "reachability_state": "CONFIRMED",
-      "mount_paths": [],
-      "runtime_callers": [],
-      "runtime_consumers": [
-        "backend/routes/debug.js",
-        "backend/routes/predictions.js",
-        "backend/services/accaBuilder.js",
-        "backend/services/aiPipeline.js",
-        "backend/services/marketIntelligence.js",
-        "backend/services/syncService.js",
-        "backend/utils/insightEngine.js"
-      ],
-      "runtime_dependencies": [],
-      "external_providers": [],
-      "environment_key_names": [],
-      "database_role": "WRITE",
-      "database_objects": [],
-      "schedule_or_trigger": "",
-      "deployment_surface": "",
-      "governance_reachability_type": "NONE",
-      "governed_by_control_task_id": "ESA-001",
-      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
-      "evidence": [
-        "Static package/deployment/import/mount evidence."
-      ],
-      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
-      "relationship_evidence_provenance": {
-        "source_content_sha256": "d6bc69b662b26566cd666bef475cecc30b1eacf33ace665f4b88ca8f9a6dfa57",
-        "relationship_evidence_sha256": "cbc02f1fc69215905bd8a76fac5069d28ce66acb1e94f306e811dc6b62b1991e",
-        "captured_source_presence_state": "PRESENT_TRACKED"
-      }
-    },
-    {
-      "asset_path": "backend/utils/providerCircuitBreaker.js",
-      "source_state": "COMMITTED_REPOSITORY",
-      "surface_classes": [
-        "DATABASE_SURFACE"
-      ],
-      "reachability_state": "CONFIRMED",
-      "mount_paths": [],
-      "runtime_callers": [],
-      "runtime_consumers": [
-        "backend/apiClients.js",
-        "backend/services/apiCacheService.js",
-        "scripts/fetch-live-fixtures.js"
-      ],
-      "runtime_dependencies": [],
-      "external_providers": [],
-      "environment_key_names": [
-        "PROVIDER_CB_COOLDOWN_MS",
-        "PROVIDER_CB_FAILURE_THRESHOLD",
-        "PROVIDER_CB_MAX_ENTRIES"
-      ],
-      "database_role": "WRITE",
-      "database_objects": [],
-      "schedule_or_trigger": "",
-      "deployment_surface": "",
-      "governance_reachability_type": "NONE",
-      "governed_by_control_task_id": "ESA-001",
-      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
-      "evidence": [
-        "Static package/deployment/import/mount evidence."
-      ],
-      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
-      "relationship_evidence_provenance": {
-        "source_content_sha256": "5fdd837e50a7ef5d78f86ea182a02a77629de4191543db11045dfea307e3e076",
-        "relationship_evidence_sha256": "cbc02f1fc69215905bd8a76fac5069d28ce66acb1e94f306e811dc6b62b1991e",
-        "captured_source_presence_state": "PRESENT_TRACKED"
-      }
-    },
-    {
-      "asset_path": "backend/utils/secondaryMarketSelector.js",
-      "source_state": "COMMITTED_REPOSITORY",
-      "surface_classes": [
-        "DATABASE_SURFACE"
-      ],
-      "reachability_state": "CONFIRMED",
-      "mount_paths": [],
-      "runtime_callers": [],
-      "runtime_consumers": [
-        "backend/services/direct1x2Builder.js"
-      ],
-      "runtime_dependencies": [
-        "backend/config/footballRules.js"
-      ],
-      "external_providers": [],
-      "environment_key_names": [],
-      "database_role": "READ",
-      "database_objects": [],
-      "schedule_or_trigger": "",
-      "deployment_surface": "",
-      "governance_reachability_type": "NONE",
-      "governed_by_control_task_id": "ESA-001",
-      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
-      "evidence": [
-        "Static package/deployment/import/mount evidence."
-      ],
-      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
-      "relationship_evidence_provenance": {
-        "source_content_sha256": "244b73818fdd2bea0916ca593611f342a61828323f41daf8a5ab1b0c93ba6a89",
-        "relationship_evidence_sha256": "b268ca1e551ba86a4fccfad4d84c20838b914d19f781682b6c9efa1aa77f41a7",
-        "captured_source_presence_state": "PRESENT_TRACKED"
-      }
-    },
-    {
       "asset_path": "backend/utils/weather.js",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
@@ -5019,42 +5029,6 @@
       "relationship_evidence_provenance": {
         "source_content_sha256": "ce6b9fa33c409eb5615e44b1120a5b16ac48a8c7995d8fe72867771ef1f6e092",
         "relationship_evidence_sha256": "5bde8c82061260a90a0f0dec2e291ca569fd34c96d9f2a36454a67d2eb2ea6c6",
-        "captured_source_presence_state": "PRESENT_TRACKED"
-      }
-    },
-    {
-      "asset_path": "control-center/check_edge_system_runtime_inventory.js",
-      "source_state": "COMMITTED_REPOSITORY",
-      "surface_classes": [
-        "DATABASE_SURFACE"
-      ],
-      "reachability_state": "CONFIRMED",
-      "mount_paths": [],
-      "runtime_callers": [],
-      "runtime_consumers": [
-        "backend/services/controlCenterReadService.js"
-      ],
-      "runtime_dependencies": [],
-      "external_providers": [],
-      "environment_key_names": [],
-      "database_role": "READ_WRITE",
-      "database_objects": [
-        "Scout",
-        "direct",
-        "keyword"
-      ],
-      "schedule_or_trigger": "",
-      "deployment_surface": "",
-      "governance_reachability_type": "NONE",
-      "governed_by_control_task_id": "ESA-001",
-      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
-      "evidence": [
-        "Static package/deployment/import/mount evidence."
-      ],
-      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
-      "relationship_evidence_provenance": {
-        "source_content_sha256": "0e168b790ce735b204a4315a2ba8a599c1057108bd9d6b1f95cf58fb652d0862",
-        "relationship_evidence_sha256": "a43217b667191e9b1171cd2a60683c705d0bb3730d86583e984c8a06282c3687",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -5261,44 +5235,12 @@
       "governed_by_control_task_id": "ESA-001",
       "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
       "evidence": [
-        "Static package/deployment/import/mount evidence.",
-        "Registers focused governance test script test:sem-gov-001d-ui1 for SEM-GOV-001D-UI1 screen contract proof; not a production runtime caller."
-      ],
-      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture or UI1 runtime activation.",
-      "relationship_evidence_provenance": {
-        "source_content_sha256": "001b8400a012fe7eb67bef78f401d517d3cda156b4e77982fa48c094d84113a1",
-        "relationship_evidence_sha256": "bfec5297138b7770aaa6d169c0d166b4eedb837d2dfacb4ee10ce67e634c0f01",
-        "captured_source_presence_state": "PRESENT_TRACKED"
-      }
-    },
-    {
-      "asset_path": "public/js/control-center.js",
-      "source_state": "PRE_EXISTING_MODIFIED",
-      "surface_classes": [
-        "DATABASE_SURFACE",
-        "SCOUT_FIP_SURFACE"
-      ],
-      "reachability_state": "CANDIDATE",
-      "mount_paths": [],
-      "runtime_callers": [],
-      "runtime_consumers": [],
-      "runtime_dependencies": [],
-      "external_providers": [],
-      "environment_key_names": [],
-      "database_role": "READ",
-      "database_objects": [],
-      "schedule_or_trigger": "",
-      "deployment_surface": "",
-      "governance_reachability_type": "NONE",
-      "governed_by_control_task_id": "ESA-001",
-      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
-      "evidence": [
         "Static package/deployment/import/mount evidence."
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "e1bc15ddaaadbed1347f7c13116f8847c29553ae7111941534781b9e00782dac",
-        "relationship_evidence_sha256": "b268ca1e551ba86a4fccfad4d84c20838b914d19f781682b6c9efa1aa77f41a7",
+        "source_content_sha256": "8e89ed432495637a7265dcbde65789195ae8b2b41be2ef3e64574ca360ab830b",
+        "relationship_evidence_sha256": "bfec5297138b7770aaa6d169c0d166b4eedb837d2dfacb4ee10ce67e634c0f01",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -5331,6 +5273,19 @@
         "relationship_evidence_sha256": "198bab2590a4dc0a1a6f523fae1284477e7835162beaabaa6755d163cd0f2d03",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
+    },
+    {
+      "asset_path": "scratch/inspect_edge_external_sources.js",
+      "source_presence_state": "ABSENT_PRESERVED_CANDIDATE",
+      "candidate_disposition": "PRESERVED_CANDIDATE",
+      "resolution": "IRRECOVERABLE_EVIDENCE_ONLY",
+      "governed_by_control_task_id": "EPR-001",
+      "source_bytes_available": false,
+      "relationship_provenance_available": false,
+      "recovery_rcp1": "EXHAUSTED",
+      "recovery_rcp2": "EXHAUSTED",
+      "runtime_relationship_status": "UNKNOWABLE_FROM_GOVERNED_EVIDENCE",
+      "resolution_contract": "ESA-RR-003"
     },
     {
       "asset_path": "scripts/apply-db-governance.js",
@@ -5440,6 +5395,46 @@
       }
     },
     {
+      "asset_path": "scripts/e2e-001e-local-marriage-runner.js",
+      "source_state": "COMMITTED_REPOSITORY",
+      "surface_classes": [
+        "DATABASE_SURFACE",
+        "SCHEDULED_EXECUTION",
+        "SCOUT_FIP_SURFACE"
+      ],
+      "reachability_state": "CANDIDATE",
+      "mount_paths": [],
+      "runtime_callers": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "node:http",
+        "node:https",
+        "node:path"
+      ],
+      "external_providers": [],
+      "environment_key_names": [
+        "DATABASE_URL",
+        "PGCONNECT_TIMEOUT",
+        "SUPABASE_URL"
+      ],
+      "database_role": "READ_WRITE",
+      "database_objects": [],
+      "schedule_or_trigger": "setImmediate",
+      "deployment_surface": "",
+      "governance_reachability_type": "NONE",
+      "governed_by_control_task_id": "ESA-001",
+      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
+      "evidence": [
+        "Static package/deployment/import/mount evidence."
+      ],
+      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
+      "relationship_evidence_provenance": {
+        "source_content_sha256": "b7c48fa2c48c57d58acbecd7fd3158959d18e27be5e02b540381e31e8c12d9ed",
+        "relationship_evidence_sha256": "335f394898f0c360e02c74974bff8b4e2f361916d7764cd46fcc1b3c7f6489f1",
+        "captured_source_presence_state": "PRESENT_TRACKED"
+      }
+    },
+    {
       "asset_path": "scripts/fetch-live-fixtures.js",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
@@ -5508,71 +5503,17 @@
       }
     },
     {
-      "asset_path": "scripts/import-today-snapshot-pipeline.js",
-      "source_state": "COMMITTED_REPOSITORY",
-      "surface_classes": [
-        "DATABASE_SURFACE",
-        "SCOUT_FIP_SURFACE"
-      ],
-      "reachability_state": "CANDIDATE",
-      "mount_paths": [],
-      "runtime_callers": [],
-      "runtime_consumers": [],
-      "runtime_dependencies": [
-        "backend/core/executionPipeline.js",
-        "backend/db.js",
-        "backend/services/aiPipeline.js",
-        "backend/services/canonicalEvents.js",
-        "backend/services/cricbuzzService.js",
-        "backend/services/direct1x2Builder.js",
-        "backend/services/normalizerService.js",
-        "backend/utils/apiUsageLimiter.js",
-        "backend/utils/keyPool.js"
-      ],
-      "external_providers": [
-        "api.cricapi.com",
-        "v1.afl.api-sports.io",
-        "v1.american-football.api-sports.io",
-        "v1.baseball.api-sports.io",
-        "v1.basketball.api-sports.io",
-        "v1.cricket.api-sports.io",
-        "v1.formula-1.api-sports.io",
-        "v1.handball.api-sports.io",
-        "v1.hockey.api-sports.io",
-        "v1.mma.api-sports.io",
-        "v1.rugby.api-sports.io",
-        "v1.tennis.api-sports.io",
-        "v1.volleyball.api-sports.io",
-        "v3.football.api-sports.io"
-      ],
-      "environment_key_names": [
-        "CRICKETDATA_API_KEY",
-        "RAPIDAPI_ACTIVE_KEY_COUNT",
-        "RAPIDAPI_ENDPOINT_ACTIVE",
-        "RAPIDAPI_HOST_CRICBUZZ",
-        "SNAPSHOT_FUTURE_DAYS",
-        "SNAPSHOT_GRACE_MINUTES",
-        "SNAPSHOT_PIPELINE_CHUNK_SIZE",
-        "X_APISPORTS_KEY"
-      ],
-      "database_role": "READ_WRITE",
-      "database_objects": [
-        "events"
-      ],
-      "schedule_or_trigger": "",
-      "deployment_surface": "",
-      "governance_reachability_type": "NONE",
-      "governed_by_control_task_id": "ESA-001",
-      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
-      "evidence": [
-        "Static package/deployment/import/mount evidence."
-      ],
-      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
-      "relationship_evidence_provenance": {
-        "source_content_sha256": "6ca5f0541798dcb95ca00553e8092db55d3085a7f94b2b3dcb9300c07929f22b",
-        "relationship_evidence_sha256": "0837b5e627744bb94bbb638babac82d841302632c0949fa0b16222f101cd39d9",
-        "captured_source_presence_state": "PRESENT_TRACKED"
-      }
+      "asset_path": "scripts/inspect_secondary.js",
+      "source_presence_state": "ABSENT_PRESERVED_CANDIDATE",
+      "candidate_disposition": "PRESERVED_CANDIDATE",
+      "resolution": "IRRECOVERABLE_EVIDENCE_ONLY",
+      "governed_by_control_task_id": "EPR-001",
+      "source_bytes_available": false,
+      "relationship_provenance_available": false,
+      "recovery_rcp1": "EXHAUSTED",
+      "recovery_rcp2": "EXHAUSTED",
+      "runtime_relationship_status": "UNKNOWABLE_FROM_GOVERNED_EVIDENCE",
+      "resolution_contract": "ESA-RR-003"
     },
     {
       "asset_path": "scripts/master-qa.js",
@@ -5661,37 +5602,30 @@
       }
     },
     {
-      "asset_path": "scripts/test-sportsapi-pro-football.js",
-      "source_state": "COMMITTED_REPOSITORY",
-      "surface_classes": [
-        "SCOUT_FIP_SURFACE"
-      ],
-      "reachability_state": "CANDIDATE",
-      "mount_paths": [],
-      "runtime_callers": [],
-      "runtime_consumers": [],
-      "runtime_dependencies": [
-        "backend/services/sportsApiProFootballExtractor.js",
-        "backend/services/sportsApiProFootballService.js"
-      ],
-      "external_providers": [],
-      "environment_key_names": [],
-      "database_role": "NONE",
-      "database_objects": [],
-      "schedule_or_trigger": "",
-      "deployment_surface": "",
-      "governance_reachability_type": "NONE",
-      "governed_by_control_task_id": "ESA-001",
-      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
-      "evidence": [
-        "Static package/deployment/import/mount evidence."
-      ],
-      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
-      "relationship_evidence_provenance": {
-        "source_content_sha256": "4e0e6e052589c4f59bf44b575392943e19e1c901b0c6256f75e5098b8613ae4b",
-        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
-        "captured_source_presence_state": "PRESENT_TRACKED"
-      }
+      "asset_path": "scripts/seed_acca_test_data.js",
+      "source_presence_state": "ABSENT_PRESERVED_CANDIDATE",
+      "candidate_disposition": "PRESERVED_CANDIDATE",
+      "resolution": "IRRECOVERABLE_EVIDENCE_ONLY",
+      "governed_by_control_task_id": "EPR-001",
+      "source_bytes_available": false,
+      "relationship_provenance_available": false,
+      "recovery_rcp1": "EXHAUSTED",
+      "recovery_rcp2": "EXHAUSTED",
+      "runtime_relationship_status": "UNKNOWABLE_FROM_GOVERNED_EVIDENCE",
+      "resolution_contract": "ESA-RR-003"
+    },
+    {
+      "asset_path": "scripts/seed_final.js",
+      "source_presence_state": "ABSENT_PRESERVED_CANDIDATE",
+      "candidate_disposition": "PRESERVED_CANDIDATE",
+      "resolution": "IRRECOVERABLE_EVIDENCE_ONLY",
+      "governed_by_control_task_id": "EPR-001",
+      "source_bytes_available": false,
+      "relationship_provenance_available": false,
+      "recovery_rcp1": "EXHAUSTED",
+      "recovery_rcp2": "EXHAUSTED",
+      "runtime_relationship_status": "UNKNOWABLE_FROM_GOVERNED_EVIDENCE",
+      "resolution_contract": "ESA-RR-003"
     },
     {
       "asset_path": "scripts/verify-master-rulebook-alignment.js",
@@ -7141,6 +7075,19 @@
       }
     },
     {
+      "asset_path": "supabase/migrations/20260616_scout_signal_mirror.sql",
+      "source_presence_state": "ABSENT_PRESERVED_CANDIDATE",
+      "candidate_disposition": "PRESERVED_CANDIDATE",
+      "resolution": "IRRECOVERABLE_EVIDENCE_ONLY",
+      "governed_by_control_task_id": "EPR-001",
+      "source_bytes_available": false,
+      "relationship_provenance_available": false,
+      "recovery_rcp1": "EXHAUSTED",
+      "recovery_rcp2": "EXHAUSTED",
+      "runtime_relationship_status": "UNKNOWABLE_FROM_GOVERNED_EVIDENCE",
+      "resolution_contract": "ESA-RR-003"
+    },
+    {
       "asset_path": "supabase/migrations/20260617_add_market_tier.sql",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
@@ -7171,6 +7118,19 @@
         "relationship_evidence_sha256": "077f517bcf028c28c3704dd85c9f023a80fd0b2a624207abeebe510a6f126d6a",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
+    },
+    {
+      "asset_path": "supabase/migrations/20260617000000_setup_accas.sql",
+      "source_presence_state": "ABSENT_PRESERVED_CANDIDATE",
+      "candidate_disposition": "PRESERVED_CANDIDATE",
+      "resolution": "IRRECOVERABLE_EVIDENCE_ONLY",
+      "governed_by_control_task_id": "EPR-001",
+      "source_bytes_available": false,
+      "relationship_provenance_available": false,
+      "recovery_rcp1": "EXHAUSTED",
+      "recovery_rcp2": "EXHAUSTED",
+      "runtime_relationship_status": "UNKNOWABLE_FROM_GOVERNED_EVIDENCE",
+      "resolution_contract": "ESA-RR-003"
     },
     {
       "asset_path": "supabase/migrations/20260619000001_rename_predictions_final_to_direct1x2.sql",
@@ -8547,22 +8507,92 @@
       "environment_key_names": [],
       "database_role": "MIGRATION",
       "database_objects": [
-        "IF"
+        "IF",
+        "public.fixture_identity_aliases",
+        "public.fixture_lifecycle_current",
+        "public.fixture_lifecycle_rollover_events",
+        "public.fixture_lifecycle_transition_events",
+        "public.lifecycle_admission_idempotency",
+        "public.lifecycle_daily_admission_counters"
       ],
       "schedule_or_trigger": "",
       "deployment_surface": "",
       "governance_reachability_type": "NONE",
-      "governed_by_control_task_id": "SEM-GOV-001B-I4",
-      "next_validation": "Apply only after supabase_storage_gate clearance; revalidate reachability if production migration path is authorized.",
+      "governed_by_control_task_id": "ESA-001",
+      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
       "evidence": [
-        "Authored SEM-GOV-001B-I4 lifecycle persistence DDL only; migration not applied at I4 closure.",
-        "No runtime callers, schedule, or deployment surface recorded.",
-        "supabase_storage_gate remains BLOCKED."
+        "Static package/deployment/import/mount evidence."
       ],
-      "notes": "SEM-GOV-001B-I4 material database schema surface. Authored migration SQL only — not executed, not production-enabled, no active runtime execution.",
+      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "f704c93fb71dde22cbfca678f6c7e0edae38530f8099785b98cb907503923c38",
-        "relationship_evidence_sha256": "ae6a55996e82bbe2394b9ab486c684606a4146fe6136c740038d095294313802",
+        "source_content_sha256": "7a9bf23f6ea157b30f70245215975a66be425ceeb1a1acc3466e615e543b2a8c",
+        "relationship_evidence_sha256": "311b97951a3275bec86b9320d0b7187acd92d4acd0a2a573b66b5e4ff63f9bcd",
+        "captured_source_presence_state": "PRESENT_TRACKED"
+      }
+    },
+    {
+      "asset_path": "supabase/migrations/20261010000001_sem_gov_001d_ui3_i4_fixture_display_metadata.sql",
+      "source_state": "COMMITTED_REPOSITORY",
+      "surface_classes": [
+        "DATABASE_SURFACE"
+      ],
+      "reachability_state": "CANDIDATE",
+      "mount_paths": [],
+      "runtime_callers": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "external_providers": [],
+      "environment_key_names": [],
+      "database_role": "MIGRATION",
+      "database_objects": [
+        "IF",
+        "public.fixture_display_metadata"
+      ],
+      "schedule_or_trigger": "",
+      "deployment_surface": "",
+      "governance_reachability_type": "NONE",
+      "governed_by_control_task_id": "ESA-001",
+      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
+      "evidence": [
+        "Static package/deployment/import/mount evidence."
+      ],
+      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
+      "relationship_evidence_provenance": {
+        "source_content_sha256": "dcca5c46b6b228c603d6f414e7d0796d241831cea246f50de6de4a84e0624fdd",
+        "relationship_evidence_sha256": "2976450ba3d5c65ffad5feb3ddfe21c81dc701ff8c5852a9bc172cf96666c337",
+        "captured_source_presence_state": "PRESENT_TRACKED"
+      }
+    },
+    {
+      "asset_path": "supabase/migrations/20261011000001_sem_gov_001d_ui3_i8_fip_intake_evidence.sql",
+      "source_state": "COMMITTED_REPOSITORY",
+      "surface_classes": [
+        "DATABASE_SURFACE"
+      ],
+      "reachability_state": "CANDIDATE",
+      "mount_paths": [],
+      "runtime_callers": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "external_providers": [],
+      "environment_key_names": [],
+      "database_role": "MIGRATION",
+      "database_objects": [
+        "IF",
+        "public.fip_intake_evidence"
+      ],
+      "schedule_or_trigger": "",
+      "deployment_surface": "",
+      "governance_reachability_type": "NONE",
+      "governed_by_control_task_id": "ESA-001",
+      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
+      "evidence": [
+        "Static package/deployment/import/mount evidence."
+      ],
+      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
+      "relationship_evidence_provenance": {
+        "source_content_sha256": "0305c530e7c579e332e5b7749b32dc6065e6bb1a4e567bd0c98420ad113f4bec",
+        "relationship_evidence_sha256": "77f428167fca584d1a2850b4b97386d02682f25bfbb21a4ee5b459254a1a5038",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -8599,6 +8629,19 @@
       }
     },
     {
+      "asset_path": "temp_migrate.js",
+      "source_presence_state": "ABSENT_PRESERVED_CANDIDATE",
+      "candidate_disposition": "PRESERVED_CANDIDATE",
+      "resolution": "IRRECOVERABLE_EVIDENCE_ONLY",
+      "governed_by_control_task_id": "EPR-001",
+      "source_bytes_available": false,
+      "relationship_provenance_available": false,
+      "recovery_rcp1": "EXHAUSTED",
+      "recovery_rcp2": "EXHAUSTED",
+      "runtime_relationship_status": "UNKNOWABLE_FROM_GOVERNED_EVIDENCE",
+      "resolution_contract": "ESA-RR-003"
+    },
+    {
       "asset_path": "test_scenarios_master_rulebook.js",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
@@ -8631,6 +8674,124 @@
       }
     },
     {
+      "asset_path": "tests/esec-001-i1-governance.test.js",
+      "source_state": "COMMITTED_REPOSITORY",
+      "surface_classes": [
+        "GOVERNANCE_ENFORCEMENT"
+      ],
+      "reachability_state": "CANDIDATE",
+      "mount_paths": [],
+      "runtime_callers": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "node:assert/strict",
+        "node:fs",
+        "node:path",
+        "node:test"
+      ],
+      "external_providers": [],
+      "environment_key_names": [],
+      "database_role": "NONE",
+      "database_objects": [],
+      "schedule_or_trigger": "",
+      "deployment_surface": "",
+      "governance_reachability_type": "TEST_PROOF",
+      "governed_by_control_task_id": "ESA-001",
+      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
+      "evidence": [
+        "Static package/deployment/import/mount evidence."
+      ],
+      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
+      "relationship_evidence_provenance": {
+        "source_content_sha256": "bac6159356ce833700c2bfd0520d2ce8705c9b7c574491537116e197ba56fad3",
+        "relationship_evidence_sha256": "9721dec61bddc59bd63f40b73d4283bf24271ef400d50c0a7fc925f3601ca2cd",
+        "captured_source_presence_state": "PRESENT_TRACKED"
+      }
+    },
+    {
+      "asset_path": "tests/sem-gov-001d-ui3-i11-gate-b-c1-governance.test.js",
+      "source_state": "COMMITTED_REPOSITORY",
+      "surface_classes": [
+        "GOVERNANCE_ENFORCEMENT"
+      ],
+      "reachability_state": "CANDIDATE",
+      "mount_paths": [],
+      "runtime_callers": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "node:assert/strict",
+        "node:fs",
+        "node:path",
+        "node:test"
+      ],
+      "external_providers": [],
+      "environment_key_names": [],
+      "database_role": "NONE",
+      "database_objects": [],
+      "schedule_or_trigger": "",
+      "deployment_surface": "",
+      "governance_reachability_type": "TEST_PROOF",
+      "governed_by_control_task_id": "ESA-001",
+      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
+      "evidence": [
+        "Static package/deployment/import/mount evidence."
+      ],
+      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
+      "relationship_evidence_provenance": {
+        "source_content_sha256": "b3ccd59e388602e53839eab2019d2f552ac4bc7ea3c6ccdbef81306c253c0198",
+        "relationship_evidence_sha256": "9721dec61bddc59bd63f40b73d4283bf24271ef400d50c0a7fc925f3601ca2cd",
+        "captured_source_presence_state": "PRESENT_TRACKED"
+      }
+    },
+    {
+      "asset_path": "tests/sem-gov-001d-ui3-i11-gate-b-governance.test.js",
+      "source_state": "COMMITTED_REPOSITORY",
+      "surface_classes": [
+        "GOVERNANCE_ENFORCEMENT"
+      ],
+      "reachability_state": "CANDIDATE",
+      "mount_paths": [],
+      "runtime_callers": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "node:assert/strict",
+        "node:fs",
+        "node:path",
+        "node:test"
+      ],
+      "external_providers": [],
+      "environment_key_names": [],
+      "database_role": "NONE",
+      "database_objects": [],
+      "schedule_or_trigger": "",
+      "deployment_surface": "",
+      "governance_reachability_type": "TEST_PROOF",
+      "governed_by_control_task_id": "ESA-001",
+      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
+      "evidence": [
+        "Static package/deployment/import/mount evidence."
+      ],
+      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
+      "relationship_evidence_provenance": {
+        "source_content_sha256": "ab37e82170d4ecda0c8110a2e21dc5e1d01ebe4641da7d5077ee5fdf71b66db8",
+        "relationship_evidence_sha256": "9721dec61bddc59bd63f40b73d4283bf24271ef400d50c0a7fc925f3601ca2cd",
+        "captured_source_presence_state": "PRESENT_TRACKED"
+      }
+    },
+    {
+      "asset_path": "try_regions.js",
+      "source_presence_state": "ABSENT_PRESERVED_CANDIDATE",
+      "candidate_disposition": "PRESERVED_CANDIDATE",
+      "resolution": "IRRECOVERABLE_EVIDENCE_ONLY",
+      "governed_by_control_task_id": "EPR-001",
+      "source_bytes_available": false,
+      "relationship_provenance_available": false,
+      "recovery_rcp1": "EXHAUSTED",
+      "recovery_rcp2": "EXHAUSTED",
+      "runtime_relationship_status": "UNKNOWABLE_FROM_GOVERNED_EVIDENCE",
+      "resolution_contract": "ESA-RR-003"
+    },
+    {
       "asset_path": "vercel.json",
       "source_state": "COMMITTED_REPOSITORY",
       "surface_classes": [
@@ -8655,7 +8816,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "cb78ca3431beb529def83e96a360c4f1adcf86cfaddac5742cb2251b43667c22",
+        "source_content_sha256": "1cb083db2751ae24884328d051835dac0991f70f45f177c69135ff03c559eef2",
         "relationship_evidence_sha256": "66f31c60c403506e96eaf175c3789e9e333b726050053482ea7f6de2c1c3d6f4",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
