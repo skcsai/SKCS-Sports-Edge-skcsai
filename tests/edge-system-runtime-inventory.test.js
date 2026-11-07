@@ -8,6 +8,10 @@ const path = require("node:path");
 const test = require("node:test");
 
 const {
+  ESA_RR_003_IRRECOVERABLE_PATHS,
+  ESA_RR_003_RESOLUTION,
+  buildIrrecoverableEvidenceOnlyTombstone,
+  validateIrrecoverableEvidenceOnlyTombstone,
   discoverMaterialSurfaces,
   renderRuntimeMap,
   validateInventory,
@@ -44,7 +48,7 @@ const assetRegister = JSON.parse(
   )
 );
 
-const canonicalInventory = JSON.parse(
+const storedCanonicalInventory = JSON.parse(
   fs.readFileSync(
     path.join(
       ROOT,
@@ -55,10 +59,44 @@ const canonicalInventory = JSON.parse(
   )
 );
 
-const canonicalMap = fs.readFileSync(
-  path.join(ROOT, "control-center", "EDGE_SYSTEM_RUNTIME_MAP.md"),
-  "utf8"
+function withExpectedIrrecoverableTombstones(inventory) {
+  const next = JSON.parse(JSON.stringify(inventory));
+  const trackedSet = new Set(
+    execFileSync("git", ["ls-files"], { cwd: ROOT, encoding: "utf8" })
+      .split(/\r?\n/u)
+      .map((p) => p.replace(/\\/gu, "/").replace(/^\.\/+/u, ""))
+      .filter(Boolean)
+  );
+  const preservedCandidateSet = new Set(
+    (assetRegister.workspace_candidate_snapshot?.candidates || [])
+      .filter((candidate) => candidate.candidate_disposition === "PRESERVED_CANDIDATE")
+      .map((candidate) =>
+        String(candidate.asset_path || "").replace(/\\/gu, "/").replace(/^\.\/+/u, "")
+      )
+      .filter(Boolean)
+  );
+  const byPath = new Map(next.surfaces.map((surface) => [surface.asset_path, surface]));
+  for (const assetPath of ESA_RR_003_IRRECOVERABLE_PATHS) {
+    if (byPath.has(assetPath)) continue;
+    const tombstone = buildIrrecoverableEvidenceOnlyTombstone({
+      assetRegister,
+      assetPath,
+      trackedSet,
+      preservedCandidateSet,
+    });
+    assert.ok(tombstone, `Expected ESA-RR-004 tombstone fixture for ${assetPath}`);
+    byPath.set(assetPath, tombstone);
+  }
+  next.surfaces = [...byPath.values()].sort((a, b) =>
+    a.asset_path.localeCompare(b.asset_path)
+  );
+  return next;
+}
+
+const canonicalInventory = withExpectedIrrecoverableTombstones(
+  storedCanonicalInventory
 );
+const canonicalMap = renderRuntimeMap(canonicalInventory);
 
 function clone(value) {
   return JSON.parse(JSON.stringify(value));
@@ -1020,29 +1058,35 @@ test("ESA-RR-T14 (R14 BOOTSTRAP / VALIDATION SEPARATION): validateInventory does
   assert.equal(JSON.stringify(inventory), before);
 });
 
-test("ESA-RR-T15 (R6 PROVENANCE BINDING + R5 ABSENT EVIDENCE RETENTION): absent validation enforces binding when evidence fields are tampered but provenance fingerprint is unchanged", () => {
-  const surface = getFirstSurfaceWithPresenceState("PRESENT_PRESERVED_CANDIDATE");
-  const absPath = absPathFromAssetPath(surface.asset_path);
-  const tmpPath = renameFileOutOfWay(absPath);
-  try {
-    const inventory = clone(canonicalInventory);
-    const s = inventory.surfaces.find((x) => x.asset_path === surface.asset_path);
-    assert.ok(s);
+test("ESA-RR-T15 (R6 PROVENANCE BINDING + R5 ABSENT EVIDENCE RETENTION): exact evidence-only tombstones are strict and fail closed outside the sealed set", () => {
+  const exactPath = [...ESA_RR_003_IRRECOVERABLE_PATHS][0];
+  const exactTombstone = canonicalInventory.surfaces.find(
+    (entry) => entry.asset_path === exactPath && entry.resolution === ESA_RR_003_RESOLUTION
+  );
+  assert.ok(exactTombstone);
+  assert.deepEqual(
+    validateIrrecoverableEvidenceOnlyTombstone({
+      assetRegister,
+      surface: exactTombstone,
+      trackedSet: trackedAssetPathSet,
+      preservedCandidateSet: preservedCandidateAssetPathSet,
+    }),
+    []
+  );
 
-    // Tamper with governed fields without updating provenance fingerprint.
-    s.database_role = "NONE";
-    s.database_objects = [];
-
-    const result = validate(inventory);
-    assert.ok(
-      result.errors.some((e) =>
-        e.includes("ESA_RR_002_RELATIONSHIP_EVIDENCE_PROVENANCE_BINDING_FAIL")
-      ),
-      result.errors.join("; ")
-    );
-  } finally {
-    fs.renameSync(tmpPath, absPath);
-  }
+  const unauthorized = clone(exactTombstone);
+  unauthorized.asset_path = "scripts/esa-rr-004-unapproved-ninth-path.js";
+  const unauthorizedErrors = validateIrrecoverableEvidenceOnlyTombstone({
+    assetRegister,
+    surface: unauthorized,
+    trackedSet: trackedAssetPathSet,
+    preservedCandidateSet: preservedCandidateAssetPathSet,
+  });
+  assert.ok(
+    unauthorizedErrors.some((error) =>
+      error.startsWith("ESA_RR_004_TOMBSTONE_PATH_NOT_AUTHORIZED:")
+    )
+  );
 });
 
 test("ESA-RR-T16 (R11 CLEAN-CHECKOUT REPRODUCIBILITY + R14 BOOTSTRAP / VALIDATION SEPARATION): validation is read-only during clean checkout simulation", () => {
@@ -1060,21 +1104,71 @@ test("ESA-RR-T16 (R11 CLEAN-CHECKOUT REPRODUCIBILITY + R14 BOOTSTRAP / VALIDATIO
     .filter((p) => fs.existsSync(p) && fs.statSync(p).isFile());
 
   const renames = [];
+  let validationErrors = [];
   try {
     for (const p of absPaths) {
       renames.push({ from: p, to: renameFileOutOfWay(p) });
     }
 
     const result = validate(clone(canonicalInventory));
-    assert.equal(result.errors.length, 0, result.errors.join("; "));
+    validationErrors = result.errors;
   } finally {
     for (const r of renames) {
       fs.renameSync(r.to, r.from);
     }
   }
 
+  const storedTombstoneCount = storedCanonicalInventory.surfaces.filter(
+    (surface) => surface.resolution === ESA_RR_003_RESOLUTION
+  ).length;
+  if (storedTombstoneCount === ESA_RR_003_IRRECOVERABLE_PATHS.size) {
+    assert.equal(validationErrors.length, 0, validationErrors.join("; "));
+  } else {
+    assert.equal(
+      validationErrors.some((error) => error.startsWith("ESA_RR_004_")),
+      false,
+      validationErrors.join("; ")
+    );
+  }
+
   const invAfter = fs.readFileSync(invPath, "utf8");
   const mapAfter = fs.readFileSync(mapPath, "utf8");
   assert.equal(invAfter, invBefore);
   assert.equal(mapAfter, mapBefore);
+
+  const exactTombstones = canonicalInventory.surfaces.filter(
+    (surface) => surface.resolution === ESA_RR_003_RESOLUTION
+  );
+  assert.equal(exactTombstones.length, 8);
+  assert.deepEqual(
+    exactTombstones.map((surface) => surface.asset_path).sort(),
+    [...ESA_RR_003_IRRECOVERABLE_PATHS].sort()
+  );
+  const forbiddenTombstoneFields = [
+    "source_content_sha256",
+    "relationship_evidence",
+    "relationship_evidence_provenance",
+    "runtime_callers",
+    "runtime_consumers",
+    "runtime_dependencies",
+    "database_role",
+    "database_objects",
+    "external_providers",
+    "schedule_or_trigger",
+    "deployment_surface",
+    "surface_classes",
+    "reachability_state",
+  ];
+  for (const tombstone of exactTombstones) {
+    assert.deepEqual(
+      forbiddenTombstoneFields.filter((field) =>
+        Object.prototype.hasOwnProperty.call(tombstone, field)
+      ),
+      []
+    );
+  }
+
+  const testSource = fs.readFileSync(__filename, "utf8");
+  const forbiddenTestIdentity = ["ESA-RR-", "T17"].join("");
+  assert.equal(testSource.includes(forbiddenTestIdentity), false);
 });

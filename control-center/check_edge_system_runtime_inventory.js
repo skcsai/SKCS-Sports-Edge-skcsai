@@ -109,6 +109,31 @@ const SOURCE_PRESENCE_STATES = new Set([
   "ABSENT_PRESERVED_CANDIDATE",
 ]);
 
+const ESA_RR_003_RESOLUTION = "IRRECOVERABLE_EVIDENCE_ONLY";
+const ESA_RR_003_IRRECOVERABLE_PATHS = new Set([
+  "scratch/inspect_edge_external_sources.js",
+  "scripts/inspect_secondary.js",
+  "scripts/seed_acca_test_data.js",
+  "scripts/seed_final.js",
+  "supabase/migrations/20260616_scout_signal_mirror.sql",
+  "supabase/migrations/20260617000000_setup_accas.sql",
+  "temp_migrate.js",
+  "try_regions.js",
+]);
+const ESA_RR_003_TOMBSTONE_KEYS = new Set([
+  "asset_path",
+  "source_presence_state",
+  "candidate_disposition",
+  "resolution",
+  "governed_by_control_task_id",
+  "source_bytes_available",
+  "relationship_provenance_available",
+  "recovery_rcp1",
+  "recovery_rcp2",
+  "runtime_relationship_status",
+  "resolution_contract",
+]);
+
 const RELATIONSHIP_EVIDENCE_PROVENANCE_FIELDS = [
   "source_content_sha256",
   "relationship_evidence_sha256",
@@ -363,6 +388,118 @@ function governedCandidatePaths(assetRegister) {
       .filter((c) => c.candidate_disposition === "PRESERVED_CANDIDATE")
       .map((c) => c.asset_path)
   );
+}
+
+function workspaceCandidateByPath(assetRegister, assetPath) {
+  const normalized = normalizePath(assetPath);
+  return (
+    getWorkspaceCandidates(assetRegister).find(
+      (candidate) => normalizePath(candidate.asset_path) === normalized
+    ) || null
+  );
+}
+
+function isEvidenceOnlyTombstone(surface) {
+  return Boolean(surface && surface.resolution === ESA_RR_003_RESOLUTION);
+}
+
+function buildIrrecoverableEvidenceOnlyTombstone({
+  assetRegister,
+  assetPath,
+  trackedSet,
+  preservedCandidateSet,
+}) {
+  const normalized = normalizePath(assetPath);
+  if (!ESA_RR_003_IRRECOVERABLE_PATHS.has(normalized)) return null;
+
+  const candidate = workspaceCandidateByPath(assetRegister, normalized);
+  if (!candidate || candidate.candidate_disposition !== "PRESERVED_CANDIDATE") {
+    return null;
+  }
+
+  const sourcePresenceState = computeSourcePresenceStateForPath({
+    assetRegister,
+    relativePath: normalized,
+    trackedSet,
+    preservedCandidateSet,
+  });
+  if (sourcePresenceState !== "ABSENT_PRESERVED_CANDIDATE") return null;
+
+  return {
+    asset_path: normalized,
+    source_presence_state: "ABSENT_PRESERVED_CANDIDATE",
+    candidate_disposition: "PRESERVED_CANDIDATE",
+    resolution: ESA_RR_003_RESOLUTION,
+    governed_by_control_task_id: candidate.governed_by_control_task_id,
+    source_bytes_available: false,
+    relationship_provenance_available: false,
+    recovery_rcp1: "EXHAUSTED",
+    recovery_rcp2: "EXHAUSTED",
+    runtime_relationship_status: "UNKNOWABLE_FROM_GOVERNED_EVIDENCE",
+    resolution_contract: "ESA-RR-003",
+  };
+}
+
+function validateIrrecoverableEvidenceOnlyTombstone({
+  assetRegister,
+  surface,
+  trackedSet,
+  preservedCandidateSet,
+}) {
+  const errors = [];
+  const assetPath = normalizePath(surface?.asset_path || "");
+
+  if (!ESA_RR_003_IRRECOVERABLE_PATHS.has(assetPath)) {
+    errors.push(
+      `ESA_RR_004_TOMBSTONE_PATH_NOT_AUTHORIZED: ${assetPath || "(empty)"}`
+    );
+  }
+
+  const actualKeys = Object.keys(surface || {}).sort();
+  const expectedKeys = [...ESA_RR_003_TOMBSTONE_KEYS].sort();
+  if (JSON.stringify(actualKeys) !== JSON.stringify(expectedKeys)) {
+    errors.push(`ESA_RR_004_TOMBSTONE_SCHEMA_INVALID: ${assetPath || "(empty)"}`);
+  }
+
+  const expectedFields = {
+    source_presence_state: "ABSENT_PRESERVED_CANDIDATE",
+    candidate_disposition: "PRESERVED_CANDIDATE",
+    resolution: ESA_RR_003_RESOLUTION,
+    source_bytes_available: false,
+    relationship_provenance_available: false,
+    recovery_rcp1: "EXHAUSTED",
+    recovery_rcp2: "EXHAUSTED",
+    runtime_relationship_status: "UNKNOWABLE_FROM_GOVERNED_EVIDENCE",
+    resolution_contract: "ESA-RR-003",
+  };
+  for (const [key, expectedValue] of Object.entries(expectedFields)) {
+    if (surface?.[key] !== expectedValue) {
+      errors.push(`ESA_RR_004_TOMBSTONE_FIELD_INVALID: ${assetPath} field=${key}`);
+    }
+  }
+
+  const candidate = workspaceCandidateByPath(assetRegister, assetPath);
+  if (!candidate || candidate.candidate_disposition !== "PRESERVED_CANDIDATE") {
+    errors.push(`ESA_RR_004_TOMBSTONE_CANDIDATE_INVALID: ${assetPath}`);
+  } else if (
+    surface?.governed_by_control_task_id !== candidate.governed_by_control_task_id
+  ) {
+    errors.push(`ESA_RR_004_TOMBSTONE_GOVERNANCE_IDENTITY_INVALID: ${assetPath}`);
+  }
+
+  const sourcePresenceState = assetPath
+    ? computeSourcePresenceStateForPath({
+        assetRegister,
+        relativePath: assetPath,
+        trackedSet,
+        preservedCandidateSet,
+      })
+    : null;
+  if (sourcePresenceState !== "ABSENT_PRESERVED_CANDIDATE") {
+    errors.push(`ESA_RR_004_TOMBSTONE_SOURCE_RETURNED: ${assetPath}`);
+  }
+
+  return errors;
 }
 
 function authorityCandidatePaths(assetRegister) {
@@ -948,6 +1085,19 @@ function renderRuntimeMap(inventory) {
   for (const surface of sortedSurfaces) {
     lines.push(`### ${surface.asset_path}`);
     lines.push("");
+
+    if (isEvidenceOnlyTombstone(surface)) {
+      lines.push(`- Evidence-only resolution: ${surface.resolution}`);
+      lines.push(`- Source presence: ${surface.source_presence_state}`);
+      lines.push(`- Candidate disposition: ${surface.candidate_disposition}`);
+      lines.push(`- Governed by: ${surface.governed_by_control_task_id}`);
+      lines.push(`- Recovery RCP-1: ${surface.recovery_rcp1}`);
+      lines.push(`- Recovery RCP-2: ${surface.recovery_rcp2}`);
+      lines.push(`- Runtime relationship status: ${surface.runtime_relationship_status}`);
+      lines.push("");
+      continue;
+    }
+
     lines.push(
       `- Surface classes: ${Array.isArray(surface.surface_classes) ? surface.surface_classes.join(", ") : ""}`
     );
@@ -1261,6 +1411,20 @@ function validateInventory({ ledger, assetRegister, inventory, mapText }) {
       continue;
     }
 
+    if (isEvidenceOnlyTombstone(surface)) {
+      const trackedSetForTombstone = new Set(trackedPaths());
+      const preservedSetForTombstone = new Set(governedCandidatePaths(assetRegister));
+      errors.push(
+        ...validateIrrecoverableEvidenceOnlyTombstone({
+          assetRegister,
+          surface,
+          trackedSet: trackedSetForTombstone,
+          preservedCandidateSet: preservedSetForTombstone,
+        })
+      );
+      continue;
+    }
+
     if (!Array.isArray(surface.surface_classes) || surface.surface_classes.length === 0) {
       errors.push(`RUNTIME_SURFACE_CLASS_MISSING: ${surface.asset_path}`);
     } else {
@@ -1336,6 +1500,7 @@ function validateInventory({ ledger, assetRegister, inventory, mapText }) {
 
   for (const surface of inventory.surfaces) {
     const assetPath = normalizePath(surface.asset_path);
+    if (isEvidenceOnlyTombstone(surface)) continue;
 
     const presenceState = computeSourcePresenceStateForPath({
       assetRegister,
@@ -1438,6 +1603,48 @@ function validateInventory({ ledger, assetRegister, inventory, mapText }) {
       errors.push(
         `ESA_RR_002_RELATIONSHIP_SEMANTIC_DRIFT: ${surface.asset_path} field=${finding.field}`
       );
+    }
+  }
+
+  // ESA-RR-004 exact-eight evidence-only accounting.
+  const tombstonesByPath = new Map(
+    inventory.surfaces
+      .filter(isEvidenceOnlyTombstone)
+      .map((surface) => [normalizePath(surface.asset_path), surface])
+  );
+
+  for (const [assetPath, tombstone] of tombstonesByPath) {
+    errors.push(
+      ...validateIrrecoverableEvidenceOnlyTombstone({
+        assetRegister,
+        surface: tombstone,
+        trackedSet,
+        preservedCandidateSet,
+      })
+    );
+    if (!ESA_RR_003_IRRECOVERABLE_PATHS.has(assetPath)) {
+      errors.push(`ESA_RR_004_TOMBSTONE_PATH_NOT_AUTHORIZED: ${assetPath}`);
+    }
+  }
+
+  for (const exactPath of ESA_RR_003_IRRECOVERABLE_PATHS) {
+    const sourcePresenceState = computeSourcePresenceStateForPath({
+      assetRegister,
+      relativePath: exactPath,
+      trackedSet,
+      preservedCandidateSet,
+    });
+    if (
+      sourcePresenceState === "ABSENT_PRESERVED_CANDIDATE" &&
+      !tombstonesByPath.has(exactPath)
+    ) {
+      errors.push(`ESA_RR_004_IRRECOVERABLE_TOMBSTONE_REQUIRED: ${exactPath}`);
+    }
+    if (
+      sourcePresenceState !== "ABSENT_PRESERVED_CANDIDATE" &&
+      tombstonesByPath.has(exactPath)
+    ) {
+      errors.push(`ESA_RR_004_RETURNED_SOURCE_TOMBSTONE_FORBIDDEN: ${exactPath}`);
     }
   }
 
@@ -1658,15 +1865,108 @@ function main() {
           // Keep deterministic ordering.
           .sort((a, b) => a.asset_path.localeCompare(b.asset_path));
 
-        inventory.surfaces = bootstrappedSurfaces;
+        const bootstrappedByPath = new Map(
+          bootstrappedSurfaces.map((surface) => [
+            normalizePath(surface.asset_path),
+            surface,
+          ])
+        );
+        const bootstrapErrors = [];
+
+        // ESA-RR-004: account for every governed preserved candidate, including
+        // absent candidates omitted by ordinary material-surface discovery.
+        for (const candidate of getWorkspaceCandidates(assetRegister)) {
+          if (candidate.candidate_disposition !== "PRESERVED_CANDIDATE") continue;
+
+          const assetPath = normalizePath(candidate.asset_path);
+          const presenceState = computeSourcePresenceStateForPath({
+            assetRegister,
+            relativePath: assetPath,
+            trackedSet,
+            preservedCandidateSet,
+          });
+          if (presenceState !== "ABSENT_PRESERVED_CANDIDATE") continue;
+
+          if (ESA_RR_003_IRRECOVERABLE_PATHS.has(assetPath)) {
+            const tombstone = buildIrrecoverableEvidenceOnlyTombstone({
+              assetRegister,
+              assetPath,
+              trackedSet,
+              preservedCandidateSet,
+            });
+            if (!tombstone) {
+              bootstrapErrors.push(`ESA_RR_004_TOMBSTONE_BUILD_FAILED: ${assetPath}`);
+            } else {
+              bootstrappedByPath.set(assetPath, tombstone);
+            }
+            continue;
+          }
+
+          // All non-exempt absent candidates retain ESA-RR-002 fail-closed law.
+          const committed = existingByPath.get(assetPath);
+          if (!committed) {
+            bootstrapErrors.push(
+              `ESA_RR_002_ABSENT_COMMITTED_RECORD_REQUIRED: ${assetPath}`
+            );
+            continue;
+          }
+
+          const schemaErrors = validateRelationshipEvidenceProvenanceSchema({
+            assetPath: committed.asset_path,
+            provenance: committed.relationship_evidence_provenance,
+            capturedAllowedOnly: capturedPresentOnly,
+          });
+          if (schemaErrors.length) {
+            bootstrapErrors.push(...schemaErrors);
+            continue;
+          }
+
+          const committedFingerprint =
+            computeRelationshipEvidenceFingerprintFromInventorySurface(committed);
+          if (
+            committed.relationship_evidence_provenance.relationship_evidence_sha256 !==
+            committedFingerprint
+          ) {
+            bootstrapErrors.push(
+              `ESA_RR_002_RELATIONSHIP_EVIDENCE_PROVENANCE_BINDING_FAIL: ${assetPath}`
+            );
+            continue;
+          }
+
+          bootstrappedByPath.set(assetPath, committed);
+        }
+
+        inventory.surfaces = [...bootstrappedByPath.values()].sort((a, b) =>
+          a.asset_path.localeCompare(b.asset_path)
+        );
         if (!inventory.semantics)
           inventory.semantics = { ...INVENTORY_SEMANTICS_DEFAULTS };
+
+        // Fail closed before either canonical output is written.
+        const candidateMap = renderRuntimeMap(inventory);
+        const candidateValidation = validateInventory({
+          ledger,
+          assetRegister,
+          inventory,
+          mapText: candidateMap,
+        });
+        const allBootstrapErrors = [
+          ...bootstrapErrors,
+          ...candidateValidation.errors,
+        ];
+        if (allBootstrapErrors.length) {
+          for (const error of allBootstrapErrors) console.error(`ERROR: ${error}`);
+          console.error("ESA_RR_004_BOOTSTRAP_VALIDATION_FAILED");
+          process.exitCode = 1;
+          return;
+        }
 
         fs.writeFileSync(
           INVENTORY_PATH,
           `${JSON.stringify(inventory, null, 2)}\n`,
           "utf8"
         );
+        fs.writeFileSync(MAP_PATH, candidateMap, "utf8");
         return;
     }
 
@@ -1723,6 +2023,11 @@ if (require.main === module) {
 }
 
 module.exports = {
+  ESA_RR_003_IRRECOVERABLE_PATHS,
+  ESA_RR_003_RESOLUTION,
+  isEvidenceOnlyTombstone,
+  buildIrrecoverableEvidenceOnlyTombstone,
+  validateIrrecoverableEvidenceOnlyTombstone,
   discoverMaterialSurfaces,
   renderRuntimeMap,
   validateInventory,
