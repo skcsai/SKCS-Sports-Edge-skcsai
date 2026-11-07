@@ -329,4 +329,11 @@ Blocks: none
 Status: TESTED
 Governed by: ESA-RR-003
 Blocked by: ESA-RR-002, EAC-001
+Blocks: ESA-RR-004
+
+## ESA-RR-004 - ESA-RR-004 Runtime Inventory Evidence-Only Reconciliation
+
+Status: IN_PROGRESS
+Governed by: ESA-RR-004
+Blocked by: ESA-RR-003
 Blocks: none

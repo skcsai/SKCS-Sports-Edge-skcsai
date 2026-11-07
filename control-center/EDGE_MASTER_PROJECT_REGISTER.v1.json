@@ -4,7 +4,7 @@
   "generated_at": "2026-07-05",
   "source_ledger": "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
   "project_policy": "The Master Project Register owns project/workstream truth. Exact project_id to ledger.task_id overlaps must mirror canonical Control Center sequencing state. Files are assets, not automatically projects.",
-  "project_count": 47,
+  "project_count": 48,
   "projects": [
     {
       "project_id": "ECC-001",
@@ -2768,7 +2768,9 @@
         "ESA-RR-002",
         "EAC-001"
       ],
-      "blocks": [],
+      "blocks": [
+        "ESA-RR-004"
+      ],
       "affected_layers": [
         "governance",
         "contract",
@@ -2817,6 +2819,77 @@
       ],
       "startable": false,
       "open_gaps": []
+    },
+    {
+      "project_id": "ESA-RR-004",
+      "project_name": "ESA-RR-004 Runtime Inventory Evidence-Only Reconciliation",
+      "category": "Governance Runtime Inventory Repair",
+      "description": "Implement the sealed ESA-RR-003 evidence-only tombstone exception for exactly eight irrecoverable preserved candidates, then regenerate governed runtime inventory/map from current real source bytes and prove read-only reproducibility. No application runtime or prediction changes.",
+      "why_it_matters": "Edge prediction work must not start while runtime authority evidence is stale or non-reproducible.",
+      "current_status": "IN_PROGRESS",
+      "priority": "critical",
+      "startable": true,
+      "blocked_by": [
+        "ESA-RR-003"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "governance",
+        "runtime-inventory-policy",
+        "generated-evidence"
+      ],
+      "related_tasks": [
+        "ESA-RR-004"
+      ],
+      "related_contracts": [
+        "control-center/EDGE_RUNTIME_INVENTORY_REPRODUCIBILITY_CONTRACT.v1.md",
+        "control-center/ESA-RR-003_IRRECOVERABLE_PRESERVED_CANDIDATE_RESOLUTION_CONTRACT.v1.md"
+      ],
+      "related_files": [
+        "control-center/check_edge_system_runtime_inventory.js",
+        "tests/edge-system-runtime-inventory.test.js",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "Current control:runtime reports 94 stale ESA-RR-002 drift findings against the committed runtime inventory."
+      ],
+      "required_decisions": [],
+      "completion_definition": "ESA-RR-004 is TESTED only when the checker implements the sealed ESA-RR-003 exact-eight IRRECOVERABLE_EVIDENCE_ONLY tombstone law without inventing source bytes, source SHA, relationship evidence or provenance; bootstrap regenerates current evidence only from real PRESENT sources; any ninth/non-exempt absent candidate still fails closed; returning real source bytes re-enter normal ESA-RR-002 validation; ESA-RR-T01 through ESA-RR-T16 remain the complete test identity set with no T17; approved --write-inventory produces deterministic inventory/map outputs; an immediate read-only validation replay passes; Edge Control Center/project/asset/classification/governor checks remain green; and no application runtime, prediction, database, provider, deployment, publication or marriage-gate behavior changes.",
+      "proof_required": [
+        "Exact immutable eight-path exception set from ESA-RR-003",
+        "Evidence-only tombstones contain no invented source_content_sha256, relationship_evidence or relationship_evidence_provenance",
+        "Ninth absent preserved candidate fails closed",
+        "Returning source exits evidence-only exception and follows normal ESA-RR-002 validation",
+        "ESA-RR-T01..T16 PASS and no T17 exists",
+        "Approved --write-inventory bootstrap completes on clean governed source",
+        "Immediate read-only control:runtime replay PASS after bootstrap",
+        "Generated EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json and EDGE_SYSTEM_RUNTIME_MAP.md are deterministic",
+        "Edge Control Center/project/asset/classification/governor regression PASS",
+        "No application runtime/prediction/database/provider/deployment/publication changes"
+      ],
+      "risks_if_ignored": [
+        "Prediction work proceeds on stale runtime authority evidence",
+        "Runtime inventory can no longer prove current source/provenance reproducibility"
+      ],
+      "recommended_order": 48,
+      "next_action": "Implement the exact-eight evidence-only tombstone handling in the runtime checker and T01-T16 tests only; then run approved --write-inventory bootstrap, immediate read-only replay, and full Edge Control Center/governor regression. Do not touch application runtime or prediction code.",
+      "owner_note": "Stephen authorized continuation on 2026-11-07 after ESA-RR-003 closure. Runtime evidence reconciliation only.",
+      "last_updated": "2026-11-07",
+      "governed_by_control_task_id": "ESA-RR-004",
+      "current_evidence": [
+        "2026-11-07 ESA-RR-003 TESTED/CLOSED at c90ad240ebd405455e577c38dd4b8fce452be81e.",
+        "2026-11-07 Edge audit found 94 ESA-RR-002 runtime inventory drift findings while application runtime files remained clean.",
+        "ESA-RR-003 sealed ESA-RR-004 implementation boundary to checker, existing T01-T16 tests and generated runtime inventory/map only."
+      ],
+      "open_gaps": [
+        "ESA-RR-004 implementation not yet applied; control:runtime remains red until governed bootstrap/replay proof completes."
+      ]
     }
   ]
 }
