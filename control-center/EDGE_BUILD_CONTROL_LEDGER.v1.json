@@ -3097,10 +3097,17 @@
         "2026-11-07 P1-B01 regression proves valid governed FIP input bypasses provider input while provider mode remains unchanged when fip_envelopes is absent.",
         "Current fipIntakeService requires markets and context objects and maps markets.direct_1x2/sharp_odds to Edge sharp_odds plus context/contextual_intelligence to Edge contextual_intelligence, but does not require weather/injury/H2H/form/news sub-classes individually.",
         "EPRV-001-C1 remains PARTIAL and explicitly requires FIP replacement map, fail-closed no-input proof, prediction regression, context replacement and storage/gate proof before provider runtime edits.",
-        "2026-11-07 EPRV-001-C2 closure proof: registration eaa092a81f3b77bfa5129b656a375903ea1e6e71; contract packet 10e7046a18cdd2dec225c4ac855582e1594abbbc; governed runtime evidence refresh 182a92bcbdcdf3e32239ab2dabf6bf7e0eef82e0; focused C2/C1/EPI/P1-B01 28/28 PASS; full Edge control:verify 353/353 tests PASS with Control Center, Project Register, Asset Register, Classification and Runtime Inventory PASS; runtime inventory 233 governed / 224 discovered / 0 warnings; governors 35/35 PASS; no provider/runtime/prediction/database/route/deployment/gate behavior changed. Verdict remains HOLD - NOT IMPLEMENTATION READY with five MISSING_BLOCKER context classes."
+        "2026-11-07 EPRV-001-C2 closure proof: registration eaa092a81f3b77bfa5129b656a375903ea1e6e71; contract packet 10e7046a18cdd2dec225c4ac855582e1594abbbc; governed runtime evidence refresh 182a92bcbdcdf3e32239ab2dabf6bf7e0eef82e0; focused C2/C1/EPI/P1-B01 28/28 PASS; full Edge control:verify 353/353 tests PASS with Control Center, Project Register, Asset Register, Classification and Runtime Inventory PASS; runtime inventory 233 governed / 224 discovered / 0 warnings; governors 35/35 PASS; no provider/runtime/prediction/database/route/deployment/gate behavior changed. Verdict remains HOLD - NOT IMPLEMENTATION READY with five MISSING_BLOCKER context classes.",
+        "2026-11-07 EPRV-001-C2 closure proof: focused EPRV/EPI/P1-B01 suite PASS; full Control Center suite PASS; Control Center, project register, asset register, classification and runtime inventory PASS; runtime replay 233 governed surfaces / 224 discovered / 0 warnings; replacement matrix verdict MAPPED for fixture/schedule and 1X2/market inputs, MISSING_BLOCKER for weather, injuries/availability, H2H, team form and news/context; provider-removal implementation remains HOLD and no runtime provider/prediction/database/deployment change occurred."
       ],
-      "open_gaps": [],
-      "next_action": "CLOSED WITH HOLD. Provider-removal implementation remains HOLD. Current governed FIP proves fixture identity/schedule and 1X2/market replacement only. Weather, injuries/availability, H2H, team form and news/context remain MISSING_BLOCKER classes because generic context is not class-level completeness proof. Do not start provider-removal implementation until each missing class is supplied by a governed Scout/FIP field contract or separately approved as HELD_WITH_NEUTRAL_BEHAVIOUR with deterministic regression proof.",
+      "open_gaps": [
+        "Weather replacement field contract remains missing.",
+        "Injuries/availability replacement field contract remains missing.",
+        "H2H replacement field contract remains missing.",
+        "Team-form replacement field contract remains missing.",
+        "News/context replacement field contract remains missing."
+      ],
+      "next_action": "CLOSED / HOLD FOR IMPLEMENTATION. Preserve the class-by-class replacement matrix and fail-closed no-input law. Do not start provider-removal implementation until the five MISSING_BLOCKER context classes are governed or explicitly held with neutral-behaviour regression proof. Return to Edge Control Center/governors for the next separately authorized mini-project.",
       "owner_note": "Stephen authorized continuation on 2026-11-07 after EPI-001-D1-R1 closure. Contract/readiness only; Scout remains sports-truth owner and does not predict.",
       "last_updated": "2026-11-07"
     }

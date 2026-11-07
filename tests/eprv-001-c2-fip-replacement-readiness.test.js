@@ -83,7 +83,7 @@ test('C2 preserves EPI/EST laws and blocked global gates', () => {
   assert.ok(c.includes('must not persist the full Scout FIP body'));
 });
 
-test('Control Center registers C2 as the active contract/readiness project only', () => {
+test('Control Center records C2 as TESTED/non-startable after contract closure', () => {
   const ledger = readJson('control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json');
   const register = readJson('control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json');
   const task = ledger.tasks.find((x) => x.task_id === 'EPRV-001-C2');
