@@ -33407,7 +33407,7 @@
       "deployment_surface": [],
       "goes_somewhere": "YES",
       "known_conflicts": [],
-      "validation_status": "REGISTERED",
+      "validation_status": "TESTED",
       "next_validation": "Run node --test tests/epi-001-d1-r1-provenance.test.js plus EPI/P1-B01 regression after any governed D1/R1 provenance or FIP-envelope metadata change.",
       "notes": "Focused EPI-001-D1-R1 proof. Test stubs database access and verifies no live database/network requirement for provenance mapping.",
       "purpose_description": "Verifies that governed Scout FIP R1 provenance is carried into Edge D1 prediction metadata through an exact whitelist, fails closed when incomplete, excludes forbidden payload fields, and leaves provider inputs unchanged.",

@@ -2968,8 +2968,8 @@
       "task_name": "EPI-001-D1-R1 Governed D1 Prediction Provenance Integration",
       "workstream": "Prediction Pipeline Implementation",
       "description": "Preserve the minimal governed Scout FIP R1 provenance reference from EFI EdgeAnalysisEnvelope into existing Edge D1 raw prediction metadata. Edge performs prediction; Scout remains sports-truth/FIP authority only. Code-and-test proof only; no schema or live activation.",
-      "status": "IN_PROGRESS",
-      "startable": true,
+      "status": "TESTED",
+      "startable": false,
       "priority": "critical",
       "blocked_by": [
         "EPI-001",
@@ -3028,12 +3028,11 @@
         "EFI-001-I1 TESTED; fipIntakeService maps validated Scout FIP to EdgeAnalysisEnvelope and already carries fip_id, fip_schema_version, validation_hash, scout_run_id, intake_id, idempotency_key and SCOUT_FIP origin.",
         "P1-B01 existing test proves valid governed FIP input bypasses provider acquisition and emits mapped envelopes only; provider path remains unchanged when fip_envelopes is absent.",
         "EST-001 TESTED permits R1 minimal provenance linked to D1 prediction rows and forbids full FIP body/Scout mirror persistence. Dedicated provenance columns on predictions_raw are not currently implemented, so this packet uses existing JSONB metadata only and performs no schema work.",
-        "2026-11-07 scope refinement before implementation: new focused test asset requires asset-register/classification/map/count reconciliation; aiPipeline runtime-source change requires deterministic generated EDGE_SYSTEM_RUNTIME_INVENTORY/MAP refresh and immediate read-only replay under existing ESA-RR-004 checker. Checker code itself remains out of scope."
+        "2026-11-07 scope refinement before implementation: new focused test asset requires asset-register/classification/map/count reconciliation; aiPipeline runtime-source change requires deterministic generated EDGE_SYSTEM_RUNTIME_INVENTORY/MAP refresh and immediate read-only replay under existing ESA-RR-004 checker. Checker code itself remains out of scope.",
+        "2026-11-07 EPI-001-D1-R1 closure proof: implementation commits 176674c (minimal fail-closed R1 provenance whitelist into existing D1 predictions_raw metadata) and 9139fe7 (governed runtime evidence refresh); focused provenance/FIP/provider/EPI regression 61/61 PASS; full Edge control:verify 345/345 tests PASS with Control Center, Project Register, Asset Register, Classification and Runtime Inventory all PASS; runtime inventory 233 governed surfaces / 224 discovered / 0 warnings; no SQL, migrations, live DB writes, routes, deployments, provider-removal, publication or marriage-gate clearance."
       ],
-      "open_gaps": [
-        "R1 provenance is available at EFI intake but is currently dropped by D1 raw prediction construction."
-      ],
-      "next_action": "Implement a minimal fail-closed R1 provenance whitelist from SCOUT_FIP EdgeAnalysisEnvelope into existing D1 predictions_raw metadata, add focused isolated tests, and run EPI/P1-B01/Control Center regression. Do not add SQL, migrations, live DB writes, routes, deployments, provider removal or gate clearance.",
+      "open_gaps": [],
+      "next_action": "CLOSED. Preserve the minimal R1 provenance whitelist and existing D1 behaviour. Do not widen metadata, add Scout payload retention, SQL/schema changes, provider-removal, deployment or gate clearance under this project. Return to Edge Control Center/governors for the next separately authorized mini-project.",
       "owner_note": "Stephen authorized continuation on 2026-11-07. Scout must not make predictions; all D1 derivation remains Edge-owned.",
       "last_updated": "2026-11-07"
     }
