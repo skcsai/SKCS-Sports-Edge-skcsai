@@ -344,3 +344,10 @@ Status: TESTED
 Governed by: EPI-001-D1-R1
 Blocked by: EPI-001, EFI-001, EST-001, ESA-RR-004
 Blocks: E2E-001
+
+## EPRV-001-C2 - EPRV-001-C2 FIP Replacement Mapping and Fail-Closed Provider Readiness Contract
+
+Status: IN_PROGRESS
+Governed by: EPRV-001-C2
+Blocked by: EFI-001, EPI-001-D1-R1, ESA-RR-004
+Blocks: none

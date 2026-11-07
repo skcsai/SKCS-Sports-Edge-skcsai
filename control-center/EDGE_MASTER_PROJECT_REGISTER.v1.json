@@ -4,7 +4,7 @@
   "generated_at": "2026-07-05",
   "source_ledger": "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
   "project_policy": "The Master Project Register owns project/workstream truth. Exact project_id to ledger.task_id overlaps must mirror canonical Control Center sequencing state. Files are assets, not automatically projects.",
-  "project_count": 49,
+  "project_count": 50,
   "projects": [
     {
       "project_id": "ECC-001",
@@ -701,7 +701,8 @@
         "EFI-001"
       ],
       "blocks": [
-        "E2E-001"
+        "E2E-001",
+        "EPRV-001-C2"
       ],
       "affected_layers": [
         "runtime",
@@ -2982,6 +2983,94 @@
         "2026-11-07 EPI-001-D1-R1 closure proof: implementation commits 176674c (minimal fail-closed R1 provenance whitelist into existing D1 predictions_raw metadata) and 9139fe7 (governed runtime evidence refresh); focused provenance/FIP/provider/EPI regression 61/61 PASS; full Edge control:verify 345/345 tests PASS with Control Center, Project Register, Asset Register, Classification and Runtime Inventory all PASS; runtime inventory 233 governed surfaces / 224 discovered / 0 warnings; no SQL, migrations, live DB writes, routes, deployments, provider-removal, publication or marriage-gate clearance."
       ],
       "open_gaps": []
+    },
+    {
+      "project_id": "EPRV-001-C2",
+      "project_name": "EPRV-001-C2 FIP Replacement Mapping and Fail-Closed Provider Readiness Contract",
+      "category": "External Provider Removal Governance",
+      "description": "Contract-only readiness packet that maps every provider-acquired prediction fact class to governed Scout/FIP input or an explicit held/missing state before any provider runtime removal.",
+      "why_it_matters": "Edge must not remove external acquisition until equivalent governed Scout/FIP facts are proven class-by-class and no-input behavior is fail-closed.",
+      "current_status": "IN_PROGRESS",
+      "priority": "critical",
+      "startable": true,
+      "blocked_by": [
+        "EFI-001",
+        "EPI-001-D1-R1",
+        "ESA-RR-004"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "governance",
+        "provider-removal-readiness",
+        "fip-input-contract"
+      ],
+      "related_tasks": [
+        "EPRV-001",
+        "EPRV-001-C2"
+      ],
+      "related_contracts": [
+        "control-center/EPRV-001_EXTERNAL_PROVIDER_REMOVAL_INSPECTION_CONTRACT.v1.md",
+        "control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md",
+        "control-center/EST-001_SUPABASE_STORAGE_AND_FIP_RETENTION_CONTRACT.v1.md"
+      ],
+      "related_files": [
+        "control-center/EPRV-001_C2_FIP_REPLACEMENT_READINESS_CONTRACT.v1.md",
+        "tests/eprv-001-c2-fip-replacement-readiness.test.js",
+        "package.json",
+        "backend/services/fipIntakeService.js",
+        "backend/services/aiPipeline.js",
+        "backend/services/dataProvider.js",
+        "backend/services/contextIngestionService.js",
+        "backend/services/footballHighlightsService.js",
+        "backend/services/oddsApiPipeline.js",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "Current Edge FIP contract carries generic context but does not yet prove class-level completeness for weather, injuries/availability, H2H, form and news/context.",
+        "Provider path remains active when fip_envelopes is absent; fail-closed post-removal behavior is not yet sealed."
+      ],
+      "required_decisions": [],
+      "completion_definition": "EPRV-001-C2 reaches TESTED only when it records an exact provider-to-FIP replacement matrix for fixture identity/schedule, 1X2/market inputs, weather, injuries/availability, H2H, team form, and news/context; each class is explicitly MAPPED, HELD_WITH_NEUTRAL_BEHAVIOUR, or MISSING_BLOCKER with evidence; generic context containers are not accepted as proof of class completeness; current runtime reachability is documented from governed runtime evidence; the no-FIP/invalid-FIP future law is fail-closed and forbids silent provider fallback after provider-removal activation; EPI-001 scoring/filtering/ACCA invariants, EST-001 storage law, and blocked marriage/storage gates are preserved; no runtime provider, prediction, SQL, database, route, deployment or gate change occurs; focused tests plus full Edge Control Center/project/asset/classification/runtime/governor checks pass.",
+      "proof_required": [
+        "Exact replacement matrix for fixture, markets/odds, weather, injuries/availability, H2H, form and news/context",
+        "Evidence path for every mapped class or explicit HOLD/MISSING blocker",
+        "Runtime provider reachability from current governed runtime inventory",
+        "Fail-closed no-FIP/invalid-FIP design law with no silent provider fallback after activation",
+        "Prediction regression boundary preserving EPI-001 protected invariants",
+        "No-storage-drift boundary preserving EST-001",
+        "Marriage and storage gates remain BLOCKED",
+        "No application runtime/provider/database/deployment change",
+        "Focused C2 tests PASS",
+        "Full Edge Control Center/project/asset/classification/runtime/governor regression PASS"
+      ],
+      "risks_if_ignored": [
+        "Provider removal could silently drop required scoring context",
+        "External provider fallback could remain canonical sports truth",
+        "Prediction scoring/ACCA behavior could drift without evidence"
+      ],
+      "recommended_order": 50,
+      "next_action": "Inspect current governed FIP/context shape and current provider acquisition consumers; seal exact class-by-class replacement matrix and fail-closed no-input law only. Do not edit runtime provider or prediction code.",
+      "owner_note": "Stephen authorized continuation on 2026-11-07 after EPI-001-D1-R1 closure. Contract/readiness only; Scout remains sports-truth owner and does not predict.",
+      "last_updated": "2026-11-07",
+      "governed_by_control_task_id": "EPRV-001-C2",
+      "current_evidence": [
+        "2026-11-07 EPI-001-D1-R1 TESTED/CLOSED at 177868e07f753fb421b5e26061716a3ce195ee15; minimal governed Scout FIP provenance reaches D1 metadata and provider/non-Scout inputs receive no invented provenance.",
+        "2026-11-07 P1-B01 regression proves valid governed FIP input bypasses provider input while provider mode remains unchanged when fip_envelopes is absent.",
+        "Current fipIntakeService requires markets and context objects and maps markets.direct_1x2/sharp_odds to Edge sharp_odds plus context/contextual_intelligence to Edge contextual_intelligence, but does not require weather/injury/H2H/form/news sub-classes individually.",
+        "EPRV-001-C1 remains PARTIAL and explicitly requires FIP replacement map, fail-closed no-input proof, prediction regression, context replacement and storage/gate proof before provider runtime edits."
+      ],
+      "open_gaps": [
+        "Replacement matrix not yet sealed.",
+        "Fail-closed post-provider-removal no-input law not yet sealed."
+      ]
     }
   ]
 }
