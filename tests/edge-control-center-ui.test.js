@@ -378,7 +378,7 @@ describe("ECU-001 Control Center Operator UI", () => {
     assert.ok(Number.isFinite(runtime.json.runtimeWarningCount));
   });
 
-  it("EAC-001 project projection carries governed full-classification closure next_action", async () => {
+  it("EAC-001 project projection carries TESTED closure next_action", async () => {
     const ledger = readJson(
       path.join(CONTROL_CENTER_DIR, "EDGE_BUILD_CONTROL_LEDGER.v1.json")
     );
@@ -398,7 +398,7 @@ describe("ECU-001 Control Center Operator UI", () => {
     assert.equal(eacProject.next_action, eacTask.next_action);
     assert.match(
       eacProject.next_action,
-      /Perform EAC-001 full classification closure inspection/
+      /EAC-001 is TESTED and closed/
     );
     assert.equal(
       /Do not begin B01/.test(eacProject.next_action),

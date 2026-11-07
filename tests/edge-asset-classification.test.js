@@ -225,7 +225,7 @@ describe("Edge Asset Classification foundation", () => {
   it("foundation mode permits empty classification fields as pending", () => {
     const result = runCheck({ closure: false, refreshManifest: false, writeMap: false });
     assert.equal(result.closureReady, true);
-    assert.equal(result.summary.fullyClassifiedAssets, 913);
+    assert.equal(result.summary.fullyClassifiedAssets, loadAssetRegister(REGISTER_PATH).assets.length);
     assert.equal(
       result.summary.classificationPendingAssets, 0
     );
@@ -233,7 +233,7 @@ describe("Edge Asset Classification foundation", () => {
 
   it("foundation mode does not count pending assets as fully classified", () => {
     const result = runCheck({ closure: false, refreshManifest: false, writeMap: false });
-    assert.equal(result.summary.fullyClassifiedAssets, 913);
+    assert.equal(result.summary.fullyClassifiedAssets, loadAssetRegister(REGISTER_PATH).assets.length);
   });
 
   it("strict closure rejects empty purpose_description", () => {
@@ -472,6 +472,21 @@ describe("Edge Asset Classification foundation", () => {
     const result = runCheck({ closure: false, refreshManifest: false, writeMap: false });
     assert.equal(result.closureReady, true);
   });
+  it("strict closure passes when the canonical repository satisfies every closure rule", () => {
+    const reg = loadAssetRegister(REGISTER_PATH);
+    const m = loadBatchManifest(MANIFEST_PATH);
+    const membership = computeBatchMembership(reg.assets.map((a) => a.asset_path), m.batches);
+    const result = evaluateClassification({
+      register: reg, manifest: m, membership, closure: true, repositoryMapContent: loadFile(MAP_PATH),
+    });
+    assert.equal(result.errors.length, 0);
+    assert.equal(result.summary.fullyClassifiedAssets, reg.assets.length);
+    assert.equal(result.summary.classificationPendingAssets, 0);
+    assert.equal(result.closureReady, true);
+    assert.equal(result.passed, true);
+  });
+
+
 
   it("strict closure is not satisfied by current unclassified repository", () => {
     const reg = loadAssetRegister(REGISTER_PATH);

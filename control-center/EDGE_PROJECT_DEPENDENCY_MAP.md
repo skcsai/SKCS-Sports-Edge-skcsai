@@ -32,7 +32,7 @@ Blocks: EAC-001, EMG-001, EFI-001, EST-001, ESEC-001, EPI-001, EGR-001, EAI-001,
 
 ## EAC-001 — Edge Asset Classification and Repository Map
 
-Status: APPROVED
+Status: TESTED
 Governed by: EAC-001
 Blocked by: EPR-001, ESA-001
 Blocks: EAC-R1-001, EMG-001

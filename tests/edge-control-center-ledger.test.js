@@ -1116,9 +1116,9 @@ describe("Edge Control Center Ledger v1", () => {
       ledgerPath: LEDGER_PATH,
     });
 
-    assert.ok(result.startable.some((t) => t.task_id === "EAC-001"));
+    assert.ok(!result.startable.some((t) => t.task_id === "EAC-001"));
     assert.ok(result.next);
-    assert.equal(result.next.task_id, "EAC-001");
+    assert.equal(result.next.task_id, "EMG-001");
     assert.equal(result.next.status, "APPROVED");
     assert.equal(result.gated, null);
   });

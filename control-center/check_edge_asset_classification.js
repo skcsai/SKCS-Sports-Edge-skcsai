@@ -491,6 +491,7 @@ function evaluateClassification({
   let unknownCount = 0;
 
   for (const asset of assets) {
+    const assetErrorCountAtStart = errors.length;
     const pdesc = asset.purpose_description;
     const fg = asset.functional_group;
     const relTags = asset.relationship_tags;
@@ -633,6 +634,9 @@ function evaluateClassification({
         });
       }
     }
+
+    if (errors.length === assetErrorCountAtStart) fullyClassified += 1;
+    else classificationPending += 1;
   }
 
   // In strict closure, closure-ready means all assets are fully classified.

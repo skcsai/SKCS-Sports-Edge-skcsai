@@ -235,7 +235,7 @@
       "task_name": "Edge Asset Classification and Repository Map",
       "workstream": "Repository Organization",
       "description": "Perform one controlled content skim of every governed Edge asset and capture a concise purpose description, functional grouping, truthful provisional current-state designation, relationship evidence, and next validation where evidence remains insufficient.",
-      "status": "APPROVED",
+      "status": "TESTED",
       "priority": "critical",
       "blocked_by": [
         "EPR-001",
@@ -267,16 +267,19 @@
         "Validated conservative UNKNOWN completion law requirements for non-empty evidence and meaningful next_validation",
         "Validated deterministic 29-batch model with fixed ordered first-match precedence, governed-asset coverage, zero unbatched assets, zero duplicate membership, and no batch over 100 assets",
         "Validated EPR/ESA evidence reuse and ESA contradiction reconciliation rules",
-        "Validated repository map requirements and fail-closed completion proof targets without final asset-resolution decisions"
+        "Validated repository map requirements and fail-closed completion proof targets without final asset-resolution decisions",
+        "2026-11-07 EAC-001 full closure inspection completed at Edge base 3597358dd9d4356a5a2ae643b23c599845e1596f.",
+        "Classification closure: 1048/1048 governed assets fully classified; 0 pending; 0 unbatched; 0 duplicate final membership; 29 deterministic batches; largest batch 96.",
+        "Controlled vocabulary drift normalized to existing approved enums; no taxonomy expansion and no final KEEP/ALIGN/MERGE/REPLACE/RETIRE/ARCHIVE_EVIDENCE decisions made.",
+        "147 legacy UNKNOWN assets retained UNKNOWN and received meaningful evidence-driven next_validation text; no asset was promoted or retired by inference.",
+        "Fail-closed checker defect repaired so strict closure counts per-asset successful validation; negative strict-closure tests remain green.",
+        "Proof: edge asset classification 36/36 PASS; full Edge Control Center test suite 331/331 PASS; governor/lifecycle suite 66/66 PASS; strict EAC closure PASS.",
+        "Broader control:verify now proceeds past EAC and separately exposes ESA runtime-inventory drift. That drift is outside EAC-001 scope and must be reconciled under separate Edge governance before D1/R1 runtime work."
       ],
-      "open_gaps": [
-        "B01-B29 content classification inventory is complete; remaining governed work is EAC-001 full classification closure inspection.",
-        "Strict EAC closure inspection has not yet been separately executed/approved as the next controlled action.",
-        "No KEEP / ALIGN / MERGE / REPLACE / RETIRE / ARCHIVE_EVIDENCE decisions may be made during closure inspection."
-      ],
-      "next_action": "Perform EAC-001 full classification closure inspection.",
-      "owner_note": "EAC-001 B01-B29 fast-skim inventory campaign is complete with fully classified governed assets and zero classification-pending. Next governed direction is full classification closure inspection only.",
-      "last_updated": "2026-07-09"
+      "open_gaps": [],
+      "next_action": "EAC-001 is TESTED and closed. Preserve the 1048/1048 classification inventory and 29-batch map as governance truth. Do not reopen EAC for ESA runtime-inventory drift. Re-enter the Edge Control Center/governors and separately reconcile the stale ESA runtime inventory before any D1/R1 prediction implementation, marriage-gate clearance, provider removal, database mutation, deployment, or publication activation.",
+      "owner_note": "EAC-001 classification closure TESTED. Asset metadata only; runtime/prediction/governor/database behavior unchanged. Separate ESA runtime-inventory reconciliation remains required.",
+      "last_updated": "2026-11-07"
     },
     {
       "task_id": "EAC-R1-001",
