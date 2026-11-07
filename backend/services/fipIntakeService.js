@@ -747,6 +747,7 @@ function mapToEdgeAnalysisEnvelope(fipPayload, evidence) {
       fip_schema_version: canonical.fip_schema_version,
       validation_hash_algorithm: canonical.validation.hash_algorithm,
       validation_hash: canonical.validation.hash,
+      validation_validated_at: canonical.validation.validated_at,
       scout_run_id: canonical.provenance?.scout_run_id || null,
       idempotency_key: evidence.idempotency_key,
       intake_id: evidence.intake_id,

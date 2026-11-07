@@ -1,14 +1,14 @@
 # EDGE ASSET REPOSITORY MAP
 EAC_PROJECT_ID: EAC-001
 MANIFEST_SCHEMA_VERSION: 1.0.0
-TOTAL_GOVERNED_ASSETS: 1050
-TOTAL_BATCHED_ASSETS: 1050
+TOTAL_GOVERNED_ASSETS: 1051
+TOTAL_BATCHED_ASSETS: 1051
 FULLY_CLASSIFIED_ASSETS: 0
-CLASSIFICATION_PENDING_ASSETS: 1050
+CLASSIFICATION_PENDING_ASSETS: 1051
 CLOSURE_READY: NO
 
 CURRENT_STATE_COUNTS
-- CURRENT: 109
+- CURRENT: 110
 - PARALLEL: 0
 - LEGACY: 0
 - HISTORICAL_EVIDENCE: 0
@@ -18,7 +18,7 @@ CURRENT_STATE_COUNTS
 
 FUNCTIONAL_GROUP_COUNTS
 - SCRIPT_TOOL: 164
-- TEST_PROOF: 159
+- TEST_PROOF: 160
 - DOCUMENTATION_KNOWLEDGE: 143
 - PROVIDER_INTEGRATION: 116
 - DATABASE_MIGRATION: 99
@@ -44,15 +44,15 @@ FUNCTIONAL_GROUP_COUNTS
 RELATIONSHIP_TAG_COUNTS
 - RUNTIME: 296
 - SCRIPT_TOOL: 290
-- GOVERNANCE: 278
-- DATABASE: 270
+- GOVERNANCE: 279
+- DATABASE: 271
 - SQL: 239
 - PROVIDER: 199
 - DOCUMENTATION: 175
 - API: 173
-- TEST_PROOF: 170
+- TEST_PROOF: 171
 - UI: 112
-- PREDICTION: 107
+- PREDICTION: 108
 - MIGRATION: 105
 - AUDIT: 99
 - OBSERVABILITY: 99
@@ -62,8 +62,8 @@ RELATIONSHIP_TAG_COUNTS
 - ROUTE: 61
 - DEPLOYMENT: 56
 - CONFIGURATION: 52
-- SCOUT: 34
-- FIP: 32
+- SCOUT: 35
+- FIP: 33
 - PUBLIC_ASSET: 30
 - BACKGROUND_JOB: 28
 - RULEBOOK: 27
@@ -75,7 +75,7 @@ RELATIONSHIP_TAG_COUNTS
 - CONTROLLER: 2
 - RPC: 1
 
-NEXT_VALIDATION_NON_EMPTY_ASSETS: 1050
+NEXT_VALIDATION_NON_EMPTY_ASSETS: 1051
 
 BATCH_COMPLETION_SUMMARY
 - B01 | CONTROL_CENTER | ASSET_COUNT=56 | CLASSIFIED=0 | PENDING=56
@@ -101,7 +101,7 @@ BATCH_COMPLETION_SUMMARY
 - B21 | PUBLIC_UI | ASSET_COUNT=70 | CLASSIFIED=0 | PENDING=70
 - B22 | SUPABASE_MIGRATIONS | ASSET_COUNT=64 | CLASSIFIED=0 | PENDING=64
 - B23 | DB_SQL_AND_SUPABASE_OTHER | ASSET_COUNT=19 | CLASSIFIED=0 | PENDING=19
-- B24 | TESTS | ASSET_COUNT=66 | CLASSIFIED=0 | PENDING=66
+- B24 | TESTS | ASSET_COUNT=67 | CLASSIFIED=0 | PENDING=67
 - B25 | SCRATCH | ASSET_COUNT=2 | CLASSIFIED=0 | PENDING=2
 - B26 | DEPLOYMENT_CI | ASSET_COUNT=3 | CLASSIFIED=0 | PENDING=3
 - B27 | ARCHIVE | ASSET_COUNT=58 | CLASSIFIED=0 | PENDING=58
@@ -1034,6 +1034,7 @@ PER_ASSET_BY_BATCH
 | tests/edge-project-register.test.js | Governance test asset validating the Edge Master Project Register schema integrity and that ledger task IDs match registered projects. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE","AUDIT"] | ["File uses `check_edge_project_register.js` helpers to assert the register loads, has canonical version `1.0`, and that every required field is present for each project.","It validates that ledger task IDs map exactly onto `register.projects` and that project status/blocked_by mirrors ledger task data."] | Revalidate this test asset??????s authority and coverage whenever the EAC-001 classification contract, batch manifest, or closure semantics change. |
 | tests/edge-repository-asset-register.test.js | Repository governance/asset-register test asset validating tracked asset register integrity and EAC structured classification field correctness. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE","AUDIT","DATABASE"] | ["File asserts the asset register exists/canonical version and iterates required field sets over all assets.","It validates EAC-001 structured classification fields types (`purpose_description`/`functional_group`/`relationship_tags`/`classification_evidence`) and checks enum legality for current_state and other fields."] | Revalidate this test asset??????s authority and coverage whenever the EAC-001 classification contract, batch manifest, or closure semantics change. |
 | tests/edge-system-runtime-inventory.test.js | Runtime inventory contract test asset validating ESA-001 discovery surfaces are governed and validation rules fail closed on removal or unknown task bindings. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","RUNTIME","OBSERVABILITY","GOVERNANCE"] | ["File imports runtime inventory helpers (`discoverMaterialSurfaces`, `validateInventory`, `renderRuntimeMap`) and validates the canonical runtime inventory passes.","It includes fail-closed tests (e.g., removing a governed surface or altering control-task bindings) and asserts validation errors start with the expected failure markers."] | Revalidate this test asset??????s authority and coverage whenever the EAC-001 classification contract, batch manifest, or closure semantics change. |
+| tests/epi-001-d1-r1-provenance.test.js | Verifies that governed Scout FIP R1 provenance is carried into Edge D1 prediction metadata through an exact whitelist, fails closed when incomplete, excludes forbidden payload fields, and leaves provider inputs unchanged. | TEST_PROOF | CURRENT | ["TEST_PROOF","PREDICTION","SCOUT","FIP","DATABASE","GOVERNANCE"] | ["Proves EFI EdgeAnalysisEnvelope exposes the complete minimal R1 reference including validation time.","Proves SCOUT_FIP D1 provenance is exact-whitelist only and rejects incomplete R1 metadata.","Proves provider/non-Scout input receives no invented provenance and existing raw prediction validation accepts the metadata shape."] | Run node --test tests/epi-001-d1-r1-provenance.test.js plus EPI/P1-B01 regression after any governed D1/R1 provenance or FIP-envelope metadata change. |
 | tests/epi-pipeline-integrity-contract.test.js | Tests the EPI-001-C1 prediction pipeline integrity contract and its governance registration without importing or mutating runtime prediction code. | TEST_PROOF | CURRENT | ["TEST_PROOF","PREDICTION","ACCA","GOVERNANCE"] | ["Test reads the EPI-001-C1 contract and verifies protected surfaces and forbidden boundaries.","Test verifies ledger/project register EPI-001 state and BLOCKED gates.","Test verifies package control-center test suite includes the focused EPI proof."] | Run node --test tests/epi-pipeline-integrity-contract.test.js and npm run control:verify after any EPI contract or sequencing change. |
 | tests/eprv-provider-removal-contract.test.js | Tests the EPRV-001-C1 provider-removal inspection contract and governance registration without importing or mutating runtime provider code. | TEST_PROOF | CURRENT | ["TEST_PROOF","PROVIDER","RUNTIME","PREDICTION","GOVERNANCE"] | ["Test reads the EPRV-001-C1 contract and verifies provider surfaces and forbidden boundaries.","Test verifies ledger/project register EPRV-001 state remains PARTIAL and gates remain BLOCKED.","Test verifies package control-center test suite includes the focused EPRV proof."] | Run node --test tests/eprv-provider-removal-contract.test.js and npm run control:verify after any EPRV contract or sequencing change. |
 | tests/esa-rr-003-irrecoverable-resolution-contract.test.js | Focused automated proof for the ESA-RR-003 irrecoverable preserved-candidate contract, exact incident set, no-invention law, gate preservation and Control Center registration. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE","AUDIT"] | ["Test verifies the exact eight-path ESA-RR-003 incident set and contract-only status.","Test verifies source-presence law, irrecoverable evidence-only resolution and no invented relationship facts.","Test verifies ESA-RR-003 remains IN_PROGRESS during contract proof and all runtime/marriage gates remain blocked."] | Run node --test tests/esa-rr-003-irrecoverable-resolution-contract.test.js after any ESA-RR-003/004 governance change. |

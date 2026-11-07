@@ -124,6 +124,54 @@ function isObject(value) {
     return Boolean(value) && typeof value === 'object' && !Array.isArray(value);
 }
 
+const D1_R1_REQUIRED_METADATA_FIELDS = [
+    'fip_id',
+    'fip_schema_version',
+    'validation_hash',
+    'validation_validated_at',
+    'scout_run_id',
+    'intake_id',
+    'idempotency_key'
+];
+
+function buildGovernedFipProvenanceMetadata(item) {
+    const metadata = isObject(item?.metadata) ? item.metadata : {};
+    const sportsTruthOrigin = String(
+        metadata.sports_truth_origin
+        || item?.match_info?.sports_truth_origin
+        || ''
+    ).trim();
+
+    if (sportsTruthOrigin !== 'SCOUT_FIP') {
+        return {};
+    }
+
+    const missing = D1_R1_REQUIRED_METADATA_FIELDS.filter((field) => {
+        const value = metadata[field];
+        return typeof value !== 'string' || value.trim().length === 0;
+    });
+
+    if (missing.length > 0) {
+        const error = new Error(
+            `EPI_D1_R1_PROVENANCE_INCOMPLETE: missing ${missing.join(', ')}`
+        );
+        error.code = 'EPI_D1_R1_PROVENANCE_INCOMPLETE';
+        error.missing_fields = missing;
+        throw error;
+    }
+
+    return {
+        sports_truth_origin: 'SCOUT_FIP',
+        fip_id: metadata.fip_id.trim(),
+        fip_schema_version: metadata.fip_schema_version.trim(),
+        validation_hash: metadata.validation_hash.trim(),
+        validation_validated_at: metadata.validation_validated_at.trim(),
+        scout_run_id: metadata.scout_run_id.trim(),
+        intake_id: metadata.intake_id.trim(),
+        idempotency_key: metadata.idempotency_key.trim()
+    };
+}
+
 function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
 }
@@ -1793,6 +1841,7 @@ async function buildRawPredictionFromProviderItem(item) {
         metadata: {
             source: 'aiPipeline:v3-normalized+market-intelligence',
             data_mode: item.data_mode || null,
+            ...buildGovernedFipProvenanceMetadata(item),
             prediction_source: rankApplied ? 'rank_data' : predictionSource,
             confidence_band: rankApplied ? (rankPrediction?.confidence_band || null) : null,
             volatility_score: Number.isFinite(Number(h2hMetadata?.volatility_score))
@@ -2543,6 +2592,7 @@ module.exports = {
         extractFootballHighlightsTeamIds,
         applyFootballH2HEnrichment,
         resolveConfiguredPredictionInput,
-        buildConfiguredInputRejection
+        buildConfiguredInputRejection,
+        buildGovernedFipProvenanceMetadata
     }
 };

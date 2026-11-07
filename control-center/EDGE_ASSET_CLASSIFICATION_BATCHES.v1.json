@@ -1279,7 +1279,7 @@
           "tests/"
         ]
       },
-      "asset_count": 66,
+      "asset_count": 67,
       "asset_paths": [
         "tests/e2e-001-c2-execution-readiness.test.js",
         "tests/e2e-001d-async-context-cache-containment.test.js",
@@ -1290,6 +1290,7 @@
         "tests/edge-project-register.test.js",
         "tests/edge-repository-asset-register.test.js",
         "tests/edge-system-runtime-inventory.test.js",
+        "tests/epi-001-d1-r1-provenance.test.js",
         "tests/epi-pipeline-integrity-contract.test.js",
         "tests/eprv-provider-removal-contract.test.js",
         "tests/esa-rr-003-irrecoverable-resolution-contract.test.js",
