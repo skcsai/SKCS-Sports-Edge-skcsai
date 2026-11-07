@@ -333,7 +333,7 @@ Blocks: ESA-RR-004
 
 ## ESA-RR-004 - ESA-RR-004 Runtime Inventory Evidence-Only Reconciliation
 
-Status: IN_PROGRESS
+Status: TESTED
 Governed by: ESA-RR-004
 Blocked by: ESA-RR-003
 Blocks: none

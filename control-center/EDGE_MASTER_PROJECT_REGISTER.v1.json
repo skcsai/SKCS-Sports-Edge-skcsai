@@ -2826,9 +2826,9 @@
       "category": "Governance Runtime Inventory Repair",
       "description": "Implement the sealed ESA-RR-003 evidence-only tombstone exception for exactly eight irrecoverable preserved candidates, then regenerate governed runtime inventory/map from current real source bytes and prove read-only reproducibility. No application runtime or prediction changes.",
       "why_it_matters": "Edge prediction work must not start while runtime authority evidence is stale or non-reproducible.",
-      "current_status": "IN_PROGRESS",
+      "current_status": "TESTED",
       "priority": "critical",
-      "startable": true,
+      "startable": false,
       "blocked_by": [
         "ESA-RR-003"
       ],
@@ -2878,18 +2878,20 @@
         "Runtime inventory can no longer prove current source/provenance reproducibility"
       ],
       "recommended_order": 48,
-      "next_action": "Implement the exact-eight evidence-only tombstone handling in the runtime checker and T01-T16 tests only; then run approved --write-inventory bootstrap, immediate read-only replay, and full Edge Control Center/governor regression. Do not touch application runtime or prediction code.",
+      "next_action": "CLOSED. Preserve the exact-eight evidence-only tombstone law and regenerated runtime authority evidence. Runtime inventory now passes read-only validation. Return to Edge Control Center/governors for the next separately authorized project; do not reopen ESA-RR-004 for prediction implementation.",
       "owner_note": "Stephen authorized continuation on 2026-11-07 after ESA-RR-003 closure. Runtime evidence reconciliation only.",
       "last_updated": "2026-11-07",
       "governed_by_control_task_id": "ESA-RR-004",
       "current_evidence": [
         "2026-11-07 ESA-RR-003 TESTED/CLOSED at c90ad240ebd405455e577c38dd4b8fce452be81e.",
         "2026-11-07 Edge audit found 94 ESA-RR-002 runtime inventory drift findings while application runtime files remained clean.",
-        "ESA-RR-003 sealed ESA-RR-004 implementation boundary to checker, existing T01-T16 tests and generated runtime inventory/map only."
+        "ESA-RR-003 sealed ESA-RR-004 implementation boundary to checker, existing T01-T16 tests and generated runtime inventory/map only.",
+        "2026-11-07 implementation commits: 9745e8a evidence-only tombstones; aa134bb governed absent-runtime retention correction; e9335fa provenance-test decoupling; 6308a80 governed runtime inventory/map regeneration.",
+        "2026-11-07 ESA runtime suite: ESA-RR-T01 through ESA-RR-T16 all PASS; no ESA-RR-T17 created. One non-ESA canonical assertion was initially contaminated by an interrupted concurrent test fixture; orphan fixture residue was identified and cleaned with workspace returned to clean state.",
+        "2026-11-07 clean focused replay: canonical ESA-001 runtime inventory integrity test PASS (1/1), followed immediately by read-only npm run control:runtime PASS with 233 governed inventory surfaces, 224 discovered surfaces, warnings=0.",
+        "No application runtime, prediction, database, provider, deployment, publication, Scout/FIP activation or marriage-gate behavior was modified by ESA-RR-004."
       ],
-      "open_gaps": [
-        "ESA-RR-004 implementation not yet applied; control:runtime remains red until governed bootstrap/replay proof completes."
-      ]
+      "open_gaps": []
     }
   ]
 }
