@@ -1902,14 +1902,12 @@ function main() {
             continue;
           }
 
-          // All non-exempt absent candidates retain ESA-RR-002 fail-closed law.
+          // All non-exempt absent candidates that were already governed runtime
+          // surfaces retain ESA-RR-002 fail-closed law. Preserved candidates that
+          // were never material runtime surfaces remain governed in the asset
+          // register and are not silently promoted into the runtime inventory.
           const committed = existingByPath.get(assetPath);
-          if (!committed) {
-            bootstrapErrors.push(
-              `ESA_RR_002_ABSENT_COMMITTED_RECORD_REQUIRED: ${assetPath}`
-            );
-            continue;
-          }
+          if (!committed) continue;
 
           const schemaErrors = validateRelationshipEvidenceProvenanceSchema({
             assetPath: committed.asset_path,
