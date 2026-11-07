@@ -14,14 +14,9 @@
           "control-center/"
         ]
       },
-      "asset_count": 55,
+      "asset_count": 56,
       "asset_paths": [
         "control-center/ALI-001_ACCURACY_AND_LOSS_INTELLIGENCE_PROPOSAL.v1.md",
-        "control-center/check_control_center.js",
-        "control-center/check_edge_asset_classification.js",
-        "control-center/check_edge_project_register.js",
-        "control-center/check_edge_repository_asset_register.js",
-        "control-center/check_edge_system_runtime_inventory.js",
         "control-center/E2E-001_C2_EXECUTION_READINESS_BLOCKER_RECONCILIATION.v1.md",
         "control-center/E2E-001_SCOUT_EDGE_PROOF_PLANNING_PACKET.v1.md",
         "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
@@ -39,6 +34,7 @@
         "control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md",
         "control-center/EPRV-001_EXTERNAL_PROVIDER_REMOVAL_IMPLEMENTATION_PLAN.v1.md",
         "control-center/EPRV-001_EXTERNAL_PROVIDER_REMOVAL_INSPECTION_CONTRACT.v1.md",
+        "control-center/ESA-RR-003_IRRECOVERABLE_PRESERVED_CANDIDATE_RESOLUTION_CONTRACT.v1.md",
         "control-center/ESEC-001_C1_SECURITY_BOUNDARY_INSPECTION_AND_CONTRACT.v1.md",
         "control-center/ESEC-001_I1_FAIL_CLOSED_AUTHENTICATION_AND_CREDENTIAL_BOUNDARY_IMPLEMENTATION.v1.md",
         "control-center/ESG-001_SPORT_GOVERNOR_AND_CANONICAL_RULE_REGISTRY_PROPOSAL.v1.md",
@@ -47,21 +43,20 @@
         "control-center/PDM-001_PLAYER_DRIVEN_PREDICTION_OVERLAY.md",
         "control-center/RLL-001_REGIONAL_LANGUAGE_AND_LEGAL_LOCALISATION_PROPOSAL.v1.md",
         "control-center/SEE-001_SCOUT_EDGE_E2E_MARRIAGE_PROOF.v1.md",
-        "control-center/SEM-GOV-001_UNIFIED_SPORTS_INTELLIGENCE_LIFECYCLE_CONTRACT.v1.md",
-        "control-center/SEM-GOV-001B_FOOTBALL_LIFECYCLE_PERSISTENCE_CONTRACT.v1.md",
-        "control-center/SEM-GOV-001B_LIFECYCLE_GOVERNOR_FOUNDATION_IMPLEMENTATION_PACKET.v1.md",
         "control-center/SEM-GOV-001B-I4_CAP2_DAILY_ADMISSION_LIMIT_DESIGN.v1.md",
         "control-center/SEM-GOV-001B-I4_LIFECYCLE_PERSISTENCE_IMPLEMENTATION_PACKET.v1.md",
         "control-center/SEM-GOV-001B-I4_SUPABASE_FREE_TIER_CAPACITY_AND_RETENTION_DESIGN.v1.md",
+        "control-center/SEM-GOV-001B_FOOTBALL_LIFECYCLE_PERSISTENCE_CONTRACT.v1.md",
+        "control-center/SEM-GOV-001B_LIFECYCLE_GOVERNOR_FOUNDATION_IMPLEMENTATION_PACKET.v1.md",
         "control-center/SEM-GOV-001D-HOME1_HOME_PAGE_INFORMATION_ARCHITECTURE_AND_VISUAL_CONSOLIDATION.v1.md",
         "control-center/SEM-GOV-001D-UI1_SPORTS_MATCH_HUB_INFORMATION_ARCHITECTURE_AND_SCREEN_CONTRACT.v1.md",
         "control-center/SEM-GOV-001D-UI2_STATIC_SPORTS_MATCH_HUB_IMPLEMENTATION_PACKET.v1.md",
-        "control-center/SEM-GOV-001D-UI3-I1_LIFECYCLE_READ_MODEL_API_INSPECTION_AND_CONTRACT.v1.md",
         "control-center/SEM-GOV-001D-UI3-I10_MIGRATION_READINESS_AND_CONTROLLED_APPLY_PACKET.v1.md",
         "control-center/SEM-GOV-001D-UI3-I11_CONTRACT_RECONCILIATION_AND_MOCK_PROOF_AUTHORIZATION_PACKET.v1.md",
         "control-center/SEM-GOV-001D-UI3-I11_GATE_B_C1_HMAC_BODY_HASH_BINDING_CORRECTION_PACKET.v1.md",
         "control-center/SEM-GOV-001D-UI3-I11_GATE_B_MOCK_ONLY_ORCHESTRATION_PROOF_PACKET.v1.md",
         "control-center/SEM-GOV-001D-UI3-I11_GATE_C_FORMAL_CLOSURE_AND_E2E_READINESS_PACKET.v1.md",
+        "control-center/SEM-GOV-001D-UI3-I1_LIFECYCLE_READ_MODEL_API_INSPECTION_AND_CONTRACT.v1.md",
         "control-center/SEM-GOV-001D-UI3-I2_CANONICAL_FIXTURE_METADATA_PROJECTION_INSPECTION_AND_CONTRACT.v1.md",
         "control-center/SEM-GOV-001D-UI3-I3_SOURCE_B_STORAGE_POLICY_AND_RETENTION_CONTRACT.v1.md",
         "control-center/SEM-GOV-001D-UI3-I4_SOURCE_B_SCHEMA_AND_PERSISTENCE_IMPLEMENTATION_DESIGN.v1.md",
@@ -70,7 +65,13 @@
         "control-center/SEM-GOV-001D-UI3-I7_GOVERNED_FIP_INTAKE_ADAPTER_IMPLEMENTATION_PACKET.v1.md",
         "control-center/SEM-GOV-001D-UI3-I8_DURABLE_INTAKE_EVIDENCE_STORAGE_IMPLEMENTATION_PACKET.v1.md",
         "control-center/SEM-GOV-001D-UI3-I9_PRODUCTION_COMPOSITION_AND_M2M_AUTH_FOUNDATION_PACKET.v1.md",
-        "control-center/SPM-001_UNIFIED_SUBSCRIPTION_MODEL_PROPOSAL.v1.md"
+        "control-center/SEM-GOV-001_UNIFIED_SPORTS_INTELLIGENCE_LIFECYCLE_CONTRACT.v1.md",
+        "control-center/SPM-001_UNIFIED_SUBSCRIPTION_MODEL_PROPOSAL.v1.md",
+        "control-center/check_control_center.js",
+        "control-center/check_edge_asset_classification.js",
+        "control-center/check_edge_project_register.js",
+        "control-center/check_edge_repository_asset_register.js",
+        "control-center/check_edge_system_runtime_inventory.js"
       ]
     },
     {
@@ -1278,7 +1279,7 @@
           "tests/"
         ]
       },
-      "asset_count": 65,
+      "asset_count": 66,
       "asset_paths": [
         "tests/e2e-001-c2-execution-readiness.test.js",
         "tests/e2e-001d-async-context-cache-containment.test.js",
@@ -1291,6 +1292,7 @@
         "tests/edge-system-runtime-inventory.test.js",
         "tests/epi-pipeline-integrity-contract.test.js",
         "tests/eprv-provider-removal-contract.test.js",
+        "tests/esa-rr-003-irrecoverable-resolution-contract.test.js",
         "tests/esec-001-c1-security-boundary.test.js",
         "tests/esec-001-i1-auth-boundary.test.js",
         "tests/esec-001-i1-browser-auth-boundary.test.js",

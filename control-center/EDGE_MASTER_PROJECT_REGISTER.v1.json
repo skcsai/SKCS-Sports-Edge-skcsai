@@ -4,7 +4,7 @@
   "generated_at": "2026-07-05",
   "source_ledger": "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
   "project_policy": "The Master Project Register owns project/workstream truth. Exact project_id to ledger.task_id overlaps must mirror canonical Control Center sequencing state. Files are assets, not automatically projects.",
-  "project_count": 46,
+  "project_count": 47,
   "projects": [
     {
       "project_id": "ECC-001",
@@ -258,7 +258,8 @@
       ],
       "blocks": [
         "EAC-R1-001",
-        "EMG-001"
+        "EMG-001",
+        "ESA-RR-003"
       ],
       "affected_layers": [
         "governance",
@@ -289,7 +290,7 @@
       ],
       "recommended_order": 5,
       "next_action": "EAC-001 is TESTED and closed. Preserve the 1048/1048 classification inventory and 29-batch map as governance truth. Do not reopen EAC for ESA runtime-inventory drift. Re-enter the Edge Control Center/governors and separately reconcile the stale ESA runtime inventory before any D1/R1 prediction implementation, marriage-gate clearance, provider removal, database mutation, deployment, or publication activation.",
-      "owner_note": "EAC-001 classification closure TESTED. Asset metadata only; runtime/prediction/governor/database behavior unchanged. Separate ESA runtime-inventory reconciliation remains required.",
+      "owner_note": "Bootstrapped from the canonical Edge Control Center ledger. Exact task-ID overlaps mirror ledger sequencing state.",
       "last_updated": "2026-11-07",
       "governed_by_control_task_id": "EAC-001",
       "current_evidence": [
@@ -1150,7 +1151,9 @@
       "current_status": "TESTED",
       "priority": "critical",
       "blocked_by": [],
-      "blocks": [],
+      "blocks": [
+        "ESA-RR-003"
+      ],
       "affected_layers": [
         "runtime",
         "governance",
@@ -2751,6 +2754,65 @@
         "Edge implementation publication is complete and identity-locked",
         "The parent remains IN_PROGRESS because no genuine canonical Scout FIP has been consumed",
         "Operational sequencing returns to Scout only after the governance reconciliation is published"
+      ]
+    },
+    {
+      "project_id": "ESA-RR-003",
+      "project_name": "ESA-RR-003 Irrecoverable Preserved-Candidate Resolution Contract",
+      "category": "Governance and Contract Refinement",
+      "description": "Seal a contract-only resolution law for the exact eight ESA-RR-002 preserved candidates whose real source bytes and valid relationship-evidence provenance are exhaustively unrecoverable. Preserve absence and historical discovery truth without inventing source content or runtime relationships. Define a future evidence-only tombstone representation and implementation boundary; do not change runtime checker behavior, runtime inventory/map, application code, prediction logic, database state, deployment, marriage gates, or provider state in this packet.",
+      "why_it_matters": "Governed Edge work must remain visible to Control Center sequencing.",
+      "current_status": "IN_PROGRESS",
+      "priority": "critical",
+      "blocked_by": [
+        "ESA-RR-002",
+        "EAC-001"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "governance",
+        "contract",
+        "runtime-inventory-policy"
+      ],
+      "related_tasks": [
+        "ESA-RR-003"
+      ],
+      "related_contracts": [
+        "control-center/EDGE_RUNTIME_INVENTORY_REPRODUCIBILITY_CONTRACT.v1.md"
+      ],
+      "related_files": [
+        "control-center/EDGE_CONTROL_CENTER.md"
+      ],
+      "related_tables": [],
+      "known_issues": [],
+      "required_decisions": [],
+      "completion_definition": "ESA-RR-003 is TESTED only when a contract identifies exactly the eight unrecoverable preserved candidates; records evidence that RCP-1 and RCP-2 were exhaustively attempted and failed without source reconstruction; preserves ABSENT_PRESERVED_CANDIDATE as source-presence truth; defines an exact IRRECOVERABLE_EVIDENCE_ONLY resolution/tombstone law that cannot assert source bytes, source SHA, relationship evidence, relationship-evidence provenance, runtime consumers, imports, database role, provider role, or authority; defines a future implementation boundary limited to the ESA runtime checker/tests/generated inventory/map; proves the exception is exact-path and fail-closed; keeps all marriage/prediction/provider/storage/deployment gates unchanged; and performs no runtime implementation in this packet.",
+      "proof_required": [
+        "Exact eight-path immutable incident list",
+        "RCP-1 recovery exhaustion evidence: no current workspace copies, no 161-root exact-path copies, no connected Drive filename copies, and GitHub source-path commit history empty for all eight",
+        "RCP-2 recovery exhaustion evidence: all 13 GitHub runtime-inventory revisions inspected; eight paths appear only in historical inventories without relationship_evidence_provenance, source_content_sha256, or relationship_evidence",
+        "Contract forbids reconstruction, guessed provenance, empty synthetic relationship evidence, silent omission, demotion, or promotion to runtime authority",
+        "Exact-path evidence-only tombstone schema and future implementation boundary",
+        "Focused ESA-RR-003 contract tests PASS",
+        "Edge Control Center/project/asset/classification/governor regression PASS",
+        "No runtime checker/bootstrap/inventory/map mutation in contract packet"
+      ],
+      "risks_if_ignored": [
+        "Hidden Edge work",
+        "Control Center sequencing bypass"
+      ],
+      "recommended_order": 47,
+      "next_action": "Seal and test ESA-RR-003 contract-only packet including the exact Control Center governed-asset count reconciliation required by its two new governed assets. Do not modify runtime checker/inventory/map, application runtime, prediction pipeline, database, deployment, provider paths, or marriage gates. After TESTED closure, separately authorize ESA-RR-004 implementation.",
+      "owner_note": "Bootstrapped from the canonical Edge Control Center ledger. Exact task-ID overlaps mirror ledger sequencing state.",
+      "last_updated": "2026-11-07",
+      "governed_by_control_task_id": "ESA-RR-003",
+      "current_evidence": [
+        "2026-11-07 EAC-001 TESTED at 4b43d98f1719cd4f10d6071b2510b64471807dd8.",
+        "2026-11-07 ESA-RR-002 sealed law requires RCP-1 real-byte recovery or RCP-2 trusted prior provenance for eight absent preserved candidates and forbids invention.",
+        "2026-11-07 exhaustive recovery inspection: no exact-path copies in 161 SKCS/local roots; no connected Google Drive matches for the eight filenames; GitHub full path history reports zero commits for all eight source paths.",
+        "2026-11-07 RCP-2 inspection across 13 GitHub revisions of EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json: all eight paths appear in historical revisions f6ac94957a9ea6bce72b2a08530bb622070ada57 and 3bc0b267cb95fb64cbdb6f40c2de2f0e70a8574f with no relationship_evidence_provenance, no source_content_sha256 and no relationship_evidence.",
+        "Each path remains preserved in EDGE_REPOSITORY_ASSET_REGISTER.v1.json workspace_candidate_snapshot as PRE_EXISTING_UNTRACKED / PRESERVED_CANDIDATE under EPR-001; this proves path discovery only, not content or runtime authority.",
+        "2026-11-07 Edge Control Center/governor audit: repository asset register PASS at 1050 registered assets plus 1 explicit exclusion = 1051 tracked; ESA-RR-003 contract/test add two governed assets, so EDGE_CONTROL_CENTER.md governed-asset counts must reconcile from 1048 to 1050. Governor regression 35/35 PASS; no prediction/runtime/database/provider/deployment changes authorized."
       ]
     }
   ]

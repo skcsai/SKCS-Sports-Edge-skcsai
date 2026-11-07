@@ -1,10 +1,10 @@
 # EDGE ASSET REPOSITORY MAP
 EAC_PROJECT_ID: EAC-001
 MANIFEST_SCHEMA_VERSION: 1.0.0
-TOTAL_GOVERNED_ASSETS: 1048
-TOTAL_BATCHED_ASSETS: 1048
+TOTAL_GOVERNED_ASSETS: 1050
+TOTAL_BATCHED_ASSETS: 1050
 FULLY_CLASSIFIED_ASSETS: 0
-CLASSIFICATION_PENDING_ASSETS: 1048
+CLASSIFICATION_PENDING_ASSETS: 1050
 CLOSURE_READY: NO
 
 CURRENT_STATE_COUNTS
@@ -13,12 +13,12 @@ CURRENT_STATE_COUNTS
 - LEGACY: 0
 - HISTORICAL_EVIDENCE: 0
 - STALE_OR_SUPERSEDED: 58
-- UNKNOWN: 883
+- UNKNOWN: 885
 - GENERATED: 0
 
 FUNCTIONAL_GROUP_COUNTS
 - SCRIPT_TOOL: 164
-- TEST_PROOF: 158
+- TEST_PROOF: 159
 - DOCUMENTATION_KNOWLEDGE: 143
 - PROVIDER_INTEGRATION: 116
 - DATABASE_MIGRATION: 99
@@ -27,7 +27,7 @@ FUNCTIONAL_GROUP_COUNTS
 - DATABASE: 42
 - DEPLOYMENT_OPERATIONS: 39
 - PREDICTION: 30
-- GOVERNANCE: 26
+- GOVERNANCE: 27
 - SCHEDULER_BACKGROUND: 25
 - API_ROUTE: 18
 - ACCA: 17
@@ -44,18 +44,18 @@ FUNCTIONAL_GROUP_COUNTS
 RELATIONSHIP_TAG_COUNTS
 - RUNTIME: 296
 - SCRIPT_TOOL: 290
-- GOVERNANCE: 276
+- GOVERNANCE: 278
 - DATABASE: 270
 - SQL: 239
 - PROVIDER: 199
-- DOCUMENTATION: 174
+- DOCUMENTATION: 175
 - API: 173
-- TEST_PROOF: 169
+- TEST_PROOF: 170
 - UI: 112
 - PREDICTION: 107
 - MIGRATION: 105
+- AUDIT: 99
 - OBSERVABILITY: 99
-- AUDIT: 97
 - GENERATED: 75
 - SECURITY: 70
 - SERVICE: 64
@@ -75,10 +75,10 @@ RELATIONSHIP_TAG_COUNTS
 - CONTROLLER: 2
 - RPC: 1
 
-NEXT_VALIDATION_NON_EMPTY_ASSETS: 1048
+NEXT_VALIDATION_NON_EMPTY_ASSETS: 1050
 
 BATCH_COMPLETION_SUMMARY
-- B01 | CONTROL_CENTER | ASSET_COUNT=55 | CLASSIFIED=0 | PENDING=55
+- B01 | CONTROL_CENTER | ASSET_COUNT=56 | CLASSIFIED=0 | PENDING=56
 - B02 | BACKEND_DIRECT_FILES | ASSET_COUNT=13 | CLASSIFIED=0 | PENDING=13
 - B03 | BACKEND_ROUTES_AND_CONTROLLERS | ASSET_COUNT=28 | CLASSIFIED=0 | PENDING=28
 - B04 | BACKEND_UTILS_SEMANTIC_CORE_AND_TEST | ASSET_COUNT=46 | CLASSIFIED=0 | PENDING=46
@@ -101,7 +101,7 @@ BATCH_COMPLETION_SUMMARY
 - B21 | PUBLIC_UI | ASSET_COUNT=70 | CLASSIFIED=0 | PENDING=70
 - B22 | SUPABASE_MIGRATIONS | ASSET_COUNT=64 | CLASSIFIED=0 | PENDING=64
 - B23 | DB_SQL_AND_SUPABASE_OTHER | ASSET_COUNT=19 | CLASSIFIED=0 | PENDING=19
-- B24 | TESTS | ASSET_COUNT=65 | CLASSIFIED=0 | PENDING=65
+- B24 | TESTS | ASSET_COUNT=66 | CLASSIFIED=0 | PENDING=66
 - B25 | SCRATCH | ASSET_COUNT=2 | CLASSIFIED=0 | PENDING=2
 - B26 | DEPLOYMENT_CI | ASSET_COUNT=3 | CLASSIFIED=0 | PENDING=3
 - B27 | ARCHIVE | ASSET_COUNT=58 | CLASSIFIED=0 | PENDING=58
@@ -136,6 +136,7 @@ PER_ASSET_BY_BATCH
 | control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md | Defines the protected Edge prediction/scoring/filtering/direct-market/market-intelligence/ACCA invariants that must be preserved before FIP runtime integration, provider removal, or E2E proof. | PREDICTION | CURRENT | ["PREDICTION","ACCA","DATABASE","GOVERNANCE","DOCUMENTATION"] | ["Contract names the six protected prediction pipeline surfaces and their responsibilities.","Contract records inspection evidence and risk surfaces without authorizing runtime repair.","Contract forbids runtime code changes, SQL, Supabase mutation, migrations, provider removal, E2E proof, and gate clearance."] | Before runtime prediction changes, create a separate EPI implementation packet with baseline regression proof, FIP input mapping, provider bypass proof, and ACCA compatibility proof. |
 | control-center/EPRV-001_EXTERNAL_PROVIDER_REMOVAL_IMPLEMENTATION_PLAN.v1.md | Defines the 5-stage sequential bypass plan for external provider removal, fail-closed boundaries, and EPI/EST/EAC regression tests. | GOVERNANCE | CURRENT | ["GOVERNANCE","SCOUT","FIP","PROVIDER","PREDICTION"] | ["Plan records the 8 reachable external acquisition surfaces and FIP-to-provider fact matrix.","Plan defines sequential provider waterfall bypass, fail-closed context mapping, and storage restrictions.","Plan enforces 6 regression test suites and hold/rollback conditions."] | Review FIP integration, provider waterfall bypass, and fail-closed intake boundary before P1-B01 closeout. |
 | control-center/EPRV-001_EXTERNAL_PROVIDER_REMOVAL_INSPECTION_CONTRACT.v1.md | Records current Edge external sports-provider acquisition surfaces and the proof boundary required before provider removal can proceed. | PROVIDER_INTEGRATION | CURRENT | ["PROVIDER","RUNTIME","PREDICTION","FIP","GOVERNANCE","DOCUMENTATION"] | ["Contract names inspected provider/acquisition surfaces.","Contract records live acquisition chain from aiPipeline getPredictionInputs to dataProvider buildLiveData.","Contract forbids runtime provider edits, provider deletion, SQL, Supabase mutation, E2E proof, and gate clearance."] | Before runtime provider-removal changes, create a separate EPRV implementation packet with FIP replacement mapping, runtime reachability proof, fail-closed no-input proof, and prediction regression proof. |
+| control-center/ESA-RR-003_IRRECOVERABLE_PRESERVED_CANDIDATE_RESOLUTION_CONTRACT.v1.md | Defines the contract-only, exact-eight-path evidence-only resolution for irrecoverable preserved candidates while forbidding runtime repair and preserving all Edge prediction, provider, database, deployment and marriage gates. | GOVERNANCE | UNKNOWN | ["GOVERNANCE","AUDIT","DOCUMENTATION"] | ["ESA-RR-003 contract limits resolution to exactly eight governed preserved-candidate paths and forbids wildcard expansion.","Contract records RCP-1/RCP-2 recovery exhaustion and forbids invented source bytes, hashes, provenance or runtime relationships.","Contract is governance-only and explicitly forbids prediction/runtime/database/provider/deployment/marriage-gate changes."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | control-center/ESEC-001_C1_SECURITY_BOUNDARY_INSPECTION_AND_CONTRACT.v1.md | Defines or records the Edge security-boundary inspection and contract evidence. | SECURITY_SUBSCRIBER | UNKNOWN | ["SECURITY","GOVERNANCE","DOCUMENTATION"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | control-center/ESEC-001_I1_FAIL_CLOSED_AUTHENTICATION_AND_CREDENTIAL_BOUNDARY_IMPLEMENTATION.v1.md | Seals fail-closed authentication, subscription, scheduler and credential-boundary source remediation while retaining blocked runtime and RLS gates. | DOCUMENTATION_KNOWLEDGE | CURRENT | ["DOCUMENTATION","GOVERNANCE","SECURITY"] | ["Records ESEC-001-I1 source-and-test closure.","Preserves ESEC-001 PARTIAL and E2E-001 BLOCKED.","Excludes RLS migration, deployment and production credential rotation."] | Review before ESEC-001 status advancement, RLS authorization or runtime gate clearance. |
 | control-center/ESG-001_SPORT_GOVERNOR_AND_CANONICAL_RULE_REGISTRY_PROPOSAL.v1.md | Control Center governance or proposal artifact for the Edge project identified by its filename. | CONTROL_CENTER | UNKNOWN | ["GOVERNANCE","DOCUMENTATION"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
@@ -1035,6 +1036,7 @@ PER_ASSET_BY_BATCH
 | tests/edge-system-runtime-inventory.test.js | Runtime inventory contract test asset validating ESA-001 discovery surfaces are governed and validation rules fail closed on removal or unknown task bindings. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","RUNTIME","OBSERVABILITY","GOVERNANCE"] | ["File imports runtime inventory helpers (`discoverMaterialSurfaces`, `validateInventory`, `renderRuntimeMap`) and validates the canonical runtime inventory passes.","It includes fail-closed tests (e.g., removing a governed surface or altering control-task bindings) and asserts validation errors start with the expected failure markers."] | Revalidate this test asset??????s authority and coverage whenever the EAC-001 classification contract, batch manifest, or closure semantics change. |
 | tests/epi-pipeline-integrity-contract.test.js | Tests the EPI-001-C1 prediction pipeline integrity contract and its governance registration without importing or mutating runtime prediction code. | TEST_PROOF | CURRENT | ["TEST_PROOF","PREDICTION","ACCA","GOVERNANCE"] | ["Test reads the EPI-001-C1 contract and verifies protected surfaces and forbidden boundaries.","Test verifies ledger/project register EPI-001 state and BLOCKED gates.","Test verifies package control-center test suite includes the focused EPI proof."] | Run node --test tests/epi-pipeline-integrity-contract.test.js and npm run control:verify after any EPI contract or sequencing change. |
 | tests/eprv-provider-removal-contract.test.js | Tests the EPRV-001-C1 provider-removal inspection contract and governance registration without importing or mutating runtime provider code. | TEST_PROOF | CURRENT | ["TEST_PROOF","PROVIDER","RUNTIME","PREDICTION","GOVERNANCE"] | ["Test reads the EPRV-001-C1 contract and verifies provider surfaces and forbidden boundaries.","Test verifies ledger/project register EPRV-001 state remains PARTIAL and gates remain BLOCKED.","Test verifies package control-center test suite includes the focused EPRV proof."] | Run node --test tests/eprv-provider-removal-contract.test.js and npm run control:verify after any EPRV contract or sequencing change. |
+| tests/esa-rr-003-irrecoverable-resolution-contract.test.js | Focused automated proof for the ESA-RR-003 irrecoverable preserved-candidate contract, exact incident set, no-invention law, gate preservation and Control Center registration. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","GOVERNANCE","AUDIT"] | ["Test verifies the exact eight-path ESA-RR-003 incident set and contract-only status.","Test verifies source-presence law, irrecoverable evidence-only resolution and no invented relationship facts.","Test verifies ESA-RR-003 remains IN_PROGRESS during contract proof and all runtime/marriage gates remain blocked."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | tests/esec-001-c1-security-boundary.test.js | Focused automated proof for the governed Edge project indicated by the path and filename. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","SECURITY","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | tests/esec-001-i1-auth-boundary.test.js | Focused automated proof for the governed Edge project indicated by the path and filename. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","SECURITY","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | tests/esec-001-i1-browser-auth-boundary.test.js | Focused automated proof for the governed Edge project indicated by the path and filename. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","SECURITY","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |

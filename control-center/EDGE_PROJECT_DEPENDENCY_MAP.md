@@ -35,7 +35,7 @@ Blocks: EAC-001, EMG-001, EFI-001, EST-001, ESEC-001, EPI-001, EGR-001, EAI-001,
 Status: TESTED
 Governed by: EAC-001
 Blocked by: EPR-001, ESA-001
-Blocks: EAC-R1-001, EMG-001
+Blocks: EAC-R1-001, EMG-001, ESA-RR-003
 
 ## EAC-R1-001 — EAC-001 B18 Manifest and Repository Map Alignment Repair
 
@@ -147,7 +147,7 @@ Blocks: none
 Status: TESTED
 Governed by: ESA-RR-002
 Blocked by: none
-Blocks: none
+Blocks: ESA-RR-003
 
 ## SEM-GOV-001A — Canonical Lifecycle, Terminology, Rolling Eight-Day Funnel and Help Contract
 
@@ -303,14 +303,6 @@ Governed by: SXE-FIP-LAB-001
 Blocked by: SEM-GOV-001D-UI3-I11
 Blocks: none
 
-Scout handoff children:
-
-- SXE-FIP-LAB-001B — TESTED
-- SXE-FIP-LAB-001C — TESTED
-- SXE-FIP-LAB-001D — TESTED
-
-Edge implementation publication is complete and identity-locked. The parent remains IN_PROGRESS because no genuine canonical Scout FIP has been consumed. Operational sequencing returns to Scout only after the governance reconciliation is published. Edge is not deployed or operationally activated.
-
 ## SXE-FIP-LAB-001B — Edge Canonical FIP Intake Boundary Hardening
 
 Status: TESTED
@@ -330,4 +322,11 @@ Blocks: none
 Status: TESTED
 Governed by: SXE-FIP-LAB-001D
 Blocked by: none
+Blocks: none
+
+## ESA-RR-003 — ESA-RR-003 Irrecoverable Preserved-Candidate Resolution Contract
+
+Status: IN_PROGRESS
+Governed by: ESA-RR-003
+Blocked by: ESA-RR-002, EAC-001
 Blocks: none
