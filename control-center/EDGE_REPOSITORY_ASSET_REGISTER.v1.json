@@ -5,8 +5,8 @@
   "source_command": "git ls-files",
   "coverage_policy": "Every tracked repository path must be REGISTERED_ASSET or EXPLICITLY_EXCLUDED. Registration records existence and governance visibility; it does not assert correctness, currency, approval, permanence, consumer presence, or Scout/FIP compatibility.",
   "unclassified_tracked_paths_allowed": false,
-  "tracked_path_count": 1052,
-  "registered_asset_count": 1051,
+  "tracked_path_count": 1054,
+  "registered_asset_count": 1053,
   "explicit_exclusion_count": 1,
   "assets": [
     {
@@ -35754,6 +35754,109 @@
       "classification_evidence": [
         "Vercel config defines `buildCommand: npm run build`, output `public`, and a cron entry for `/api/pipeline/run-full` scheduled as `0 2 * * 1`.",
         "Defines `rewrites` for `/api/*` passthrough and SPA-like route rewrites (e.g., `/subscribe` and `/terms`), plus function `api/pipeline/run-full.js` max duration."
+      ]
+    },
+    {
+      "asset_path": "control-center/EPRV-001_C2_FIP_REPLACEMENT_READINESS_CONTRACT.v1.md",
+      "asset_type": "CONTROL_CENTER",
+      "asset_role": "CONTROL_GOVERNANCE",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "ACTIVE_CONTRACT",
+      "current_state": "CURRENT",
+      "owner_project_id": "EPRV-001-C2",
+      "governed_by_control_task_id": "EPRV-001-C2",
+      "related_assets": [
+        "control-center/EPRV-001_EXTERNAL_PROVIDER_REMOVAL_INSPECTION_CONTRACT.v1.md",
+        "backend/services/fipIntakeService.js",
+        "backend/services/aiPipeline.js",
+        "backend/services/dataProvider.js",
+        "backend/services/contextIngestionService.js",
+        "backend/services/footballHighlightsService.js",
+        "backend/services/oddsApiPipeline.js",
+        "control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md",
+        "control-center/EST-001_SUPABASE_STORAGE_AND_FIP_RETENTION_CONTRACT.v1.md"
+      ],
+      "related_tables": [],
+      "related_functions": [
+        "mapToEdgeAnalysisEnvelope",
+        "resolveConfiguredPredictionInput"
+      ],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "REGISTERED",
+      "next_validation": "Run EPRV-001-C2 focused proof and full Edge Control Center/governor regression before any provider-removal implementation packet.",
+      "notes": "Contract-only provider-to-FIP replacement readiness matrix. Holds runtime removal until class-level context completeness or neutral behavior is governed.",
+      "purpose_description": "Defines the exact provider-acquired fact classes that are and are not proven replaceable by the current governed Scout/FIP boundary and seals future fail-closed no-input law.",
+      "functional_group": "PROVIDER_INTEGRATION",
+      "relationship_tags": [
+        "PROVIDER",
+        "FIP",
+        "PREDICTION",
+        "GOVERNANCE",
+        "DOCUMENTATION"
+      ],
+      "classification_evidence": [
+        "Maps fixture identity/schedule and 1X2/markets as governed FIP replacements.",
+        "Records weather, availability, H2H, form and news/context as MISSING_BLOCKER because generic context is not class-completeness proof.",
+        "Defines fail-closed no-FIP/invalid-FIP law for future provider-removal activation without changing runtime code."
+      ]
+    },
+    {
+      "asset_path": "tests/eprv-001-c2-fip-replacement-readiness.test.js",
+      "asset_type": "TEST",
+      "asset_role": "TEST_PROOF",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "EPRV-001-C2",
+      "governed_by_control_task_id": "EPRV-001-C2",
+      "related_assets": [
+        "control-center/EPRV-001_C2_FIP_REPLACEMENT_READINESS_CONTRACT.v1.md",
+        "backend/services/fipIntakeService.js",
+        "backend/services/aiPipeline.js",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "package.json"
+      ],
+      "related_tables": [],
+      "related_functions": [
+        "mapToEdgeAnalysisEnvelope",
+        "resolveConfiguredPredictionInput"
+      ],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "node:test",
+        "node:assert/strict",
+        "node:fs",
+        "node:path",
+        "control-center/EPRV-001_C2_FIP_REPLACEMENT_READINESS_CONTRACT.v1.md",
+        "backend/services/fipIntakeService.js",
+        "backend/services/aiPipeline.js"
+      ],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "REGISTERED",
+      "next_validation": "Run node --test tests/eprv-001-c2-fip-replacement-readiness.test.js after any FIP replacement-map, provider-removal readiness, or no-input-law change.",
+      "notes": "Focused proof for EPRV-001-C2. Reads source/governance only and performs no provider, network or database action.",
+      "purpose_description": "Verifies class-by-class provider replacement readiness, generic-context insufficiency, current provider fallback evidence, future fail-closed law and blocked gates.",
+      "functional_group": "TEST_PROOF",
+      "relationship_tags": [
+        "TEST_PROOF",
+        "PROVIDER",
+        "FIP",
+        "PREDICTION",
+        "GOVERNANCE"
+      ],
+      "classification_evidence": [
+        "Verifies the exact replacement matrix has two MAPPED and five MISSING_BLOCKER classes.",
+        "Verifies the canonical FIP requires only generic markets/context and does not require the missing context subclasses.",
+        "Verifies current provider fallback remains pre-removal behavior while future activated behavior is contractually fail-closed."
       ]
     }
   ],
