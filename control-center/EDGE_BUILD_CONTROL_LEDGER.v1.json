@@ -772,23 +772,21 @@
         "Inspection confirmed dataProvider live mode still routes getPredictionInputs() through buildLiveData().",
         "Inspection recorded provider markers for TheSportsDB, API-Sports, Odds API, RapidAPI, SportsData.io, CricketData, Big Balls Data, SportSRC, ESPN Hidden API, and FootballData.org.",
         "Focused proof: node --test tests/eprv-provider-removal-contract.test.js passes.",
-        "No runtime provider code, provider deletion, SQL, migration, Supabase mutation, route wiring, E2E proof, or gate clearance performed."
+        "No runtime provider code, provider deletion, SQL, migration, Supabase mutation, route wiring, E2E proof, or gate clearance performed.",
+        "2026-11-07 EPRV-001-C2 TESTED with HOLD: fixture/schedule and 1X2/markets MAPPED; five context classes MISSING_BLOCKER; fail-closed future no-FIP law sealed; no runtime provider changes performed."
       ],
       "open_gaps": [
-        "FIP intake is not yet wired into live prediction execution.",
-        "Direct live provider acquisition remains in dataProvider.js.",
-        "Direct weather acquisition remains.",
-        "Direct news/context acquisition remains.",
-        "Direct H2H acquisition remains.",
-        "Legacy snapshot acquisition remains.",
-        "Provider bypass/removal implementation has not been performed.",
-        "Fail-closed no-input runtime proof has not been performed.",
-        "E2E proof has not been executed; E2E-001 remains BLOCKED.",
-        "Scout ↔ Edge marriage gate remains BLOCKED."
+        "Weather replacement field contract not proven.",
+        "Injuries/availability replacement field contract not proven.",
+        "H2H replacement field contract not proven.",
+        "Team-form replacement field contract not proven.",
+        "News/context replacement field contract not proven.",
+        "Provider-removal runtime implementation remains blocked.",
+        "E2E proof and marriage gate remain blocked."
       ],
-      "next_action": "EPRV-001-C1 tested. Continue only with a separately authorized provider-removal implementation packet after FIP replacement mapping and fail-closed no-input proof are prepared; do not edit runtime provider code, delete providers, run SQL, mutate Supabase, execute E2E proof, or clear gates from this packet.",
+      "next_action": "EPRV-001-C2 TESTED with HOLD. Fixture identity/schedule and 1X2/market inputs are mapped to governed FIP. Weather, injuries/availability, H2H, team form and news/context remain MISSING_BLOCKER classes. Keep EPRV-001 PARTIAL; next separately authorized: govern the missing context field contracts or explicit neutral-behaviour contracts before any provider-removal implementation.",
       "owner_note": "Do not delete analysis logic merely because acquisition and analysis are currently mixed in the same file.",
-      "last_updated": "2026-07-13"
+      "last_updated": "2026-11-07"
     },
     {
       "task_id": "EGR-001",
@@ -3042,8 +3040,8 @@
       "task_name": "EPRV-001-C2 FIP Replacement Mapping and Fail-Closed Provider Readiness Contract",
       "workstream": "External Provider Removal Governance",
       "description": "Contract-only readiness packet that maps every provider-acquired prediction fact class to governed Scout/FIP input or an explicit held/missing state before any provider runtime removal.",
-      "status": "IN_PROGRESS",
-      "startable": true,
+      "status": "TESTED",
+      "startable": false,
       "priority": "critical",
       "blocked_by": [
         "EFI-001",
@@ -3098,13 +3096,11 @@
         "2026-11-07 EPI-001-D1-R1 TESTED/CLOSED at 177868e07f753fb421b5e26061716a3ce195ee15; minimal governed Scout FIP provenance reaches D1 metadata and provider/non-Scout inputs receive no invented provenance.",
         "2026-11-07 P1-B01 regression proves valid governed FIP input bypasses provider input while provider mode remains unchanged when fip_envelopes is absent.",
         "Current fipIntakeService requires markets and context objects and maps markets.direct_1x2/sharp_odds to Edge sharp_odds plus context/contextual_intelligence to Edge contextual_intelligence, but does not require weather/injury/H2H/form/news sub-classes individually.",
-        "EPRV-001-C1 remains PARTIAL and explicitly requires FIP replacement map, fail-closed no-input proof, prediction regression, context replacement and storage/gate proof before provider runtime edits."
+        "EPRV-001-C1 remains PARTIAL and explicitly requires FIP replacement map, fail-closed no-input proof, prediction regression, context replacement and storage/gate proof before provider runtime edits.",
+        "2026-11-07 EPRV-001-C2 closure proof: registration eaa092a81f3b77bfa5129b656a375903ea1e6e71; contract packet 10e7046a18cdd2dec225c4ac855582e1594abbbc; governed runtime evidence refresh 182a92bcbdcdf3e32239ab2dabf6bf7e0eef82e0; focused C2/C1/EPI/P1-B01 28/28 PASS; full Edge control:verify 353/353 tests PASS with Control Center, Project Register, Asset Register, Classification and Runtime Inventory PASS; runtime inventory 233 governed / 224 discovered / 0 warnings; governors 35/35 PASS; no provider/runtime/prediction/database/route/deployment/gate behavior changed. Verdict remains HOLD - NOT IMPLEMENTATION READY with five MISSING_BLOCKER context classes."
       ],
-      "open_gaps": [
-        "Replacement matrix not yet sealed.",
-        "Fail-closed post-provider-removal no-input law not yet sealed."
-      ],
-      "next_action": "Inspect current governed FIP/context shape and current provider acquisition consumers; seal exact class-by-class replacement matrix and fail-closed no-input law only. Do not edit runtime provider or prediction code.",
+      "open_gaps": [],
+      "next_action": "CLOSED WITH HOLD. Provider-removal implementation remains HOLD. Current governed FIP proves fixture identity/schedule and 1X2/market replacement only. Weather, injuries/availability, H2H, team form and news/context remain MISSING_BLOCKER classes because generic context is not class-level completeness proof. Do not start provider-removal implementation until each missing class is supplied by a governed Scout/FIP field contract or separately approved as HELD_WITH_NEUTRAL_BEHAVIOUR with deterministic regression proof.",
       "owner_note": "Stephen authorized continuation on 2026-11-07 after EPI-001-D1-R1 closure. Contract/readiness only; Scout remains sports-truth owner and does not predict.",
       "last_updated": "2026-11-07"
     }

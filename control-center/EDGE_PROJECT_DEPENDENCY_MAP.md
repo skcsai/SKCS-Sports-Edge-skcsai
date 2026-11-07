@@ -347,7 +347,7 @@ Blocks: E2E-001
 
 ## EPRV-001-C2 - EPRV-001-C2 FIP Replacement Mapping and Fail-Closed Provider Readiness Contract
 
-Status: IN_PROGRESS
+Status: TESTED
 Governed by: EPRV-001-C2
 Blocked by: EFI-001, EPI-001-D1-R1, ESA-RR-004
 Blocks: none

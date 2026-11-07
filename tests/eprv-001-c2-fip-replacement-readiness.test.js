@@ -23,7 +23,7 @@ const MATRIX = Object.freeze({
 test('EPRV-001-C2 contract is contract-only and HOLDs provider-removal implementation', () => {
   const c = fs.readFileSync(CONTRACT, 'utf8');
   assert.match(c, /EPRV-001-C2 - FIP Replacement Mapping and Fail-Closed Provider Readiness Contract v1/);
-  assert.ok(c.includes('| **C2 state during packet** | **IN_PROGRESS** |'));
+  assert.ok(c.includes('| **C2 state after closure** | **TESTED** |'));
   assert.ok(c.includes('| **Provider-removal readiness verdict** | **HOLD - NOT IMPLEMENTATION READY** |'));
   assert.ok(c.includes('| **Runtime provider edits** | **FORBIDDEN** in this packet |'));
   assert.ok(c.includes('| **Prediction runtime edits** | **FORBIDDEN** in this packet |'));
@@ -89,10 +89,10 @@ test('Control Center registers C2 as the active contract/readiness project only'
   const task = ledger.tasks.find((x) => x.task_id === 'EPRV-001-C2');
   const project = register.projects.find((x) => x.project_id === 'EPRV-001-C2');
   assert.ok(task && project);
-  assert.equal(task.status, 'IN_PROGRESS');
-  assert.equal(task.startable, true);
-  assert.equal(project.current_status, 'IN_PROGRESS');
-  assert.equal(project.startable, true);
+  assert.equal(task.status, 'TESTED');
+  assert.equal(task.startable, false);
+  assert.equal(project.current_status, 'TESTED');
+  assert.equal(project.startable, false);
   assert.deepEqual(task.blocked_by, ['EFI-001','EPI-001-D1-R1','ESA-RR-004']);
   const parent = ledger.tasks.find((x) => x.task_id === 'EPRV-001');
   assert.equal(parent.status, 'PARTIAL');

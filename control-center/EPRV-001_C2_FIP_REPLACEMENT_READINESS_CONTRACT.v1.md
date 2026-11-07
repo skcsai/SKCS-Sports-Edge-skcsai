@@ -7,7 +7,7 @@
 | **Contract ID** | `EPRV-001_C2_FIP_REPLACEMENT_READINESS_CONTRACT.v1` |
 | **Governed task** | `EPRV-001-C2` |
 | **Contract mode** | Contract/readiness only |
-| **C2 state during packet** | **IN_PROGRESS** |
+| **C2 state after closure** | **TESTED** |
 | **Provider-removal readiness verdict** | **HOLD - NOT IMPLEMENTATION READY** |
 | **Scout -> Edge marriage gate** | **BLOCKED** (unchanged) |
 | **Supabase storage gate** | **BLOCKED** (unchanged) |
