@@ -4,7 +4,7 @@
   "generated_at": "2026-07-05",
   "source_ledger": "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
   "project_policy": "The Master Project Register owns project/workstream truth. Exact project_id to ledger.task_id overlaps must mirror canonical Control Center sequencing state. Files are assets, not automatically projects.",
-  "project_count": 51,
+  "project_count": 52,
   "projects": [
     {
       "project_id": "ECC-001",
@@ -703,7 +703,8 @@
       "blocks": [
         "E2E-001",
         "EPRV-001-C2",
-        "EPRV-001-C3"
+        "EPRV-001-C3",
+        "EPRV-001-C4"
       ],
       "affected_layers": [
         "runtime",
@@ -3167,6 +3168,85 @@
         "2026-11-08 EPRV-001-C3 closure proof: registration e4c1b22e4673bfb31af372e684482b2fa09f9260; evidence packet f54b1ae3bb0a440e1366e2e167f36b850cc76a12; Scout commit 8647e2d0fdb73da4fa4a958af46e35a01888092d and package SHA 153684f6d7511ce653d26e490c8f507b0a7e0ad23d834d84671d9adea5a65912 prove availability/injuries, H2H and team form exist upstream but are not transported; weather and news/team_news are absent from the inspected package; Scout prediction_execution remains false; no runtime/provider/prediction/Scout implementation changed."
       ],
       "open_gaps": []
+    },
+    {
+      "project_id": "EPRV-001-C4",
+      "project_name": "EPRV-001-C4 Governed Scout Context Transport Field Contract",
+      "category": "External Provider Removal Governance",
+      "description": "Contract-only definition of exact future Scout/FIP transport fields for availability/injuries, H2H and team form. No runtime mapping implementation.",
+      "why_it_matters": "Three provider-removal blockers are already available in Scout; a precise transport contract prevents Edge from re-collecting or ambiguously interpreting those facts.",
+      "current_status": "IN_PROGRESS",
+      "priority": "critical",
+      "startable": true,
+      "blocked_by": [
+        "EPRV-001-C3"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "governance",
+        "fip-transport-contract",
+        "provider-removal-readiness"
+      ],
+      "related_tasks": [
+        "EPRV-001",
+        "EPRV-001-C3",
+        "EPRV-001-C4"
+      ],
+      "related_contracts": [
+        "control-center/EPRV-001_C3_UPSTREAM_CONTEXT_AVAILABILITY_RECONCILIATION.v1.md",
+        "control-center/FIP-001_SCOUT_FIP_AUTHORITY_CONTRACT.v1.md",
+        "control-center/EFI-001_FIP_INTAKE_HANDSHAKE_CONTRACT.v1.md"
+      ],
+      "related_files": [
+        "control-center/EPRV-001_C4_SCOUT_CONTEXT_TRANSPORT_FIELD_CONTRACT.v1.md",
+        "tests/eprv-001-c4-scout-context-transport-contract.test.js",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "Current governed FIP requires only generic context and does not require class-specific availability, H2H or team-form fields."
+      ],
+      "required_decisions": [],
+      "completion_definition": "EPRV-001-C4 reaches TESTED only when the future governed FIP transport contract for availability/injuries, H2H and team form is sealed with exact JSON field paths, required types, explicit UNKNOWN/absence semantics, preserved source_id and package-level cutoff/provenance binding, Scout calculation ownership, Edge consume-no-recompute law, fail-closed malformed-structure handling, and explicit exclusion of weather/news from this packet. No Scout code, FIP runtime mapper, provider, prediction, database, route, deployment or gate change occurs. Focused C4 proof plus full Edge Control Center/project/asset/classification/runtime/governor regression must pass.",
+      "proof_required": [
+        "Exact availability/injury transport shape",
+        "Exact H2H transport shape",
+        "Exact team-form transport shape",
+        "UNKNOWN is valid evidence state and must not be coerced to false/healthy/available",
+        "source_id preserved for transported records",
+        "Package validation/cutoff/provenance remains authoritative timing envelope",
+        "Scout remains calculation owner; Edge consumes without recompute",
+        "Weather/news explicitly excluded and remain separate blockers",
+        "No runtime/provider/prediction/Scout implementation changes",
+        "Focused C4 proof PASS",
+        "Full Edge Control Center/project/asset/classification/runtime/governor regression PASS"
+      ],
+      "risks_if_ignored": [
+        "Edge may duplicate Scout-owned collection",
+        "Unknown evidence may be coerced incorrectly",
+        "Provider removal may silently lose context"
+      ],
+      "recommended_order": 52,
+      "next_action": "Seal exact transport field contract only. Do not modify Scout, FIP runtime intake, providers or prediction code.",
+      "owner_note": "Stephen authorized continuation on 2026-11-08 after EPRV-001-C3 closure. Contract-only.",
+      "last_updated": "2026-11-08",
+      "governed_by_control_task_id": "EPRV-001-C4",
+      "current_evidence": [
+        "2026-11-08 EPRV-001-C3 TESTED/CLOSED at 36dd42c0ad5ab8f23dd2f537c04db2ca6323f6e8.",
+        "C3 proved availability/injuries, H2H and team form exist in Scout package 153684f6d7511ce653d26e490c8f507b0a7e0ad23d834d84671d9adea5a65912 at Scout commit 8647e2d0fdb73da4fa4a958af46e35a01888092d.",
+        "C3 proved weather and news/team_news are absent from that package and remain separate upstream blockers.",
+        "Scout package records calculation_owner=SCOUT, edge_consumer_policy=EDGE_CONSUME_NO_RECOMPUTE and prediction_execution=false."
+      ],
+      "open_gaps": [
+        "Transport field contract not yet sealed."
+      ]
     }
   ]
 }

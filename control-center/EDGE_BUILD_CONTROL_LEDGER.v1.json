@@ -716,7 +716,8 @@
       "blocks": [
         "E2E-001",
         "EPRV-001-C2",
-        "EPRV-001-C3"
+        "EPRV-001-C3",
+        "EPRV-001-C4"
       ],
       "affected_layers": [
         "runtime",
@@ -3173,6 +3174,68 @@
       "open_gaps": [],
       "next_action": "CLOSED. Preserve the upstream reconciliation: availability/injuries, H2H and team form are Scout-existing transport gaps; weather and news/context are upstream collection/governance gaps. Do not modify providers or prediction runtime under C3. Return to Edge Control Center/governors for separately authorized transport-contract work and to Scout Control Center for separately authorized upstream collection work.",
       "owner_note": "Stephen authorized continuation on 2026-11-08 after EPRV-001-C2 closure. Contract/readiness only.",
+      "last_updated": "2026-11-08"
+    },
+    {
+      "task_id": "EPRV-001-C4",
+      "task_name": "EPRV-001-C4 Governed Scout Context Transport Field Contract",
+      "workstream": "External Provider Removal Governance",
+      "description": "Contract-only definition of exact future Scout/FIP transport fields for availability/injuries, H2H and team form. No runtime mapping implementation.",
+      "status": "IN_PROGRESS",
+      "startable": true,
+      "priority": "critical",
+      "blocked_by": [
+        "EPRV-001-C3"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "governance",
+        "fip-transport-contract",
+        "provider-removal-readiness"
+      ],
+      "related_contracts": [
+        "control-center/EPRV-001_C3_UPSTREAM_CONTEXT_AVAILABILITY_RECONCILIATION.v1.md",
+        "control-center/FIP-001_SCOUT_FIP_AUTHORITY_CONTRACT.v1.md",
+        "control-center/EFI-001_FIP_INTAKE_HANDSHAKE_CONTRACT.v1.md"
+      ],
+      "affected_files": [
+        "control-center/EPRV-001_C4_SCOUT_CONTEXT_TRANSPORT_FIELD_CONTRACT.v1.md",
+        "tests/eprv-001-c4-scout-context-transport-contract.test.js",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md"
+      ],
+      "affected_tables": [],
+      "completion_definition": "EPRV-001-C4 reaches TESTED only when the future governed FIP transport contract for availability/injuries, H2H and team form is sealed with exact JSON field paths, required types, explicit UNKNOWN/absence semantics, preserved source_id and package-level cutoff/provenance binding, Scout calculation ownership, Edge consume-no-recompute law, fail-closed malformed-structure handling, and explicit exclusion of weather/news from this packet. No Scout code, FIP runtime mapper, provider, prediction, database, route, deployment or gate change occurs. Focused C4 proof plus full Edge Control Center/project/asset/classification/runtime/governor regression must pass.",
+      "proof_required": [
+        "Exact availability/injury transport shape",
+        "Exact H2H transport shape",
+        "Exact team-form transport shape",
+        "UNKNOWN is valid evidence state and must not be coerced to false/healthy/available",
+        "source_id preserved for transported records",
+        "Package validation/cutoff/provenance remains authoritative timing envelope",
+        "Scout remains calculation owner; Edge consumes without recompute",
+        "Weather/news explicitly excluded and remain separate blockers",
+        "No runtime/provider/prediction/Scout implementation changes",
+        "Focused C4 proof PASS",
+        "Full Edge Control Center/project/asset/classification/runtime/governor regression PASS"
+      ],
+      "current_evidence": [
+        "2026-11-08 EPRV-001-C3 TESTED/CLOSED at 36dd42c0ad5ab8f23dd2f537c04db2ca6323f6e8.",
+        "C3 proved availability/injuries, H2H and team form exist in Scout package 153684f6d7511ce653d26e490c8f507b0a7e0ad23d834d84671d9adea5a65912 at Scout commit 8647e2d0fdb73da4fa4a958af46e35a01888092d.",
+        "C3 proved weather and news/team_news are absent from that package and remain separate upstream blockers.",
+        "Scout package records calculation_owner=SCOUT, edge_consumer_policy=EDGE_CONSUME_NO_RECOMPUTE and prediction_execution=false."
+      ],
+      "open_gaps": [
+        "Transport field contract not yet sealed."
+      ],
+      "next_action": "Seal exact transport field contract only. Do not modify Scout, FIP runtime intake, providers or prediction code.",
+      "owner_note": "Stephen authorized continuation on 2026-11-08 after EPRV-001-C3 closure. Contract-only.",
       "last_updated": "2026-11-08"
     }
   ]
