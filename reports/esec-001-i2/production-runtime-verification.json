@@ -1,0 +1,191 @@
+{
+  "project_id": "ESEC-001-I2",
+  "date": "2026-11-08",
+  "status": "TESTED_HOLD",
+  "purpose": "Read-only production runtime credential and deployment configuration verification before any Azure live canary.",
+  "registration": {
+    "commit": "416676dd40e62bff889a0d342ced6a662e39a93c",
+    "control_center_pass": true
+  },
+  "azure": {
+    "key_vault": {
+      "name": "kv-skcs-edge036-zan1",
+      "rbac_authorization": true,
+      "purge_protection": true,
+      "soft_delete_retention_days": 7,
+      "public_network_access": "Enabled",
+      "secret_metadata_read": "FORBIDDEN_BY_RBAC",
+      "secret_values_read": false
+    },
+    "edge_managed_identity": {
+      "name": "id-skcs-edge036-zan-001",
+      "role_assignment_count": 0,
+      "key_vault_data_plane_role_proven": false,
+      "acr_pull_role_currently_proven": false
+    },
+    "signed_in_deployment_identity": {
+      "management_plane_subscription_role": "Owner",
+      "key_vault_secret_metadata_permission": false,
+      "note": "Subscription Owner does not prove Key Vault data-plane access when vault RBAC is enabled."
+    },
+    "container_apps_environment": {
+      "name": "cae-skcs-edge036-zan-001",
+      "state": "Succeeded",
+      "workload_profile": "Consumption"
+    },
+    "live_edge_container_apps": 0
+  },
+  "deployment_candidate": {
+    "bicep": "infra/azure/eops-001-a1/main.bicep",
+    "key_vault_reference_tokens_found": 0,
+    "secret_ref_tokens_found": 0,
+    "plaintext_production_secret_values_found": 0,
+    "startup_mode": "canary",
+    "conclusion": "Side-effect-safe Stage A canary definition; not production credential-ready."
+  },
+  "credential_classes": [
+    {
+      "class": "database",
+      "env": [
+        "DATABASE_URL"
+      ],
+      "boundary": "server-only database credential"
+    },
+    {
+      "class": "subscriber_public_client",
+      "env": [
+        "SUPABASE_URL",
+        "SUPABASE_ANON_KEY"
+      ],
+      "boundary": "public endpoint/client identifier; never admin privilege"
+    },
+    {
+      "class": "supabase_privileged",
+      "env": [
+        "SUPABASE_SERVICE_ROLE_KEY"
+      ],
+      "boundary": "server-only privileged credential"
+    },
+    {
+      "class": "supabase_legacy_alias",
+      "env": [
+        "SUPABASE_KEY"
+      ],
+      "boundary": "legacy alias still referenced; must not blur anon/service-role classes"
+    },
+    {
+      "class": "scheduler",
+      "env": [
+        "CRON_SECRET"
+      ],
+      "boundary": "dedicated server-to-server scheduler credential"
+    },
+    {
+      "class": "operator_admin",
+      "env": [
+        "ADMIN_API_KEY",
+        "SKCS_REFRESH_KEY"
+      ],
+      "boundary": "server/operator credentials"
+    },
+    {
+      "class": "external_provider",
+      "env": [
+        "X_APISPORTS_KEY",
+        "ODDS_API_KEY"
+      ],
+      "boundary": "server-only provider credentials"
+    },
+    {
+      "class": "scout_hmac",
+      "env": [],
+      "boundary": "must remain separate; exact production env naming not established by I2"
+    }
+  ],
+  "blockers": [
+    {
+      "id": "CRED-RBAC-001",
+      "finding": "Edge managed identity has zero current Azure RBAC assignments and no proven Key Vault data-plane secret-read role.",
+      "effect": "Production secret references are not ready."
+    },
+    {
+      "id": "CRED-META-001",
+      "finding": "Current deployment identity cannot read Key Vault secret metadata under RBAC.",
+      "effect": "Secret existence, expiry and rotation metadata cannot be verified."
+    },
+    {
+      "id": "DEPLOY-SECRETREF-001",
+      "finding": "Stage A Container Apps Bicep contains no Key Vault secret references or env secretRef wiring.",
+      "effect": "Production credential injection design is not implemented."
+    },
+    {
+      "id": "SECRET-LOG-001",
+      "finding": "backend/services/dataProvider.js logs prefixes of X_APISPORTS_KEY and ODDS_API_KEY.",
+      "effect": "Normal production runtime could disclose partial provider secrets to logs."
+    },
+    {
+      "id": "CRED-ALIAS-001",
+      "finding": "Legacy SUPABASE_KEY remains referenced alongside explicit anon/service-role credential names.",
+      "effect": "Production configuration needs an explicit deprecation/mapping rule."
+    },
+    {
+      "id": "RLS-001",
+      "finding": "RLS remains OPEN under parent ESEC-001 and is outside I2.",
+      "effect": "ESEC-001 remains PARTIAL."
+    }
+  ],
+  "decision": {
+    "deployment_readiness": "HOLD",
+    "eops_stage_b_allowed": false,
+    "esec_parent_can_close": false,
+    "reason": "Production credential configuration, secret-reference wiring and safe logging are not yet proven; RLS remains open."
+  },
+  "no_mutation_proof": {
+    "cloud_mutations_performed": false,
+    "secret_create_update_rotate_delete": false,
+    "secret_values_read": false,
+    "azure_container_app_deployed": false,
+    "rls_migration_applied": false,
+    "supabase_restored": false,
+    "render_changed": false,
+    "vercel_changed": false,
+    "dns_changed": false
+  },
+  "focused_tests": {
+    "passed": 6,
+    "failed": 0
+  },
+  "asset_governance": {
+    "tracked_paths": 1067,
+    "registered_assets": 1066,
+    "explicit_exclusions": 1,
+    "classification_total": 1066,
+    "result": "PASS"
+  },
+  "formal_closure": {
+    "status": "TESTED",
+    "disposition": "HOLD",
+    "parent_esec_status": "PARTIAL",
+    "stage_b_authorized": false
+  },
+  "final_control_verification": {
+    "focused_tests": {
+      "passed": 6,
+      "failed": 0
+    },
+    "control_verify_tests": {
+      "passed": 361,
+      "failed": 0
+    },
+    "control_center": "PASS",
+    "projects": "PASS",
+    "assets": "PASS",
+    "classification": "PASS",
+    "runtime": {
+      "status": "PASS",
+      "inventory_surfaces": 233,
+      "discovered_surfaces": 224,
+      "warnings": 0
+    }
+  }
+}

@@ -375,7 +375,7 @@ Blocks: none
 
 ## ESEC-001-I2 — Production Runtime Credential and Deployment Configuration Verification
 
-Status: IN_PROGRESS
+Status: TESTED
 Governed by: ESEC-001-I2
 Blocked by: ESA-001, EOPS-001-A1
 Blocks: none

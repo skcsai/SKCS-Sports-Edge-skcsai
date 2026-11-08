@@ -1,14 +1,14 @@
 # EDGE ASSET REPOSITORY MAP
 EAC_PROJECT_ID: EAC-001
 MANIFEST_SCHEMA_VERSION: 1.0.0
-TOTAL_GOVERNED_ASSETS: 1063
-TOTAL_BATCHED_ASSETS: 1063
+TOTAL_GOVERNED_ASSETS: 1066
+TOTAL_BATCHED_ASSETS: 1066
 FULLY_CLASSIFIED_ASSETS: 0
-CLASSIFICATION_PENDING_ASSETS: 1063
+CLASSIFICATION_PENDING_ASSETS: 1066
 CLOSURE_READY: NO
 
 CURRENT_STATE_COUNTS
-- CURRENT: 122
+- CURRENT: 125
 - PARALLEL: 0
 - LEGACY: 0
 - HISTORICAL_EVIDENCE: 0
@@ -17,14 +17,14 @@ CURRENT_STATE_COUNTS
 - GENERATED: 0
 
 FUNCTIONAL_GROUP_COUNTS
+- TEST_PROOF: 165
 - SCRIPT_TOOL: 164
-- TEST_PROOF: 164
 - DOCUMENTATION_KNOWLEDGE: 143
 - PROVIDER_INTEGRATION: 119
 - DATABASE_MIGRATION: 99
 - GENERATED_OUTPUT: 65
 - FRONTEND_UI: 46
-- DEPLOYMENT_OPERATIONS: 43
+- DEPLOYMENT_OPERATIONS: 45
 - DATABASE: 42
 - PREDICTION: 30
 - GOVERNANCE: 27
@@ -44,22 +44,22 @@ FUNCTIONAL_GROUP_COUNTS
 RELATIONSHIP_TAG_COUNTS
 - RUNTIME: 297
 - SCRIPT_TOOL: 290
-- GOVERNANCE: 287
+- GOVERNANCE: 288
 - DATABASE: 271
 - SQL: 239
 - PROVIDER: 205
 - DOCUMENTATION: 178
-- TEST_PROOF: 175
+- TEST_PROOF: 176
 - API: 173
 - UI: 112
 - PREDICTION: 110
 - MIGRATION: 105
-- AUDIT: 101
+- AUDIT: 103
 - OBSERVABILITY: 99
+- SECURITY: 78
 - GENERATED: 75
-- SECURITY: 75
+- DEPLOYMENT: 65
 - SERVICE: 64
-- DEPLOYMENT: 62
 - ROUTE: 61
 - CONFIGURATION: 54
 - FIP: 39
@@ -75,10 +75,10 @@ RELATIONSHIP_TAG_COUNTS
 - CONTROLLER: 2
 - RPC: 1
 
-NEXT_VALIDATION_NON_EMPTY_ASSETS: 1063
+NEXT_VALIDATION_NON_EMPTY_ASSETS: 1066
 
 BATCH_COMPLETION_SUMMARY
-- B01 | CONTROL_CENTER | ASSET_COUNT=60 | CLASSIFIED=0 | PENDING=60
+- B01 | CONTROL_CENTER | ASSET_COUNT=61 | CLASSIFIED=0 | PENDING=61
 - B02 | BACKEND_DIRECT_FILES | ASSET_COUNT=14 | CLASSIFIED=0 | PENDING=14
 - B03 | BACKEND_ROUTES_AND_CONTROLLERS | ASSET_COUNT=28 | CLASSIFIED=0 | PENDING=28
 - B04 | BACKEND_UTILS_SEMANTIC_CORE_AND_TEST | ASSET_COUNT=46 | CLASSIFIED=0 | PENDING=46
@@ -101,12 +101,12 @@ BATCH_COMPLETION_SUMMARY
 - B21 | PUBLIC_UI | ASSET_COUNT=70 | CLASSIFIED=0 | PENDING=70
 - B22 | SUPABASE_MIGRATIONS | ASSET_COUNT=64 | CLASSIFIED=0 | PENDING=64
 - B23 | DB_SQL_AND_SUPABASE_OTHER | ASSET_COUNT=19 | CLASSIFIED=0 | PENDING=19
-- B24 | TESTS | ASSET_COUNT=71 | CLASSIFIED=0 | PENDING=71
+- B24 | TESTS | ASSET_COUNT=72 | CLASSIFIED=0 | PENDING=72
 - B25 | SCRATCH | ASSET_COUNT=2 | CLASSIFIED=0 | PENDING=2
 - B26 | DEPLOYMENT_CI | ASSET_COUNT=3 | CLASSIFIED=0 | PENDING=3
 - B27 | ARCHIVE | ASSET_COUNT=58 | CLASSIFIED=0 | PENDING=58
 - B28 | ROOT_NON_MD_TXT_FILES | ASSET_COUNT=55 | CLASSIFIED=0 | PENDING=55
-- B29 | DOT_TOOL_DIRS_AND_SMALL_DIRS | ASSET_COUNT=49 | CLASSIFIED=0 | PENDING=49
+- B29 | DOT_TOOL_DIRS_AND_SMALL_DIRS | ASSET_COUNT=50 | CLASSIFIED=0 | PENDING=50
 
 PER_ASSET_BY_BATCH
 
@@ -143,6 +143,7 @@ PER_ASSET_BY_BATCH
 | control-center/ESA-RR-003_IRRECOVERABLE_PRESERVED_CANDIDATE_RESOLUTION_CONTRACT.v1.md | Defines the contract-only, exact-eight-path evidence-only resolution for irrecoverable preserved candidates while forbidding runtime repair and preserving all Edge prediction, provider, database, deployment and marriage gates. | GOVERNANCE | CURRENT | ["GOVERNANCE","AUDIT","DOCUMENTATION"] | ["ESA-RR-003 contract limits resolution to exactly eight governed preserved-candidate paths and forbids wildcard expansion.","Contract records RCP-1/RCP-2 recovery exhaustion and forbids invented source bytes, hashes, provenance or runtime relationships.","Contract is governance-only and explicitly forbids prediction/runtime/database/provider/deployment/marriage-gate changes."] | Before ESA-RR-004 or any runtime-inventory exception implementation, re-run ESA-RR-003 focused proof and Edge Control Center/governor regression. |
 | control-center/ESEC-001_C1_SECURITY_BOUNDARY_INSPECTION_AND_CONTRACT.v1.md | Defines or records the Edge security-boundary inspection and contract evidence. | SECURITY_SUBSCRIBER | UNKNOWN | ["SECURITY","GOVERNANCE","DOCUMENTATION"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | control-center/ESEC-001_I1_FAIL_CLOSED_AUTHENTICATION_AND_CREDENTIAL_BOUNDARY_IMPLEMENTATION.v1.md | Seals fail-closed authentication, subscription, scheduler and credential-boundary source remediation while retaining blocked runtime and RLS gates. | DOCUMENTATION_KNOWLEDGE | CURRENT | ["DOCUMENTATION","GOVERNANCE","SECURITY"] | ["Records ESEC-001-I1 source-and-test closure.","Preserves ESEC-001 PARTIAL and E2E-001 BLOCKED.","Excludes RLS migration, deployment and production credential rotation."] | Review before ESEC-001 status advancement, RLS authorization or runtime gate clearance. |
+| control-center/ESEC-001_I2_PRODUCTION_RUNTIME_CREDENTIAL_AND_DEPLOYMENT_VERIFICATION.v1.md | Governs ESEC-001-I2 read-only production credential and Azure deployment-boundary verification. | DEPLOYMENT_OPERATIONS | CURRENT | ["GOVERNANCE","DEPLOYMENT","SECURITY","AUDIT"] | ["Records Key Vault RBAC and managed-identity findings without secret values.","Records Stage B HOLD and no-mutation boundary.","Preserves ESEC-001 PARTIAL and RLS-001 OPEN."] | Re-run ESEC-001-I2 focused proof and full Edge Control Center verification after any production credential, Key Vault RBAC or deployment-boundary change. |
 | control-center/ESG-001_SPORT_GOVERNOR_AND_CANONICAL_RULE_REGISTRY_PROPOSAL.v1.md | Control Center governance or proposal artifact for the Edge project identified by its filename. | CONTROL_CENTER | UNKNOWN | ["GOVERNANCE","DOCUMENTATION"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | control-center/EST-001_SUPABASE_STORAGE_AND_FIP_RETENTION_CONTRACT.v1.md | Defines Supabase storage and FIP retention law: canonical Scout truth vs Edge-derived state, forbidden mirrors, data classes, retention periods, budget thresholds, replay/audit, and fail-closed persistence rules. | DOCUMENTATION_KNOWLEDGE | CURRENT | ["DOCUMENTATION","GOVERNANCE","DATABASE"] | ["EST-001_SUPABASE_STORAGE_AND_FIP_RETENTION_CONTRACT.v1.md seals transport-vs-retention law and keeps supabase_storage_gate BLOCKED per Edge Control Center storage policy."] | Validate against EST-001 storage enforcement implementation when separately authorized. |
 | control-center/FIP-001_SCOUT_FIP_AUTHORITY_CONTRACT.v1.md | Registers the committed Scout FIP authority: schema identity, required payload shape, validation/hash law, fixture identity, market/context requirements, allowed proof modes, and forbidden non-canonical sources. | DOCUMENTATION_KNOWLEDGE | CURRENT | ["DOCUMENTATION","GOVERNANCE"] | ["FIP-001_SCOUT_FIP_AUTHORITY_CONTRACT.v1.md establishes Scout as canonical sports-truth owner and sole FIP contract Edge may recognize for governed intake."] | Validate EFI-001 §5 crosswalk against FIP-001 before EFI-001-I1 implementation. |
@@ -1055,6 +1056,7 @@ PER_ASSET_BY_BATCH
 | tests/esec-001-i1-legacy-cron-boundary.test.js | Focused automated proof for the governed Edge project indicated by the path and filename. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","SECURITY","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | tests/esec-001-i1-scheduler-caller-boundary.test.js | Focused automated proof for the governed Edge project indicated by the path and filename. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","SECURITY","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | tests/esec-001-i1-scheduler-route-boundary.test.js | Focused automated proof for the governed Edge project indicated by the path and filename. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","SECURITY","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
+| tests/esec-001-i2-production-runtime-verification.test.js | Automated proof that ESEC-001-I2 remains read-only, fail-closed and blocks Stage B until production credential defects are remediated. | TEST_PROOF | CURRENT | ["TEST_PROOF","DEPLOYMENT","SECURITY"] | ["6/6 focused tests PASS on 2026-11-08.","Asserts no Stage B authorization or cloud mutation.","Asserts provider diagnostics currently expose partial secret prefixes."] | Re-run whenever the I2 report, Azure deployment candidate or credential logging behavior changes. |
 | tests/fip-intake-evidence-service.test.js | Verifies gate-before-DB, validation, idempotency, retention, and migration static law for I8. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE","SERVICE"] | ["33 test cases","Zero DB on blocked gate","Migration static checks"] | npm run test:sem-gov-001d-ui3-i8 after evidence service change |
 | tests/fip-intake-m2m-authenticator.test.js | Verifies HMAC auth acceptance, replay rejection, and caller validation. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE","SECURITY"] | ["Valid HMAC acceptance","Replay rejection","Unknown caller rejection"] | npm run test:sem-gov-001d-ui3-i9 after authenticator change |
 | tests/fip-intake-service.test.js | Focused Node test coverage for the EFI-001 fail-closed FIP intake boundary accept/reject behavior and Edge envelope mapping. | TEST_PROOF | CURRENT | ["TEST_PROOF","SCOUT","FIP","RUNTIME","GOVERNANCE"] | ["Builds a valid FIP-001 v1 fixture with the service hash algorithm and verifies accepted envelope output.","Covers rejection for unsupported schema version, non-VALIDATED status, tampered hash, missing required fields, forbidden origins, and AUTHORIZED_PRODUCTION while the marriage gate remains blocked."] | EFI-001-I1: run node --test tests/fip-intake-service.test.js after any FIP intake boundary change. |
@@ -1269,6 +1271,7 @@ PER_ASSET_BY_BATCH
 | reports/e2e-001/e2e-001-raw-controlled-marriage-attempts.json | Generated governance or proof report retained as evidence for the named Edge project. | GENERATED_OUTPUT | UNKNOWN | ["GENERATED","AUDIT","TEST_PROOF","SCOUT","FIP","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | reports/e2e-001/execution-readiness-reconciliation.json | Generated governance or proof report retained as evidence for the named Edge project. | GENERATED_OUTPUT | UNKNOWN | ["GENERATED","AUDIT","TEST_PROOF","SCOUT","FIP","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | reports/eops-001-a1/stage-a-inventory.json | Machine-readable EOPS-001-A1 evidence for Azure cost/resource inventory, Supabase coupling, canary startup, dependency security, container build, Bicep and rollback. | DEPLOYMENT_OPERATIONS | CURRENT | ["AUDIT","DEPLOYMENT","GOVERNANCE"] | ["Captures Cost Management ActualCost USD 17.454513 MTD.","Captures Supabase INACTIVE state without waking the project.","Captures df1f no-push build and zero production vulnerabilities."] | Re-run EOPS-001-A1 focused proof and full Edge Control Center verification after any Stage A deployment/startup/cost evidence change. |
+| reports/esec-001-i2/production-runtime-verification.json | Machine-readable ESEC-001-I2 evidence for credential classes, Azure RBAC, Key Vault readiness, secret-reference design and deployment HOLD. | DEPLOYMENT_OPERATIONS | CURRENT | ["AUDIT","DEPLOYMENT","SECURITY"] | ["Key Vault metadata read was forbidden by RBAC.","Edge managed identity role-assignment count was zero.","No live Edge Container App or cloud mutation occurred."] | Re-run after any Azure Key Vault role, secret metadata, managed identity, Container Apps or credential-class change. |
 | reports/esec-001/fail-closed-authentication-implementation.json | Records finding dispositions, focused proof results, exclusions and remaining ESEC security blockers. | DOCUMENTATION_KNOWLEDGE | CURRENT | ["GOVERNANCE","SECURITY","AUDIT"] | ["Active I1 proof records fail-closed boundary coverage.","Historical C1 proof remains preserved.","RLS-001 and production runtime verification remain open."] | Update only after an authorized ESEC proof, RLS packet or production runtime verification. |
 | reports/esec-001/security-boundary-inspection.json | Generated governance or proof report retained as evidence for the named Edge project. | GENERATED_OUTPUT | UNKNOWN | ["GENERATED","AUDIT","TEST_PROOF","SECURITY"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | reports/execution-spine-compliance-map.json | Execution-spine compliance report artifact (JSON) retained for audit/inspection. | GENERATED_OUTPUT | UNKNOWN | ["GENERATED","AUDIT"] | ["Path under B29: reports/execution-spine-compliance-map.json","First skim: {\n  \"generatedAt\": \"2026-06-05T00:44:34.328Z\",\n  \"summary\": {\n    \"filesScanned\": 3738,\n    \"filesWithFindings\": 187,\n    \"wrappedFiles\": 22,\n    \"bypassCandida???"] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |

@@ -5,8 +5,8 @@
   "source_command": "git ls-files",
   "coverage_policy": "Every tracked repository path must be REGISTERED_ASSET or EXPLICITLY_EXCLUDED. Registration records existence and governance visibility; it does not assert correctness, currency, approval, permanence, consumer presence, or Scout/FIP compatibility.",
   "unclassified_tracked_paths_allowed": false,
-  "tracked_path_count": 1064,
-  "registered_asset_count": 1063,
+  "tracked_path_count": 1067,
+  "registered_asset_count": 1066,
   "explicit_exclusion_count": 1,
   "assets": [
     {
@@ -11539,7 +11539,7 @@
       "goes_somewhere": "YES",
       "known_conflicts": [],
       "validation_status": "REGISTERED",
-      "next_validation": "Validate EFI-001 \u00a75 crosswalk against FIP-001 before EFI-001-I1 implementation.",
+      "next_validation": "Validate EFI-001 §5 crosswalk against FIP-001 before EFI-001-I1 implementation.",
       "notes": "FIP-001-C1 Scout FIP authority contract. Runtime intake and proof execution forbidden at seal time.",
       "purpose_description": "Registers the committed Scout FIP authority: schema identity, required payload shape, validation/hash law, fixture identity, market/context requirements, allowed proof modes, and forbidden non-canonical sources.",
       "functional_group": "DOCUMENTATION_KNOWLEDGE",
@@ -11902,7 +11902,7 @@
       "classification_evidence": [
         "Packet models four lifecycle tables only with 167 MB dashboard baseline.",
         "Normal projected total 186.10 MB below 300 MB preferred ceiling.",
-        "Conservative 80/day projected total 470.58 MB exceeds activation ceiling \u2014 HOLD.",
+        "Conservative 80/day projected total 470.58 MB exceeds activation ceiling — HOLD.",
         "supabase_storage_gate remains BLOCKED."
       ]
     },
@@ -11975,7 +11975,7 @@
         "UI"
       ],
       "classification_evidence": [
-        "Packet sections A\u2013Y fix canonical navigation and lifecycle user language.",
+        "Packet sections A–Y fix canonical navigation and lifecycle user language.",
         "Day tokens reconciled with lifecycleGovernor DAY_LABELS (no DAY_1).",
         "UI2/UI3/UI4 explicitly NOT STARTED; migration NOT APPLIED.",
         "All three governance gates remain BLOCKED."
@@ -32647,7 +32647,7 @@
       "known_conflicts": [],
       "validation_status": "APPROVED",
       "next_validation": "npm run test:sem-gov-001d-ui3-i8 after migration change",
-      "notes": "AUTHOR ONLY \u2014 NOT APPLIED by I8 closure.",
+      "notes": "AUTHOR ONLY — NOT APPLIED by I8 closure.",
       "purpose_description": "Creates bounded R2 fip_intake_evidence table with outcome checks, partial unique idempotency index, and RLS.",
       "functional_group": "DATABASE_MIGRATION",
       "relationship_tags": [
@@ -34673,7 +34673,7 @@
       "validation_status": "APPROVED",
       "next_validation": "SEM-GOV-001D-UI1: run npm run test:sem-gov-001d-ui1 after any UI1 packet or registration change.",
       "notes": "Packet guard test for SEM-GOV-001D-UI1 screen contract PROPOSED state.",
-      "purpose_description": "Guards UI1 packet sections A\u2013Y, canonical day tokens, lifecycle language, blocked gates, UI2/UI3/UI4 not-started boundaries, and Control Center registration.",
+      "purpose_description": "Guards UI1 packet sections A–Y, canonical day tokens, lifecycle language, blocked gates, UI2/UI3/UI4 not-started boundaries, and Control Center registration.",
       "functional_group": "TEST_PROOF",
       "relationship_tags": [
         "TEST_PROOF",
@@ -36274,6 +36274,121 @@
         "8/8 focused tests pass after final dependency remediation.",
         "Verifies default normal behavior remains enabled.",
         "Verifies canary suppresses bootstrap, cron, heartbeat and import-time Supabase coupling."
+      ]
+    },
+    {
+      "asset_path": "control-center/ESEC-001_I2_PRODUCTION_RUNTIME_CREDENTIAL_AND_DEPLOYMENT_VERIFICATION.v1.md",
+      "asset_type": "CONTROL_CENTER",
+      "asset_role": "CONTROL_GOVERNANCE",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_CONTRACT",
+      "current_state": "CURRENT",
+      "owner_project_id": "ESEC-001-I2",
+      "governed_by_control_task_id": "ESEC-001-I2",
+      "related_assets": [
+        "control-center/ESEC-001_I1_FAIL_CLOSED_AUTHENTICATION_AND_CREDENTIAL_BOUNDARY_IMPLEMENTATION.v1.md",
+        "reports/esec-001-i2/production-runtime-verification.json",
+        "tests/esec-001-i2-production-runtime-verification.test.js"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Re-run ESEC-001-I2 focused proof and full Edge Control Center verification after any production credential, Key Vault RBAC or deployment-boundary change.",
+      "notes": "Read-only production credential/deployment verification; records HOLD blockers and authorizes no cloud mutation.",
+      "purpose_description": "Governs ESEC-001-I2 read-only production credential and Azure deployment-boundary verification.",
+      "functional_group": "DEPLOYMENT_OPERATIONS",
+      "relationship_tags": [
+        "GOVERNANCE",
+        "DEPLOYMENT",
+        "SECURITY",
+        "AUDIT"
+      ],
+      "classification_evidence": [
+        "Records Key Vault RBAC and managed-identity findings without secret values.",
+        "Records Stage B HOLD and no-mutation boundary.",
+        "Preserves ESEC-001 PARTIAL and RLS-001 OPEN."
+      ]
+    },
+    {
+      "asset_path": "reports/esec-001-i2/production-runtime-verification.json",
+      "asset_type": "OTHER",
+      "asset_role": "CONTROL_AUDIT",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "ESEC-001-I2",
+      "governed_by_control_task_id": "ESEC-001-I2",
+      "related_assets": [
+        "control-center/ESEC-001_I2_PRODUCTION_RUNTIME_CREDENTIAL_AND_DEPLOYMENT_VERIFICATION.v1.md",
+        "tests/esec-001-i2-production-runtime-verification.test.js"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Re-run after any Azure Key Vault role, secret metadata, managed identity, Container Apps or credential-class change.",
+      "notes": "Contains no secret values; records read-only evidence and blockers only.",
+      "purpose_description": "Machine-readable ESEC-001-I2 evidence for credential classes, Azure RBAC, Key Vault readiness, secret-reference design and deployment HOLD.",
+      "functional_group": "DEPLOYMENT_OPERATIONS",
+      "relationship_tags": [
+        "AUDIT",
+        "DEPLOYMENT",
+        "SECURITY"
+      ],
+      "classification_evidence": [
+        "Key Vault metadata read was forbidden by RBAC.",
+        "Edge managed identity role-assignment count was zero.",
+        "No live Edge Container App or cloud mutation occurred."
+      ]
+    },
+    {
+      "asset_path": "tests/esec-001-i2-production-runtime-verification.test.js",
+      "asset_type": "TEST",
+      "asset_role": "TEST_PROOF",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "ESEC-001-I2",
+      "governed_by_control_task_id": "ESEC-001-I2",
+      "related_assets": [
+        "control-center/ESEC-001_I2_PRODUCTION_RUNTIME_CREDENTIAL_AND_DEPLOYMENT_VERIFICATION.v1.md",
+        "reports/esec-001-i2/production-runtime-verification.json",
+        "infra/azure/eops-001-a1/main.bicep",
+        "backend/services/dataProvider.js"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Re-run whenever the I2 report, Azure deployment candidate or credential logging behavior changes.",
+      "notes": "Focused fail-closed proof; detects missing Key Vault wiring and partial-secret logging blocker.",
+      "purpose_description": "Automated proof that ESEC-001-I2 remains read-only, fail-closed and blocks Stage B until production credential defects are remediated.",
+      "functional_group": "TEST_PROOF",
+      "relationship_tags": [
+        "TEST_PROOF",
+        "DEPLOYMENT",
+        "SECURITY"
+      ],
+      "classification_evidence": [
+        "6/6 focused tests PASS on 2026-11-08.",
+        "Asserts no Stage B authorization or cloud mutation.",
+        "Asserts provider diagnostics currently expose partial secret prefixes."
       ]
     }
   ],

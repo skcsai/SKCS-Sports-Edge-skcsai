@@ -607,7 +607,7 @@
         "Control Center sequencing bypass"
       ],
       "recommended_order": 10,
-      "next_action": "ESEC-001-I2 registered for separately authorized production runtime/deployment verification. Keep ESEC-001 PARTIAL and all runtime gates blocked until I2 is TESTED; RLS-001 remains separate and OPEN.",
+      "next_action": "ESEC-001-I2 TESTED/HOLD. Keep ESEC-001 PARTIAL and all runtime/deployment gates blocked. Next separately authorize security remediation for secret logging, credential naming, Key Vault references/RBAC/rotation proof, or separately authorize RLS-001. Do not deploy or begin Stage B.",
       "owner_note": "Bootstrapped from the canonical Edge Control Center ledger. Exact task-ID overlaps mirror ledger sequencing state.",
       "last_updated": "2026-11-08",
       "governed_by_control_task_id": "ESEC-001",
@@ -626,7 +626,8 @@
         "E2E-001 and all runtime gates remain BLOCKED",
         "Broad test:control-center result is HOLD because of repository-wide cleanup and asset-register drift; focused ESEC-I1 proof remains 32/32 PASS",
         "Packet 4C registered the ESEC-I1 implementation contract, structured report and governance test in deterministic batches B01, B29 and B24",
-        "Packet 4C focused ESEC-I1 proof passed 33/33 without control:assets or broad Control Center execution"
+        "Packet 4C focused ESEC-I1 proof passed 33/33 without control:assets or broad Control Center execution",
+        "2026-11-08 ESEC-001-I2 TESTED/HOLD: production deployment remains blocked by missing Key Vault data-plane/RBAC proof, absent Container Apps Key Vault secret references, partial provider-secret logging, legacy SUPABASE_KEY ambiguity and separate RLS-001."
       ]
     },
     {
@@ -3371,9 +3372,9 @@
       "category": "Subscriber and Security Boundary",
       "description": "Bounded read-only verification of the Edge production credential/deployment boundary required before any Azure live canary: verify Azure Key Vault secret-name inventory and metadata without reading values, managed-identity/RBAC readiness, database and scheduler credential separation, and the deployment candidate's secret-reference design. No deployment, secret rotation, RLS migration, Supabase restore, DNS change, Render/Vercel change or Stage B.",
       "why_it_matters": "Azure deployment must not start until production credentials are proven to be separated, least-privilege and referenced without plaintext secrets.",
-      "current_status": "IN_PROGRESS",
+      "current_status": "TESTED",
       "priority": "critical",
-      "startable": true,
+      "startable": false,
       "blocked_by": [
         "ESA-001",
         "EOPS-001-A1"
@@ -3436,16 +3437,29 @@
         "Credential rotation or rollback could become unsafe after deployment."
       ],
       "recommended_order": 54,
-      "next_action": "Run read-only ESEC-001-I2 verification through Edge Control Center. Do not deploy, rotate secrets, apply RLS or begin Stage B.",
+      "next_action": "CLOSED / HOLD. ESEC-001-I2 verification is TESTED and proves production deployment is not yet authorized. Preserve the read-only evidence. Next separately register a security-remediation mini-project for partial-secret logging, explicit credential naming, Key Vault secret-reference design and least-privilege RBAC/rotation proof. RLS-001 remains a separate mini-project. Do not begin Azure Stage B.",
       "owner_note": "Stephen authorized continuation through the correct Control Center on 2026-11-08. Registration must pass Control Center checks before implementation evidence is gathered.",
       "last_updated": "2026-11-08",
       "governed_by_control_task_id": "ESEC-001-I2",
       "current_evidence": [
-        "2026-11-08 start point: EOPS-001-A1 TESTED/published at 0c564c682ad23892abdd085db550a30f84f08982; Edge worktree clean; ESEC-001 remains PARTIAL with production configuration/rotation proof unverified and RLS-001 separately OPEN."
+        "2026-11-08 start point: EOPS-001-A1 TESTED/published at 0c564c682ad23892abdd085db550a30f84f08982; Edge worktree clean; ESEC-001 remains PARTIAL with production configuration/rotation proof unverified and RLS-001 separately OPEN.",
+        "2026-11-08 registration published at 416676dd40e62bff889a0d342ced6a662e39a93c after 361/361 tests and all Edge Control Center gates PASS.",
+        "2026-11-08 Azure read-only proof: Edge Key Vault uses RBAC; secret metadata listing is ForbiddenByRbac for the signed-in deployment identity; no secret values were read.",
+        "2026-11-08 Edge managed identity id-skcs-edge036-zan-001 has zero current Azure RBAC assignments; no Key Vault data-plane role is proven.",
+        "2026-11-08 Edge Container Apps environment is Succeeded/Consumption and live Edge Container Apps count remains zero.",
+        "2026-11-08 Stage A Bicep has no keyVaultUrl/secretRef wiring and no plaintext production secrets; it remains canary-safe but not production credential-ready.",
+        "2026-11-08 production blocker SECRET-LOG-001: backend/services/dataProvider.js logs prefixes of X_APISPORTS_KEY and ODDS_API_KEY; no source repair performed in read-only I2.",
+        "2026-11-08 legacy SUPABASE_KEY alias remains referenced alongside explicit credential classes; production mapping/deprecation requires separate remediation.",
+        "2026-11-08 focused ESEC-001-I2 proof 6/6 PASS; asset register PASS at 1067 tracked / 1066 registered / 1 exclusion; classification PASS at 1066/1066.",
+        "2026-11-08 final ESEC-001-I2 closure gate: focused proof 6/6 PASS; npm run control:verify 361/361 PASS; Control Center, projects, assets and classification PASS; runtime inventory PASS with 233 inventory surfaces, 224 discovered surfaces and 0 warnings."
       ],
       "open_gaps": [
-        "Read-only Azure production credential/deployment evidence not yet gathered.",
-        "RLS-001 remains separately OPEN and is not part of I2."
+        "CRED-RBAC-001: Edge managed identity has no proven Key Vault data-plane role.",
+        "CRED-META-001: production secret existence/expiry/rotation metadata cannot be verified with current data-plane permissions.",
+        "DEPLOY-SECRETREF-001: Container Apps production Key Vault secret-reference wiring is not implemented.",
+        "SECRET-LOG-001: provider diagnostics expose partial API-key prefixes and must be remediated before production deployment.",
+        "CRED-ALIAS-001: legacy SUPABASE_KEY production meaning must be removed or explicitly constrained.",
+        "RLS-001 remains OPEN and separately excluded from I2."
       ]
     }
   ]
