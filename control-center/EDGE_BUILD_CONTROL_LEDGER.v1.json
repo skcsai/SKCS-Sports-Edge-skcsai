@@ -528,7 +528,8 @@
         "ESEC-001-I2",
         "ESEC-001-I3",
         "ESEC-001-I4",
-        "ESEC-001-I5"
+        "ESEC-001-I5",
+        "ESEC-001-I6"
       ],
       "affected_layers": [
         "Supabase",
@@ -620,7 +621,7 @@
         "Supabase function deployment remains unexecuted",
         "Final ESEC and marriage-gate clearance require separate explicit approval"
       ],
-      "next_action": "ESEC-001-I5 TESTED/HOLD. Credential provisioning and Azure scheduler/refresh boundaries are resolved. Keep ESEC-001 PARTIAL and all deployment/runtime gates blocked because RLS-001 remains the only open security blocker. Start RLS only as a separate governed mini-project.",
+      "next_action": "ESEC-001-I6 registered for RLS-001 server-only privilege hardening. Keep ESEC-001 PARTIAL and Stage B blocked until I6 closes; do not restore inactive Supabase.",
       "owner_note": "I1 source-and-test remediation and Packet 4C targeted asset registration are complete. This is not production runtime, deployment, RLS or gate-clearance proof.",
       "last_updated": "2026-11-08",
       "known_issues": [
@@ -3677,6 +3678,86 @@
       ],
       "next_action": "CLOSED / HOLD. ESEC-001-I5 is TESTED: Azure no longer requires SKCS_REFRESH_KEY; ADMIN_API_KEY is the governed Azure refresh/operator credential; a fresh Azure-only cron-secret exists enabled in Key Vault without value disclosure; temporary vault write access was revoked; Bicep build/what-if and full regression are green. RLS-001 remains separate. Do not deploy or begin Stage B.",
       "owner_note": "Stephen authorized continuation to the next Edge security mini-project on 2026-11-08 after ESEC-001-I4 closure.",
+      "last_updated": "2026-11-08"
+    },
+    {
+      "task_id": "ESEC-001-I6",
+      "task_name": "RLS-001 Server-Only Table Boundary and Privilege Hardening",
+      "workstream": "Subscriber and Security Boundary",
+      "description": "Resolve RLS-001 for the eight applied internal lifecycle/proof tables by sealing a backend-only database access law: keep RLS enabled, create no anon/authenticated/public row policies, explicitly revoke table privileges from PUBLIC/anon/authenticated when those roles exist, preserve privileged server-only access, and prove no browser/runtime client directly consumes the tables. Do not restore the inactive Supabase project, do not deploy Azure/Stage B, and do not activate runtime routes.",
+      "status": "IN_PROGRESS",
+      "startable": true,
+      "priority": "critical",
+      "blocked_by": [
+        "ESA-001",
+        "ESEC-001-I5",
+        "SEM-GOV-001D-UI3-I10"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "security-boundary",
+        "database",
+        "governance"
+      ],
+      "related_contracts": [
+        "control-center/ESEC-001_C1_SECURITY_BOUNDARY_INSPECTION_AND_CONTRACT.v1.md",
+        "control-center/SEM-GOV-001D-UI3-I10_MIGRATION_READINESS_AND_CONTROLLED_APPLY_PACKET.v1.md"
+      ],
+      "affected_files": [
+        "control-center/ESEC-001_I6_RLS_SERVER_ONLY_TABLE_BOUNDARY_AND_PRIVILEGE_HARDENING.v1.md",
+        "reports/esec-001-i6/rls-server-only-boundary.json",
+        "tests/esec-001-i6-rls-server-only-boundary.test.js",
+        "package.json",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
+      ],
+      "affected_tables": [
+        "fixture_lifecycle_current",
+        "fixture_identity_aliases",
+        "fixture_lifecycle_transition_events",
+        "fixture_lifecycle_rollover_events",
+        "lifecycle_daily_admission_counters",
+        "lifecycle_admission_idempotency",
+        "fixture_display_metadata",
+        "fip_intake_evidence"
+      ],
+      "completion_definition": "I6 reaches TESTED/HOLD when the exact eight RLS-001 tables are proven backend-only; a Supabase-CLI-generated migration candidate explicitly preserves RLS, revokes PUBLIC/anon/authenticated table privileges conditionally and grants server-only service_role privileges conditionally without adding permissive row policies; focused tests prove no browser/Supabase client consumers and no FORCE RLS; current Supabase project inactivity is recorded and not changed; full Edge Control Center gates pass. Live schema apply remains separately gated because the Supabase project is inactive and SKCS is migrating storage to Azure; I6 must not fake production execution.",
+      "proof_required": [
+        "Clean start point at ESEC-001-I5 closure commit 0d91bfd890e4f1ad523bfb5878b5c1ec99d20119",
+        "I6 registered and accepted by Edge Control Center before migration/code edits",
+        "Historical RLS-001 finding requires server-only ownership or least-privilege policies",
+        "I10 evidence proves exactly eight applied tables have RLS enabled, zero policies and zero rows at apply time",
+        "No public/browser assets reference any of the eight tables",
+        "Backend consumers use direct database services; no target-table supabase-js Data API access exists",
+        "Supabase project vzzmirotzqrrwgoieojo is INACTIVE and remains unrestored",
+        "Current Supabase docs confirm service_role bypasses RLS; I6 must not create meaningless service_role RLS policies",
+        "Migration file created by Supabase CLI, not invented",
+        "Migration keeps RLS enabled and NO FORCE RLS, revokes table privileges from PUBLIC and conditionally anon/authenticated, conditionally grants server-only service_role privileges, and creates no CREATE POLICY statements",
+        "Focused I6 tests and full Edge Control Center regression PASS",
+        "No live database apply, Supabase restore, Azure Container App deployment, Stage B, DNS, Render or Vercel mutation"
+      ],
+      "current_evidence": [
+        "2026-11-08 start point: ESEC-001-I5 TESTED/HOLD at 0d91bfd890e4f1ad523bfb5878b5c1ec99d20119; worktree clean; RLS-001 is the only remaining ESEC security blocker.",
+        "2026-11-08 historical C1 finding: RLS-001 HIGH OPEN because new RLS-enabled proof tables had zero explicit policies; required repair is server-only ownership or least-privilege policies.",
+        "2026-11-08 I10 evidence: exactly eight lifecycle/proof tables were applied with RLS enabled, zero public RLS policies and zero rows; runtime activation remained blocked.",
+        "2026-11-08 source inspection: no public/browser target-table references and no target-table supabase-js Data API consumers; target consumers are backend database services.",
+        "2026-11-08 connected Supabase project vzzmirotzqrrwgoieojo reports INACTIVE; list_tables is inaccessible and project was not restored.",
+        "2026-11-08 current Supabase documentation: service_role/secret-key access bypasses RLS, so I6 will not create a fake service_role RLS policy; server-only privilege hardening is the selected repair."
+      ],
+      "open_gaps": [
+        "Generate and test the portable server-only privilege hardening migration.",
+        "Live schema apply is unavailable while Supabase remains inactive and Azure Stage B has not begun."
+      ],
+      "next_action": "After Control Center acceptance, generate one Supabase migration via CLI for the eight-table server-only privilege law, add focused proof, run full regression and close TESTED/HOLD without restoring or mutating inactive Supabase.",
+      "owner_note": "Stephen authorized continuation to the next Edge security mini-project on 2026-11-08 after ESEC-001-I5 closure.",
       "last_updated": "2026-11-08"
     }
   ]

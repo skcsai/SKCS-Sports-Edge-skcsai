@@ -400,3 +400,10 @@ Status: TESTED
 Governed by: ESEC-001-I5
 Blocked by: ESA-001, ESEC-001-I4, EOPS-001-A1
 Blocks: none
+
+## ESEC-001-I6 — RLS-001 Server-Only Table Boundary and Privilege Hardening
+
+Status: IN_PROGRESS
+Governed by: ESEC-001-I6
+Blocked by: ESA-001, ESEC-001-I5, SEM-GOV-001D-UI3-I10
+Blocks: none
