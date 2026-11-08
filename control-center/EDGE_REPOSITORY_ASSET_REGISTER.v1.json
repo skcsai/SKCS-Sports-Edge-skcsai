@@ -5,8 +5,8 @@
   "source_command": "git ls-files",
   "coverage_policy": "Every tracked repository path must be REGISTERED_ASSET or EXPLICITLY_EXCLUDED. Registration records existence and governance visibility; it does not assert correctness, currency, approval, permanence, consumer presence, or Scout/FIP compatibility.",
   "unclassified_tracked_paths_allowed": false,
-  "tracked_path_count": 1074,
-  "registered_asset_count": 1073,
+  "tracked_path_count": 1078,
+  "registered_asset_count": 1077,
   "explicit_exclusion_count": 1,
   "assets": [
     {
@@ -36166,7 +36166,9 @@
       "related_assets": [
         "infra/azure/eops-001-a1/acr-pull.bicep",
         "control-center/EOPS-001_A1_AZURE_MIGRATION_STAGE_A_PACKET.v1.md",
-        "reports/eops-001-a1/stage-a-inventory.json"
+        "reports/eops-001-a1/stage-a-inventory.json",
+        "control-center/ESEC-001_I3_PRODUCTION_CREDENTIAL_REMEDIATION_AND_KEY_VAULT_INTEGRATION.v1.md",
+        "control-center/ESEC-001_I5_AZURE_SCHEDULER_AND_REFRESH_CREDENTIAL_BOUNDARY_RESOLUTION.v1.md"
       ],
       "related_tables": [],
       "related_functions": [],
@@ -36183,9 +36185,9 @@
       "goes_somewhere": "YES",
       "known_conflicts": [],
       "validation_status": "TESTED",
-      "next_validation": "Re-run EOPS-001-A1 focused proof and full Edge Control Center verification after any Stage A deployment/startup/cost evidence change.",
-      "notes": "EOPS-001-A1 local Stage A closure-candidate asset. Not published and not deployment authorization.",
-      "purpose_description": "Minimal Azure Container Apps canary candidate that reuses the existing Edge environment and identity with bounded scale and no application secrets.",
+      "next_validation": "Re-run EOPS-001-A1/I3/I5 focused proofs, Bicep build/what-if and full Edge Control Center after any deployment, startup, Key Vault secret-binding or credential-wiring change.",
+      "notes": "EOPS-001-A1 deployment candidate, extended by ESEC-001-I3/I5 for Key Vault-backed production credential wiring. Not deployment authorization.",
+      "purpose_description": "Azure Container Apps candidate that reuses the existing Edge environment and managed identity, preserves bounded scale, and can optionally bind approved production Key Vault secrets without embedding values.",
       "functional_group": "DEPLOYMENT_OPERATIONS",
       "relationship_tags": [
         "DEPLOYMENT",
@@ -36195,7 +36197,9 @@
       "classification_evidence": [
         "az bicep build PASS.",
         "Azure resource-group what-if status Succeeded.",
-        "Candidate is minReplicas 0, maxReplicas 1, 0.5 vCPU, 1 GiB and SKCS_STARTUP_MODE=canary."
+        "Candidate is minReplicas 0, maxReplicas 1, 0.5 vCPU, 1 GiB and SKCS_STARTUP_MODE=canary.",
+        "ESEC-001-I3 added versionless Key Vault-backed production secret references with no plaintext values.",
+        "ESEC-001-I5 removed unnecessary SKCS_REFRESH_KEY wiring while preserving ADMIN_API_KEY and CRON_SECRET."
       ]
     },
     {
@@ -36663,6 +36667,165 @@
         "6/6 focused tests PASS on 2026-11-08.",
         "Asserts --file and forbids --value for Key Vault writes.",
         "Asserts temporary role grant/delete and source-system boundaries."
+      ]
+    },
+    {
+      "asset_path": "control-center/ESEC-001_I5_AZURE_SCHEDULER_AND_REFRESH_CREDENTIAL_BOUNDARY_RESOLUTION.v1.md",
+      "asset_type": "CONTROL_CENTER",
+      "asset_role": "CONTROL_GOVERNANCE",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_CONTRACT",
+      "current_state": "CURRENT",
+      "owner_project_id": "ESEC-001-I5",
+      "governed_by_control_task_id": "ESEC-001-I5",
+      "related_assets": [
+        "infra/azure/eops-001-a1/main.bicep",
+        "scripts/apply-esec-001-i5-azure-cron-secret.ps1",
+        "reports/esec-001-i5/azure-scheduler-refresh-credential-resolution.json",
+        "tests/esec-001-i5-azure-scheduler-refresh-credential-resolution.test.js"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Re-run I5 focused proof, Bicep build/what-if and full Edge Control Center after any scheduler/refresh credential, Key Vault, Bicep or RBAC change.",
+      "notes": "Governs removal of unnecessary Azure SKCS_REFRESH_KEY wiring and creation of one Azure-only cron-secret without deployment.",
+      "purpose_description": "Defines the bounded Azure scheduler/refresh credential resolution, non-echoing cron-secret creation and no-deploy closure rules.",
+      "functional_group": "DEPLOYMENT_OPERATIONS",
+      "relationship_tags": [
+        "GOVERNANCE",
+        "DEPLOYMENT",
+        "SECURITY",
+        "AUDIT"
+      ],
+      "classification_evidence": [
+        "ADMIN_API_KEY is the chosen Azure refresh/operator credential.",
+        "Azure cron-secret creation is isolated from current Vercel/Render credentials.",
+        "No Container App deployment, RLS or Stage B is authorized."
+      ]
+    },
+    {
+      "asset_path": "scripts/apply-esec-001-i5-azure-cron-secret.ps1",
+      "asset_type": "SOURCE_CODE",
+      "asset_role": "APPLICATION_SOURCE",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_CONTRACT",
+      "current_state": "CURRENT",
+      "owner_project_id": "ESEC-001-I5",
+      "governed_by_control_task_id": "ESEC-001-I5",
+      "related_assets": [
+        "control-center/ESEC-001_I5_AZURE_SCHEDULER_AND_REFRESH_CREDENTIAL_BOUNDARY_RESOLUTION.v1.md",
+        "reports/esec-001-i5/azure-scheduler-refresh-credential-resolution.json",
+        "tests/esec-001-i5-azure-scheduler-refresh-credential-resolution.test.js"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [
+        "Azure Key Vault"
+      ],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Run dry-run before every Apply; re-run focused proof after any RNG, file handling, secret name, RBAC, tag or cleanup change.",
+      "notes": "Creates one Azure-only cron-secret with cryptographic RNG, file-based Key Vault write, no-overwrite guard and finally-based RBAC/temp cleanup.",
+      "purpose_description": "Fail-closed one-time Azure scheduler-secret creator for ESEC-001-I5.",
+      "functional_group": "DEPLOYMENT_OPERATIONS",
+      "relationship_tags": [
+        "DEPLOYMENT",
+        "SECURITY",
+        "SCRIPT_TOOL",
+        "AUDIT"
+      ],
+      "classification_evidence": [
+        "Dry-run reports READY_TO_CREATE only when cron-secret is absent.",
+        "Uses az keyvault secret set --file and never --value.",
+        "Temporary Key Vault Secrets Officer role is revoked in finally cleanup."
+      ]
+    },
+    {
+      "asset_path": "reports/esec-001-i5/azure-scheduler-refresh-credential-resolution.json",
+      "asset_type": "OTHER",
+      "asset_role": "CONTROL_AUDIT",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "ESEC-001-I5",
+      "governed_by_control_task_id": "ESEC-001-I5",
+      "related_assets": [
+        "control-center/ESEC-001_I5_AZURE_SCHEDULER_AND_REFRESH_CREDENTIAL_BOUNDARY_RESOLUTION.v1.md",
+        "scripts/apply-esec-001-i5-azure-cron-secret.ps1",
+        "tests/esec-001-i5-azure-scheduler-refresh-credential-resolution.test.js",
+        "infra/azure/eops-001-a1/main.bicep"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Refresh after cron-secret Apply, Bicep credential-wiring change or any source/rotation decision.",
+      "notes": "Contains only source decisions, metadata and validation results; never stores secret values or value hashes.",
+      "purpose_description": "Machine-readable I5 evidence for refresh credential authority, Azure-only scheduler-secret creation, Bicep what-if and no-mutation boundaries.",
+      "functional_group": "DEPLOYMENT_OPERATIONS",
+      "relationship_tags": [
+        "AUDIT",
+        "DEPLOYMENT",
+        "SECURITY"
+      ],
+      "classification_evidence": [
+        "Focused I5 tests PASS.",
+        "Bicep build and what-if PASS with zero Modify/Delete changes.",
+        "Current production source systems remain unchanged."
+      ]
+    },
+    {
+      "asset_path": "tests/esec-001-i5-azure-scheduler-refresh-credential-resolution.test.js",
+      "asset_type": "TEST",
+      "asset_role": "TEST_PROOF",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "ESEC-001-I5",
+      "governed_by_control_task_id": "ESEC-001-I5",
+      "related_assets": [
+        "control-center/ESEC-001_I5_AZURE_SCHEDULER_AND_REFRESH_CREDENTIAL_BOUNDARY_RESOLUTION.v1.md",
+        "scripts/apply-esec-001-i5-azure-cron-secret.ps1",
+        "reports/esec-001-i5/azure-scheduler-refresh-credential-resolution.json",
+        "infra/azure/eops-001-a1/main.bicep"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Re-run after any I5 packet, report, Bicep or scheduler-secret creator change.",
+      "notes": "Focused proof for Azure refresh credential simplification and non-echoing scheduler-secret creation.",
+      "purpose_description": "Automated proof that Azure no longer requires SKCS_REFRESH_KEY and that cron-secret creation is cryptographic, file-based, no-overwrite and cleanup-safe.",
+      "functional_group": "TEST_PROOF",
+      "relationship_tags": [
+        "TEST_PROOF",
+        "DEPLOYMENT",
+        "SECURITY"
+      ],
+      "classification_evidence": [
+        "6/6 focused tests PASS on 2026-11-08.",
+        "Asserts Azure SKCS_REFRESH_KEY wiring is absent while ADMIN_API_KEY/CRON_SECRET remain.",
+        "Asserts cryptographic RNG, --file usage, no overwrite and cleanup."
       ]
     }
   ],

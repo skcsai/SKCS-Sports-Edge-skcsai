@@ -65,8 +65,8 @@ test('Bicep uses Key Vault secretRef wiring with no plaintext secret values', ()
   assert.match(bicep, /productionSecretsEnabled bool = false/);
   assert.match(bicep, /keyVaultUrl:/);
   assert.match(bicep, /secretRef:/);
-  assert.equal((bicep.match(/keyVaultUrl:/g) || []).length, 9);
-  assert.equal((bicep.match(/secretRef:/g) || []).length, 9);
+  assert.equal((bicep.match(/keyVaultUrl:/g) || []).length, 8);
+  assert.equal((bicep.match(/secretRef:/g) || []).length, 8);
   assert.doesNotMatch(bicep, /SUPABASE_KEY/);
   assert.doesNotMatch(bicep, /Microsoft\.Authorization\/roleAssignments[^\n]*keyVaultSecretsUser/);
 });
@@ -74,10 +74,12 @@ test('Bicep uses Key Vault secretRef wiring with no plaintext secret values', ()
 test('approved production environment names are mapped separately', () => {
   for (const name of [
     'DATABASE_URL','SUPABASE_URL','SUPABASE_ANON_KEY','SUPABASE_SERVICE_ROLE_KEY',
-    'CRON_SECRET','ADMIN_API_KEY','SKCS_REFRESH_KEY','X_APISPORTS_KEY','ODDS_API_KEY'
+    'CRON_SECRET','ADMIN_API_KEY','X_APISPORTS_KEY','ODDS_API_KEY'
   ]) {
     assert.match(bicep, new RegExp("name: '" + name + "'"));
   }
+  assert.doesNotMatch(bicep, /SKCS_REFRESH_KEY/);
+  assert.doesNotMatch(bicep, /skcs-refresh-key/);
 });
 
 test('vault RBAC is least privilege and metadata proof did not read values', () => {

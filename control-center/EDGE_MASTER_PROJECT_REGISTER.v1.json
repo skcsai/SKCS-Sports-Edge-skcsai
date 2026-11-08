@@ -3721,7 +3721,7 @@
         "control-center/ESEC-001_I5_AZURE_SCHEDULER_AND_REFRESH_CREDENTIAL_BOUNDARY_RESOLUTION.v1.md",
         "reports/esec-001-i5/azure-scheduler-refresh-credential-resolution.json",
         "tests/esec-001-i5-azure-scheduler-refresh-credential-resolution.test.js",
-        "scripts/create-esec-001-i5-azure-cron-secret.ps1",
+        "scripts/apply-esec-001-i5-azure-cron-secret.ps1",
         "infra/azure/eops-001-a1/main.bicep",
         "package.json",
         "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
@@ -3733,7 +3733,8 @@
         "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
         "control-center/EDGE_CONTROL_CENTER.md",
         "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
-        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md",
+        "tests/esec-001-i3-production-credential-remediation.test.js"
       ],
       "related_tables": [],
       "known_issues": [
@@ -3764,17 +3765,24 @@
         "Copying or rotating the current Vercel scheduler secret would unnecessarily couple Azure migration to the existing platform."
       ],
       "recommended_order": 57,
-      "next_action": "Run I5 only after Control Center acceptance. Remove only Azure SKCS_REFRESH_KEY wiring, create one Azure-only cron-secret securely, prove metadata/RBAC/Bicep what-if, test and close/HOLD. Do not deploy or start Stage B.",
+      "next_action": "Publish the green pre-Apply I5 candidate. Then run one bounded cron-secret Apply, verify metadata/RBAC/zero deployment, add I5 proof to the permanent suite and close TESTED/HOLD. Do not deploy or start Stage B.",
       "owner_note": "Stephen authorized continuation to the next Edge security mini-project on 2026-11-08 after ESEC-001-I4 closure.",
       "last_updated": "2026-11-08",
       "governed_by_control_task_id": "ESEC-001-I5",
       "current_evidence": [
         "2026-11-08 start point: ESEC-001-I4 TESTED/HOLD and published at 113b0c6867fd63c847ec5eb01ac972f697d6f74f; worktree clean; Edge Key Vault contains seven imported secrets; no live Edge Container Apps.",
-        "2026-11-08 source inspection: current Vercel production includes ADMIN_API_KEY and CRON_SECRET but no SKCS_REFRESH_KEY; backend requireRefreshKey accepts ADMIN_API_KEY fallback; package refresh trigger uses ADMIN_API_KEY/CRON_SECRET; legacy SKCS_REFRESH_KEY scripts are UNKNOWN/UNRESOLVED with no registered runtime consumers."
+        "2026-11-08 source inspection: current Vercel production includes ADMIN_API_KEY and CRON_SECRET but no SKCS_REFRESH_KEY; backend requireRefreshKey accepts ADMIN_API_KEY fallback; package refresh trigger uses ADMIN_API_KEY/CRON_SECRET; legacy SKCS_REFRESH_KEY scripts are UNKNOWN/UNRESOLVED with no registered runtime consumers.",
+        "2026-11-08 I5 implementation candidate: Azure Bicep removes only skcsRefreshKeySecretName, skcs-refresh-key secret reference and SKCS_REFRESH_KEY environment injection; ADMIN_API_KEY and CRON_SECRET remain wired.",
+        "2026-11-08 I5 focused safety proof 6/6 PASS; Azure cron-secret creator uses cryptographic RNG, file-based Key Vault write, fail-closed no-overwrite and finally-based RBAC/temp cleanup.",
+        "2026-11-08 I5 dry-run PASS: cron-secret absent in Edge Key Vault; action READY_TO_CREATE; secret values displayed=false; existing seven I4 secrets unchanged.",
+        "2026-11-08 Bicep build PASS and resource-group what-if with productionSecretsEnabled=true Succeeded: Create 1, Ignore 5, Unsupported 1, Modify 0, Delete 0; no deployment performed.",
+        "2026-11-08 I5 regression finding: two I3 tests encoded the superseded nine-secret/SKCS_REFRESH_KEY Bicep design. I5 scope explicitly includes updating only those assertions to the new eight-secret Azure boundary; historical I3 evidence files remain unchanged.",
+        "2026-11-08 I5 regression supersession proof: I3+I5 focused set 14/14 PASS after replacing only the superseded nine-secret/SKCS_REFRESH_KEY assertions with the governed eight-secret Azure boundary.",
+        "2026-11-08 final pre-Apply gate: npm run control:verify 375/375 PASS; Control Center/projects/assets/classification/runtime PASS; 1077/1077 assets classified; runtime 233 inventory / 224 discovered / 0 warnings."
       ],
       "open_gaps": [
-        "Azure Bicep still references skcs-refresh-key/SKCS_REFRESH_KEY.",
-        "Edge Key Vault still lacks cron-secret.",
+        "Publish the governed pre-Apply I5 candidate.",
+        "Edge Key Vault still lacks cron-secret until the single governed Apply.",
         "RLS-001 remains separately OPEN and outside I5."
       ]
     }

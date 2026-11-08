@@ -31,7 +31,6 @@ param supabaseAnonKeySecretName string = 'supabase-anon-key'
 param supabaseServiceRoleKeySecretName string = 'supabase-service-role-key'
 param cronSecretName string = 'cron-secret'
 param adminApiKeySecretName string = 'admin-api-key'
-param skcsRefreshKeySecretName string = 'skcs-refresh-key'
 param apiSportsKeySecretName string = 'x-apisports-key'
 param oddsApiKeySecretName string = 'odds-api-key'
 
@@ -88,11 +87,6 @@ var productionSecrets = [
     identity: identity.id
   }
   {
-    name: 'skcs-refresh-key'
-    keyVaultUrl: '${keyVault.properties.vaultUri}secrets/${skcsRefreshKeySecretName}'
-    identity: identity.id
-  }
-  {
     name: 'x-apisports-key'
     keyVaultUrl: '${keyVault.properties.vaultUri}secrets/${apiSportsKeySecretName}'
     identity: identity.id
@@ -143,10 +137,6 @@ var productionSecretEnvironment = [
   {
     name: 'ADMIN_API_KEY'
     secretRef: 'admin-api-key'
-  }
-  {
-    name: 'SKCS_REFRESH_KEY'
-    secretRef: 'skcs-refresh-key'
   }
   {
     name: 'X_APISPORTS_KEY'
