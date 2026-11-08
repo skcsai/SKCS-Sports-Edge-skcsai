@@ -3613,7 +3613,7 @@
         "control-center/ESEC-001_I4_PRODUCTION_SECRET_PROVISIONING_AND_ROTATION_PROOF.v1.md",
         "reports/esec-001-i4/production-secret-provisioning.json",
         "tests/esec-001-i4-production-secret-provisioning.test.js",
-        "scripts/esec-001-i4-provision-keyvault.ps1",
+        "scripts/import-esec-001-i4-keyvault.ps1",
         "package.json",
         "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
         "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
@@ -3630,10 +3630,11 @@
       "known_issues": [
         "RLS-001 remains outside I4 and OPEN.",
         "Secret values must never be printed, logged, committed, written to reports, or returned to chat.",
-        "I4 may create Key Vault secret versions only from verified existing authoritative values; it may not deploy Edge or regenerate credentials without a separate explicit need/authorization."
+        "I4 may create Key Vault secret versions only from verified existing authoritative values; it may not deploy Edge or regenerate credentials without a separate explicit need/authorization.",
+        "I4 requires temporary Key Vault Secrets Officer for the signed-in deployment identity at the Edge vault scope only; it must be revoked in a finally/cleanup path immediately after import."
       ],
       "required_decisions": [],
-      "completion_definition": "ESEC-001-I4 reaches TESTED only when each required Key Vault secret name is classified as PROVISIONED or EXPLICITLY_BLOCKED with a verified authoritative source; all provisioned values are transferred without being printed, logged, written to reports, committed or returned to chat; the Edge vault contains the required provisioned secret names with metadata-only verification; source systems remain unchanged and available for rollback; no secret value is read back from Key Vault; a rotation/expiry policy is recorded for each secret class; focused tests and full Edge Control Center regression pass; and no Azure Container App deployment, RLS change, Supabase restore, Render/Vercel/DNS change or Stage B occurs.",
+      "completion_definition": "ESEC-001-I4 reaches TESTED only when each required Key Vault secret name is classified as PROVISIONED or EXPLICITLY_BLOCKED with a verified authoritative source; all provisioned values are transferred without being printed, logged, written to reports, committed or returned to chat; the Edge vault contains the required provisioned secret names with metadata-only verification; source systems remain unchanged and available for rollback; temporary vault-scoped Secrets Officer access is revoked after import and the deployment identity returns to Reader-only metadata access; no secret value is read back from Key Vault; a rotation/expiry policy is recorded for each secret class; focused tests and full Edge Control Center regression pass; and no Azure Container App deployment, RLS change, Supabase restore, Render/Vercel/DNS change or Stage B occurs.",
       "proof_required": [
         "Clean canonical start point at ESEC-001-I3 closure commit",
         "ESEC-001-I4 registered and accepted by Edge Control Center before any secret mutation",
@@ -3646,7 +3647,10 @@
         "No Azure Container App deployment and live Edge Container App count remains zero",
         "Focused ESEC-001-I4 tests PASS",
         "Full Edge Control Center/project/assets/classification/runtime regression PASS",
-        "No RLS migration, Supabase restore, Render/Vercel/DNS mutation or Stage B"
+        "No RLS migration, Supabase restore, Render/Vercel/DNS mutation or Stage B",
+        "Before import, deployment identity receives temporary Key Vault Secrets Officer at the Edge vault scope only",
+        "Temporary Key Vault Secrets Officer assignment is removed immediately after the import attempt, whether successful or failed",
+        "Post-import deployment identity returns to Key Vault Reader-only data-plane metadata access at the Edge vault scope"
       ],
       "risks_if_ignored": [
         "Azure deployment would reference missing secrets.",
@@ -3654,17 +3658,23 @@
         "Regenerating credentials unnecessarily could break the current live rollback path."
       ],
       "recommended_order": 56,
-      "next_action": "Run I4 only after Control Center acceptance. Locate authoritative secret sources non-destructively, provision verified existing values through non-echoing transfers, verify metadata only, test and close/HOLD. Do not deploy or start Stage B.",
+      "next_action": "Pre-import candidate is governed and green. Publish this checkpoint, then run Apply once: temporary Edge-vault Secrets Officer -> seven non-echoing imports -> automatic role revocation -> metadata-only verification. Keep cron-secret and skcs-refresh-key blocked; no deployment or Stage B.",
       "owner_note": "Stephen authorized continuation through the correct Edge Control Center on 2026-11-08 after ESEC-001-I3 closure.",
       "last_updated": "2026-11-08",
       "governed_by_control_task_id": "ESEC-001-I4",
       "current_evidence": [
-        "2026-11-08 start point: ESEC-001-I3 TESTED/HOLD and published at 3fa0747b3a7f0d745b19f3eb1e5aca0e6bd6323f; Edge worktree clean; Key Vault RBAC and nine-secret reference design proven; Edge vault currently contains zero secrets; RLS-001 separately OPEN."
+        "2026-11-08 start point: ESEC-001-I3 TESTED/HOLD and published at 3fa0747b3a7f0d745b19f3eb1e5aca0e6bd6323f; Edge worktree clean; Key Vault RBAC and nine-secret reference design proven; Edge vault currently contains zero secrets; RLS-001 separately OPEN.",
+        "2026-11-08 pre-import permission proof: deployment identity currently has subscription Owner plus Edge-vault Key Vault Reader, but no Key Vault data-plane write role; built-in Key Vault Secrets Officer role b86a8fe4-44ce-4948-aee5-eccb2c155cd7 provides secrets/* and is authorized temporarily at Edge-vault scope only with mandatory post-import revocation.",
+        "2026-11-08 I4 source proof: current Vercel production exposes 7 required values through authenticated pull, protects CRON_SECRET as non-exportable Secret type, and has no SKCS_REFRESH_KEY; no values recorded.",
+        "2026-11-08 equality-only comparison: current Vercel matches local Edge source for DATABASE_URL, SUPABASE_URL, SUPABASE_ANON_KEY, SUPABASE_SERVICE_ROLE_KEY and ODDS_API_KEY; ADMIN_API_KEY and X_APISPORTS_KEY differ, so current Vercel production is authoritative for those values.",
+        "2026-11-08 governed dry-run PASS: 7 ready (database-url, supabase-url, supabase-anon-key, supabase-service-role-key, admin-api-key, x-apisports-key, odds-api-key); cron-secret BLOCKED_PROVIDER_NONEXPORTABLE; skcs-refresh-key BLOCKED_MISSING_SOURCE; secret values displayed=false; temp file removed.",
+        "2026-11-08 provisioning safety proof 6/6 PASS; script uses az keyvault secret set --file, wipes temp files in finally, grants temporary vault-only Key Vault Secrets Officer only in Apply mode and revokes it in finally.",
+        "2026-11-08 pre-import governance gate: npm run control:verify 369/369 PASS; Control Center/projects/assets/classification/runtime PASS; 1073/1073 classified; runtime 233 inventory / 224 discovered / 0 warnings."
       ],
       "open_gaps": [
-        "Authoritative source and secure import path for each required production secret not yet proven.",
-        "Edge Key Vault contains zero production secrets.",
-        "RLS-001 remains separately OPEN and is not part of I4."
+        "cron-secret: Vercel production Secret type is non-exportable; no authoritative equality proof is possible without coordinated rotation/replacement.",
+        "skcs-refresh-key: no authoritative source exists; current backend permits ADMIN_API_KEY fallback, but I4 does not invent a separate key.",
+        "Seven verified importable secrets have not yet been written to Key Vault."
       ]
     }
   ]

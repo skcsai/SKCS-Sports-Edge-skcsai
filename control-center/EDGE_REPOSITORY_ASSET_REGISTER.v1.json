@@ -5,8 +5,8 @@
   "source_command": "git ls-files",
   "coverage_policy": "Every tracked repository path must be REGISTERED_ASSET or EXPLICITLY_EXCLUDED. Registration records existence and governance visibility; it does not assert correctness, currency, approval, permanence, consumer presence, or Scout/FIP compatibility.",
   "unclassified_tracked_paths_allowed": false,
-  "tracked_path_count": 1070,
-  "registered_asset_count": 1069,
+  "tracked_path_count": 1074,
+  "registered_asset_count": 1073,
   "explicit_exclusion_count": 1,
   "assets": [
     {
@@ -36506,6 +36506,163 @@
         "8/8 focused I3 tests PASS on 2026-11-08.",
         "Asserts no legacy SUPABASE_KEY in protected I3 paths.",
         "Asserts empty vault remains a HOLD and no deployment occurred."
+      ]
+    },
+    {
+      "asset_path": "control-center/ESEC-001_I4_PRODUCTION_SECRET_PROVISIONING_AND_ROTATION_PROOF.v1.md",
+      "asset_type": "CONTROL_CENTER",
+      "asset_role": "CONTROL_GOVERNANCE",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_CONTRACT",
+      "current_state": "CURRENT",
+      "owner_project_id": "ESEC-001-I4",
+      "governed_by_control_task_id": "ESEC-001-I4",
+      "related_assets": [
+        "scripts/import-esec-001-i4-keyvault.ps1",
+        "reports/esec-001-i4/production-secret-provisioning.json",
+        "tests/esec-001-i4-production-secret-provisioning.test.js"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Re-run I4 dry-run/focused proof and full Edge Control Center after any secret-source, transfer, RBAC or rotation-policy change.",
+      "notes": "Governs non-echoing production secret import; two unresolved sources remain fail-closed.",
+      "purpose_description": "Governs production secret provisioning/import and rotation proof into the Edge Azure Key Vault without exposing values.",
+      "functional_group": "DEPLOYMENT_OPERATIONS",
+      "relationship_tags": [
+        "GOVERNANCE",
+        "DEPLOYMENT",
+        "SECURITY",
+        "AUDIT"
+      ],
+      "classification_evidence": [
+        "Requires source verification before import.",
+        "Authorizes only temporary vault-scoped write privilege with mandatory revocation.",
+        "Forbids Edge deployment, RLS, source mutation and secret disclosure."
+      ]
+    },
+    {
+      "asset_path": "scripts/import-esec-001-i4-keyvault.ps1",
+      "asset_type": "SOURCE_CODE",
+      "asset_role": "APPLICATION_SOURCE",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_CONTRACT",
+      "current_state": "CURRENT",
+      "owner_project_id": "ESEC-001-I4",
+      "governed_by_control_task_id": "ESEC-001-I4",
+      "related_assets": [
+        "control-center/ESEC-001_I4_PRODUCTION_SECRET_PROVISIONING_AND_ROTATION_PROOF.v1.md",
+        "reports/esec-001-i4/production-secret-provisioning.json",
+        "tests/esec-001-i4-production-secret-provisioning.test.js"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [
+        "Azure Key Vault",
+        "Vercel production environment metadata/value transfer"
+      ],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Run dry-run before every Apply; re-run focused proof after any command, source, cleanup, RBAC or secret-name change.",
+      "notes": "Secret transfer implementation. Uses az keyvault secret set --file, suppresses value-bearing output, wipes temporary files, and revokes temporary Secrets Officer in finally.",
+      "purpose_description": "Non-echoing transfer tool for importing verified current Vercel production values into Edge Key Vault under temporary least-privilege write access.",
+      "functional_group": "DEPLOYMENT_OPERATIONS",
+      "relationship_tags": [
+        "DEPLOYMENT",
+        "SECURITY",
+        "SCRIPT_TOOL",
+        "AUDIT"
+      ],
+      "classification_evidence": [
+        "Dry-run reports 7 ready and 2 blocked with no values displayed.",
+        "Uses file-based Azure secret set rather than command-line values.",
+        "Temporary Key Vault Secrets Officer role is removed in finally cleanup."
+      ]
+    },
+    {
+      "asset_path": "reports/esec-001-i4/production-secret-provisioning.json",
+      "asset_type": "OTHER",
+      "asset_role": "CONTROL_AUDIT",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "ESEC-001-I4",
+      "governed_by_control_task_id": "ESEC-001-I4",
+      "related_assets": [
+        "control-center/ESEC-001_I4_PRODUCTION_SECRET_PROVISIONING_AND_ROTATION_PROOF.v1.md",
+        "scripts/import-esec-001-i4-keyvault.ps1",
+        "tests/esec-001-i4-production-secret-provisioning.test.js"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Refresh after provisioning attempt or any authoritative source/rotation-policy change.",
+      "notes": "Contains statuses and metadata only; never stores secret values or hashes of values.",
+      "purpose_description": "Machine-readable I4 evidence for source authority, dry-run readiness, temporary RBAC, rotation policy and no-mutation boundaries.",
+      "functional_group": "DEPLOYMENT_OPERATIONS",
+      "relationship_tags": [
+        "AUDIT",
+        "DEPLOYMENT",
+        "SECURITY"
+      ],
+      "classification_evidence": [
+        "Current Vercel source compared by equality without values.",
+        "Dry-run proves 7 ready, 2 blocked.",
+        "Source systems remain unchanged."
+      ]
+    },
+    {
+      "asset_path": "tests/esec-001-i4-production-secret-provisioning.test.js",
+      "asset_type": "TEST",
+      "asset_role": "TEST_PROOF",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "ESEC-001-I4",
+      "governed_by_control_task_id": "ESEC-001-I4",
+      "related_assets": [
+        "control-center/ESEC-001_I4_PRODUCTION_SECRET_PROVISIONING_AND_ROTATION_PROOF.v1.md",
+        "scripts/import-esec-001-i4-keyvault.ps1",
+        "reports/esec-001-i4/production-secret-provisioning.json"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Re-run after any I4 packet, report or provisioning-script change.",
+      "notes": "Focused fail-closed safety proof for non-echoing transfer and mandatory temporary-role cleanup.",
+      "purpose_description": "Automated proof that I4 never puts secret values in CLI arguments, blocks unexportable/missing sources, wipes temp files, and revokes temporary write access.",
+      "functional_group": "TEST_PROOF",
+      "relationship_tags": [
+        "TEST_PROOF",
+        "DEPLOYMENT",
+        "SECURITY"
+      ],
+      "classification_evidence": [
+        "6/6 focused tests PASS on 2026-11-08.",
+        "Asserts --file and forbids --value for Key Vault writes.",
+        "Asserts temporary role grant/delete and source-system boundaries."
       ]
     }
   ],

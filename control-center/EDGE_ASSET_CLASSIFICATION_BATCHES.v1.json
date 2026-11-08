@@ -14,7 +14,7 @@
           "control-center/"
         ]
       },
-      "asset_count": 62,
+      "asset_count": 63,
       "asset_paths": [
         "control-center/ALI-001_ACCURACY_AND_LOSS_INTELLIGENCE_PROPOSAL.v1.md",
         "control-center/E2E-001_C2_EXECUTION_READINESS_BLOCKER_RECONCILIATION.v1.md",
@@ -43,6 +43,7 @@
         "control-center/ESEC-001_I1_FAIL_CLOSED_AUTHENTICATION_AND_CREDENTIAL_BOUNDARY_IMPLEMENTATION.v1.md",
         "control-center/ESEC-001_I2_PRODUCTION_RUNTIME_CREDENTIAL_AND_DEPLOYMENT_VERIFICATION.v1.md",
         "control-center/ESEC-001_I3_PRODUCTION_CREDENTIAL_REMEDIATION_AND_KEY_VAULT_INTEGRATION.v1.md",
+        "control-center/ESEC-001_I4_PRODUCTION_SECRET_PROVISIONING_AND_ROTATION_PROOF.v1.md",
         "control-center/ESG-001_SPORT_GOVERNOR_AND_CANONICAL_RULE_REGISTRY_PROPOSAL.v1.md",
         "control-center/EST-001_SUPABASE_STORAGE_AND_FIP_RETENTION_CONTRACT.v1.md",
         "control-center/FIP-001_SCOUT_FIP_AUTHORITY_CONTRACT.v1.md",
@@ -284,8 +285,8 @@
       "asset_count": 9,
       "asset_paths": [
         "backend/src/services/contextIntelligence/adjustProbability.js",
-        "backend/src/services/contextIntelligence/aiPipeline_core.js",
         "backend/src/services/contextIntelligence/aiPipeline.js",
+        "backend/src/services/contextIntelligence/aiPipeline_core.js",
         "backend/src/services/contextIntelligence/availabilitySignal.js",
         "backend/src/services/contextIntelligence/cacheService.js",
         "backend/src/services/contextIntelligence/disciplineSignal.js",
@@ -338,8 +339,8 @@
         "backend/services/accaMathUtils.js",
         "backend/services/aiPipeline.js",
         "backend/services/aiPipelineOrchestrator.js",
-        "backend/services/aiProvider_odds_update.js",
         "backend/services/aiProvider.js",
+        "backend/services/aiProvider_odds_update.js",
         "backend/services/aiScoring.js",
         "backend/services/aiTelemetryService.js",
         "backend/services/antigravity/WorkflowEngine.js",
@@ -552,7 +553,6 @@
         "scripts/validate-backfill-accuracy.js",
         "scripts/validate-keys.js",
         "scripts/validate-relational-migration.js",
-        "scripts/verify_dom_structure.js",
         "scripts/verify-acca-legs.js",
         "scripts/verify-accas.js",
         "scripts/verify-bigballs-provider.js",
@@ -565,7 +565,8 @@
         "scripts/verify-new-predictions.js",
         "scripts/verify-soccerdata-provider.js",
         "scripts/verify-sportsdb-coverage.js",
-        "scripts/verify-vercel-build.js"
+        "scripts/verify-vercel-build.js",
+        "scripts/verify_dom_structure.js"
       ]
     },
     {
@@ -607,7 +608,6 @@
         "scripts/examine-tier-rules.js",
         "scripts/simulate-filtering.js",
         "scripts/smoke-test.js",
-        "scripts/test_full_fallback_flow.js",
         "scripts/test-ai-predictions-542703.js",
         "scripts/test-ai-predictions-endpoint.js",
         "scripts/test-all-rapid-hosts.js",
@@ -655,6 +655,7 @@
         "scripts/test-telemetry-integration.js",
         "scripts/test-thesportsdb-endpoints.js",
         "scripts/test-weather-pipeline.js",
+        "scripts/test_full_fallback_flow.js",
         "scripts/trace-data-flow.js",
         "scripts/trace-filtering-rules.js",
         "scripts/trace-filtering-timestamp.js"
@@ -742,7 +743,7 @@
           "sxe-fip-lab-001-external-fip-loader.js"
         ]
       },
-      "asset_count": 32,
+      "asset_count": 33,
       "asset_paths": [
         "scripts/backfill-direct1x2-final-fields.js",
         "scripts/backfill-fixture-ids.js",
@@ -761,6 +762,7 @@
         "scripts/fetch-live-fixtures.js",
         "scripts/fetch-thesportsdb-day.js",
         "scripts/force-enrich-match.js",
+        "scripts/import-esec-001-i4-keyvault.ps1",
         "scripts/import-f1-formula1db.js",
         "scripts/import-today-snapshot-pipeline.js",
         "scripts/investigate-football536-current-fixtures.js",
@@ -855,8 +857,8 @@
         "scripts/create-indexes.js",
         "scripts/create-migration-plan.js",
         "scripts/db-cleanup.js",
-        "scripts/deployment_verification.js",
         "scripts/deployment-status.md",
+        "scripts/deployment_verification.js",
         "scripts/fix-ai-predictions-endpoint.js",
         "scripts/fix-frontend-placeholders.js",
         "scripts/fix-json-simple.js",
@@ -882,8 +884,8 @@
         "scripts/requirements.txt",
         "scripts/resolve-results.js",
         "scripts/safe-migration-plan.js",
-        "scripts/supabase_health_check.js",
         "scripts/supabase-diagnostics.js",
+        "scripts/supabase_health_check.js",
         "scripts/track-prediction-accuracy.js"
       ]
     },
@@ -911,7 +913,6 @@
         "DEEPSEEK_STATE.md",
         "DEPLOYMENT_STATUS.md",
         "DEPLOYMENT_VERIFICATION_GUIDE.md",
-        "football-ecosystem-report.md",
         "FRONTEND_FIXES_SUMMARY.md",
         "FRONTEND_INVESTIGATION_REPORT.md",
         "FULL_WORKSPACE_AUDIT_REPORT.md",
@@ -921,11 +922,9 @@
         "MASTER_RULEBOOK_IMPLEMENTATION_GUIDE.md",
         "MIGRATION_FREEZE.md",
         "PRIVACY_POLICY.md",
+        "README.md",
         "README_DASHBOARD_REFACTOR.md",
         "README_DATA_INGESTION.md",
-        "README.md",
-        "requirements.txt",
-        "runtime.txt",
         "SINGLE_USE_AUDIT_REPORT.md",
         "SKCS_MASTER_RULEBOOK.md",
         "SMB_WINDSURF_FINAL_IMPLEMENTATION.md",
@@ -933,9 +932,12 @@
         "SPORT_CONSISTENCY_AUDIT_REPORT.md",
         "STRICT_RULES.md",
         "SUPABASE_DIAGNOSTIC_REPORT.md",
-        "SUPABASE_TABLE_ANALYSIS.md",
         "SUPABASE_TABLES_SUMMARY.md",
-        "TERMS_OF_SERVICE.md"
+        "SUPABASE_TABLE_ANALYSIS.md",
+        "TERMS_OF_SERVICE.md",
+        "football-ecosystem-report.md",
+        "requirements.txt",
+        "runtime.txt"
       ]
     },
     {
@@ -950,6 +952,14 @@
       },
       "asset_count": 24,
       "asset_paths": [
+        "docs/DATA_INGESTION.md",
+        "docs/DEPLOYMENT_GUIDE.md",
+        "docs/README.md",
+        "docs/SKCS_ENGINE_V2_ADR.md",
+        "docs/SKCS_ENGINE_V2_PHASE05_INGEST_MAP.md",
+        "docs/SKCS_ENGINE_V2_PHASE0B5_REPLAY.md",
+        "docs/SKCS_ENGINE_V2_PHASE0_DESIGN.md",
+        "docs/VERCEL_DEPLOY_TROUBLESHOOTING.md",
         "docs/acca_rules_v2.1.md",
         "docs/alert-routing-degraded-state.md",
         "docs/api_quota_router.md",
@@ -957,22 +967,14 @@
         "docs/canonical_ingest_firewall.spec.md",
         "docs/control-plane-operational-pack.md",
         "docs/cricket-providers.md",
-        "docs/DATA_INGESTION.md",
-        "docs/DEPLOYMENT_GUIDE.md",
         "docs/football-leagues-apisports.md",
         "docs/pipeline-health-feed.md",
         "docs/provider-discovery/free-livescore-api.md",
         "docs/providers/live-football-api-policy.md",
-        "docs/README.md",
         "docs/runbook_degraded_states.md",
-        "docs/SKCS_ENGINE_V2_ADR.md",
-        "docs/SKCS_ENGINE_V2_PHASE0_DESIGN.md",
-        "docs/SKCS_ENGINE_V2_PHASE05_INGEST_MAP.md",
-        "docs/SKCS_ENGINE_V2_PHASE0B5_REPLAY.md",
         "docs/skcs_grading_snapshot_v1.spec.md",
         "docs/sportsdataio-pre-match-directive.md",
         "docs/supabase-tier-display-requirements.md",
-        "docs/VERCEL_DEPLOY_TROUBLESHOOTING.md",
         "docs/weekly-global-scrape-scheduler.md"
       ]
     },
@@ -996,8 +998,8 @@
         "SKCS-KNOWLEDGE/audit/migration_history.md",
         "SKCS-KNOWLEDGE/audit/observability_registry.md",
         "SKCS-KNOWLEDGE/audit/prediction_dependency_audit.md",
-        "SKCS-KNOWLEDGE/audit/runtime_consumer_audit_v2.md",
         "SKCS-KNOWLEDGE/audit/runtime_consumer_audit.md",
+        "SKCS-KNOWLEDGE/audit/runtime_consumer_audit_v2.md",
         "SKCS-KNOWLEDGE/audit/schema_drift_log.md",
         "SKCS-KNOWLEDGE/audit/technical_debt.md",
         "SKCS-KNOWLEDGE/audit/undocumented_assets.md",
@@ -1029,6 +1031,7 @@
       },
       "asset_count": 17,
       "asset_paths": [
+        "SKCS-KNOWLEDGE/README.md",
         "SKCS-KNOWLEDGE/knowledge/api_registry.md",
         "SKCS-KNOWLEDGE/knowledge/architecture_decisions.md",
         "SKCS-KNOWLEDGE/knowledge/business_rules.md",
@@ -1044,8 +1047,7 @@
         "SKCS-KNOWLEDGE/knowledge/semantic_field_mapping_registry.md",
         "SKCS-KNOWLEDGE/knowledge/semantic_violation_log.md",
         "SKCS-KNOWLEDGE/knowledge/system_topology.md",
-        "SKCS-KNOWLEDGE/knowledge/views_and_materialized_views.md",
-        "SKCS-KNOWLEDGE/README.md"
+        "SKCS-KNOWLEDGE/knowledge/views_and_materialized_views.md"
       ]
     },
     {
@@ -1286,7 +1288,7 @@
           "tests/"
         ]
       },
-      "asset_count": 73,
+      "asset_count": 74,
       "asset_paths": [
         "tests/e2e-001-c2-execution-readiness.test.js",
         "tests/e2e-001d-async-context-cache-containment.test.js",
@@ -1315,6 +1317,7 @@
         "tests/esec-001-i1-scheduler-route-boundary.test.js",
         "tests/esec-001-i2-production-runtime-verification.test.js",
         "tests/esec-001-i3-production-credential-remediation.test.js",
+        "tests/esec-001-i4-production-secret-provisioning.test.js",
         "tests/fip-intake-evidence-service.test.js",
         "tests/fip-intake-m2m-authenticator.test.js",
         "tests/fip-intake-service.test.js",
@@ -1498,6 +1501,8 @@
         ".gitignore",
         ".gitmsg",
         ".vercelignore",
+        "LICENSE",
+        "SKCS_START.bat",
         "check-db.js",
         "check-football-times.js",
         "check-football.js",
@@ -1510,7 +1515,6 @@
         "find-active-files.js",
         "force-seed.js",
         "kabaddiPy",
-        "LICENSE",
         "market-explorer.html",
         "monitoring_dashboard_queries.sql",
         "overall-project-completion.json",
@@ -1528,7 +1532,6 @@
         "run-final-test.js",
         "safe-migration-plan.json",
         "scratch_test_pipeline.js",
-        "SKCS_START.bat",
         "sportbook",
         "supabase-diagnostics-report.json",
         "supabase-migration-plan.json",
@@ -1536,7 +1539,6 @@
         "supabase-visual-analysis-report.json",
         "table-dependency-map.json",
         "tailwind.config.js",
-        "test_scenarios_master_rulebook.js",
         "test-ai-insights.js",
         "test-ai-simulation.js",
         "test-bigballs-direct.js",
@@ -1545,6 +1547,7 @@
         "test-groq-models.js",
         "test-sportsdb.js",
         "test-wc-id.js",
+        "test_scenarios_master_rulebook.js",
         "trigger_ai.js"
       ]
     },
@@ -1571,7 +1574,7 @@
           "infra/"
         ]
       },
-      "asset_count": 51,
+      "asset_count": 52,
       "asset_paths": [
         ".gemini/antigravity/README.md",
         ".gemini/antigravity/workflows/automated-data-sync.toml",
@@ -1605,6 +1608,7 @@
         "reports/eops-001-a1/stage-a-inventory.json",
         "reports/esec-001-i2/production-runtime-verification.json",
         "reports/esec-001-i3/production-credential-remediation.json",
+        "reports/esec-001-i4/production-secret-provisioning.json",
         "reports/esec-001/fail-closed-authentication-implementation.json",
         "reports/esec-001/security-boundary-inspection.json",
         "reports/execution-spine-compliance-map.json",
