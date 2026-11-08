@@ -5,8 +5,8 @@
   "source_command": "git ls-files",
   "coverage_policy": "Every tracked repository path must be REGISTERED_ASSET or EXPLICITLY_EXCLUDED. Registration records existence and governance visibility; it does not assert correctness, currency, approval, permanence, consumer presence, or Scout/FIP compatibility.",
   "unclassified_tracked_paths_allowed": false,
-  "tracked_path_count": 1058,
-  "registered_asset_count": 1057,
+  "tracked_path_count": 1064,
+  "registered_asset_count": 1063,
   "explicit_exclusion_count": 1,
   "assets": [
     {
@@ -11539,7 +11539,7 @@
       "goes_somewhere": "YES",
       "known_conflicts": [],
       "validation_status": "REGISTERED",
-      "next_validation": "Validate EFI-001 §5 crosswalk against FIP-001 before EFI-001-I1 implementation.",
+      "next_validation": "Validate EFI-001 \u00a75 crosswalk against FIP-001 before EFI-001-I1 implementation.",
       "notes": "FIP-001-C1 Scout FIP authority contract. Runtime intake and proof execution forbidden at seal time.",
       "purpose_description": "Registers the committed Scout FIP authority: schema identity, required payload shape, validation/hash law, fixture identity, market/context requirements, allowed proof modes, and forbidden non-canonical sources.",
       "functional_group": "DOCUMENTATION_KNOWLEDGE",
@@ -11902,7 +11902,7 @@
       "classification_evidence": [
         "Packet models four lifecycle tables only with 167 MB dashboard baseline.",
         "Normal projected total 186.10 MB below 300 MB preferred ceiling.",
-        "Conservative 80/day projected total 470.58 MB exceeds activation ceiling — HOLD.",
+        "Conservative 80/day projected total 470.58 MB exceeds activation ceiling \u2014 HOLD.",
         "supabase_storage_gate remains BLOCKED."
       ]
     },
@@ -11975,7 +11975,7 @@
         "UI"
       ],
       "classification_evidence": [
-        "Packet sections A–Y fix canonical navigation and lifecycle user language.",
+        "Packet sections A\u2013Y fix canonical navigation and lifecycle user language.",
         "Day tokens reconciled with lifecycleGovernor DAY_LABELS (no DAY_1).",
         "UI2/UI3/UI4 explicitly NOT STARTED; migration NOT APPLIED.",
         "All three governance gates remain BLOCKED."
@@ -32647,7 +32647,7 @@
       "known_conflicts": [],
       "validation_status": "APPROVED",
       "next_validation": "npm run test:sem-gov-001d-ui3-i8 after migration change",
-      "notes": "AUTHOR ONLY — NOT APPLIED by I8 closure.",
+      "notes": "AUTHOR ONLY \u2014 NOT APPLIED by I8 closure.",
       "purpose_description": "Creates bounded R2 fip_intake_evidence table with outcome checks, partial unique idempotency index, and RLS.",
       "functional_group": "DATABASE_MIGRATION",
       "relationship_tags": [
@@ -34673,7 +34673,7 @@
       "validation_status": "APPROVED",
       "next_validation": "SEM-GOV-001D-UI1: run npm run test:sem-gov-001d-ui1 after any UI1 packet or registration change.",
       "notes": "Packet guard test for SEM-GOV-001D-UI1 screen contract PROPOSED state.",
-      "purpose_description": "Guards UI1 packet sections A–Y, canonical day tokens, lifecycle language, blocked gates, UI2/UI3/UI4 not-started boundaries, and Control Center registration.",
+      "purpose_description": "Guards UI1 packet sections A\u2013Y, canonical day tokens, lifecycle language, blocked gates, UI2/UI3/UI4 not-started boundaries, and Control Center registration.",
       "functional_group": "TEST_PROOF",
       "relationship_tags": [
         "TEST_PROOF",
@@ -36029,6 +36029,251 @@
         "Verifies only three upstream-existing context classes are defined by C4.",
         "Verifies UNKNOWN remains a valid governed state and silent provider fallback is forbidden.",
         "Verifies EPRV parent remains PARTIAL and global gates remain blocked."
+      ]
+    },
+    {
+      "asset_path": "backend/startupMode.js",
+      "asset_type": "SOURCE_CODE",
+      "asset_role": "APPLICATION_SOURCE",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "UNKNOWN",
+      "current_state": "CURRENT",
+      "owner_project_id": "EOPS-001-A1",
+      "governed_by_control_task_id": "EOPS-001-A1",
+      "related_assets": [
+        "backend/server-express.js",
+        "tests/eops-001-a1-startup-safety.test.js"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "process.env.SKCS_STARTUP_MODE"
+      ],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Re-run EOPS-001-A1 focused proof and full Edge Control Center verification after any Stage A deployment/startup/cost evidence change.",
+      "notes": "EOPS-001-A1 local Stage A closure-candidate asset. Not published and not deployment authorization.",
+      "purpose_description": "Fail-closed startup-mode policy that preserves normal runtime behavior and disables startup side effects for the Azure Stage A canary.",
+      "functional_group": "BACKEND_RUNTIME",
+      "relationship_tags": [
+        "RUNTIME",
+        "DEPLOYMENT",
+        "SECURITY"
+      ],
+      "classification_evidence": [
+        "normal mode enables bootstrap, cron and heartbeat.",
+        "canary mode disables bootstrap, cron and heartbeat.",
+        "Unknown mode throws instead of enabling side effects."
+      ]
+    },
+    {
+      "asset_path": "control-center/EOPS-001_A1_AZURE_MIGRATION_STAGE_A_PACKET.v1.md",
+      "asset_type": "CONTROL_CENTER",
+      "asset_role": "CONTROL_GOVERNANCE",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_CONTRACT",
+      "current_state": "CURRENT",
+      "owner_project_id": "EOPS-001-A1",
+      "governed_by_control_task_id": "EOPS-001-A1",
+      "related_assets": [
+        "reports/eops-001-a1/stage-a-inventory.json",
+        "infra/azure/eops-001-a1/main.bicep",
+        "infra/azure/eops-001-a1/acr-pull.bicep",
+        "tests/eops-001-a1-startup-safety.test.js",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Re-run EOPS-001-A1 focused proof and full Edge Control Center verification after any Stage A deployment/startup/cost evidence change.",
+      "notes": "EOPS-001-A1 local Stage A closure-candidate asset. Not published and not deployment authorization.",
+      "purpose_description": "Defines the bounded EOPS-001-A1 Azure migration Stage A execution/closure evidence, cost model, startup safety proof, no-deploy boundary and rollback.",
+      "functional_group": "DEPLOYMENT_OPERATIONS",
+      "relationship_tags": [
+        "GOVERNANCE",
+        "DEPLOYMENT",
+        "SECURITY",
+        "AUDIT"
+      ],
+      "classification_evidence": [
+        "Records Stage A-only boundary and no Stage B authorization.",
+        "Records measured Azure ActualCost and explicit credit-balance limitation.",
+        "Records canary, container, Bicep what-if and rollback evidence."
+      ]
+    },
+    {
+      "asset_path": "infra/azure/eops-001-a1/acr-pull.bicep",
+      "asset_type": "DEPLOYMENT",
+      "asset_role": "DEPLOYMENT_CONFIGURATION",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "UNKNOWN",
+      "current_state": "CURRENT",
+      "owner_project_id": "EOPS-001-A1",
+      "governed_by_control_task_id": "EOPS-001-A1",
+      "related_assets": [
+        "infra/azure/eops-001-a1/main.bicep",
+        "control-center/EOPS-001_A1_AZURE_MIGRATION_STAGE_A_PACKET.v1.md",
+        "reports/eops-001-a1/stage-a-inventory.json"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "Microsoft.ContainerRegistry/registries",
+        "Microsoft.Authorization/roleAssignments"
+      ],
+      "database_objects": [],
+      "deployment_surface": [
+        "Azure Container Registry"
+      ],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Re-run EOPS-001-A1 focused proof and full Edge Control Center verification after any Stage A deployment/startup/cost evidence change.",
+      "notes": "EOPS-001-A1 local Stage A closure-candidate asset. Not published and not deployment authorization.",
+      "purpose_description": "Cross-resource-group Bicep module proposing only AcrPull for the existing Edge managed identity on the existing Scout registry.",
+      "functional_group": "DEPLOYMENT_OPERATIONS",
+      "relationship_tags": [
+        "DEPLOYMENT",
+        "CONFIGURATION",
+        "SECURITY"
+      ],
+      "classification_evidence": [
+        "Scopes the role assignment to the existing ACR only.",
+        "Uses built-in AcrPull role definition.",
+        "What-if cannot resolve the generated assignment ID until deployment; no assignment was applied."
+      ]
+    },
+    {
+      "asset_path": "infra/azure/eops-001-a1/main.bicep",
+      "asset_type": "DEPLOYMENT",
+      "asset_role": "DEPLOYMENT_CONFIGURATION",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "UNKNOWN",
+      "current_state": "CURRENT",
+      "owner_project_id": "EOPS-001-A1",
+      "governed_by_control_task_id": "EOPS-001-A1",
+      "related_assets": [
+        "infra/azure/eops-001-a1/acr-pull.bicep",
+        "control-center/EOPS-001_A1_AZURE_MIGRATION_STAGE_A_PACKET.v1.md",
+        "reports/eops-001-a1/stage-a-inventory.json"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "Microsoft.App/containerApps",
+        "Microsoft.App/managedEnvironments",
+        "Microsoft.ManagedIdentity/userAssignedIdentities"
+      ],
+      "database_objects": [],
+      "deployment_surface": [
+        "Azure Container Apps"
+      ],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Re-run EOPS-001-A1 focused proof and full Edge Control Center verification after any Stage A deployment/startup/cost evidence change.",
+      "notes": "EOPS-001-A1 local Stage A closure-candidate asset. Not published and not deployment authorization.",
+      "purpose_description": "Minimal Azure Container Apps canary candidate that reuses the existing Edge environment and identity with bounded scale and no application secrets.",
+      "functional_group": "DEPLOYMENT_OPERATIONS",
+      "relationship_tags": [
+        "DEPLOYMENT",
+        "CONFIGURATION",
+        "SECURITY"
+      ],
+      "classification_evidence": [
+        "az bicep build PASS.",
+        "Azure resource-group what-if status Succeeded.",
+        "Candidate is minReplicas 0, maxReplicas 1, 0.5 vCPU, 1 GiB and SKCS_STARTUP_MODE=canary."
+      ]
+    },
+    {
+      "asset_path": "reports/eops-001-a1/stage-a-inventory.json",
+      "asset_type": "OTHER",
+      "asset_role": "CONTROL_AUDIT",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "EOPS-001-A1",
+      "governed_by_control_task_id": "EOPS-001-A1",
+      "related_assets": [
+        "control-center/EOPS-001_A1_AZURE_MIGRATION_STAGE_A_PACKET.v1.md",
+        "tests/eops-001-a1-startup-safety.test.js",
+        "infra/azure/eops-001-a1/main.bicep",
+        "infra/azure/eops-001-a1/acr-pull.bicep"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Re-run EOPS-001-A1 focused proof and full Edge Control Center verification after any Stage A deployment/startup/cost evidence change.",
+      "notes": "EOPS-001-A1 local Stage A closure-candidate asset. Not published and not deployment authorization.",
+      "purpose_description": "Machine-readable EOPS-001-A1 evidence for Azure cost/resource inventory, Supabase coupling, canary startup, dependency security, container build, Bicep and rollback.",
+      "functional_group": "DEPLOYMENT_OPERATIONS",
+      "relationship_tags": [
+        "AUDIT",
+        "DEPLOYMENT",
+        "GOVERNANCE"
+      ],
+      "classification_evidence": [
+        "Captures Cost Management ActualCost USD 17.454513 MTD.",
+        "Captures Supabase INACTIVE state without waking the project.",
+        "Captures df1f no-push build and zero production vulnerabilities."
+      ]
+    },
+    {
+      "asset_path": "tests/eops-001-a1-startup-safety.test.js",
+      "asset_type": "TEST",
+      "asset_role": "TEST_PROOF",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "EOPS-001-A1",
+      "governed_by_control_task_id": "EOPS-001-A1",
+      "related_assets": [
+        "backend/startupMode.js",
+        "backend/server-express.js",
+        "Dockerfile",
+        "control-center/EOPS-001_A1_AZURE_MIGRATION_STAGE_A_PACKET.v1.md"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Re-run EOPS-001-A1 focused proof and full Edge Control Center verification after any Stage A deployment/startup/cost evidence change.",
+      "notes": "EOPS-001-A1 local Stage A closure-candidate asset. Not published and not deployment authorization.",
+      "purpose_description": "Focused EOPS-001-A1 proof for startup side-effect suppression, Supabase-bound import isolation and non-root Docker runtime.",
+      "functional_group": "TEST_PROOF",
+      "relationship_tags": [
+        "TEST_PROOF",
+        "DEPLOYMENT",
+        "SECURITY"
+      ],
+      "classification_evidence": [
+        "8/8 focused tests pass after final dependency remediation.",
+        "Verifies default normal behavior remains enabled.",
+        "Verifies canary suppresses bootstrap, cron, heartbeat and import-time Supabase coupling."
       ]
     }
   ],

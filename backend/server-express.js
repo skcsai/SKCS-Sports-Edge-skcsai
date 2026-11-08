@@ -34,7 +34,6 @@ const { requireSupabaseUser } = require('./middleware/supabaseJwt');
 const { syncAllSports, syncSports }      = require('./services/syncService');
 const { bootstrap }          = require('./dbBootstrap');
 const { runLiveSync }       = require('../scripts/fetch-live-fixtures');
-const { publishCricbuzzCricket } = require('../scripts/publish-cricbuzz-cricket');
 const { jobLogger } = require('./utils/jobLogger');
 const {
     calculateExpirationTime,
@@ -51,6 +50,8 @@ const PRE_MATCH_ONLY_MODE = String(process.env.SKCS_PRE_MATCH_ONLY || 'true').tr
 const { getPlanCapabilities, filterPredictionsForPlan } = require('./config/subscriptionMatrix');
 const { normalizeFixtureDate, getPredictionWindow, isFixtureEligibleForPrediction } = require('./utils/dateNormalization');
 const { initCronJobs } = require('./services/cronJobs');
+const { resolveStartupMode } = require('./startupMode');
+const startupPolicy = resolveStartupMode();
 
 const { syncDailyFixtures, enrichMatchContext, generateEdgeMindInsight } = require('./services/thesportsdbPipeline');
 
@@ -136,13 +137,20 @@ app.post('/api/pipeline/trigger', requireSchedulerSecret, express.json({ limit: 
   }
 });
 
-void bootstrap().catch(err => console.error('[startup] bootstrap failed:', err.message));
+if (startupPolicy.runDatabaseBootstrap) {
+    void bootstrap().catch(err => console.error('[startup] bootstrap failed:', err.message));
+} else {
+    console.log('[startup] CANARY mode: database bootstrap suppressed');
+}
 
-// Initialize cron jobs after bootstrap
-try {
-    initCronJobs();
-} catch (err) {
-    console.error('[startup] cron jobs init failed:', err.message);
+if (startupPolicy.initializeCronJobs) {
+    try {
+        initCronJobs();
+    } catch (err) {
+        console.error('[startup] cron jobs init failed:', err.message);
+    }
+} else {
+    console.log('[startup] CANARY mode: internal cron initialization suppressed');
 }
 
 const isProd = process.env.NODE_ENV === 'production';
@@ -227,9 +235,9 @@ const vipRouter         = require('./routes/vip');
 const direct1x2Router   = require('./routes/direct1x2');
 const refreshAIRouter   = require('./routes/refresh-ai');
 const tier1Router       = require('./routes/tier1');
-const cricketInsightsRouter = require('./routes/cricketInsights');
-const cricketCountRouter = require('./routes/cricketCount');
-const cricketCronRouter = require('./routes/cricketCron');
+const cricketInsightsRouter = startupPolicy.sideEffectsEnabled ? require('./routes/cricketInsights') : express.Router();
+const cricketCountRouter = startupPolicy.sideEffectsEnabled ? require('./routes/cricketCount') : express.Router();
+const cricketCronRouter = startupPolicy.sideEffectsEnabled ? require('./routes/cricketCron') : express.Router();
 const cricketCacheRouter = require('./routes/cricketCache');
 const sportsEdgeRouter   = require('./routes/sportsEdge');
 const schedulerRouter   = require('./routes/scheduler');
@@ -1374,6 +1382,7 @@ app.get('/api/cron/cricket-daily-fixtures', requireSchedulerSecret, async (req, 
 
     try {
         const result = await runCronWithLog('cron_cricket_daily_fixtures', req, async () => {
+            const { publishCricbuzzCricket } = require('../scripts/publish-cricbuzz-cricket');
             return await executeOperation({
                 operation: 'cron.cricket.daily-fixtures',
                 caller: 'backend/server-express.js',
@@ -1852,17 +1861,21 @@ app.get('/api/admin/force-enrichment', requireAdminKey, async (_req, res) => {
 // Initialize heartbeat service for background syncing
 const { startSKCSHeartbeat } = require('./services/skcsHeartbeat');
 
-// Start heartbeat service after a short delay to ensure server is ready
-setTimeout(async () => {
-  try {
-    await verificationHydrationPromise;
-    await verificationController.hydrateFromLatestSystemHealthState();
-    startSKCSHeartbeat();
-    console.log('[Server] SKCS Heartbeat service started successfully');
-  } catch (error) {
-    console.error('[Server] Failed to start heartbeat service:', error.message);
-  }
-}, 5000); // 5 second delay
+// Start heartbeat only in normal runtime mode. Azure Stage A canary must stay side-effect free.
+if (startupPolicy.startHeartbeat) {
+  setTimeout(async () => {
+    try {
+      await verificationHydrationPromise;
+      await verificationController.hydrateFromLatestSystemHealthState();
+      startSKCSHeartbeat();
+      console.log('[Server] SKCS Heartbeat service started successfully');
+    } catch (error) {
+      console.error('[Server] Failed to start heartbeat service:', error.message);
+    }
+  }, 5000); // 5 second delay
+} else {
+  console.log('[startup] CANARY mode: heartbeat startup suppressed');
+}
 
 // --- Error handler -------------------------------------------------------------
 app.use((err, _req, res, _next) => {

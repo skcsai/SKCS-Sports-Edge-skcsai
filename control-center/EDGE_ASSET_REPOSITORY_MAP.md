@@ -1,14 +1,14 @@
 # EDGE ASSET REPOSITORY MAP
 EAC_PROJECT_ID: EAC-001
 MANIFEST_SCHEMA_VERSION: 1.0.0
-TOTAL_GOVERNED_ASSETS: 1057
-TOTAL_BATCHED_ASSETS: 1057
+TOTAL_GOVERNED_ASSETS: 1063
+TOTAL_BATCHED_ASSETS: 1063
 FULLY_CLASSIFIED_ASSETS: 0
-CLASSIFICATION_PENDING_ASSETS: 1057
+CLASSIFICATION_PENDING_ASSETS: 1063
 CLOSURE_READY: NO
 
 CURRENT_STATE_COUNTS
-- CURRENT: 116
+- CURRENT: 122
 - PARALLEL: 0
 - LEGACY: 0
 - HISTORICAL_EVIDENCE: 0
@@ -18,20 +18,20 @@ CURRENT_STATE_COUNTS
 
 FUNCTIONAL_GROUP_COUNTS
 - SCRIPT_TOOL: 164
-- TEST_PROOF: 163
+- TEST_PROOF: 164
 - DOCUMENTATION_KNOWLEDGE: 143
 - PROVIDER_INTEGRATION: 119
 - DATABASE_MIGRATION: 99
 - GENERATED_OUTPUT: 65
 - FRONTEND_UI: 46
+- DEPLOYMENT_OPERATIONS: 43
 - DATABASE: 42
-- DEPLOYMENT_OPERATIONS: 39
 - PREDICTION: 30
 - GOVERNANCE: 27
 - SCHEDULER_BACKGROUND: 25
 - API_ROUTE: 18
 - ACCA: 17
-- BACKEND_RUNTIME: 15
+- BACKEND_RUNTIME: 16
 - PUBLIC_ASSET: 10
 - AI_EDGEMIND: 8
 - CONTROL_CENTER: 8
@@ -42,26 +42,26 @@ FUNCTIONAL_GROUP_COUNTS
 - UNCATEGORIZED: 2
 
 RELATIONSHIP_TAG_COUNTS
-- RUNTIME: 296
+- RUNTIME: 297
 - SCRIPT_TOOL: 290
-- GOVERNANCE: 285
+- GOVERNANCE: 287
 - DATABASE: 271
 - SQL: 239
 - PROVIDER: 205
 - DOCUMENTATION: 178
-- TEST_PROOF: 174
+- TEST_PROOF: 175
 - API: 173
 - UI: 112
 - PREDICTION: 110
 - MIGRATION: 105
-- AUDIT: 99
+- AUDIT: 101
 - OBSERVABILITY: 99
 - GENERATED: 75
-- SECURITY: 70
+- SECURITY: 75
 - SERVICE: 64
+- DEPLOYMENT: 62
 - ROUTE: 61
-- DEPLOYMENT: 56
-- CONFIGURATION: 52
+- CONFIGURATION: 54
 - FIP: 39
 - SCOUT: 39
 - PUBLIC_ASSET: 30
@@ -75,11 +75,11 @@ RELATIONSHIP_TAG_COUNTS
 - CONTROLLER: 2
 - RPC: 1
 
-NEXT_VALIDATION_NON_EMPTY_ASSETS: 1057
+NEXT_VALIDATION_NON_EMPTY_ASSETS: 1063
 
 BATCH_COMPLETION_SUMMARY
-- B01 | CONTROL_CENTER | ASSET_COUNT=59 | CLASSIFIED=0 | PENDING=59
-- B02 | BACKEND_DIRECT_FILES | ASSET_COUNT=13 | CLASSIFIED=0 | PENDING=13
+- B01 | CONTROL_CENTER | ASSET_COUNT=60 | CLASSIFIED=0 | PENDING=60
+- B02 | BACKEND_DIRECT_FILES | ASSET_COUNT=14 | CLASSIFIED=0 | PENDING=14
 - B03 | BACKEND_ROUTES_AND_CONTROLLERS | ASSET_COUNT=28 | CLASSIFIED=0 | PENDING=28
 - B04 | BACKEND_UTILS_SEMANTIC_CORE_AND_TEST | ASSET_COUNT=46 | CLASSIFIED=0 | PENDING=46
 - B05 | BACKEND_SCRIPTS | ASSET_COUNT=15 | CLASSIFIED=0 | PENDING=15
@@ -101,12 +101,12 @@ BATCH_COMPLETION_SUMMARY
 - B21 | PUBLIC_UI | ASSET_COUNT=70 | CLASSIFIED=0 | PENDING=70
 - B22 | SUPABASE_MIGRATIONS | ASSET_COUNT=64 | CLASSIFIED=0 | PENDING=64
 - B23 | DB_SQL_AND_SUPABASE_OTHER | ASSET_COUNT=19 | CLASSIFIED=0 | PENDING=19
-- B24 | TESTS | ASSET_COUNT=70 | CLASSIFIED=0 | PENDING=70
+- B24 | TESTS | ASSET_COUNT=71 | CLASSIFIED=0 | PENDING=71
 - B25 | SCRATCH | ASSET_COUNT=2 | CLASSIFIED=0 | PENDING=2
 - B26 | DEPLOYMENT_CI | ASSET_COUNT=3 | CLASSIFIED=0 | PENDING=3
 - B27 | ARCHIVE | ASSET_COUNT=58 | CLASSIFIED=0 | PENDING=58
 - B28 | ROOT_NON_MD_TXT_FILES | ASSET_COUNT=55 | CLASSIFIED=0 | PENDING=55
-- B29 | DOT_TOOL_DIRS_AND_SMALL_DIRS | ASSET_COUNT=46 | CLASSIFIED=0 | PENDING=46
+- B29 | DOT_TOOL_DIRS_AND_SMALL_DIRS | ASSET_COUNT=49 | CLASSIFIED=0 | PENDING=49
 
 PER_ASSET_BY_BATCH
 
@@ -133,6 +133,7 @@ PER_ASSET_BY_BATCH
 | control-center/EDGE_SYSTEM_RUNTIME_MAP.md | Observational synchronized runtime map that mirrors `EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json` surfaces with caller/consumer and database-role details for review. | GENERATED_OUTPUT | UNKNOWN | ["RUNTIME","DOCUMENTATION","GENERATED","GOVERNANCE"] | ["EDGE_SYSTEM_RUNTIME_MAP.md includes an Inventory SHA-256 and 'Synchronized review surface' text, and it is produced/updated by check_edge_system_runtime_inventory.js via MAP_PATH synchronization."] | Revalidate deterministic synchronization with the canonical Edge System Runtime Inventory during ESA-001 closure and each inventory update. |
 | control-center/EFI-001_FIP_INTAKE_HANDSHAKE_CONTRACT.v1.md | Defines the governed fail-closed Scout FIP intake boundary law: accepted source, minimum payload, crosswalk to Edge analysis envelope, validation, idempotency, provenance, and evidence recording. | DOCUMENTATION_KNOWLEDGE | CURRENT | ["DOCUMENTATION","GOVERNANCE"] | ["EFI-001_FIP_INTAKE_HANDSHAKE_CONTRACT.v1.md seals intake handshake law upstream of aiPipeline.buildRawPredictionFromProviderItem() per EMG-001 sequence."] | Validate against EFI-001 runtime intake implementation when separately authorized. |
 | control-center/EMG-001_SCOUT_EDGE_MARRIAGE_GATE_CONTRACT.v1.md | Defines the explicit fail-closed Scout-Edge marriage gate law: prerequisites, allowed E2E proof sources, blocked conditions, pass/fail rules, and required evidence before EFI-001 intake implementation. | DOCUMENTATION_KNOWLEDGE | CURRENT | ["DOCUMENTATION","GOVERNANCE"] | ["EMG-001_SCOUT_EDGE_MARRIAGE_GATE_CONTRACT.v1.md seals scout_edge_marriage_gate law and references MARRIAGE_PREREQUISITES from the Edge build-control ledger."] | Validate with EMG-001 contract validator when separately authorized. |
+| control-center/EOPS-001_A1_AZURE_MIGRATION_STAGE_A_PACKET.v1.md | Defines the bounded EOPS-001-A1 Azure migration Stage A execution/closure evidence, cost model, startup safety proof, no-deploy boundary and rollback. | DEPLOYMENT_OPERATIONS | CURRENT | ["GOVERNANCE","DEPLOYMENT","SECURITY","AUDIT"] | ["Records Stage A-only boundary and no Stage B authorization.","Records measured Azure ActualCost and explicit credit-balance limitation.","Records canary, container, Bicep what-if and rollback evidence."] | Re-run EOPS-001-A1 focused proof and full Edge Control Center verification after any Stage A deployment/startup/cost evidence change. |
 | control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md | Defines the protected Edge prediction/scoring/filtering/direct-market/market-intelligence/ACCA invariants that must be preserved before FIP runtime integration, provider removal, or E2E proof. | PREDICTION | CURRENT | ["PREDICTION","ACCA","DATABASE","GOVERNANCE","DOCUMENTATION"] | ["Contract names the six protected prediction pipeline surfaces and their responsibilities.","Contract records inspection evidence and risk surfaces without authorizing runtime repair.","Contract forbids runtime code changes, SQL, Supabase mutation, migrations, provider removal, E2E proof, and gate clearance."] | Before runtime prediction changes, create a separate EPI implementation packet with baseline regression proof, FIP input mapping, provider bypass proof, and ACCA compatibility proof. |
 | control-center/EPRV-001_C2_FIP_REPLACEMENT_READINESS_CONTRACT.v1.md | Defines the exact provider-acquired fact classes that are and are not proven replaceable by the current governed Scout/FIP boundary and seals future fail-closed no-input law. | PROVIDER_INTEGRATION | CURRENT | ["PROVIDER","FIP","PREDICTION","GOVERNANCE","DOCUMENTATION"] | ["Maps fixture identity/schedule and 1X2/markets as governed FIP replacements.","Records weather, availability, H2H, form and news/context as MISSING_BLOCKER because generic context is not class-completeness proof.","Defines fail-closed no-FIP/invalid-FIP law for future provider-removal activation without changing runtime code."] | Re-run EPRV-001-C2 focused proof and full Edge control/governor regression after any FIP context-class contract, provider-removal readiness, or fail-closed no-input law change. |
 | control-center/EPRV-001_C3_UPSTREAM_CONTEXT_AVAILABILITY_RECONCILIATION.v1.md | Distinguishes Scout context classes that already exist upstream but are not transported from classes that are absent upstream and require separate collection/governance work. | PROVIDER_INTEGRATION | CURRENT | ["PROVIDER","FIP","SCOUT","GOVERNANCE","DOCUMENTATION"] | ["Records immutable Scout commit and package SHA for the inspected Crystal Palace-Liverpool evidence package.","Classifies availability/injuries, H2H and team form as UPSTREAM_EXISTS_NOT_TRANSPORTED.","Classifies weather and news/context as UPSTREAM_ABSENT while preserving provider-removal HOLD and Scout no-prediction law."] | Re-run C3 focused proof after any Scout context availability, FIP transport contract, or EPRV provider-removal readiness change. |
@@ -188,6 +189,7 @@ PER_ASSET_BY_BATCH
 | backend/edgemind_inference.py | Python bridge between Supabase data and the local EdgeMind (Antigravity) inference engine. | AI_EDGEMIND | UNKNOWN | ["AI_EDGEMIND","DATABASE","RUNTIME"] | ["Fetches match snapshots from Supabase (e.g., `events`, `edge_data`, `live_momentum`, `public_intelligence`) and calls Antigravity `Agent.chat()` for inference."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/package-lock.json | npm lockfile that pins backend dependency versions (package-lock metadata and resolved package graph). | DEPLOYMENT_OPERATIONS | UNKNOWN | ["CONFIGURATION","GENERATED"] | ["Contains `lockfileVersion` and pinned dependency graph for the backend `package.json`."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/server-express.js | Express server entrypoint: defines backend API endpoints and wires runtime services, middleware, and routers. | BACKEND_RUNTIME | UNKNOWN | ["API","RUNTIME","SECURITY"] | ["Creates the Express app, registers `/api/*` routes (pipeline trigger, grading, sync, debug), and imports auth/subscription middleware for request gating."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
+| backend/startupMode.js | Fail-closed startup-mode policy that preserves normal runtime behavior and disables startup side effects for the Azure Stage A canary. | BACKEND_RUNTIME | CURRENT | ["RUNTIME","DEPLOYMENT","SECURITY"] | ["normal mode enables bootstrap, cron and heartbeat.","canary mode disables bootstrap, cron and heartbeat.","Unknown mode throws instead of enabling side effects."] | Re-run EOPS-001-A1 focused proof and full Edge Control Center verification after any Stage A deployment/startup/cost evidence change. |
 | backend/test-ultra-slim.js | Manual test harness for EdgeMind/Dolphin ultra-slim inference: sends a prompt to the Dolphin `/completion` endpoint and reports latency/response. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","AI_EDGEMIND","RUNTIME"] | ["POSTs an ultra-slim prompt payload to `${DOLPHIN_URL}/completion` and logs timing, tokens, and raw content."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 
 ## B03 BACKEND_ROUTES_AND_CONTROLLERS
@@ -1037,6 +1039,7 @@ PER_ASSET_BY_BATCH
 | tests/edge-project-register.test.js | Governance test asset validating the Edge Master Project Register schema integrity and that ledger task IDs match registered projects. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE","AUDIT"] | ["File uses `check_edge_project_register.js` helpers to assert the register loads, has canonical version `1.0`, and that every required field is present for each project.","It validates that ledger task IDs map exactly onto `register.projects` and that project status/blocked_by mirrors ledger task data."] | Revalidate this test asset??????s authority and coverage whenever the EAC-001 classification contract, batch manifest, or closure semantics change. |
 | tests/edge-repository-asset-register.test.js | Repository governance/asset-register test asset validating tracked asset register integrity and EAC structured classification field correctness. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE","AUDIT","DATABASE"] | ["File asserts the asset register exists/canonical version and iterates required field sets over all assets.","It validates EAC-001 structured classification fields types (`purpose_description`/`functional_group`/`relationship_tags`/`classification_evidence`) and checks enum legality for current_state and other fields."] | Revalidate this test asset??????s authority and coverage whenever the EAC-001 classification contract, batch manifest, or closure semantics change. |
 | tests/edge-system-runtime-inventory.test.js | Runtime inventory contract test asset validating ESA-001 discovery surfaces are governed and validation rules fail closed on removal or unknown task bindings. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","RUNTIME","OBSERVABILITY","GOVERNANCE"] | ["File imports runtime inventory helpers (`discoverMaterialSurfaces`, `validateInventory`, `renderRuntimeMap`) and validates the canonical runtime inventory passes.","It includes fail-closed tests (e.g., removing a governed surface or altering control-task bindings) and asserts validation errors start with the expected failure markers."] | Revalidate this test asset??????s authority and coverage whenever the EAC-001 classification contract, batch manifest, or closure semantics change. |
+| tests/eops-001-a1-startup-safety.test.js | Focused EOPS-001-A1 proof for startup side-effect suppression, Supabase-bound import isolation and non-root Docker runtime. | TEST_PROOF | CURRENT | ["TEST_PROOF","DEPLOYMENT","SECURITY"] | ["8/8 focused tests pass after final dependency remediation.","Verifies default normal behavior remains enabled.","Verifies canary suppresses bootstrap, cron, heartbeat and import-time Supabase coupling."] | Re-run EOPS-001-A1 focused proof and full Edge Control Center verification after any Stage A deployment/startup/cost evidence change. |
 | tests/epi-001-d1-r1-provenance.test.js | Verifies that governed Scout FIP R1 provenance is carried into Edge D1 prediction metadata through an exact whitelist, fails closed when incomplete, excludes forbidden payload fields, and leaves provider inputs unchanged. | TEST_PROOF | CURRENT | ["TEST_PROOF","PREDICTION","SCOUT","FIP","DATABASE","GOVERNANCE"] | ["Proves EFI EdgeAnalysisEnvelope exposes the complete minimal R1 reference including validation time.","Proves SCOUT_FIP D1 provenance is exact-whitelist only and rejects incomplete R1 metadata.","Proves provider/non-Scout input receives no invented provenance and existing raw prediction validation accepts the metadata shape."] | Run node --test tests/epi-001-d1-r1-provenance.test.js plus EPI/P1-B01 regression after any governed D1/R1 provenance or FIP-envelope metadata change. |
 | tests/epi-pipeline-integrity-contract.test.js | Tests the EPI-001-C1 prediction pipeline integrity contract and its governance registration without importing or mutating runtime prediction code. | TEST_PROOF | CURRENT | ["TEST_PROOF","PREDICTION","ACCA","GOVERNANCE"] | ["Test reads the EPI-001-C1 contract and verifies protected surfaces and forbidden boundaries.","Test verifies ledger/project register EPI-001 state and BLOCKED gates.","Test verifies package control-center test suite includes the focused EPI proof."] | Run node --test tests/epi-pipeline-integrity-contract.test.js and npm run control:verify after any EPI contract or sequencing change. |
 | tests/eprv-001-c2-fip-replacement-readiness.test.js | Verifies class-by-class provider replacement readiness, generic-context insufficiency, current provider fallback evidence, future fail-closed law and blocked gates. | TEST_PROOF | CURRENT | ["TEST_PROOF","PROVIDER","FIP","PREDICTION","GOVERNANCE"] | ["Verifies the exact replacement matrix has two MAPPED and five MISSING_BLOCKER classes.","Verifies the canonical FIP requires only generic markets/context and does not require the missing context subclasses.","Verifies current provider fallback remains pre-removal behavior while future activated behavior is contractually fail-closed."] | Re-run EPRV-001-C2 focused proof and full Edge control/governor regression after any FIP context-class contract, provider-removal readiness, or fail-closed no-input law change. |
@@ -1251,6 +1254,8 @@ PER_ASSET_BY_BATCH
 | dolphin-server/Dockerfile | Container build recipe defining how the Dolphin server is packaged. | DEPLOYMENT_OPERATIONS | UNKNOWN | ["DEPLOYMENT","CONFIGURATION"] | ["Path under B29: dolphin-server/Dockerfile","First skim: # Dockerfile for Dolphin 3.0 Llama 3.2 3B Server on Render\r\nFROM ghcr.io/ggml-org/llama.cpp:server\r\n\r\n# Download the Dolphin model (Q4_K_M for faster inference,???"] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |
 | dolphin-server/README.md | Dolphin server documentation retained for operational context. | DOCUMENTATION_KNOWLEDGE | UNKNOWN | ["DOCUMENTATION","GOVERNANCE"] | ["Path under B29: dolphin-server/README.md","First skim: # Dolphin AI Server for SKCS EdgeMind\r\n\r\nThis directory contains the Docker configuration for deploying the Dolphin 3.0 Llama 3.2 3B model on Render as a web se???"] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |
 | governance/contracts/player_driven_prediction_overlay.v1.md | Governance contract for the player-driven prediction overlay; Edge owns prediction logic while Scout remains evidence provider. | PREDICTION | UNKNOWN | ["PREDICTION","GOVERNANCE","DOCUMENTATION"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
+| infra/azure/eops-001-a1/acr-pull.bicep | Cross-resource-group Bicep module proposing only AcrPull for the existing Edge managed identity on the existing Scout registry. | DEPLOYMENT_OPERATIONS | CURRENT | ["DEPLOYMENT","CONFIGURATION","SECURITY"] | ["Scopes the role assignment to the existing ACR only.","Uses built-in AcrPull role definition.","What-if cannot resolve the generated assignment ID until deployment; no assignment was applied."] | Re-run EOPS-001-A1 focused proof and full Edge Control Center verification after any Stage A deployment/startup/cost evidence change. |
+| infra/azure/eops-001-a1/main.bicep | Minimal Azure Container Apps canary candidate that reuses the existing Edge environment and identity with bounded scale and no application secrets. | DEPLOYMENT_OPERATIONS | CURRENT | ["DEPLOYMENT","CONFIGURATION","SECURITY"] | ["az bicep build PASS.","Azure resource-group what-if status Succeeded.","Candidate is minReplicas 0, maxReplicas 1, 0.5 vCPU, 1 GiB and SKCS_STARTUP_MODE=canary."] | Re-run EOPS-001-A1 focused proof and full Edge Control Center verification after any Stage A deployment/startup/cost evidence change. |
 | js/config.js | Supabase/backend configuration module used by runtime initialization. | BACKEND_RUNTIME | UNKNOWN | ["SERVICE","CONFIGURATION"] | ["Path under B29: js/config.js","First skim: // Default to the live Render API, but allow an earlier override for migration tests.\r\nwindow.API_BASE_URL = window.API_BASE_URL \|\| (\r\n    window.location.hostn???"] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |
 | js/supabase-bundle.js | Bundled Supabase client asset intended for browser/public consumption. | PUBLIC_ASSET | UNKNOWN | ["PUBLIC_ASSET","GENERATED"] | ["Path under B29: js/supabase-bundle.js","First skim: /**\n * First-Party Supabase Bundle\n * Bundled locally to avoid tracking prevention issues with CDN\n */\n\n// Import Supabase client from node_modules (bundled)\n//???"] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |
 | js/supabase-client-src.js | Supabase client integration source used to connect runtime components. | PROVIDER_INTEGRATION | UNKNOWN | ["PROVIDER","SERVICE"] | ["Path under B29: js/supabase-client-src.js","First skim: import { createClient } from '@supabase/supabase-js';\r\n\r\nconst supabaseUrl = window.SUPABASE_URL \|\| 'https://ghzjntdvaptuxfpvhybb.supabase.co';\r\nconst supabaseA???"] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |
@@ -1263,6 +1268,7 @@ PER_ASSET_BY_BATCH
 | local-tools/sxe-fip-lab-001/styles.css | Local-only visual or proof harness asset for governed Scout-to-Edge or FIP marriage testing. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","UI","SCOUT","FIP"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | reports/e2e-001/e2e-001-raw-controlled-marriage-attempts.json | Generated governance or proof report retained as evidence for the named Edge project. | GENERATED_OUTPUT | UNKNOWN | ["GENERATED","AUDIT","TEST_PROOF","SCOUT","FIP","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | reports/e2e-001/execution-readiness-reconciliation.json | Generated governance or proof report retained as evidence for the named Edge project. | GENERATED_OUTPUT | UNKNOWN | ["GENERATED","AUDIT","TEST_PROOF","SCOUT","FIP","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
+| reports/eops-001-a1/stage-a-inventory.json | Machine-readable EOPS-001-A1 evidence for Azure cost/resource inventory, Supabase coupling, canary startup, dependency security, container build, Bicep and rollback. | DEPLOYMENT_OPERATIONS | CURRENT | ["AUDIT","DEPLOYMENT","GOVERNANCE"] | ["Captures Cost Management ActualCost USD 17.454513 MTD.","Captures Supabase INACTIVE state without waking the project.","Captures df1f no-push build and zero production vulnerabilities."] | Re-run EOPS-001-A1 focused proof and full Edge Control Center verification after any Stage A deployment/startup/cost evidence change. |
 | reports/esec-001/fail-closed-authentication-implementation.json | Records finding dispositions, focused proof results, exclusions and remaining ESEC security blockers. | DOCUMENTATION_KNOWLEDGE | CURRENT | ["GOVERNANCE","SECURITY","AUDIT"] | ["Active I1 proof records fail-closed boundary coverage.","Historical C1 proof remains preserved.","RLS-001 and production runtime verification remain open."] | Update only after an authorized ESEC proof, RLS packet or production runtime verification. |
 | reports/esec-001/security-boundary-inspection.json | Generated governance or proof report retained as evidence for the named Edge project. | GENERATED_OUTPUT | UNKNOWN | ["GENERATED","AUDIT","TEST_PROOF","SECURITY"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | reports/execution-spine-compliance-map.json | Execution-spine compliance report artifact (JSON) retained for audit/inspection. | GENERATED_OUTPUT | UNKNOWN | ["GENERATED","AUDIT"] | ["Path under B29: reports/execution-spine-compliance-map.json","First skim: {\n  \"generatedAt\": \"2026-06-05T00:44:34.328Z\",\n  \"summary\": {\n    \"filesScanned\": 3738,\n    \"filesWithFindings\": 187,\n    \"wrappedFiles\": 22,\n    \"bypassCandida???"] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |

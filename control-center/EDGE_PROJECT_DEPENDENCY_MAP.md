@@ -119,7 +119,7 @@ Blocks: none
 Status: PROPOSED
 Governed by: EOPS-001
 Blocked by: ESA-001, EST-001, ESEC-001
-Blocks: none
+Blocks: EOPS-001-A1
 
 ## FIP-001 — Scout FIP Authority Contract
 
@@ -364,4 +364,11 @@ Blocks: none
 Status: TESTED
 Governed by: EPRV-001-C4
 Blocked by: EPRV-001-C3
+Blocks: none
+
+## EOPS-001-A1 — Azure Migration Stage A - Inventory, Costed Candidate and Startup Safety
+
+Status: IN_PROGRESS
+Governed by: EOPS-001-A1
+Blocked by: ESA-001, EST-001
 Blocks: none

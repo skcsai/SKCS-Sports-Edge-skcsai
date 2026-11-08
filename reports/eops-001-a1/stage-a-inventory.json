@@ -1,0 +1,219 @@
+{
+  "project_id": "EOPS-001-A1",
+  "title": "Azure Migration Stage A \u2014 Inventory, Costed Candidate and Startup Safety",
+  "date": "2026-11-08",
+  "status": "LOCAL_CLOSURE_CANDIDATE_NOT_PUBLISHED",
+  "start_point": {
+    "edge_head": "1ac5216b7b8515afea3f057ebaed4f08cc6e399c",
+    "edge_initial_worktree": "clean",
+    "scout_head": "5e9fd2e3d8fed637063b51365e02b01c525fd4ba",
+    "scout_preserved_change": "diagnostics/ALIAS_DRIFT_SCAN_2026-07-01.md"
+  },
+  "baseline": {
+    "control_verify": {
+      "tests_passed": 353,
+      "tests_failed": 0,
+      "result": "PASS"
+    },
+    "control_center": "PASS",
+    "projects": "PASS",
+    "assets": "PASS",
+    "classification": "PASS",
+    "runtime": {
+      "inventory_surfaces": 233,
+      "discovered_surfaces": 224,
+      "warnings": 0,
+      "result": "PASS"
+    }
+  },
+  "azure": {
+    "subscription_id": "a62a614c-efbc-4fa2-bfc1-b5894e0e0ad2",
+    "billing_account_type": "MicrosoftCustomerAgreement",
+    "billing_profile": "SKCS AI Sports Edge",
+    "credit_balance": {
+      "verified": false,
+      "available_balance_api_amount": null,
+      "note": "Authenticated MCA available-balance API returned null; historical ~$5,000 balance is not treated as current evidence."
+    },
+    "actual_cost_mtd_usd": 17.454513,
+    "actual_cost_breakdown_usd": {
+      "NAT Gateway": 7.33408520835266,
+      "Load Balancer": 3.94718569248449,
+      "Azure Database for PostgreSQL": 2.962166666666671,
+      "Virtual Network": 1.5788333333333342,
+      "Container Registry": 1.2021448666,
+      "Azure Monitor": 0.332661290322581,
+      "Azure DNS": 0.0707993531660693,
+      "Storage": 0.0204472613,
+      "Key Vault": 0.006189,
+      "Log Analytics": 0,
+      "Bandwidth": 0
+    },
+    "baseline_60_day_projection_usd": {
+      "seven_completed_day_basis": 149.61,
+      "eight_calendar_day_basis": 130.91
+    },
+    "existing_edge": {
+      "container_apps_environment": "cae-skcs-edge036-zan-001",
+      "environment_state": "Succeeded",
+      "workload_profile": "Consumption",
+      "managed_identity": "id-skcs-edge036-zan-001",
+      "key_vault": "kv-skcs-edge036-zan1",
+      "storage": "stskcsedge036zan001",
+      "log_analytics": "log-skcs-edge036-zan-001",
+      "live_container_apps": 0
+    },
+    "proposed_candidate": {
+      "container_app": "ca-skcs-edge-a1-canary",
+      "min_replicas": 0,
+      "max_replicas": 1,
+      "cpu": 0.5,
+      "memory": "1Gi",
+      "startup_mode": "canary",
+      "secrets_in_template": 0,
+      "ingress": {
+        "external": true,
+        "allow_insecure": false,
+        "target_port": 8080
+      },
+      "image_registry": "existing acrskcsnscs020zan1",
+      "required_new_role": "AcrPull for existing Edge managed identity",
+      "what_if_status": "Succeeded",
+      "what_if_existing_resource_changes": "Ignore only",
+      "what_if_new_effects": [
+        "Create canary Container App",
+        "Create AcrPull role assignment"
+      ],
+      "deployed": false
+    },
+    "container_apps_retail_reference": {
+      "standard_vcpu_active_usd_per_second": 2.4e-05,
+      "standard_memory_active_usd_per_gib_second": 3e-06,
+      "requests_usd_per_million": 0.4,
+      "candidate_active_compute_usd_per_hour": 0.054,
+      "candidate_60_day_always_active_compute_ceiling_usd": 77.76,
+      "note": "Planning ceiling only. Candidate is configured minReplicas=0 and would normally cost less when idle. Requests and any applicable environment charges are additional."
+    },
+    "cost_model": {
+      "current_baseline_plus_always_active_candidate_60_day_usd": {
+        "low": 208.67,
+        "high": 227.37
+      },
+      "with_full_stage_migration_allowance_250_usd": {
+        "low": 458.67,
+        "high": 477.37
+      },
+      "planning_envelope_usd": {
+        "recurring_60_day": 500,
+        "migration_overlap": 250,
+        "protected_reserve": 1000
+      },
+      "conclusion": "Stage A candidate fits the planning envelope on measured current burn, but the full migration is not yet cost-certified because exact remaining credit and later database/auth/frontend costs remain unverified."
+    }
+  },
+  "supabase": {
+    "project_ref": "vzzmirotzqrrwgoieojo",
+    "project_state": "INACTIVE",
+    "wake_or_restore_performed": false,
+    "live_table_or_bucket_inventory_available": false,
+    "historical_database_bytes": 152390803,
+    "historical_database_mib": 145.33,
+    "historical_evidence_path": "reports/ui3-i10/post-apply-schema-snapshot.json",
+    "active_dependency_findings": {
+      "browser_auth": true,
+      "backend_jwt_auth": true,
+      "create_client_callers": "multiple active backend/public callers",
+      "rpc_examples": [
+        "upsert_canonical_event"
+      ],
+      "edge_functions_present": true,
+      "direct_storage_api_hits_in_bounded_active_code_grep": false,
+      "direct_realtime_channel_hits_in_bounded_active_code_grep": false
+    },
+    "note": "Absence of direct storage/realtime grep hits is not proof those services are unused; the inactive project prevented live bucket/function/database inventory."
+  },
+  "startup_safety": {
+    "mode_env": "SKCS_STARTUP_MODE",
+    "normal_mode_preserves_existing_behavior": true,
+    "canary_suppresses": [
+      "database bootstrap",
+      "internal cron initialization",
+      "heartbeat startup"
+    ],
+    "invalid_mode_fails_closed": true,
+    "legacy_import_fixes": [
+      "Cricbuzz publisher is lazy-loaded",
+      "Supabase-bound cricket insights/count/cron routers are skipped during canary startup"
+    ],
+    "final_local_canary_health_status": "ok",
+    "final_local_canary_http_status": 200,
+    "no_database_url": true,
+    "no_supabase_credentials": true,
+    "no_provider_keys": true
+  },
+  "dependency_security": {
+    "initial_production_audit": {
+      "total": 23,
+      "critical": 2,
+      "high": 11,
+      "moderate": 9,
+      "low": 1
+    },
+    "remediation": [
+      "lockfile security refresh",
+      "Express 4.22.2 -> 4.22.3"
+    ],
+    "final_production_audit": {
+      "total": 0,
+      "critical": 0,
+      "high": 0,
+      "moderate": 0,
+      "low": 0
+    },
+    "full_install_note": "Development dependency audit still reports moderate findings; production image uses npm ci --omit=dev and reports 0 vulnerabilities."
+  },
+  "container_build": {
+    "local_docker_available": false,
+    "method": "Azure Container Registry no-push build",
+    "secure_build_run_id": "df1f",
+    "result": "PASS",
+    "source_context_mib": 13.84,
+    "base_image": "node:20-alpine",
+    "base_digest": "sha256:fb4cd12c85ee03686f6af5362a0b0d56d50c58a04632e6c0fb8363f609372293",
+    "runs_as_non_root": "node",
+    "production_install_vulnerabilities": 0,
+    "persisted_repository_or_tag": false
+  },
+  "bicep": {
+    "main": "infra/azure/eops-001-a1/main.bicep",
+    "acr_pull_module": "infra/azure/eops-001-a1/acr-pull.bicep",
+    "build": "PASS",
+    "what_if": "Succeeded",
+    "deployment_performed": false
+  },
+  "rollback": {
+    "stage_a_now": "No cloud rollback required because nothing was deployed. If local candidate is rejected, do not publish it; keep live systems unchanged.",
+    "future_canary": "Delete only ca-skcs-edge-a1-canary and its dedicated AcrPull assignment if Stage B later creates them; do not alter the existing Edge environment, Scout resources, Supabase, Render, Vercel or DNS."
+  },
+  "open_gaps": [
+    "Exact remaining Azure startup credit balance is not exposed by the authenticated MCA balance endpoint and remains unverified.",
+    "Supabase is inactive, so live bucket/object/table volume inventory was not performed.",
+    "Stage B deployment/canary is not authorized by Stage A.",
+    "Later Azure database, identity and frontend service costs must be costed in their own migration stages before cutover."
+  ],
+  "final_governance_verification": {
+    "control_verify": "PASS",
+    "tests_passed": 361,
+    "tests_failed": 0,
+    "control_center": "PASS",
+    "projects": "PASS",
+    "assets": "PASS",
+    "classification": "PASS",
+    "runtime": {
+      "result": "PASS",
+      "inventory_surfaces": 233,
+      "discovered_surfaces": 224,
+      "warnings": 0
+    }
+  }
+}

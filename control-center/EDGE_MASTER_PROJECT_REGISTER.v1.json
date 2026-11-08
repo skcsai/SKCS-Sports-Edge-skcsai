@@ -4,7 +4,7 @@
   "generated_at": "2026-07-05",
   "source_ledger": "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
   "project_policy": "The Master Project Register owns project/workstream truth. Exact project_id to ledger.task_id overlaps must mirror canonical Control Center sequencing state. Files are assets, not automatically projects.",
-  "project_count": 52,
+  "project_count": 53,
   "projects": [
     {
       "project_id": "ECC-001",
@@ -953,7 +953,9 @@
         "EST-001",
         "ESEC-001"
       ],
-      "blocks": [],
+      "blocks": [
+        "EOPS-001-A1"
+      ],
       "affected_layers": [
         "deployment",
         "operations",
@@ -3247,6 +3249,115 @@
         "2026-11-08 EPRV-001-C4 closure proof: registration 904d0299969d26bfbdaee223e4460bfc9ac7ddd3; contract packet beef04d024becdc26c40977e2a7e20d768186fb8; exact future context.availability, context.h2h and context.team_form transport roots sealed with UNKNOWN preservation, source_id, FIP cutoff/provenance binding, Scout ownership/no-recompute law and fail-closed malformed-structure rules; no Scout/runtime/provider/prediction/database/deployment change occurred."
       ],
       "open_gaps": []
+    },
+    {
+      "project_id": "EOPS-001-A1",
+      "project_name": "Azure Migration Stage A - Inventory, Costed Candidate and Startup Safety",
+      "category": "Deployment and Operations",
+      "description": "Bounded Stage A for the full Edge-to-Azure migration: verify current Azure cost/credit evidence and Supabase dependencies, implement canary-safe startup controls, and prepare/test a minimal Azure deployment candidate without live cutover.",
+      "why_it_matters": "Edge cannot be moved safely until current costs, Supabase coupling and startup side effects are proven and the Azure candidate can boot without touching production data or launching duplicate schedules.",
+      "current_status": "IN_PROGRESS",
+      "priority": "critical",
+      "startable": true,
+      "blocked_by": [
+        "ESA-001",
+        "EST-001"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "deployment",
+        "operations",
+        "environment",
+        "security-boundary",
+        "cost-control"
+      ],
+      "related_tasks": [
+        "EOPS-001",
+        "ESEC-001",
+        "EST-001",
+        "ESA-001"
+      ],
+      "related_contracts": [
+        "control-center/ESEC-001_I1_FAIL_CLOSED_AUTHENTICATION_AND_CREDENTIAL_BOUNDARY_IMPLEMENTATION.v1.md",
+        "control-center/EST-001_SUPABASE_STORAGE_AND_FIP_RETENTION_CONTRACT.v1.md"
+      ],
+      "related_files": [
+        "control-center/EOPS-001_A1_AZURE_MIGRATION_STAGE_A_PACKET.v1.md",
+        "reports/eops-001-a1/stage-a-inventory.json",
+        "backend/server-express.js",
+        "backend/startupMode.js",
+        "tests/eops-001-a1-startup-safety.test.js",
+        "Dockerfile",
+        ".dockerignore",
+        "infra/azure/eops-001-a1/main.bicep",
+        "infra/azure/eops-001-a1/acr-pull.bicep",
+        "package.json",
+        "package-lock.json",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "ESEC-001 remains PARTIAL; Stage A may gather production deployment/configuration evidence but must not clear RLS or runtime gates.",
+        "Supabase project is currently inactive, so Stage A must not restore it merely to inspect live size.",
+        "Local Docker is unavailable on the connected laptop; container proof must use an equivalent bounded method or existing Azure build service without deployment."
+      ],
+      "required_decisions": [],
+      "completion_definition": "EOPS-001-A1 reaches TESTED only when the current Edge/Scout start points and Azure subscription state are re-proven; current Azure spend and available credit evidence are recorded with any access limitation explicit; Supabase application dependencies and latest governed size evidence are inventoried without waking or mutating the inactive project; startup-side-effect controls prevent database bootstrap, internal cron scheduling and heartbeat/provider work in canary mode while preserving normal default behaviour; the production container definition is secret-safe and non-root; a minimal Azure Container Apps Bicep candidate targets the existing Edge environment with bounded scale and no production credentials; template validation/what-if, focused tests, rollback instructions and full Edge Control Center regression pass; and no live backend, database, scheduler, frontend, DNS, Supabase, Render or Vercel cutover occurs.",
+      "proof_required": [
+        "Edge and Scout HEAD/status match the approved handover or bounded drift is explained",
+        "Pre-change npm run control:verify PASS baseline recorded",
+        "Authenticated Azure subscription and billing-account identity recorded",
+        "Subscription-scoped month-to-date gross spend and budget evidence recorded",
+        "Remaining Azure credit retrieved where account APIs permit, otherwise exact authenticated access limitation recorded",
+        "Azure resource inventory distinguishes Scout from Edge and proves no live Edge Container App exists before Stage A",
+        "Supabase project state and application dependency inventory recorded without restore/wake/mutation",
+        "Latest governed Supabase database-size evidence clearly labelled historical when live database is inaccessible",
+        "Canary startup mode causes zero bootstrap, cron-init and heartbeat startup calls",
+        "Normal startup mode preserves existing bootstrap, cron and heartbeat behaviour",
+        "Docker definition excludes secrets and runs application as non-root",
+        "Minimal Bicep candidate reuses existing Edge Container Apps environment and bounds replicas/resources",
+        "Bicep build/validation and deployment what-if produce no unexpected destructive changes",
+        "Container/application build or equivalent bounded runtime proof PASS",
+        "Rollback packet identifies exact reversal before any later canary deployment",
+        "Full Edge Control Center/project/asset/classification/runtime regression PASS",
+        "No production deployment, database mutation, external-provider collection, scheduler duplication, domain change or cutover"
+      ],
+      "risks_if_ignored": [
+        "Azure canary could mutate production data during startup",
+        "Duplicate schedulers could create external API cost and conflicting writes",
+        "Supabase authentication or RPC dependencies could be lost during migration",
+        "Azure credits could be consumed without a verified shared budget"
+      ],
+      "recommended_order": 53,
+      "next_action": "Run final asset/classification/full Control Center regression. If green, retain as local Stage A closure candidate and request only the missing Edge publication decision. Do not deploy or start Stage B.",
+      "owner_note": "Stephen authorized Stage A from the 2026-11-08 full Azure migration handover. Existing live Render, Vercel, Supabase and Scout services must remain unchanged.",
+      "last_updated": "2026-11-08",
+      "governed_by_control_task_id": "EOPS-001-A1",
+      "current_evidence": [
+        "2026-11-08 pre-change Edge control:verify PASS: 353 tests; control:center/projects/assets/classification/runtime PASS; runtime inventory 233 governed / 224 discovered / 0 warnings.",
+        "Edge HEAD 1ac5216b7b8515afea3f057ebaed4f08cc6e399c clean; Scout HEAD 5e9fd2e3d8fed637063b51365e02b01c525fd4ba with only preserved diagnostics/ALIAS_DRIFT_SCAN_2026-07-01.md modified.",
+        "Azure subscription a62a614c-efbc-4fa2-bfc1-b5894e0e0ad2 authenticated; existing Edge Container Apps environment Succeeded/Consumption and no live Edge Container App listed.",
+        "Subscription-scoped budget cc-nscs-030-db-monthly reports USD 2.85966709510155 current spend for the period beginning 2026-11-01.",
+        "Supabase connector lists one project vzzmirotzqrrwgoieojo as INACTIVE; no restore/wake was performed.",
+        "2026-11-08 Cost Management ActualCost month-to-date = USD 17.454513; 60-day straight-line baseline planning range USD 130.91-149.61.",
+        "2026-11-08 clean-environment canary proof: HTTP /api/health 200 with no DATABASE_URL, Supabase credentials or provider keys; bootstrap, internal cron and heartbeat suppressed.",
+        "2026-11-08 final production dependency audit: 0 vulnerabilities after lockfile security refresh and Express 4.22.3 patch-level update.",
+        "2026-11-08 ACR no-push secure container build df1f PASS; production npm install reported 0 vulnerabilities; no skcs-edge repository/tag persisted.",
+        "2026-11-08 Bicep build PASS and resource-group what-if Succeeded; proposed changes limited to one canary Container App plus AcrPull role assignment; no deployment performed.",
+        "2026-11-08 final npm run control:verify PASS: 361/361 tests; control:center/projects/assets/classification/runtime PASS; runtime inventory 233 governed / 224 discovered / 0 warnings."
+      ],
+      "open_gaps": [
+        "Exact remaining Azure startup credit balance is not exposed by the authenticated MCA available-balance endpoint (amount is null).",
+        "Supabase project vzzmirotzqrrwgoieojo is INACTIVE, so live bucket/object/table volumes were not re-read; Stage A did not wake or restore it.",
+        "Stage A Edge publication is not authorized by the prior Scout-only publication approval; no commit or push may occur without a new Edge publication decision."
+      ]
     }
   ]
 }

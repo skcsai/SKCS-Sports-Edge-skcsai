@@ -14,7 +14,7 @@
           "control-center/"
         ]
       },
-      "asset_count": 59,
+      "asset_count": 60,
       "asset_paths": [
         "control-center/ALI-001_ACCURACY_AND_LOSS_INTELLIGENCE_PROPOSAL.v1.md",
         "control-center/E2E-001_C2_EXECUTION_READINESS_BLOCKER_RECONCILIATION.v1.md",
@@ -31,6 +31,7 @@
         "control-center/EDGE_SYSTEM_RUNTIME_MAP.md",
         "control-center/EFI-001_FIP_INTAKE_HANDSHAKE_CONTRACT.v1.md",
         "control-center/EMG-001_SCOUT_EDGE_MARRIAGE_GATE_CONTRACT.v1.md",
+        "control-center/EOPS-001_A1_AZURE_MIGRATION_STAGE_A_PACKET.v1.md",
         "control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md",
         "control-center/EPRV-001_C2_FIP_REPLACEMENT_READINESS_CONTRACT.v1.md",
         "control-center/EPRV-001_C3_UPSTREAM_CONTEXT_AVAILABILITY_RECONCILIATION.v1.md",
@@ -85,7 +86,7 @@
         "type": "direct_child",
         "prefix": "backend/"
       },
-      "asset_count": 13,
+      "asset_count": 14,
       "asset_paths": [
         "backend/.gitignore",
         "backend/apiClients.js",
@@ -99,6 +100,7 @@
         "backend/edgemind_inference.py",
         "backend/package-lock.json",
         "backend/server-express.js",
+        "backend/startupMode.js",
         "backend/test-ultra-slim.js"
       ]
     },
@@ -1282,7 +1284,7 @@
           "tests/"
         ]
       },
-      "asset_count": 70,
+      "asset_count": 71,
       "asset_paths": [
         "tests/e2e-001-c2-execution-readiness.test.js",
         "tests/e2e-001d-async-context-cache-containment.test.js",
@@ -1293,6 +1295,7 @@
         "tests/edge-project-register.test.js",
         "tests/edge-repository-asset-register.test.js",
         "tests/edge-system-runtime-inventory.test.js",
+        "tests/eops-001-a1-startup-safety.test.js",
         "tests/epi-001-d1-r1-provenance.test.js",
         "tests/epi-pipeline-integrity-contract.test.js",
         "tests/eprv-001-c2-fip-replacement-readiness.test.js",
@@ -1560,10 +1563,11 @@
           "tmp/",
           "js/",
           "governance/",
-          "local-tools/"
+          "local-tools/",
+          "infra/"
         ]
       },
-      "asset_count": 46,
+      "asset_count": 49,
       "asset_paths": [
         ".gemini/antigravity/README.md",
         ".gemini/antigravity/workflows/automated-data-sync.toml",
@@ -1580,6 +1584,8 @@
         "dolphin-server/Dockerfile",
         "dolphin-server/README.md",
         "governance/contracts/player_driven_prediction_overlay.v1.md",
+        "infra/azure/eops-001-a1/acr-pull.bicep",
+        "infra/azure/eops-001-a1/main.bicep",
         "js/config.js",
         "js/supabase-bundle.js",
         "js/supabase-client-src.js",
@@ -1592,6 +1598,7 @@
         "local-tools/sxe-fip-lab-001/styles.css",
         "reports/e2e-001/e2e-001-raw-controlled-marriage-attempts.json",
         "reports/e2e-001/execution-readiness-reconciliation.json",
+        "reports/eops-001-a1/stage-a-inventory.json",
         "reports/esec-001/fail-closed-authentication-implementation.json",
         "reports/esec-001/security-boundary-inspection.json",
         "reports/execution-spine-compliance-map.json",
