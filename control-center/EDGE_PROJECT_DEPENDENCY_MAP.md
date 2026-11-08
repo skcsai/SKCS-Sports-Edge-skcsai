@@ -372,3 +372,10 @@ Status: TESTED
 Governed by: EOPS-001-A1
 Blocked by: ESA-001, EST-001
 Blocks: none
+
+## ESEC-001-I2 — Production Runtime Credential and Deployment Configuration Verification
+
+Status: IN_PROGRESS
+Governed by: ESEC-001-I2
+Blocked by: ESA-001, EOPS-001-A1
+Blocks: none

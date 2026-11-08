@@ -524,7 +524,8 @@
       "blocks": [
         "E2E-001",
         "EUI-001",
-        "EOPS-001"
+        "EOPS-001",
+        "ESEC-001-I2"
       ],
       "affected_layers": [
         "Supabase",
@@ -612,9 +613,9 @@
         "Supabase function deployment remains unexecuted",
         "Final ESEC and marriage-gate clearance require separate explicit approval"
       ],
-      "next_action": "ESEC-001-I1 source-and-test remediation PASS. AUTH-001, SUB-001, KEY-001, CRON-001, ROUTE-001 and DB-001 are source-closed and tested; CRED-001 source credential separation is closed but production configuration and rotation proof remain unverified. RLS-001 remains OPEN and separately excluded. Keep ESEC-001 PARTIAL and all runtime gates BLOCKED. Next separately authorize RLS-001 or production runtime/deployment verification; do not deploy, execute E2E proof, activate Scout transport, apply RLS migrations or clear any gate without explicit approval.",
+      "next_action": "ESEC-001-I2 registered for separately authorized production runtime/deployment verification. Keep ESEC-001 PARTIAL and all runtime gates blocked until I2 is TESTED; RLS-001 remains separate and OPEN.",
       "owner_note": "I1 source-and-test remediation and Packet 4C targeted asset registration are complete. This is not production runtime, deployment, RLS or gate-clearance proof.",
-      "last_updated": "2026-07-15",
+      "last_updated": "2026-11-08",
       "known_issues": [
         "RLS-001 remains open",
         "Production credential configuration and rotation are unverified",
@@ -3331,6 +3332,70 @@
       ],
       "next_action": "CLOSED. EOPS-001-A1 is TESTED and published. Preserve the canary-safe startup controls, secure production dependency graph, no-push container proof, Bicep/what-if evidence and rollback boundary. Do not deploy the Azure canary, restore Supabase, change Render/Vercel/DNS or begin Stage B without a new separately governed authorization.",
       "owner_note": "Stephen authorized Stage A from the 2026-11-08 full Azure migration handover. Existing live Render, Vercel, Supabase and Scout services must remain unchanged.",
+      "last_updated": "2026-11-08"
+    },
+    {
+      "task_id": "ESEC-001-I2",
+      "task_name": "Production Runtime Credential and Deployment Configuration Verification",
+      "workstream": "Subscriber and Security Boundary",
+      "description": "Bounded read-only verification of the Edge production credential/deployment boundary required before any Azure live canary: verify Azure Key Vault secret-name inventory and metadata without reading values, managed-identity/RBAC readiness, database and scheduler credential separation, and the deployment candidate's secret-reference design. No deployment, secret rotation, RLS migration, Supabase restore, DNS change, Render/Vercel change or Stage B.",
+      "status": "IN_PROGRESS",
+      "startable": true,
+      "priority": "critical",
+      "blocked_by": [
+        "ESA-001",
+        "EOPS-001-A1"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "security-boundary",
+        "deployment",
+        "environment",
+        "operations"
+      ],
+      "related_contracts": [
+        "control-center/ESEC-001_I1_FAIL_CLOSED_AUTHENTICATION_AND_CREDENTIAL_BOUNDARY_IMPLEMENTATION.v1.md",
+        "control-center/EOPS-001_A1_AZURE_MIGRATION_STAGE_A_PACKET.v1.md"
+      ],
+      "affected_files": [
+        "control-center/ESEC-001_I2_PRODUCTION_RUNTIME_CREDENTIAL_AND_DEPLOYMENT_VERIFICATION.v1.md",
+        "reports/esec-001-i2/production-runtime-verification.json",
+        "tests/esec-001-i2-production-runtime-verification.test.js",
+        "infra/azure/eops-001-a1/main.bicep",
+        "infra/azure/eops-001-a1/acr-pull.bicep",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md"
+      ],
+      "affected_tables": [],
+      "completion_definition": "ESEC-001-I2 reaches TESTED only when the canonical Edge start point is clean; the existing ESEC-001-I1 source/test evidence remains green; Azure Edge Key Vault, managed identity and relevant RBAC are inspected read-only; required production credential classes are mapped by name/purpose without exposing values; database and scheduler credentials remain separated; the Azure deployment candidate has a fail-closed Key Vault/managed-identity secret-reference plan with no plaintext production secrets; rotation/expiry metadata limitations are recorded; focused tests and full Edge Control Center regression pass; and no cloud/application deployment or secret mutation occurs.",
+      "proof_required": [
+        "Edge HEAD/status and ESEC-001 parent state verified before registration",
+        "ESEC-001-I1 source/test security evidence remains PASS",
+        "Azure Key Vault secret names/attributes inspected without reading secret values",
+        "Edge managed identity and Key Vault/registry role assignments inventoried read-only",
+        "Production credential classes mapped to their intended runtime consumers without plaintext secret capture",
+        "Database credentials and scheduler/authentication credentials remain separate",
+        "Deployment candidate uses managed identity / Key Vault references or records an explicit blocker before deployment",
+        "No secret create/update/rotation/delete operation performed",
+        "No RLS migration, Supabase restore, Azure Container App deployment, DNS, Render or Vercel mutation performed",
+        "Focused verification tests PASS",
+        "Full Edge Control Center/project/assets/classification/runtime regression PASS"
+      ],
+      "current_evidence": [
+        "2026-11-08 start point: EOPS-001-A1 TESTED/published at 0c564c682ad23892abdd085db550a30f84f08982; Edge worktree clean; ESEC-001 remains PARTIAL with production configuration/rotation proof unverified and RLS-001 separately OPEN."
+      ],
+      "open_gaps": [
+        "Read-only Azure production credential/deployment evidence not yet gathered.",
+        "RLS-001 remains separately OPEN and is not part of I2."
+      ],
+      "next_action": "Run read-only ESEC-001-I2 verification through Edge Control Center. Do not deploy, rotate secrets, apply RLS or begin Stage B.",
+      "owner_note": "Stephen authorized continuation through the correct Control Center on 2026-11-08. Registration must pass Control Center checks before implementation evidence is gathered.",
       "last_updated": "2026-11-08"
     }
   ]
