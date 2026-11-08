@@ -4,7 +4,7 @@
   "generated_at": "2026-07-05",
   "source_ledger": "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
   "project_policy": "The Master Project Register owns project/workstream truth. Exact project_id to ledger.task_id overlaps must mirror canonical Control Center sequencing state. Files are assets, not automatically projects.",
-  "project_count": 55,
+  "project_count": 56,
   "projects": [
     {
       "project_id": "ECC-001",
@@ -557,7 +557,8 @@
         "EOPS-001",
         "E2E-001",
         "ESEC-001-I2",
-        "ESEC-001-I3"
+        "ESEC-001-I3",
+        "ESEC-001-I4"
       ],
       "affected_layers": [
         "Supabase",
@@ -608,7 +609,7 @@
         "Control Center sequencing bypass"
       ],
       "recommended_order": 10,
-      "next_action": "ESEC-001-I3 TESTED/HOLD. Keep ESEC-001 PARTIAL and runtime/deployment gates blocked. Next separately authorize production secret provisioning/import into the Edge Key Vault or RLS-001. Do not deploy or begin Stage B.",
+      "next_action": "ESEC-001-I4 registered for separately governed production secret provisioning/import and rotation proof. Keep ESEC-001 PARTIAL and Stage B blocked until I4 is TESTED; RLS-001 remains separate.",
       "owner_note": "Bootstrapped from the canonical Edge Control Center ledger. Exact task-ID overlaps mirror ledger sequencing state.",
       "last_updated": "2026-11-08",
       "governed_by_control_task_id": "ESEC-001",
@@ -3574,6 +3575,96 @@
       "open_gaps": [
         "KV-SECRETS-EMPTY-001: Edge Key Vault contains zero production secrets; required values must be provisioned/imported through a separately governed secret-provisioning mini-project before production secret bindings can be enabled.",
         "RLS-001 remains separately OPEN and outside I3."
+      ]
+    },
+    {
+      "project_id": "ESEC-001-I4",
+      "project_name": "Production Secret Provisioning and Rotation Proof",
+      "category": "Subscriber and Security Boundary",
+      "description": "Bounded provisioning of existing Edge production credentials into Azure Key Vault following ESEC-001-I3. Discover the authoritative current source for each required credential without exposing values; import only verified existing values into the Edge vault through non-echoing transfer paths; apply non-secret metadata/tags where supported; verify names, enabled state, timestamps and expiry/rotation policy without reading values back; and prove rollback/source preservation. No Container App deployment, no credential regeneration unless separately required by a source system, no RLS migration, no Supabase restore, no Render/Vercel/DNS mutation, and no Stage B.",
+      "why_it_matters": "The Azure secret-reference design is proven but cannot be activated while the Edge vault is empty. Existing production credentials must be moved without exposing or silently changing them.",
+      "current_status": "IN_PROGRESS",
+      "priority": "critical",
+      "startable": true,
+      "blocked_by": [
+        "ESA-001",
+        "ESEC-001-I3",
+        "EOPS-001-A1"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "security-boundary",
+        "deployment",
+        "environment",
+        "operations"
+      ],
+      "related_tasks": [
+        "ESEC-001",
+        "ESEC-001-I3",
+        "EOPS-001",
+        "EOPS-001-A1"
+      ],
+      "related_contracts": [
+        "control-center/ESEC-001_I3_PRODUCTION_CREDENTIAL_REMEDIATION_AND_KEY_VAULT_INTEGRATION.v1.md",
+        "control-center/ESEC-001_I1_FAIL_CLOSED_AUTHENTICATION_AND_CREDENTIAL_BOUNDARY_IMPLEMENTATION.v1.md",
+        "control-center/EOPS-001_A1_AZURE_MIGRATION_STAGE_A_PACKET.v1.md"
+      ],
+      "related_files": [
+        "control-center/ESEC-001_I4_PRODUCTION_SECRET_PROVISIONING_AND_ROTATION_PROOF.v1.md",
+        "reports/esec-001-i4/production-secret-provisioning.json",
+        "tests/esec-001-i4-production-secret-provisioning.test.js",
+        "scripts/esec-001-i4-provision-keyvault.ps1",
+        "package.json",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "RLS-001 remains outside I4 and OPEN.",
+        "Secret values must never be printed, logged, committed, written to reports, or returned to chat.",
+        "I4 may create Key Vault secret versions only from verified existing authoritative values; it may not deploy Edge or regenerate credentials without a separate explicit need/authorization."
+      ],
+      "required_decisions": [],
+      "completion_definition": "ESEC-001-I4 reaches TESTED only when each required Key Vault secret name is classified as PROVISIONED or EXPLICITLY_BLOCKED with a verified authoritative source; all provisioned values are transferred without being printed, logged, written to reports, committed or returned to chat; the Edge vault contains the required provisioned secret names with metadata-only verification; source systems remain unchanged and available for rollback; no secret value is read back from Key Vault; a rotation/expiry policy is recorded for each secret class; focused tests and full Edge Control Center regression pass; and no Azure Container App deployment, RLS change, Supabase restore, Render/Vercel/DNS change or Stage B occurs.",
+      "proof_required": [
+        "Clean canonical start point at ESEC-001-I3 closure commit",
+        "ESEC-001-I4 registered and accepted by Edge Control Center before any secret mutation",
+        "Authoritative source located for each of database-url, supabase-url, supabase-anon-key, supabase-service-role-key, cron-secret, admin-api-key, skcs-refresh-key, x-apisports-key and odds-api-key, or explicit blocker recorded",
+        "Secret values never printed, logged, stored in reports, committed or returned to chat",
+        "Only verified existing values are imported; no silent regeneration or substitution",
+        "Each imported Key Vault secret has metadata-only existence/enabled/created/updated/expiry verification without value retrieval",
+        "Rotation/expiry policy recorded per secret class without exposing value material",
+        "Source systems are not modified and remain available as rollback sources",
+        "No Azure Container App deployment and live Edge Container App count remains zero",
+        "Focused ESEC-001-I4 tests PASS",
+        "Full Edge Control Center/project/assets/classification/runtime regression PASS",
+        "No RLS migration, Supabase restore, Render/Vercel/DNS mutation or Stage B"
+      ],
+      "risks_if_ignored": [
+        "Azure deployment would reference missing secrets.",
+        "Copying credentials through visible channels could disclose production access.",
+        "Regenerating credentials unnecessarily could break the current live rollback path."
+      ],
+      "recommended_order": 56,
+      "next_action": "Run I4 only after Control Center acceptance. Locate authoritative secret sources non-destructively, provision verified existing values through non-echoing transfers, verify metadata only, test and close/HOLD. Do not deploy or start Stage B.",
+      "owner_note": "Stephen authorized continuation through the correct Edge Control Center on 2026-11-08 after ESEC-001-I3 closure.",
+      "last_updated": "2026-11-08",
+      "governed_by_control_task_id": "ESEC-001-I4",
+      "current_evidence": [
+        "2026-11-08 start point: ESEC-001-I3 TESTED/HOLD and published at 3fa0747b3a7f0d745b19f3eb1e5aca0e6bd6323f; Edge worktree clean; Key Vault RBAC and nine-secret reference design proven; Edge vault currently contains zero secrets; RLS-001 separately OPEN."
+      ],
+      "open_gaps": [
+        "Authoritative source and secure import path for each required production secret not yet proven.",
+        "Edge Key Vault contains zero production secrets.",
+        "RLS-001 remains separately OPEN and is not part of I4."
       ]
     }
   ]

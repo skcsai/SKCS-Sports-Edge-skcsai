@@ -386,3 +386,10 @@ Status: TESTED
 Governed by: ESEC-001-I3
 Blocked by: ESA-001, ESEC-001-I2, EOPS-001-A1
 Blocks: none
+
+## ESEC-001-I4 — Production Secret Provisioning and Rotation Proof
+
+Status: IN_PROGRESS
+Governed by: ESEC-001-I4
+Blocked by: ESA-001, ESEC-001-I3, EOPS-001-A1
+Blocks: none
