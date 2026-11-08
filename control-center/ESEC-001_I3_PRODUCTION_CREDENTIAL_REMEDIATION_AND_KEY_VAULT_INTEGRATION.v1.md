@@ -1,7 +1,7 @@
 # ESEC-001-I3 — Production Credential Remediation and Key Vault Integration
 
 Date: 8 November 2026
-Status: **IN PROGRESS — REMEDIATION PASS / PRODUCTION SECRET POPULATION HOLD**
+Status: **TESTED / HOLD — REMEDIATION PASS / PRODUCTION SECRET POPULATION HOLD**
 
 ## Objective
 
@@ -109,3 +109,11 @@ No secret value was read. No secret was created, changed, rotated or deleted. No
 ## Validation checkpoint
 
 Validation checkpoint: focused I3 8/8 PASS; related ESEC security regression 36/36 PASS; full Edge Control Center 369/369 PASS; projects/assets/classification/runtime PASS; runtime 233 inventory / 224 discovered / 0 warnings.
+
+## Formal closure
+
+ESEC-001-I3 is **TESTED and CLOSED / HOLD**. Implementation publication: `3d7b5f1b8d85a31450f7aaabd8720211ddd78aa0`. Source credential leakage and ambiguity are remediated; vault RBAC and secret-reference design are proven. The Edge vault contains zero production secrets, and RLS-001 remains separately OPEN, so parent ESEC-001 stays PARTIAL and Azure Stage B remains blocked. No Container App or secret value mutation occurred.
+
+Runtime inventory reconciliation: 11 intentional source/package hash changes were accepted only after 11/11 relationship-evidence fingerprints were proven unchanged; semantic runtime classification drift = 0.
+
+Final closure gate after canonical runtime-hash reconciliation: **369/369 PASS**; Control Center, projects, assets, classification and runtime all PASS; runtime inventory 233 / discovered 224 / warnings 0.

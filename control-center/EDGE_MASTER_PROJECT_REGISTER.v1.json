@@ -608,7 +608,7 @@
         "Control Center sequencing bypass"
       ],
       "recommended_order": 10,
-      "next_action": "ESEC-001-I3 registered for separately authorized production credential remediation and Key Vault integration. Keep ESEC-001 PARTIAL and Stage B blocked until I3 is TESTED; RLS-001 remains separate.",
+      "next_action": "ESEC-001-I3 TESTED/HOLD. Keep ESEC-001 PARTIAL and runtime/deployment gates blocked. Next separately authorize production secret provisioning/import into the Edge Key Vault or RLS-001. Do not deploy or begin Stage B.",
       "owner_note": "Bootstrapped from the canonical Edge Control Center ledger. Exact task-ID overlaps mirror ledger sequencing state.",
       "last_updated": "2026-11-08",
       "governed_by_control_task_id": "ESEC-001",
@@ -628,7 +628,8 @@
         "Broad test:control-center result is HOLD because of repository-wide cleanup and asset-register drift; focused ESEC-I1 proof remains 32/32 PASS",
         "Packet 4C registered the ESEC-I1 implementation contract, structured report and governance test in deterministic batches B01, B29 and B24",
         "Packet 4C focused ESEC-I1 proof passed 33/33 without control:assets or broad Control Center execution",
-        "2026-11-08 ESEC-001-I2 TESTED/HOLD: production deployment remains blocked by missing Key Vault data-plane/RBAC proof, absent Container Apps Key Vault secret references, partial provider-secret logging, legacy SUPABASE_KEY ambiguity and separate RLS-001."
+        "2026-11-08 ESEC-001-I2 TESTED/HOLD: production deployment remains blocked by missing Key Vault data-plane/RBAC proof, absent Container Apps Key Vault secret references, partial provider-secret logging, legacy SUPABASE_KEY ambiguity and separate RLS-001.",
+        "2026-11-08 ESEC-001-I3 TESTED/HOLD: partial provider-secret logging removed; protected runtime credential classes made explicit; Edge vault RBAC proven with Key Vault Secrets User for runtime and Key Vault Reader for metadata-only deployment verification; Key Vault-backed Container Apps references pass build/what-if; vault currently contains zero production secrets; RLS-001 remains OPEN."
       ]
     },
     {
@@ -3469,9 +3470,9 @@
       "category": "Subscriber and Security Boundary",
       "description": "Bounded security remediation following ESEC-001-I2 HOLD: remove partial provider-secret logging; make Supabase credential naming explicit; add Azure Container Apps Key Vault-backed secret references for the approved production credential classes; grant only the required Azure RBAC roles to the Edge managed identity and deployment identity; and prove secret metadata/rotation visibility without exposing secret values. No Container App deployment, no secret create/update/rotation/delete, no RLS migration, no Supabase restore and no Render/Vercel/DNS change.",
       "why_it_matters": "Azure Stage B must not begin with partial secret leakage, ambiguous credential classes or an unproven Key Vault/RBAC boundary.",
-      "current_status": "IN_PROGRESS",
+      "current_status": "TESTED",
       "priority": "critical",
-      "startable": true,
+      "startable": false,
       "blocked_by": [
         "ESA-001",
         "ESEC-001-I2",
@@ -3553,7 +3554,7 @@
         "Azure runtime could deploy without a working or least-privilege secret injection path."
       ],
       "recommended_order": 55,
-      "next_action": "Implementation proof is green. Publish I3 remediation evidence, then close I3 as TESTED/HOLD because the Edge vault contains zero production secrets. Do not deploy or start Stage B.",
+      "next_action": "CLOSED / HOLD. ESEC-001-I3 is TESTED: source secret leakage is removed, protected Supabase credential classes are explicit, vault-scoped least-privilege RBAC is proven, and Key Vault-backed Container Apps secret-reference design passes build/what-if. Production deployment remains blocked because the Edge vault contains zero production secrets and RLS-001 remains open. Next separately register secret provisioning/import or RLS work. Do not deploy or begin Stage B.",
       "owner_note": "Stephen authorized continuation through the correct Edge Control Center on 2026-11-08.",
       "last_updated": "2026-11-08",
       "governed_by_control_task_id": "ESEC-001-I3",
@@ -3564,10 +3565,14 @@
         "2026-11-08 metadata-only Key Vault proof PASS without value retrieval; secret list returned zero entries, establishing blocker KV-SECRETS-EMPTY-001.",
         "2026-11-08 Bicep build PASS; productionSecretsEnabled secret-reference design maps nine environment names to versionless Key Vault references with no values embedded; duplicate vault-role resource removed after what-if detected duplication risk.",
         "2026-11-08 final what-if with productionSecretsEnabled=true Succeeded; one future Container App create, existing Edge vault/environment/identity/storage/logging ignored, zero destructive changes, no deployment performed.",
-        "2026-11-08 focused ESEC-001-I3 proof 8/8 PASS; related ESEC security regression 36/36 PASS; full npm run control:verify 369/369 PASS; Control Center/projects/assets/classification/runtime PASS; runtime 233 inventory / 224 discovered / 0 warnings."
+        "2026-11-08 focused ESEC-001-I3 proof 8/8 PASS; related ESEC security regression 36/36 PASS; full npm run control:verify 369/369 PASS; Control Center/projects/assets/classification/runtime PASS; runtime 233 inventory / 224 discovered / 0 warnings.",
+        "2026-11-08 I3 implementation published at 3d7b5f1b8d85a31450f7aaabd8720211ddd78aa0 with local main and origin/main 0 ahead / 0 behind; source credential remediation, vault-scoped RBAC, metadata-only proof, Bicep build/what-if and governed evidence were published; no Container App deployment or secret value mutation occurred.",
+        "2026-11-08 I3 runtime-inventory reconciliation: exact source_content_sha256 refreshed for 11 intentionally changed runtime/package files only after proving 11/11 relationship_evidence_sha256 fingerprints unchanged; semantic runtime classification drift count = 0.",
+        "2026-11-08 package.json runtime hash normalized to canonical committed Git blob SHA-256 (9166527da42b6fa4c4075c5c22e398475ba90bc6e77d0cb15b113f732170a8c0) because Windows working-tree line endings differ while git status is clean; relationship fingerprint remains unchanged.",
+        "2026-11-08 final ESEC-001-I3 closure gate after runtime hash reconciliation: 369/369 tests PASS; Control Center, projects, assets, classification and runtime PASS; runtime inventory 233 / discovered 224 / warnings 0."
       ],
       "open_gaps": [
-        "KV-SECRETS-EMPTY-001: Edge Key Vault is accessible by metadata-only proof but contains zero production secrets; I3 is not authorized to create/import/rotate secret values.",
+        "KV-SECRETS-EMPTY-001: Edge Key Vault contains zero production secrets; required values must be provisioned/imported through a separately governed secret-provisioning mini-project before production secret bindings can be enabled.",
         "RLS-001 remains separately OPEN and outside I3."
       ]
     }
