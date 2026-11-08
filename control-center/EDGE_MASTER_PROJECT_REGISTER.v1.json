@@ -610,7 +610,7 @@
         "Control Center sequencing bypass"
       ],
       "recommended_order": 10,
-      "next_action": "ESEC-001-I5 registered to resolve Azure scheduler/refresh credentials. Keep ESEC-001 PARTIAL and Stage B blocked until I5 closes; RLS-001 remains separate.",
+      "next_action": "ESEC-001-I5 TESTED/HOLD. Credential provisioning and Azure scheduler/refresh boundaries are resolved. Keep ESEC-001 PARTIAL and all deployment/runtime gates blocked because RLS-001 remains the only open security blocker. Start RLS only as a separate governed mini-project.",
       "owner_note": "Bootstrapped from the canonical Edge Control Center ledger. Exact task-ID overlaps mirror ledger sequencing state.",
       "last_updated": "2026-11-08",
       "governed_by_control_task_id": "ESEC-001",
@@ -632,7 +632,8 @@
         "Packet 4C focused ESEC-I1 proof passed 33/33 without control:assets or broad Control Center execution",
         "2026-11-08 ESEC-001-I2 TESTED/HOLD: production deployment remains blocked by missing Key Vault data-plane/RBAC proof, absent Container Apps Key Vault secret references, partial provider-secret logging, legacy SUPABASE_KEY ambiguity and separate RLS-001.",
         "2026-11-08 ESEC-001-I3 TESTED/HOLD: partial provider-secret logging removed; protected runtime credential classes made explicit; Edge vault RBAC proven with Key Vault Secrets User for runtime and Key Vault Reader for metadata-only deployment verification; Key Vault-backed Container Apps references pass build/what-if; vault currently contains zero production secrets; RLS-001 remains OPEN.",
-        "2026-11-08 ESEC-001-I4 post-import proof: seven verified current production credentials are now provisioned in Edge Key Vault with no value disclosure; temporary write role revoked; cron-secret and skcs-refresh-key remain explicitly blocked; RLS-001 remains OPEN."
+        "2026-11-08 ESEC-001-I4 post-import proof: seven verified current production credentials are now provisioned in Edge Key Vault with no value disclosure; temporary write role revoked; cron-secret and skcs-refresh-key remain explicitly blocked; RLS-001 remains OPEN.",
+        "2026-11-08 ESEC-001-I5 post-Apply proof: Azure no longer requires SKCS_REFRESH_KEY; ADMIN_API_KEY is the Azure refresh/operator credential; fresh Azure-only cron-secret exists securely in Key Vault with temporary write access revoked. RLS-001 is now the only remaining ESEC security blocker."
       ]
     },
     {
@@ -3691,9 +3692,9 @@
       "category": "Subscriber and Security Boundary",
       "description": "Resolve the two credential blockers left by ESEC-001-I4 without deploying Edge: prove ADMIN_API_KEY is the canonical Azure refresh/operator credential and remove SKCS_REFRESH_KEY from Azure deployment wiring; generate one fresh Azure-only CRON_SECRET directly into Edge Key Vault through a non-echoing file path; preserve current Vercel/Render credentials unchanged; verify metadata/RBAC/what-if and close TESTED/HOLD. No RLS, no Container App deployment, no Stage B, no Render/Vercel/DNS/Supabase mutation.",
       "why_it_matters": "I4 proved seven imported credentials but Azure remained blocked by an unnecessary refresh-key reference and a missing scheduler secret. I5 resolves those two blockers without touching current production sources or deploying Edge.",
-      "current_status": "IN_PROGRESS",
+      "current_status": "TESTED",
       "priority": "critical",
-      "startable": true,
+      "startable": false,
       "blocked_by": [
         "ESA-001",
         "ESEC-001-I4",
@@ -3765,7 +3766,7 @@
         "Copying or rotating the current Vercel scheduler secret would unnecessarily couple Azure migration to the existing platform."
       ],
       "recommended_order": 57,
-      "next_action": "Publish the green pre-Apply I5 candidate. Then run one bounded cron-secret Apply, verify metadata/RBAC/zero deployment, add I5 proof to the permanent suite and close TESTED/HOLD. Do not deploy or start Stage B.",
+      "next_action": "CLOSED / HOLD. ESEC-001-I5 is TESTED: Azure no longer requires SKCS_REFRESH_KEY; ADMIN_API_KEY is the governed Azure refresh/operator credential; a fresh Azure-only cron-secret exists enabled in Key Vault without value disclosure; temporary vault write access was revoked; Bicep build/what-if and full regression are green. RLS-001 remains separate. Do not deploy or begin Stage B.",
       "owner_note": "Stephen authorized continuation to the next Edge security mini-project on 2026-11-08 after ESEC-001-I4 closure.",
       "last_updated": "2026-11-08",
       "governed_by_control_task_id": "ESEC-001-I5",
@@ -3778,12 +3779,16 @@
         "2026-11-08 Bicep build PASS and resource-group what-if with productionSecretsEnabled=true Succeeded: Create 1, Ignore 5, Unsupported 1, Modify 0, Delete 0; no deployment performed.",
         "2026-11-08 I5 regression finding: two I3 tests encoded the superseded nine-secret/SKCS_REFRESH_KEY Bicep design. I5 scope explicitly includes updating only those assertions to the new eight-secret Azure boundary; historical I3 evidence files remain unchanged.",
         "2026-11-08 I5 regression supersession proof: I3+I5 focused set 14/14 PASS after replacing only the superseded nine-secret/SKCS_REFRESH_KEY assertions with the governed eight-secret Azure boundary.",
-        "2026-11-08 final pre-Apply gate: npm run control:verify 375/375 PASS; Control Center/projects/assets/classification/runtime PASS; 1077/1077 assets classified; runtime 233 inventory / 224 discovered / 0 warnings."
+        "2026-11-08 final pre-Apply gate: npm run control:verify 375/375 PASS; Control Center/projects/assets/classification/runtime PASS; 1077/1077 assets classified; runtime 233 inventory / 224 discovered / 0 warnings.",
+        "2026-11-08 governed I5 Apply completed: fresh Azure-only cron-secret created through cryptographic RNG and file-based Key Vault write; existing secret overwritten=false; secret values displayed=false; current Vercel/Render secrets unchanged.",
+        "2026-11-08 metadata-only proof: Edge Key Vault now contains eight governed secrets; cron-secret is enabled with scheduler-secret content type and I5 generated-azure-only/rotation tags; value was not read back.",
+        "2026-11-08 RBAC cleanup proof: temporary Key Vault Secrets Officer is absent; deployment identity is back to Edge-vault Key Vault Reader plus inherited subscription Owner; runtime identity retains Edge-vault Key Vault Secrets User.",
+        "2026-11-08 no-side-effect proof: live Edge Container Apps=0; secure-temp sensitive files=0; Render/Vercel/DNS/Supabase/RLS unchanged; Stage B not started.",
+        "2026-11-08 I5 package.json runtime reconciliation: adding the permanent I5 focused proof changed only the canonical package source SHA-256; relationship fingerprint remained exactly bfec5297138b7770aaa6d169c0d166b4eedb837d2dfacb4ee10ce67e634c0f01, so package source_content_sha256 was updated to d295353ed4a665ce2756e67e2434ba330ac70b8ea4f98d6de8a1446999e0e3a9.",
+        "2026-11-08 final I5 pre-closure gate after permanent suite and runtime-hash reconciliation: 381/381 tests PASS; Control Center/projects/assets/classification/runtime PASS; 1077/1077 assets classified; runtime inventory 233 / discovered 224 / warnings 0."
       ],
       "open_gaps": [
-        "Publish the governed pre-Apply I5 candidate.",
-        "Edge Key Vault still lacks cron-secret until the single governed Apply.",
-        "RLS-001 remains separately OPEN and outside I5."
+        "RLS-001 remains separately OPEN and is now the only remaining ESEC security blocker."
       ]
     }
   ]

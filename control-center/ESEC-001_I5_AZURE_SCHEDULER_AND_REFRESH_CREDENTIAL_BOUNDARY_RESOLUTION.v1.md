@@ -1,7 +1,7 @@
 # ESEC-001-I5 — Azure Scheduler and Refresh Credential Boundary Resolution
 
 Date: 8 November 2026
-Status: **IN PROGRESS — PRE-APPLY VERIFIED**
+Status: **TESTED / HOLD — CLOSED**
 
 ## Objective
 
@@ -82,3 +82,60 @@ No Azure Container App deployment. No Stage B. No RLS. No Render or Vercel secre
 ## Pre-Apply validation
 
 Pre-Apply validation: focused I5 proof 6/6 PASS; I3+I5 regression proof 14/14 PASS; full Edge Control Center 375/375 PASS; 1,077/1,077 assets classified; runtime 233 inventory / 224 discovered / 0 warnings.
+
+## Apply result
+
+The published I5 candidate was run once in Apply mode.
+
+- Azure Key Vault secret created: cron-secret.
+- Existing secret overwritten: NO.
+- Secret value displayed: NO.
+- Secret value read back from Azure: NO.
+- Current Vercel CRON_SECRET changed: NO.
+- Current Render credential changed: NO.
+
+Metadata-only verification confirms cron-secret is enabled, has content type scheduler-secret, and carries the I5 project/source/rotation tags. The vault now contains eight governed Edge secrets.
+
+The temporary Key Vault Secrets Officer role was revoked after creation. Post-Apply access is:
+
+- deployment identity: inherited subscription Owner for management-plane work plus Key Vault Reader at the Edge vault;
+- temporary Secrets Officer: absent;
+- Edge runtime managed identity: Key Vault Secrets User at the Edge vault.
+
+Operational boundary proof after Apply:
+
+- live Edge Container Apps: 0;
+- secure-temp sensitive files: 0;
+- Render changed: NO;
+- Vercel changed: NO;
+- DNS changed: NO;
+- Supabase changed: NO;
+- RLS changed: NO;
+- Stage B started: NO.
+
+I5 has resolved the scheduler/refresh credential boundary. The only remaining ESEC security blocker is RLS-001.
+
+## Formal closure
+
+ESEC-001-I5 is TESTED and CLOSED / HOLD.
+
+Closure proof:
+
+- Azure deployment no longer references SKCS_REFRESH_KEY or skcs-refresh-key;
+- ADMIN_API_KEY remains the governed Azure refresh/operator credential;
+- a fresh Azure-only cron-secret exists enabled in Edge Key Vault;
+- no secret value was displayed or read back;
+- the creator refuses silent overwrite;
+- temporary Key Vault Secrets Officer access is absent after Apply;
+- deployment identity is back to Key Vault Reader at the Edge vault;
+- runtime identity retains Key Vault Secrets User;
+- secure-temp sensitive-file count is zero;
+- live Edge Container App count is zero;
+- Bicep build PASS;
+- what-if Succeeded with Modify 0 and Delete 0;
+- I5 focused proof is permanently included in the Control Center suite;
+- final suite: 381/381 PASS;
+- Control Center/projects/assets/classification/runtime: PASS;
+- runtime inventory: 233 / 224 / 0 warnings.
+
+The credential boundary is resolved. RLS-001 is now the only remaining ESEC security blocker. Parent ESEC-001 remains PARTIAL and Azure Stage B remains blocked.

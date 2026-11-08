@@ -5239,7 +5239,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "a102b3a07f15e7d1fdc087a7a2cfdf835b9f5f2d4f631908ef2dd65a5aac6b1e",
+        "source_content_sha256": "d295353ed4a665ce2756e67e2434ba330ac70b8ea4f98d6de8a1446999e0e3a9",
         "relationship_evidence_sha256": "bfec5297138b7770aaa6d169c0d166b4eedb837d2dfacb4ee10ce67e634c0f01",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
