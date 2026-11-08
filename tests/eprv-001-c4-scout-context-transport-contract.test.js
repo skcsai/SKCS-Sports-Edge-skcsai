@@ -49,8 +49,8 @@ test('C4 remains contract-only and keeps provider-removal/global gates blocked',
   const ledger = readJson('control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json');
   const c4 = ledger.tasks.find((x) => x.task_id === 'EPRV-001-C4');
   const parent = ledger.tasks.find((x) => x.task_id === 'EPRV-001');
-  assert.equal(c4.status, 'IN_PROGRESS');
-  assert.equal(c4.startable, true);
+  assert.equal(c4.status, 'TESTED');
+  assert.equal(c4.startable, false);
   assert.equal(parent.status, 'PARTIAL');
   assert.equal(ledger.scout_edge_marriage_gate, 'BLOCKED');
   assert.equal(ledger.supabase_storage_gate, 'BLOCKED');

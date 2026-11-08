@@ -7,7 +7,7 @@
 | Contract ID | `EPRV-001_C4_SCOUT_CONTEXT_TRANSPORT_FIELD_CONTRACT.v1` |
 | Governed task | `EPRV-001-C4` |
 | Mode | Contract-only / no runtime implementation |
-| State during packet | **IN_PROGRESS** |
+| Final state | **TESTED / CLOSED** |
 | Upstream evidence basis | EPRV-001-C3 TESTED |
 | Provider-removal readiness | **HOLD** |
 | Scout prediction execution | **false** |

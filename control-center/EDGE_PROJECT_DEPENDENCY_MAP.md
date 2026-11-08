@@ -361,7 +361,7 @@ Blocks: none
 
 ## EPRV-001-C4 - EPRV-001-C4 Governed Scout Context Transport Field Contract
 
-Status: IN_PROGRESS
+Status: TESTED
 Governed by: EPRV-001-C4
 Blocked by: EPRV-001-C3
 Blocks: none
