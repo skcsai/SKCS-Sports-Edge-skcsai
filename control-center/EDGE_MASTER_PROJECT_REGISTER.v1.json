@@ -4,7 +4,7 @@
   "generated_at": "2026-07-05",
   "source_ledger": "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
   "project_policy": "The Master Project Register owns project/workstream truth. Exact project_id to ledger.task_id overlaps must mirror canonical Control Center sequencing state. Files are assets, not automatically projects.",
-  "project_count": 54,
+  "project_count": 55,
   "projects": [
     {
       "project_id": "ECC-001",
@@ -556,7 +556,8 @@
         "EUI-001",
         "EOPS-001",
         "E2E-001",
-        "ESEC-001-I2"
+        "ESEC-001-I2",
+        "ESEC-001-I3"
       ],
       "affected_layers": [
         "Supabase",
@@ -607,7 +608,7 @@
         "Control Center sequencing bypass"
       ],
       "recommended_order": 10,
-      "next_action": "ESEC-001-I2 TESTED/HOLD. Keep ESEC-001 PARTIAL and all runtime/deployment gates blocked. Next separately authorize security remediation for secret logging, credential naming, Key Vault references/RBAC/rotation proof, or separately authorize RLS-001. Do not deploy or begin Stage B.",
+      "next_action": "ESEC-001-I3 registered for separately authorized production credential remediation and Key Vault integration. Keep ESEC-001 PARTIAL and Stage B blocked until I3 is TESTED; RLS-001 remains separate.",
       "owner_note": "Bootstrapped from the canonical Edge Control Center ledger. Exact task-ID overlaps mirror ledger sequencing state.",
       "last_updated": "2026-11-08",
       "governed_by_control_task_id": "ESEC-001",
@@ -3460,6 +3461,108 @@
         "SECRET-LOG-001: provider diagnostics expose partial API-key prefixes and must be remediated before production deployment.",
         "CRED-ALIAS-001: legacy SUPABASE_KEY production meaning must be removed or explicitly constrained.",
         "RLS-001 remains OPEN and separately excluded from I2."
+      ]
+    },
+    {
+      "project_id": "ESEC-001-I3",
+      "project_name": "Production Credential Remediation and Key Vault Integration",
+      "category": "Subscriber and Security Boundary",
+      "description": "Bounded security remediation following ESEC-001-I2 HOLD: remove partial provider-secret logging; make Supabase credential naming explicit; add Azure Container Apps Key Vault-backed secret references for the approved production credential classes; grant only the required Azure RBAC roles to the Edge managed identity and deployment identity; and prove secret metadata/rotation visibility without exposing secret values. No Container App deployment, no secret create/update/rotation/delete, no RLS migration, no Supabase restore and no Render/Vercel/DNS change.",
+      "why_it_matters": "Azure Stage B must not begin with partial secret leakage, ambiguous credential classes or an unproven Key Vault/RBAC boundary.",
+      "current_status": "IN_PROGRESS",
+      "priority": "critical",
+      "startable": true,
+      "blocked_by": [
+        "ESA-001",
+        "ESEC-001-I2",
+        "EOPS-001-A1"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "security-boundary",
+        "deployment",
+        "environment",
+        "operations"
+      ],
+      "related_tasks": [
+        "ESEC-001",
+        "ESEC-001-I2",
+        "EOPS-001",
+        "EOPS-001-A1"
+      ],
+      "related_contracts": [
+        "control-center/ESEC-001_I1_FAIL_CLOSED_AUTHENTICATION_AND_CREDENTIAL_BOUNDARY_IMPLEMENTATION.v1.md",
+        "control-center/ESEC-001_I2_PRODUCTION_RUNTIME_CREDENTIAL_AND_DEPLOYMENT_VERIFICATION.v1.md",
+        "control-center/EOPS-001_A1_AZURE_MIGRATION_STAGE_A_PACKET.v1.md"
+      ],
+      "related_files": [
+        "control-center/ESEC-001_I3_PRODUCTION_CREDENTIAL_REMEDIATION_AND_KEY_VAULT_INTEGRATION.v1.md",
+        "reports/esec-001-i3/production-credential-remediation.json",
+        "tests/esec-001-i3-production-credential-remediation.test.js",
+        "backend/services/dataProvider.js",
+        "backend/routes/pipeline.js",
+        "backend/routes/cricketCount.js",
+        "backend/routes/cricketInsights.js",
+        "backend/routes/direct1x2.js",
+        "backend/services/apiCacheService.js",
+        "backend/services/canonicalEvents.js",
+        "backend/services/direct1x2Builder.js",
+        "backend/services/filterEngine.js",
+        "backend/services/thesportsdbPipeline.js",
+        "infra/azure/eops-001-a1/main.bicep",
+        "infra/azure/eops-001-a1/acr-pull.bicep",
+        "package.json",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "RLS-001 remains outside I3 and OPEN.",
+        "No secret value may be printed, copied into reports, committed or exposed in chat.",
+        "I3 may create only RBAC role assignments needed for Key Vault access proof; it may not create/update/rotate/delete secrets or deploy the Container App."
+      ],
+      "required_decisions": [],
+      "completion_definition": "ESEC-001-I3 reaches TESTED only when partial provider-secret logging is removed and covered by tests; production code no longer treats legacy SUPABASE_KEY as an ambiguous privileged/public fallback on protected runtime paths; the Stage A Container Apps candidate references approved Key Vault secrets through managed identity with no plaintext values; the Edge managed identity has least-privilege secret-read access and the deployment identity has metadata-only Key Vault Reader access; secret names/attributes and expiry/rotation metadata can be read without reading values; no secrets are created/updated/rotated/deleted; Bicep build and what-if pass with no unexpected destructive changes; focused tests and full Edge Control Center regression pass; no Azure Container App deployment or Stage B occurs; and RLS-001 remains separate.",
+      "proof_required": [
+        "Clean canonical Edge start point at ESEC-001-I2 closure commit",
+        "ESEC-001-I3 registered and accepted by Edge Control Center before implementation",
+        "Provider diagnostics log SET/MISSING only and never secret prefixes",
+        "Protected production paths use explicit SUPABASE_SERVICE_ROLE_KEY or SUPABASE_ANON_KEY classes; legacy SUPABASE_KEY ambiguity removed or confined to non-production compatibility with explicit tests",
+        "Container Apps candidate declares Key Vault-backed secrets and env secretRef mappings without plaintext secret values",
+        "Edge managed identity receives least-privilege Key Vault Secrets User at Edge vault scope only",
+        "Signed-in deployment identity receives Key Vault Reader at Edge vault scope only for metadata verification",
+        "Secret names and metadata can be listed/read without retrieving secret values",
+        "No secret values printed, captured in reports or committed",
+        "No secret create/update/rotate/delete operation",
+        "Bicep build and what-if PASS with no destructive change",
+        "Focused ESEC-001-I3 tests PASS",
+        "Full Edge Control Center/project/assets/classification/runtime regression PASS",
+        "No Container App deployment, no RLS migration, no Supabase restore, no Render/Vercel/DNS mutation, no Stage B"
+      ],
+      "risks_if_ignored": [
+        "Provider credentials can leak to logs.",
+        "Legacy credential aliases can collapse public and privileged trust boundaries.",
+        "Azure runtime could deploy without a working or least-privilege secret injection path."
+      ],
+      "recommended_order": 55,
+      "next_action": "Run ESEC-001-I3 only after Control Center acceptance. Remediate code and Bicep, apply only scoped Key Vault RBAC roles, verify metadata without values, run what-if/tests, then close or HOLD. Do not deploy or start Stage B.",
+      "owner_note": "Stephen authorized continuation through the correct Edge Control Center on 2026-11-08.",
+      "last_updated": "2026-11-08",
+      "governed_by_control_task_id": "ESEC-001-I3",
+      "current_evidence": [
+        "2026-11-08 start point: ESEC-001-I2 TESTED/HOLD and published at 265d6d8d3a1ccf81ff387a399115b5276b4ed254; Edge worktree clean; proven blockers are CRED-RBAC-001, CRED-META-001, DEPLOY-SECRETREF-001, SECRET-LOG-001 and CRED-ALIAS-001; RLS-001 separately OPEN."
+      ],
+      "open_gaps": [
+        "I3 remediation not yet implemented or proven.",
+        "RLS-001 remains separately OPEN and is not part of I3."
       ]
     }
   ]
