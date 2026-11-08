@@ -1,7 +1,7 @@
 # ESEC-001-I4 — Production Secret Provisioning and Rotation Proof
 
 Date: 8 November 2026
-Status: **IN PROGRESS — PRE-IMPORT VERIFIED**
+Status: **TESTED / HOLD — CLOSED**
 
 ## Objective
 
@@ -71,3 +71,66 @@ No Azure Container App deployment. No Stage B. No RLS. No Supabase restore. No R
 ## Pre-import validation
 
 Pre-import validation: focused I4 proof **6/6 PASS**; full Edge Control Center **369/369 PASS**; 1,073/1,073 assets classified; runtime 233 inventory / 224 discovered / 0 warnings.
+
+## Apply result
+
+The published governed import candidate was run once in Apply mode.
+
+Seven verified current Vercel production values were provisioned into the Edge Key Vault:
+
+- database-url
+- supabase-url
+- supabase-anon-key
+- supabase-service-role-key
+- admin-api-key
+- x-apisports-key
+- odds-api-key
+
+Two required names remain explicitly blocked:
+
+- cron-secret — Vercel protects the current CRON_SECRET as a non-exportable Secret value. I4 did not substitute an unverifiable local copy.
+- skcs-refresh-key — no authoritative source exists. I4 did not invent or generate a replacement.
+
+No secret value was displayed by the Apply run and no secret value was read back from Azure.
+
+## Post-import proof
+
+Metadata-only Key Vault inspection confirms exactly seven provisioned I4 secrets. All seven are enabled and carry the I4 project/source/rotation tags. Their expiry field is currently unset; therefore rotation is governed by the recorded coordination policy rather than an automatic expiry date.
+
+The temporary Key Vault Secrets Officer role was automatically revoked after the import. Post-import state is:
+
+- deployment identity: inherited subscription Owner for management-plane work plus Key Vault Reader at the Edge vault;
+- temporary Secrets Officer: absent;
+- Edge runtime managed identity: Key Vault Secrets User at the Edge vault.
+
+Operational boundary proof after import:
+
+- live Edge Container Apps: 0;
+- secure-temp sensitive files: 0;
+- Render changed: NO;
+- Vercel changed: NO;
+- DNS changed: NO;
+- RLS changed: NO;
+- Stage B started: NO.
+
+I4 can close as TESTED / HOLD because its Definition of Done permits every required secret to be either PROVISIONED or EXPLICITLY_BLOCKED. Parent ESEC-001 remains PARTIAL because cron-secret, skcs-refresh-key, and RLS-001 still require separately governed resolution.
+
+## Formal closure
+
+ESEC-001-I4 is TESTED and CLOSED / HOLD.
+
+Closure proof:
+
+- seven verified current Vercel production credentials are provisioned in Edge Key Vault;
+- no secret value was displayed or read back;
+- temporary Key Vault Secrets Officer access is absent after the import;
+- deployment identity is back to metadata-only Key Vault Reader at the Edge vault;
+- runtime identity retains Key Vault Secrets User;
+- secure-temp sensitive-file count is zero;
+- live Edge Container App count is zero;
+- focused I4 proof is permanently included in the Control Center suite;
+- final suite: 375/375 PASS;
+- Control Center/projects/assets/classification/runtime: PASS;
+- runtime inventory: 233 / 224 / 0 warnings.
+
+Remaining explicit blockers are cron-secret, skcs-refresh-key and separate RLS-001. Parent ESEC-001 remains PARTIAL and Azure Stage B remains blocked.
