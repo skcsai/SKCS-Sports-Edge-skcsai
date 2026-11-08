@@ -1,0 +1,107 @@
+{
+  "project_id": "ESEC-001-I6",
+  "finding_id": "RLS-001",
+  "date": "2026-11-08",
+  "status": "IMPLEMENTATION_CANDIDATE",
+  "start_commit": "9292084583f92a3c4ad6a457d16ed8304bcdec6a",
+  "target_tables": [
+    "fixture_lifecycle_current",
+    "fixture_identity_aliases",
+    "fixture_lifecycle_transition_events",
+    "fixture_lifecycle_rollover_events",
+    "lifecycle_daily_admission_counters",
+    "lifecycle_admission_idempotency",
+    "fixture_display_metadata",
+    "fip_intake_evidence"
+  ],
+  "historical_state": {
+    "applied": true,
+    "rls_enabled": true,
+    "policy_count": 0,
+    "rows_at_i10_apply": 0,
+    "evidence_source": "SEM-GOV-001D-UI3-I10"
+  },
+  "access_model": {
+    "classification": "SERVER_ONLY_INTERNAL",
+    "browser_consumers": 0,
+    "target_table_supabase_js_data_api_consumers": 0,
+    "anon_table_privileges": "REVOKE_ALL_IF_ROLE_EXISTS",
+    "authenticated_table_privileges": "REVOKE_ALL_IF_ROLE_EXISTS",
+    "public_table_privileges": "REVOKE_ALL",
+    "service_role_table_privileges": "SELECT_INSERT_UPDATE_DELETE_IF_ROLE_EXISTS",
+    "rls_policies_created": 0,
+    "force_rls_allowed": false,
+    "rationale": "Supabase service_role bypasses RLS. The meaningful boundary is server-only privilege control plus RLS deny-by-default for non-bypass roles, not a service_role RLS policy."
+  },
+  "migration": {
+    "path": "supabase/migrations/20261108065612_esec_001_i6_server_only_rls_boundary.sql",
+    "created_by": "supabase migration new",
+    "cli_version": "2.104.0",
+    "portable_to_non_supabase_postgres": true,
+    "missing_target_table_behavior": "FAIL_CLOSED_EXCEPTION",
+    "force_rls_behavior": "FAIL_CLOSED_EXCEPTION",
+    "default_privileges_changed": false,
+    "roles_created": false
+  },
+  "supabase_project": {
+    "state": "INACTIVE",
+    "restored": false,
+    "live_metadata_query_available": false,
+    "live_migration_applied": false
+  },
+  "boundaries": {
+    "supabase_restore": false,
+    "live_database_apply": false,
+    "azure_stage_b": false,
+    "azure_container_app_deploy": false,
+    "runtime_route_activation": false,
+    "render_mutation": false,
+    "vercel_mutation": false,
+    "dns_mutation": false
+  },
+  "supabase_verification": {
+    "security_advisors": {
+      "result": "PASS",
+      "lint_count": 0
+    },
+    "local_migration_list": {
+      "result": "UNAVAILABLE_LOCAL_DB_NOT_RUNNING",
+      "host": "127.0.0.1",
+      "port": 54322,
+      "local_database_started": false
+    },
+    "hosted_project_restored": false
+  },
+  "pre_publication_validation": {
+    "focused_i6": {
+      "passed": 6,
+      "failed": 0
+    },
+    "control_verify": {
+      "passed": 381,
+      "failed": 0
+    },
+    "assets": {
+      "tracked": 1082,
+      "registered": 1081,
+      "excluded": 1
+    },
+    "classification": {
+      "total": 1081,
+      "classified": 1081,
+      "result": "PASS"
+    },
+    "runtime": {
+      "inventory": 234,
+      "discovered": 225,
+      "warnings": 0,
+      "result": "PASS"
+    }
+  },
+  "publication_boundary": {
+    "source_candidate_only": true,
+    "live_database_apply": false,
+    "supabase_restored": false,
+    "azure_stage_b_started": false
+  }
+}

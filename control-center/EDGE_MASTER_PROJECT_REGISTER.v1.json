@@ -3835,7 +3835,8 @@
         "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
         "control-center/EDGE_CONTROL_CENTER.md",
         "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
-        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md",
+        "supabase/migrations/20261108065612_esec_001_i6_server_only_rls_boundary.sql"
       ],
       "related_tables": [
         "fixture_lifecycle_current",
@@ -3874,7 +3875,7 @@
         "Adding service_role RLS policies would create false assurance because service_role bypasses RLS."
       ],
       "recommended_order": 58,
-      "next_action": "After Control Center acceptance, generate one Supabase migration via CLI for the eight-table server-only privilege law, add focused proof, run full regression and close TESTED/HOLD without restoring or mutating inactive Supabase.",
+      "next_action": "Publish the green I6 source-only candidate. Then add the focused I6 proof permanently to the Control Center suite, reconcile package runtime hash if relationship fingerprint is unchanged, run final gates and close I6 TESTED/HOLD with live apply explicitly deferred. Do not restore Supabase or begin Stage B.",
       "owner_note": "Stephen authorized continuation to the next Edge security mini-project on 2026-11-08 after ESEC-001-I5 closure.",
       "last_updated": "2026-11-08",
       "governed_by_control_task_id": "ESEC-001-I6",
@@ -3884,11 +3885,18 @@
         "2026-11-08 I10 evidence: exactly eight lifecycle/proof tables were applied with RLS enabled, zero public RLS policies and zero rows; runtime activation remained blocked.",
         "2026-11-08 source inspection: no public/browser target-table references and no target-table supabase-js Data API consumers; target consumers are backend database services.",
         "2026-11-08 connected Supabase project vzzmirotzqrrwgoieojo reports INACTIVE; list_tables is inaccessible and project was not restored.",
-        "2026-11-08 current Supabase documentation: service_role/secret-key access bypasses RLS, so I6 will not create a fake service_role RLS policy; server-only privilege hardening is the selected repair."
+        "2026-11-08 current Supabase documentation: service_role/secret-key access bypasses RLS, so I6 will not create a fake service_role RLS policy; server-only privilege hardening is the selected repair.",
+        "2026-11-08 Supabase CLI v2.104.0 generated migration supabase/migrations/20261108065612_esec_001_i6_server_only_rls_boundary.sql; the CLI process lingered after file creation and was terminated without affecting the generated file.",
+        "2026-11-08 I6 focused source proof 6/6 PASS: exactly eight target tables; RLS preserved; missing table/FORCE RLS fail closed; PUBLIC/anon/authenticated privileges revoked; service_role CRUD conditional; zero CREATE POLICY/default-privilege/new-role changes.",
+        "2026-11-08 Supabase security advisors returned zero current security lints.",
+        "2026-11-08 Supabase CLI migration list --local could not connect because no local database is running on 127.0.0.1:54322; I6 did not start local infrastructure or restore the hosted inactive project.",
+        "2026-11-08 runtime inventory registration: I6 migration added as a governed DATABASE_SURFACE with source SHA-256 cb737a7a028eb9f5f1ddd839c806d536eb80a3284f5d4ebaf7f4c089bd120c25 and relationship fingerprint 557e1ce8b01e783b426b1fd1c44fedb40da6cbc2021c9d9f092068b08ad36290.",
+        "2026-11-08 final I6 pre-publication gate: focused I6 proof 6/6 PASS; npm run control:verify 381/381 PASS; Control Center/projects/assets/classification/runtime PASS; 1081/1081 assets classified; runtime 234 inventory / 225 discovered / 0 warnings.",
+        "2026-11-08 I6 publication boundary: source migration candidate only; inactive Supabase remains unrestored; live DDL=false; Azure Stage B=false."
       ],
       "open_gaps": [
-        "Generate and test the portable server-only privilege hardening migration.",
-        "Live schema apply is unavailable while Supabase remains inactive and Azure Stage B has not begun."
+        "Publish the governed I6 source-only hardening candidate.",
+        "Live migration application and live role/grant metadata proof remain deferred to the next separately authorized active database target."
       ]
     }
   ]

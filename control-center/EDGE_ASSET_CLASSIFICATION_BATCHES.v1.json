@@ -14,7 +14,7 @@
           "control-center/"
         ]
       },
-      "asset_count": 64,
+      "asset_count": 65,
       "asset_paths": [
         "control-center/ALI-001_ACCURACY_AND_LOSS_INTELLIGENCE_PROPOSAL.v1.md",
         "control-center/E2E-001_C2_EXECUTION_READINESS_BLOCKER_RECONCILIATION.v1.md",
@@ -45,6 +45,7 @@
         "control-center/ESEC-001_I3_PRODUCTION_CREDENTIAL_REMEDIATION_AND_KEY_VAULT_INTEGRATION.v1.md",
         "control-center/ESEC-001_I4_PRODUCTION_SECRET_PROVISIONING_AND_ROTATION_PROOF.v1.md",
         "control-center/ESEC-001_I5_AZURE_SCHEDULER_AND_REFRESH_CREDENTIAL_BOUNDARY_RESOLUTION.v1.md",
+        "control-center/ESEC-001_I6_RLS_SERVER_ONLY_TABLE_BOUNDARY_AND_PRIVILEGE_HARDENING.v1.md",
         "control-center/ESG-001_SPORT_GOVERNOR_AND_CANONICAL_RULE_REGISTRY_PROPOSAL.v1.md",
         "control-center/EST-001_SUPABASE_STORAGE_AND_FIP_RETENTION_CONTRACT.v1.md",
         "control-center/FIP-001_SCOUT_FIP_AUTHORITY_CONTRACT.v1.md",
@@ -1178,7 +1179,7 @@
           "supabase/migrations/"
         ]
       },
-      "asset_count": 64,
+      "asset_count": 65,
       "asset_paths": [
         "supabase/migrations/20260415000001_create_insight_usage.sql",
         "supabase/migrations/20260418000002_update_predictions_final_risk_level_check.sql",
@@ -1243,7 +1244,8 @@
         "supabase/migrations/20261007000000_user_experience_feedback.sql",
         "supabase/migrations/20261008000001_sem_gov_001b_lifecycle_persistence.sql",
         "supabase/migrations/20261010000001_sem_gov_001d_ui3_i4_fixture_display_metadata.sql",
-        "supabase/migrations/20261011000001_sem_gov_001d_ui3_i8_fip_intake_evidence.sql"
+        "supabase/migrations/20261011000001_sem_gov_001d_ui3_i8_fip_intake_evidence.sql",
+        "supabase/migrations/20261108065612_esec_001_i6_server_only_rls_boundary.sql"
       ]
     },
     {
@@ -1290,7 +1292,7 @@
           "tests/"
         ]
       },
-      "asset_count": 75,
+      "asset_count": 76,
       "asset_paths": [
         "tests/e2e-001-c2-execution-readiness.test.js",
         "tests/e2e-001d-async-context-cache-containment.test.js",
@@ -1321,6 +1323,7 @@
         "tests/esec-001-i3-production-credential-remediation.test.js",
         "tests/esec-001-i4-production-secret-provisioning.test.js",
         "tests/esec-001-i5-azure-scheduler-refresh-credential-resolution.test.js",
+        "tests/esec-001-i6-rls-server-only-boundary.test.js",
         "tests/fip-intake-evidence-service.test.js",
         "tests/fip-intake-m2m-authenticator.test.js",
         "tests/fip-intake-service.test.js",
@@ -1577,7 +1580,7 @@
           "infra/"
         ]
       },
-      "asset_count": 53,
+      "asset_count": 54,
       "asset_paths": [
         ".gemini/antigravity/README.md",
         ".gemini/antigravity/workflows/automated-data-sync.toml",
@@ -1613,6 +1616,7 @@
         "reports/esec-001-i3/production-credential-remediation.json",
         "reports/esec-001-i4/production-secret-provisioning.json",
         "reports/esec-001-i5/azure-scheduler-refresh-credential-resolution.json",
+        "reports/esec-001-i6/rls-server-only-boundary.json",
         "reports/esec-001/fail-closed-authentication-implementation.json",
         "reports/esec-001/security-boundary-inspection.json",
         "reports/execution-spine-compliance-map.json",

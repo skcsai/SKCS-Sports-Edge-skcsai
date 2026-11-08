@@ -1,14 +1,14 @@
 # Edge System Runtime Map
 
 Inventory version: 1.0.0
-Inventory SHA-256: 24071624f8e9216a7428a8bcd90bc1b4c104fb092f4cba688c43bc764e82fc4e
+Inventory SHA-256: 5ab1e9cd2cd5e694deb30bea45c1f988e137fc0e6fa4ce6d80dffd7aceb94641
 
 > Synchronized review surface for `EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json`.
 > This map is observational and does not declare future Edge architecture or canonical authority.
 
 ## Summary
 
-- Runtime/system surfaces: 233
+- Runtime/system surfaces: 234
 - Candidate status establishes authority: false
 - Inventory declares future architecture: false
 
@@ -2920,6 +2920,19 @@ Inventory SHA-256: 24071624f8e9216a7428a8bcd90bc1b4c104fb092f4cba688c43bc764e82f
 - Database objects: IF, public.fip_intake_evidence
 - External providers: None recorded
 - Next validation: Revalidate runtime reachability and relationships during the next governed Edge architecture review.
+
+### supabase/migrations/20261108065612_esec_001_i6_server_only_rls_boundary.sql
+
+- Surface classes: DATABASE_SURFACE
+- Reachability: CANDIDATE
+- Source state: COMMITTED_REPOSITORY
+- Governed by: ESA-001
+- Runtime callers: None recorded
+- Runtime consumers: None recorded
+- Database role: MIGRATION
+- Database objects: PUBLIC, anon, authenticated, pg_catalog.pg_class, pg_catalog.pg_namespace, pg_catalog.pg_roles, public
+- External providers: None recorded
+- Next validation: Revalidate the I6 server-only privilege migration relationship fingerprint and live target role/grant behavior before any governed database apply.
 
 ### supabase/schema/ai_pipeline_schema.sql
 

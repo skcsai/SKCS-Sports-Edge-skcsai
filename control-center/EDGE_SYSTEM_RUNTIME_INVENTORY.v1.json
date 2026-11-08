@@ -8820,6 +8820,44 @@
         "relationship_evidence_sha256": "66f31c60c403506e96eaf175c3789e9e333b726050053482ea7f6de2c1c3d6f4",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
+    },
+    {
+      "asset_path": "supabase/migrations/20261108065612_esec_001_i6_server_only_rls_boundary.sql",
+      "source_state": "COMMITTED_REPOSITORY",
+      "surface_classes": [
+        "DATABASE_SURFACE"
+      ],
+      "reachability_state": "CANDIDATE",
+      "mount_paths": [],
+      "runtime_callers": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "external_providers": [],
+      "environment_key_names": [],
+      "database_role": "MIGRATION",
+      "database_objects": [
+        "PUBLIC",
+        "anon",
+        "authenticated",
+        "pg_catalog.pg_class",
+        "pg_catalog.pg_namespace",
+        "pg_catalog.pg_roles",
+        "public"
+      ],
+      "schedule_or_trigger": "",
+      "deployment_surface": "",
+      "governance_reachability_type": "NONE",
+      "governed_by_control_task_id": "ESA-001",
+      "next_validation": "Revalidate the I6 server-only privilege migration relationship fingerprint and live target role/grant behavior before any governed database apply.",
+      "evidence": [
+        "ESEC-001-I6 static relationship evidence; migration is source-only and not live-applied."
+      ],
+      "notes": "RLS-001 server-only privilege hardening migration; current inactive Supabase project remains unrestored.",
+      "relationship_evidence_provenance": {
+        "source_content_sha256": "cb737a7a028eb9f5f1ddd839c806d536eb80a3284f5d4ebaf7f4c089bd120c25",
+        "relationship_evidence_sha256": "557e1ce8b01e783b426b1fd1c44fedb40da6cbc2021c9d9f092068b08ad36290",
+        "captured_source_presence_state": "PRESENT_TRACKED"
+      }
     }
   ]
 }
