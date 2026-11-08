@@ -351,3 +351,10 @@ Status: TESTED
 Governed by: EPRV-001-C2
 Blocked by: EFI-001, EPI-001-D1-R1, ESA-RR-004
 Blocks: none
+
+## EPRV-001-C3 - EPRV-001-C3 Upstream Context Availability Reconciliation
+
+Status: IN_PROGRESS
+Governed by: EPRV-001-C3
+Blocked by: EPRV-001-C2
+Blocks: none

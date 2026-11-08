@@ -4,7 +4,7 @@
   "generated_at": "2026-07-05",
   "source_ledger": "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
   "project_policy": "The Master Project Register owns project/workstream truth. Exact project_id to ledger.task_id overlaps must mirror canonical Control Center sequencing state. Files are assets, not automatically projects.",
-  "project_count": 50,
+  "project_count": 51,
   "projects": [
     {
       "project_id": "ECC-001",
@@ -702,7 +702,8 @@
       ],
       "blocks": [
         "E2E-001",
-        "EPRV-001-C2"
+        "EPRV-001-C2",
+        "EPRV-001-C3"
       ],
       "affected_layers": [
         "runtime",
@@ -3085,6 +3086,86 @@
         "H2H replacement field contract remains missing.",
         "Team-form replacement field contract remains missing.",
         "News/context replacement field contract remains missing."
+      ]
+    },
+    {
+      "project_id": "EPRV-001-C3",
+      "project_name": "EPRV-001-C3 Upstream Context Availability Reconciliation",
+      "category": "External Provider Removal Governance",
+      "description": "Contract-only reconciliation of the five C2 context blockers against actual Scout evidence, separating transport gaps from true upstream collection gaps.",
+      "why_it_matters": "Provider-removal planning must distinguish data Scout already has from data Scout does not yet collect, otherwise Edge may duplicate collection work or remove required inputs unsafely.",
+      "current_status": "IN_PROGRESS",
+      "priority": "critical",
+      "startable": true,
+      "blocked_by": [
+        "EPRV-001-C2"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "governance",
+        "provider-removal-readiness",
+        "scout-fip-boundary"
+      ],
+      "related_tasks": [
+        "EPRV-001",
+        "EPRV-001-C2",
+        "EPRV-001-C3"
+      ],
+      "related_contracts": [
+        "control-center/EPRV-001_C2_FIP_REPLACEMENT_READINESS_CONTRACT.v1.md",
+        "control-center/FIP-001_SCOUT_FIP_AUTHORITY_CONTRACT.v1.md"
+      ],
+      "related_files": [
+        "control-center/EPRV-001_C3_UPSTREAM_CONTEXT_AVAILABILITY_RECONCILIATION.v1.md",
+        "tests/eprv-001-c3-upstream-context-reconciliation.test.js",
+        "package.json",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "Three context classes appear present in Scout source evidence but are not transported by the current FIP contract.",
+        "Weather and news/context appear absent from the inspected Scout package and require separate upstream collection/governance decisions."
+      ],
+      "required_decisions": [],
+      "completion_definition": "EPRV-001-C3 reaches TESTED only when each of the five EPRV-001-C2 MISSING_BLOCKER classes is reclassified from direct Scout evidence as either UPSTREAM_EXISTS_NOT_TRANSPORTED or UPSTREAM_ABSENT, with immutable Scout package/commit evidence, exact field-level examples for available classes, explicit proof that weather/news fields are absent from the package, preserved Scout no-prediction boundary, preserved Edge provider-removal HOLD, and no runtime/provider/prediction/Scout implementation changes. The result must identify the exact next implementation owner: FIP transport/contract work for upstream-existing classes and separate Scout collection/governance work for upstream-absent classes.",
+      "proof_required": [
+        "Scout source commit and package SHA recorded",
+        "Availability/injury evidence proved from Scout package",
+        "H2H evidence proved from Scout package",
+        "Team-form evidence proved from Scout package",
+        "Weather absence proved from Scout package",
+        "News/team-news absence proved from Scout package",
+        "No Scout prediction execution and no Edge runtime/provider edits",
+        "EPRV-001 remains PARTIAL/HOLD",
+        "Focused C3 test PASS",
+        "Full Edge Control Center/project/asset/classification/runtime/governor regression PASS"
+      ],
+      "risks_if_ignored": [
+        "Edge may rebuild facts already available in Scout",
+        "Provider-removal sequencing may confuse transport gaps with source-collection gaps"
+      ],
+      "recommended_order": 51,
+      "next_action": "Seal read-only upstream evidence reconciliation only. Do not modify Scout, FIP runtime mapping, providers or prediction code.",
+      "owner_note": "Stephen authorized continuation on 2026-11-08 after EPRV-001-C2 closure. Contract/readiness only.",
+      "last_updated": "2026-11-08",
+      "governed_by_control_task_id": "EPRV-001-C3",
+      "current_evidence": [
+        "2026-11-08 Scout evidence inspection at commit 8647e2d0fdb73da4fa4a958af46e35a01888092d using evidence/cc-nscs-034/crystal-palace-liverpool-20261108.json.",
+        "Scout package contains availability arrays for 29 Crystal Palace and 31 Liverpool players; Liverpool evidence includes 3 OUT and 1 DOUBTFUL availability statuses and explicit injury/suspension fields.",
+        "Scout package contains team_form for both teams with current-form sequences and season summaries.",
+        "Scout package contains H2H with played/won/drawn/lost summary plus recent meetings.",
+        "Scout package has no top-level weather, news or team_news fields.",
+        "Scout package preserves prediction_execution:false; Scout remains evidence/calculation owner, not prediction owner."
+      ],
+      "open_gaps": [
+        "Upstream evidence classification contract not yet sealed."
       ]
     }
   ]
