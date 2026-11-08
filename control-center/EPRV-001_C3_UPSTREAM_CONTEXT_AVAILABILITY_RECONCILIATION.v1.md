@@ -7,7 +7,7 @@
 | Contract ID | `EPRV-001_C3_UPSTREAM_CONTEXT_AVAILABILITY_RECONCILIATION.v1` |
 | Governed task | `EPRV-001-C3` |
 | Mode | Read-only upstream evidence reconciliation |
-| State during packet | **IN_PROGRESS** |
+| Final state | **TESTED / CLOSED** |
 | Scout source commit | `8647e2d0fdb73da4fa4a958af46e35a01888092d` |
 | Scout package SHA-256 | `153684f6d7511ce653d26e490c8f507b0a7e0ad23d834d84671d9adea5a65912` |
 | Provider-removal readiness | **HOLD** |

@@ -354,7 +354,7 @@ Blocks: none
 
 ## EPRV-001-C3 - EPRV-001-C3 Upstream Context Availability Reconciliation
 
-Status: IN_PROGRESS
+Status: TESTED
 Governed by: EPRV-001-C3
 Blocked by: EPRV-001-C2
 Blocks: none

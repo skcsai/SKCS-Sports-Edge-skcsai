@@ -774,20 +774,21 @@
         "Inspection recorded provider markers for TheSportsDB, API-Sports, Odds API, RapidAPI, SportsData.io, CricketData, Big Balls Data, SportSRC, ESPN Hidden API, and FootballData.org.",
         "Focused proof: node --test tests/eprv-provider-removal-contract.test.js passes.",
         "No runtime provider code, provider deletion, SQL, migration, Supabase mutation, route wiring, E2E proof, or gate clearance performed.",
-        "2026-11-07 EPRV-001-C2 TESTED with HOLD: fixture/schedule and 1X2/markets MAPPED; five context classes MISSING_BLOCKER; fail-closed future no-FIP law sealed; no runtime provider changes performed."
+        "2026-11-07 EPRV-001-C2 TESTED with HOLD: fixture/schedule and 1X2/markets MAPPED; five context classes MISSING_BLOCKER; fail-closed future no-FIP law sealed; no runtime provider changes performed.",
+        "2026-11-08 EPRV-001-C3 TESTED: three blockers reclassified as upstream-existing transport gaps; two as upstream-absent collection/governance gaps."
       ],
       "open_gaps": [
-        "Weather replacement field contract not proven.",
-        "Injuries/availability replacement field contract not proven.",
-        "H2H replacement field contract not proven.",
-        "Team-form replacement field contract not proven.",
-        "News/context replacement field contract not proven.",
+        "Injuries/availability exists upstream but FIP transport contract/intake mapping is not proven.",
+        "H2H exists upstream but FIP transport contract/intake mapping is not proven.",
+        "Team form exists upstream but FIP transport contract/intake mapping is not proven.",
+        "Weather is absent from the inspected Scout package and requires separate Scout collection/governance proof.",
+        "News/context is absent from the inspected Scout package and requires separate Scout collection/governance proof.",
         "Provider-removal runtime implementation remains blocked.",
         "E2E proof and marriage gate remain blocked."
       ],
-      "next_action": "EPRV-001-C2 TESTED with HOLD. Fixture identity/schedule and 1X2/market inputs are mapped to governed FIP. Weather, injuries/availability, H2H, team form and news/context remain MISSING_BLOCKER classes. Keep EPRV-001 PARTIAL; next separately authorized: govern the missing context field contracts or explicit neutral-behaviour contracts before any provider-removal implementation.",
+      "next_action": "EPRV-001-C3 TESTED. Three context classes already exist in Scout but are not transported: injuries/availability, H2H and team form. Two classes are absent upstream in the inspected Scout package: weather and news/context. Keep EPRV-001 PARTIAL/HOLD. Next separately authorized: Scout/FIP transport contracts for the three existing classes and separate Scout collection/governance work for weather/news before any provider-removal runtime implementation.",
       "owner_note": "Do not delete analysis logic merely because acquisition and analysis are currently mixed in the same file.",
-      "last_updated": "2026-11-07"
+      "last_updated": "2026-11-08"
     },
     {
       "task_id": "EGR-001",
@@ -3117,8 +3118,8 @@
       "task_name": "EPRV-001-C3 Upstream Context Availability Reconciliation",
       "workstream": "External Provider Removal Governance",
       "description": "Contract-only reconciliation of the five C2 context blockers against actual Scout evidence, separating transport gaps from true upstream collection gaps.",
-      "status": "IN_PROGRESS",
-      "startable": true,
+      "status": "TESTED",
+      "startable": false,
       "priority": "critical",
       "blocked_by": [
         "EPRV-001-C2"
@@ -3166,12 +3167,11 @@
         "Scout package contains team_form for both teams with current-form sequences and season summaries.",
         "Scout package contains H2H with played/won/drawn/lost summary plus recent meetings.",
         "Scout package has no top-level weather, news or team_news fields.",
-        "Scout package preserves prediction_execution:false; Scout remains evidence/calculation owner, not prediction owner."
+        "Scout package preserves prediction_execution:false; Scout remains evidence/calculation owner, not prediction owner.",
+        "2026-11-08 EPRV-001-C3 closure proof: registration e4c1b22e4673bfb31af372e684482b2fa09f9260; evidence packet f54b1ae3bb0a440e1366e2e167f36b850cc76a12; Scout commit 8647e2d0fdb73da4fa4a958af46e35a01888092d and package SHA 153684f6d7511ce653d26e490c8f507b0a7e0ad23d834d84671d9adea5a65912 prove availability/injuries, H2H and team form exist upstream but are not transported; weather and news/team_news are absent from the inspected package; Scout prediction_execution remains false; no runtime/provider/prediction/Scout implementation changed."
       ],
-      "open_gaps": [
-        "Upstream evidence classification contract not yet sealed."
-      ],
-      "next_action": "Seal read-only upstream evidence reconciliation only. Do not modify Scout, FIP runtime mapping, providers or prediction code.",
+      "open_gaps": [],
+      "next_action": "CLOSED. Preserve the upstream reconciliation: availability/injuries, H2H and team form are Scout-existing transport gaps; weather and news/context are upstream collection/governance gaps. Do not modify providers or prediction runtime under C3. Return to Edge Control Center/governors for separately authorized transport-contract work and to Scout Control Center for separately authorized upstream collection work.",
       "owner_note": "Stephen authorized continuation on 2026-11-08 after EPRV-001-C2 closure. Contract/readiness only.",
       "last_updated": "2026-11-08"
     }

@@ -54,8 +54,8 @@ test('C3 preserves provider-removal HOLD and runtime gates', () => {
   const parent = ledger.tasks.find((x) => x.task_id === 'EPRV-001');
   const c3 = ledger.tasks.find((x) => x.task_id === 'EPRV-001-C3');
   assert.equal(parent.status, 'PARTIAL');
-  assert.equal(c3.status, 'IN_PROGRESS');
-  assert.equal(c3.startable, true);
+  assert.equal(c3.status, 'TESTED');
+  assert.equal(c3.startable, false);
   assert.equal(ledger.scout_edge_marriage_gate, 'BLOCKED');
   assert.equal(ledger.supabase_storage_gate, 'BLOCKED');
   assert.ok(c.includes('No runtime/provider/prediction behaviour changed.'));
