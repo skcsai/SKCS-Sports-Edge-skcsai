@@ -4,7 +4,7 @@
   "generated_at": "2026-07-05",
   "source_ledger": "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
   "project_policy": "The Master Project Register owns project/workstream truth. Exact project_id to ledger.task_id overlaps must mirror canonical Control Center sequencing state. Files are assets, not automatically projects.",
-  "project_count": 56,
+  "project_count": 57,
   "projects": [
     {
       "project_id": "ECC-001",
@@ -558,7 +558,8 @@
         "E2E-001",
         "ESEC-001-I2",
         "ESEC-001-I3",
-        "ESEC-001-I4"
+        "ESEC-001-I4",
+        "ESEC-001-I5"
       ],
       "affected_layers": [
         "Supabase",
@@ -609,7 +610,7 @@
         "Control Center sequencing bypass"
       ],
       "recommended_order": 10,
-      "next_action": "ESEC-001-I4 TESTED/HOLD. Keep ESEC-001 PARTIAL and all deployment/runtime gates blocked. Remaining security work is separately governed: cron-secret resolution, SKCS_REFRESH_KEY decision, and RLS-001. Do not deploy or begin Stage B.",
+      "next_action": "ESEC-001-I5 registered to resolve Azure scheduler/refresh credentials. Keep ESEC-001 PARTIAL and Stage B blocked until I5 closes; RLS-001 remains separate.",
       "owner_note": "Bootstrapped from the canonical Edge Control Center ledger. Exact task-ID overlaps mirror ledger sequencing state.",
       "last_updated": "2026-11-08",
       "governed_by_control_task_id": "ESEC-001",
@@ -3682,6 +3683,99 @@
         "cron-secret: current Vercel production value remains provider-protected/non-exportable; coordinated scheduler-secret rotation/replacement is separately required.",
         "skcs-refresh-key: no authoritative source exists; a separate governed decision must either retain ADMIN_API_KEY fallback or introduce a distinct refresh key.",
         "RLS-001 remains separately OPEN and outside I4."
+      ]
+    },
+    {
+      "project_id": "ESEC-001-I5",
+      "project_name": "Azure Scheduler and Refresh Credential Boundary Resolution",
+      "category": "Subscriber and Security Boundary",
+      "description": "Resolve the two credential blockers left by ESEC-001-I4 without deploying Edge: prove ADMIN_API_KEY is the canonical Azure refresh/operator credential and remove SKCS_REFRESH_KEY from Azure deployment wiring; generate one fresh Azure-only CRON_SECRET directly into Edge Key Vault through a non-echoing file path; preserve current Vercel/Render credentials unchanged; verify metadata/RBAC/what-if and close TESTED/HOLD. No RLS, no Container App deployment, no Stage B, no Render/Vercel/DNS/Supabase mutation.",
+      "why_it_matters": "I4 proved seven imported credentials but Azure remained blocked by an unnecessary refresh-key reference and a missing scheduler secret. I5 resolves those two blockers without touching current production sources or deploying Edge.",
+      "current_status": "IN_PROGRESS",
+      "priority": "critical",
+      "startable": true,
+      "blocked_by": [
+        "ESA-001",
+        "ESEC-001-I4",
+        "EOPS-001-A1"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "security-boundary",
+        "deployment",
+        "environment",
+        "operations"
+      ],
+      "related_tasks": [
+        "ESEC-001",
+        "ESEC-001-I4",
+        "EOPS-001",
+        "EOPS-001-A1"
+      ],
+      "related_contracts": [
+        "control-center/ESEC-001_I4_PRODUCTION_SECRET_PROVISIONING_AND_ROTATION_PROOF.v1.md",
+        "control-center/ESEC-001_I3_PRODUCTION_CREDENTIAL_REMEDIATION_AND_KEY_VAULT_INTEGRATION.v1.md",
+        "control-center/EOPS-001_A1_AZURE_MIGRATION_STAGE_A_PACKET.v1.md"
+      ],
+      "related_files": [
+        "control-center/ESEC-001_I5_AZURE_SCHEDULER_AND_REFRESH_CREDENTIAL_BOUNDARY_RESOLUTION.v1.md",
+        "reports/esec-001-i5/azure-scheduler-refresh-credential-resolution.json",
+        "tests/esec-001-i5-azure-scheduler-refresh-credential-resolution.test.js",
+        "scripts/create-esec-001-i5-azure-cron-secret.ps1",
+        "infra/azure/eops-001-a1/main.bicep",
+        "package.json",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "RLS-001 remains outside I5 and OPEN.",
+        "Current Vercel CRON_SECRET is provider-protected/non-exportable and must not be read or changed.",
+        "Legacy SKCS_REFRESH_KEY references exist in UNKNOWN/UNRESOLVED scripts with no registered runtime consumers; I5 does not rewrite those scripts.",
+        "No Azure Container App deployment is authorized."
+      ],
+      "required_decisions": [],
+      "completion_definition": "ESEC-001-I5 reaches TESTED only when Azure deployment no longer requires or references skcs-refresh-key/SKCS_REFRESH_KEY; current runtime evidence proves ADMIN_API_KEY remains the valid refresh/operator fallback; one fresh Azure-only cron-secret exists enabled in Edge Key Vault without its value being printed, logged, committed, returned to chat or read back; temporary Key Vault write access is revoked; Bicep build/what-if and focused/full Control Center gates pass; current Vercel/Render credentials remain unchanged; no Container App deployment, RLS change, Stage B, DNS or Supabase mutation occurs.",
+      "proof_required": [
+        "Clean canonical start point at ESEC-001-I4 closure commit 113b0c6867fd63c847ec5eb01ac972f697d6f74f",
+        "I5 registered and accepted by Edge Control Center before cloud or Bicep mutation",
+        "Current Vercel production has ADMIN_API_KEY and CRON_SECRET but no SKCS_REFRESH_KEY",
+        "Canonical server refresh middleware accepts ADMIN_API_KEY when SKCS_REFRESH_KEY is absent",
+        "Package refresh trigger uses ADMIN_API_KEY and CRON_SECRET; legacy SKCS_REFRESH_KEY scripts are UNKNOWN/UNRESOLVED with no registered runtime consumers",
+        "Azure Bicep removes skcs-refresh-key secret definition, parameter and SKCS_REFRESH_KEY environment injection",
+        "Fresh Azure-only cron-secret generated locally with cryptographic RNG and imported via az keyvault secret set --file without value output",
+        "Temporary Edge-vault Key Vault Secrets Officer access revoked in finally cleanup; deployment identity returns to Reader-only metadata access",
+        "Key Vault metadata-only verification confirms cron-secret enabled and tagged; value is not read back",
+        "Azure Bicep build and non-destructive what-if pass with no deployment",
+        "Focused I5 tests PASS and full Edge Control Center regression PASS",
+        "No Render/Vercel/DNS/Supabase/RLS mutation; live Edge Container App count remains zero; Stage B not started"
+      ],
+      "risks_if_ignored": [
+        "Azure deployment would continue to reference a secret that has no authoritative source.",
+        "Future Azure scheduler endpoints would fail closed without CRON_SECRET.",
+        "Copying or rotating the current Vercel scheduler secret would unnecessarily couple Azure migration to the existing platform."
+      ],
+      "recommended_order": 57,
+      "next_action": "Run I5 only after Control Center acceptance. Remove only Azure SKCS_REFRESH_KEY wiring, create one Azure-only cron-secret securely, prove metadata/RBAC/Bicep what-if, test and close/HOLD. Do not deploy or start Stage B.",
+      "owner_note": "Stephen authorized continuation to the next Edge security mini-project on 2026-11-08 after ESEC-001-I4 closure.",
+      "last_updated": "2026-11-08",
+      "governed_by_control_task_id": "ESEC-001-I5",
+      "current_evidence": [
+        "2026-11-08 start point: ESEC-001-I4 TESTED/HOLD and published at 113b0c6867fd63c847ec5eb01ac972f697d6f74f; worktree clean; Edge Key Vault contains seven imported secrets; no live Edge Container Apps.",
+        "2026-11-08 source inspection: current Vercel production includes ADMIN_API_KEY and CRON_SECRET but no SKCS_REFRESH_KEY; backend requireRefreshKey accepts ADMIN_API_KEY fallback; package refresh trigger uses ADMIN_API_KEY/CRON_SECRET; legacy SKCS_REFRESH_KEY scripts are UNKNOWN/UNRESOLVED with no registered runtime consumers."
+      ],
+      "open_gaps": [
+        "Azure Bicep still references skcs-refresh-key/SKCS_REFRESH_KEY.",
+        "Edge Key Vault still lacks cron-secret.",
+        "RLS-001 remains separately OPEN and outside I5."
       ]
     }
   ]
