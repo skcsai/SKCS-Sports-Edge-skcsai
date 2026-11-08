@@ -14,7 +14,7 @@
           "control-center/"
         ]
       },
-      "asset_count": 57,
+      "asset_count": 58,
       "asset_paths": [
         "control-center/ALI-001_ACCURACY_AND_LOSS_INTELLIGENCE_PROPOSAL.v1.md",
         "control-center/E2E-001_C2_EXECUTION_READINESS_BLOCKER_RECONCILIATION.v1.md",
@@ -33,6 +33,7 @@
         "control-center/EMG-001_SCOUT_EDGE_MARRIAGE_GATE_CONTRACT.v1.md",
         "control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md",
         "control-center/EPRV-001_C2_FIP_REPLACEMENT_READINESS_CONTRACT.v1.md",
+        "control-center/EPRV-001_C3_UPSTREAM_CONTEXT_AVAILABILITY_RECONCILIATION.v1.md",
         "control-center/EPRV-001_EXTERNAL_PROVIDER_REMOVAL_IMPLEMENTATION_PLAN.v1.md",
         "control-center/EPRV-001_EXTERNAL_PROVIDER_REMOVAL_INSPECTION_CONTRACT.v1.md",
         "control-center/ESA-RR-003_IRRECOVERABLE_PRESERVED_CANDIDATE_RESOLUTION_CONTRACT.v1.md",
@@ -1280,7 +1281,7 @@
           "tests/"
         ]
       },
-      "asset_count": 68,
+      "asset_count": 69,
       "asset_paths": [
         "tests/e2e-001-c2-execution-readiness.test.js",
         "tests/e2e-001d-async-context-cache-containment.test.js",
@@ -1294,6 +1295,7 @@
         "tests/epi-001-d1-r1-provenance.test.js",
         "tests/epi-pipeline-integrity-contract.test.js",
         "tests/eprv-001-c2-fip-replacement-readiness.test.js",
+        "tests/eprv-001-c3-upstream-context-reconciliation.test.js",
         "tests/eprv-provider-removal-contract.test.js",
         "tests/esa-rr-003-irrecoverable-resolution-contract.test.js",
         "tests/esec-001-c1-security-boundary.test.js",

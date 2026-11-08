@@ -5,8 +5,8 @@
   "source_command": "git ls-files",
   "coverage_policy": "Every tracked repository path must be REGISTERED_ASSET or EXPLICITLY_EXCLUDED. Registration records existence and governance visibility; it does not assert correctness, currency, approval, permanence, consumer presence, or Scout/FIP compatibility.",
   "unclassified_tracked_paths_allowed": false,
-  "tracked_path_count": 1054,
-  "registered_asset_count": 1053,
+  "tracked_path_count": 1056,
+  "registered_asset_count": 1055,
   "explicit_exclusion_count": 1,
   "assets": [
     {
@@ -35857,6 +35857,92 @@
         "Verifies the exact replacement matrix has two MAPPED and five MISSING_BLOCKER classes.",
         "Verifies the canonical FIP requires only generic markets/context and does not require the missing context subclasses.",
         "Verifies current provider fallback remains pre-removal behavior while future activated behavior is contractually fail-closed."
+      ]
+    },
+    {
+      "asset_path": "control-center/EPRV-001_C3_UPSTREAM_CONTEXT_AVAILABILITY_RECONCILIATION.v1.md",
+      "asset_type": "CONTROL_CENTER",
+      "asset_role": "CONTROL_GOVERNANCE",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "ACTIVE_CONTRACT",
+      "current_state": "CURRENT",
+      "owner_project_id": "EPRV-001-C3",
+      "governed_by_control_task_id": "EPRV-001-C3",
+      "related_assets": [
+        "control-center/EPRV-001_C2_FIP_REPLACEMENT_READINESS_CONTRACT.v1.md",
+        "control-center/FIP-001_SCOUT_FIP_AUTHORITY_CONTRACT.v1.md",
+        "backend/services/fipIntakeService.js"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "REGISTERED",
+      "next_validation": "Run the focused EPRV-001-C3 reconciliation proof after any Scout context-field availability or FIP transport-contract change.",
+      "notes": "Read-only reconciliation of the five C2 context blockers against immutable Scout package evidence. No Edge runtime or Scout implementation change.",
+      "purpose_description": "Distinguishes Scout context classes that already exist upstream but are not transported from classes that are absent upstream and require separate collection/governance work.",
+      "functional_group": "PROVIDER_INTEGRATION",
+      "relationship_tags": [
+        "PROVIDER",
+        "FIP",
+        "SCOUT",
+        "GOVERNANCE",
+        "DOCUMENTATION"
+      ],
+      "classification_evidence": [
+        "Records immutable Scout commit and package SHA for the inspected Crystal Palace-Liverpool evidence package.",
+        "Classifies availability/injuries, H2H and team form as UPSTREAM_EXISTS_NOT_TRANSPORTED.",
+        "Classifies weather and news/context as UPSTREAM_ABSENT while preserving provider-removal HOLD and Scout no-prediction law."
+      ]
+    },
+    {
+      "asset_path": "tests/eprv-001-c3-upstream-context-reconciliation.test.js",
+      "asset_type": "TEST",
+      "asset_role": "TEST_PROOF",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "EPRV-001-C3",
+      "governed_by_control_task_id": "EPRV-001-C3",
+      "related_assets": [
+        "control-center/EPRV-001_C3_UPSTREAM_CONTEXT_AVAILABILITY_RECONCILIATION.v1.md",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "node:test",
+        "node:assert/strict",
+        "node:fs",
+        "node:path",
+        "control-center/EPRV-001_C3_UPSTREAM_CONTEXT_AVAILABILITY_RECONCILIATION.v1.md"
+      ],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "REGISTERED",
+      "next_validation": "Run node --test tests/eprv-001-c3-upstream-context-reconciliation.test.js after any C3 evidence or ownership classification change.",
+      "notes": "Focused static proof for EPRV-001-C3. Reads governed Edge contract/Control Center files only; no network, provider, database or Scout mutation.",
+      "purpose_description": "Verifies immutable Scout evidence identity, the three transport-gap classifications, the two upstream-absence classifications, owner routing and preserved provider-removal HOLD.",
+      "functional_group": "TEST_PROOF",
+      "relationship_tags": [
+        "TEST_PROOF",
+        "PROVIDER",
+        "FIP",
+        "SCOUT",
+        "GOVERNANCE"
+      ],
+      "classification_evidence": [
+        "Verifies the exact Scout commit/package SHA recorded by C3.",
+        "Verifies exactly three UPSTREAM_EXISTS_NOT_TRANSPORTED classes and two UPSTREAM_ABSENT classes.",
+        "Verifies EPRV-001 remains PARTIAL and global runtime gates remain blocked."
       ]
     }
   ],
