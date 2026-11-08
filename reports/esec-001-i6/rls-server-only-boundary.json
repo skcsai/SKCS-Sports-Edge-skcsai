@@ -2,7 +2,7 @@
   "project_id": "ESEC-001-I6",
   "finding_id": "RLS-001",
   "date": "2026-11-08",
-  "status": "IMPLEMENTATION_CANDIDATE",
+  "status": "TESTED_HOLD_SOURCE_CLOSED",
   "start_commit": "9292084583f92a3c4ad6a457d16ed8304bcdec6a",
   "target_tables": [
     "fixture_lifecycle_current",
@@ -103,5 +103,43 @@
     "live_database_apply": false,
     "supabase_restored": false,
     "azure_stage_b_started": false
-  }
+  },
+  "runtime_inventory_reconciliation": {
+    "asset": "package.json",
+    "relationship_fingerprint_unchanged": true,
+    "relationship_sha256": "bfec5297138b7770aaa6d169c0d166b4eedb837d2dfacb4ee10ce67e634c0f01",
+    "source_sha256_updated_to_staged_git_blob": "40d28f0d4f0f61984cd2e24ec1c479bef8098b4fc2c62c29dd8834ef31d0bd6f"
+  },
+  "closure_verification": {
+    "focused_i6": {
+      "passed": 6,
+      "failed": 0
+    },
+    "control_verify": {
+      "passed": 387,
+      "failed": 0
+    },
+    "control_center": "PASS",
+    "projects": "PASS",
+    "assets": "PASS",
+    "classification": "PASS",
+    "runtime": {
+      "status": "PASS",
+      "inventory_surfaces": 234,
+      "discovered_surfaces": 225,
+      "warnings": 0
+    }
+  },
+  "formal_closure": {
+    "status": "TESTED",
+    "disposition": "HOLD",
+    "startable": false,
+    "source_security_design": "CLOSED",
+    "live_migration_applied": false,
+    "live_role_grant_proof": "DEFERRED_TO_NEXT_AUTHORIZED_ACTIVE_DATABASE_TARGET",
+    "supabase_restored": false,
+    "parent_esec_status": "PARTIAL",
+    "stage_b_authorized": false
+  },
+  "remaining_gap": "Live application of the server-only privilege migration and live role/grant metadata proof remain deferred to the next separately authorized active database target; inactive Supabase was not restored."
 }

@@ -1,7 +1,7 @@
 # Edge System Runtime Map
 
 Inventory version: 1.0.0
-Inventory SHA-256: 5ab1e9cd2cd5e694deb30bea45c1f988e137fc0e6fa4ce6d80dffd7aceb94641
+Inventory SHA-256: f6067e98b02c6ace43bc20b391fca8cf948bd522d112b90da0fe1dc39d6870ef
 
 > Synchronized review surface for `EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json`.
 > This map is observational and does not declare future Edge architecture or canonical authority.

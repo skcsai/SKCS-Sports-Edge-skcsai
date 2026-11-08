@@ -1,7 +1,7 @@
 # ESEC-001-I6 — RLS-001 Server-Only Table Boundary and Privilege Hardening
 
 Date: 8 November 2026
-Status: **IN PROGRESS — IMPLEMENTATION CANDIDATE**
+Status: **TESTED / HOLD — SOURCE CLOSED; LIVE APPLY DEFERRED**
 
 ## Objective
 
@@ -82,3 +82,35 @@ This is an intentional boundary. I6 does not start extra local infrastructure or
 ## Pre-publication validation
 
 Pre-publication validation: focused I6 proof **6/6 PASS**; full Edge Control Center **381/381 PASS**; 1,081/1,081 assets classified; runtime 234 inventory / 225 discovered / 0 warnings.
+
+## Formal closure
+
+ESEC-001-I6 is TESTED and CLOSED / HOLD for source/security design.
+
+Proven:
+
+- exactly eight internal lifecycle/proof tables are governed by the hardening migration;
+- no public browser asset directly references those tables;
+- no target-table supabase-js Data API caller exists;
+- RLS remains enabled;
+- PUBLIC, anon and authenticated direct table privileges are revoked by the migration where those roles exist;
+- service_role CRUD is conditional and server-only; no service_role RLS policy is invented;
+- no CREATE POLICY statement is added;
+- no BYPASSRLS role is created;
+- no broad ALTER DEFAULT PRIVILEGES change is made;
+- missing expected tables fail closed;
+- FORCE RLS fails closed for governance review rather than being silently disabled;
+- Supabase security advisors returned zero current security lints;
+- inactive Supabase was not restored;
+- no live migration was applied;
+- focused I6 proof is permanently included in the Control Center suite;
+- final suite: 387/387 PASS;
+- Control Center/projects/assets/classification/runtime: PASS;
+- governed assets: 1,081/1,081 classified;
+- runtime inventory: 234 / 225 / 0 warnings.
+
+### Remaining live proof
+
+The source/security design is closed, but live execution is deliberately not claimed. The migration must be applied and table role/grant behavior verified in a separately governed stage against the next authorized active database target.
+
+Parent ESEC-001 therefore remains PARTIAL. Azure Stage B remains blocked.

@@ -611,7 +611,7 @@
         "Control Center sequencing bypass"
       ],
       "recommended_order": 10,
-      "next_action": "ESEC-001-I6 registered for RLS-001 server-only privilege hardening. Keep ESEC-001 PARTIAL and Stage B blocked until I6 closes; do not restore inactive Supabase.",
+      "next_action": "ESEC-001 credential and source-security design work is now sealed through I6. Keep ESEC-001 PARTIAL and deployment/runtime gates blocked until the I6 RLS hardening migration is live-applied and role/grant behavior is verified on the next separately authorized active database target. Do not restore inactive Supabase or begin Stage B without separate authorization.",
       "owner_note": "Bootstrapped from the canonical Edge Control Center ledger. Exact task-ID overlaps mirror ledger sequencing state.",
       "last_updated": "2026-11-08",
       "governed_by_control_task_id": "ESEC-001",
@@ -634,7 +634,8 @@
         "2026-11-08 ESEC-001-I2 TESTED/HOLD: production deployment remains blocked by missing Key Vault data-plane/RBAC proof, absent Container Apps Key Vault secret references, partial provider-secret logging, legacy SUPABASE_KEY ambiguity and separate RLS-001.",
         "2026-11-08 ESEC-001-I3 TESTED/HOLD: partial provider-secret logging removed; protected runtime credential classes made explicit; Edge vault RBAC proven with Key Vault Secrets User for runtime and Key Vault Reader for metadata-only deployment verification; Key Vault-backed Container Apps references pass build/what-if; vault currently contains zero production secrets; RLS-001 remains OPEN.",
         "2026-11-08 ESEC-001-I4 post-import proof: seven verified current production credentials are now provisioned in Edge Key Vault with no value disclosure; temporary write role revoked; cron-secret and skcs-refresh-key remain explicitly blocked; RLS-001 remains OPEN.",
-        "2026-11-08 ESEC-001-I5 post-Apply proof: Azure no longer requires SKCS_REFRESH_KEY; ADMIN_API_KEY is the Azure refresh/operator credential; fresh Azure-only cron-secret exists securely in Key Vault with temporary write access revoked. RLS-001 is now the only remaining ESEC security blocker."
+        "2026-11-08 ESEC-001-I5 post-Apply proof: Azure no longer requires SKCS_REFRESH_KEY; ADMIN_API_KEY is the Azure refresh/operator credential; fresh Azure-only cron-secret exists securely in Key Vault with temporary write access revoked. RLS-001 is now the only remaining ESEC security blocker.",
+        "2026-11-08 ESEC-001-I6 TESTED/HOLD source closure: RLS-001 server-only access law is sealed for the exact eight internal tables; migration is governed and tested; inactive Supabase was not restored and live DDL/role proof remains deferred to the next authorized active database target."
       ]
     },
     {
@@ -3798,9 +3799,9 @@
       "category": "Subscriber and Security Boundary",
       "description": "Resolve RLS-001 for the eight applied internal lifecycle/proof tables by sealing a backend-only database access law: keep RLS enabled, create no anon/authenticated/public row policies, explicitly revoke table privileges from PUBLIC/anon/authenticated when those roles exist, preserve privileged server-only access, and prove no browser/runtime client directly consumes the tables. Do not restore the inactive Supabase project, do not deploy Azure/Stage B, and do not activate runtime routes.",
       "why_it_matters": "These internal tables are intentionally not subscriber-facing. Their RLS configuration must make that backend-only boundary explicit instead of relying on ambiguous zero-policy behavior or adding ineffective service_role policies.",
-      "current_status": "IN_PROGRESS",
+      "current_status": "TESTED",
       "priority": "critical",
-      "startable": true,
+      "startable": false,
       "blocked_by": [
         "ESA-001",
         "ESEC-001-I5",
@@ -3875,7 +3876,7 @@
         "Adding service_role RLS policies would create false assurance because service_role bypasses RLS."
       ],
       "recommended_order": 58,
-      "next_action": "Publish the green I6 source-only candidate. Then add the focused I6 proof permanently to the Control Center suite, reconcile package runtime hash if relationship fingerprint is unchanged, run final gates and close I6 TESTED/HOLD with live apply explicitly deferred. Do not restore Supabase or begin Stage B.",
+      "next_action": "CLOSED / HOLD — SOURCE CLOSED, LIVE APPLY DEFERRED. ESEC-001-I6 is TESTED: the eight internal lifecycle/proof tables have a governed server-only privilege-hardening migration, no browser/Data API consumers, no permissive RLS policies, and full repository proof. The migration has NOT been live-applied because Supabase is inactive. Apply and verify it only in a separately governed active database stage. Do not restore Supabase or begin Stage B from I6.",
       "owner_note": "Stephen authorized continuation to the next Edge security mini-project on 2026-11-08 after ESEC-001-I5 closure.",
       "last_updated": "2026-11-08",
       "governed_by_control_task_id": "ESEC-001-I6",
@@ -3892,11 +3893,12 @@
         "2026-11-08 Supabase CLI migration list --local could not connect because no local database is running on 127.0.0.1:54322; I6 did not start local infrastructure or restore the hosted inactive project.",
         "2026-11-08 runtime inventory registration: I6 migration added as a governed DATABASE_SURFACE with source SHA-256 cb737a7a028eb9f5f1ddd839c806d536eb80a3284f5d4ebaf7f4c089bd120c25 and relationship fingerprint 557e1ce8b01e783b426b1fd1c44fedb40da6cbc2021c9d9f092068b08ad36290.",
         "2026-11-08 final I6 pre-publication gate: focused I6 proof 6/6 PASS; npm run control:verify 381/381 PASS; Control Center/projects/assets/classification/runtime PASS; 1081/1081 assets classified; runtime 234 inventory / 225 discovered / 0 warnings.",
-        "2026-11-08 I6 publication boundary: source migration candidate only; inactive Supabase remains unrestored; live DDL=false; Azure Stage B=false."
+        "2026-11-08 I6 publication boundary: source migration candidate only; inactive Supabase remains unrestored; live DDL=false; Azure Stage B=false.",
+        "2026-11-08 I6 package.json runtime reconciliation: permanent I6 test-suite addition changed only the package source SHA-256; relationship fingerprint remained exactly bfec5297138b7770aaa6d169c0d166b4eedb837d2dfacb4ee10ce67e634c0f01, so source_content_sha256 was updated to 40d28f0d4f0f61984cd2e24ec1c479bef8098b4fc2c62c29dd8834ef31d0bd6f.",
+        "2026-11-08 final I6 source-closure gate after permanent suite and runtime-hash reconciliation: 387/387 tests PASS; Control Center/projects/assets/classification/runtime PASS; 1081/1081 assets classified; runtime inventory 234 / discovered 225 / warnings 0."
       ],
       "open_gaps": [
-        "Publish the governed I6 source-only hardening candidate.",
-        "Live migration application and live role/grant metadata proof remain deferred to the next separately authorized active database target."
+        "Live application of the server-only privilege migration and live role/grant metadata proof remain deferred to the next separately authorized active database target; inactive Supabase was not restored."
       ]
     }
   ]
