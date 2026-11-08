@@ -1679,10 +1679,10 @@ async function buildLiveData(options = {}) {
 
     // ── DIAGNOSTIC LOGGING ─────────────────────────────────────────────
     console.log(`[DIAG] buildLiveData START — sport=${sport} leagueId=${leagueId} season=${season} dateRange=${today}→${windowEnd} windowDays=${windowDays}`);
-    console.log(`[DIAG] API Keys status: X_APISPORTS_KEY=${process.env.X_APISPORTS_KEY ? 'SET(' + process.env.X_APISPORTS_KEY.slice(0,6) + '...)' : 'MISSING'}`);
-    console.log(`[DIAG] API Keys status: THESPORTSDB_KEY=${process.env.THESPORTSDB_KEY ? 'SET(' + process.env.THESPORTSDB_KEY.slice(0,4) + '...)' : 'MISSING'}`);
-    console.log(`[DIAG] API Keys status: ODDS_API_KEY=${process.env.ODDS_API_KEY ? 'SET(' + process.env.ODDS_API_KEY.slice(0,4) + '...)' : 'MISSING'}`);
-    console.log(`[DIAG] API Keys status: RAPIDAPI_KEY=${process.env.RAPIDAPI_KEY ? 'SET(' + process.env.RAPIDAPI_KEY.slice(0,6) + '...)' : 'MISSING'}`);
+    console.log(`[DIAG] API Keys status: X_APISPORTS_KEY=${process.env.X_APISPORTS_KEY ? 'SET' : 'MISSING'}`);
+    console.log(`[DIAG] API Keys status: THESPORTSDB_KEY=${process.env.THESPORTSDB_KEY ? 'SET' : 'MISSING'}`);
+    console.log(`[DIAG] API Keys status: ODDS_API_KEY=${process.env.ODDS_API_KEY ? 'SET' : 'MISSING'}`);
+    console.log(`[DIAG] API Keys status: RAPIDAPI_KEY=${process.env.RAPIDAPI_KEY ? 'SET' : 'MISSING'}`);
     console.log(`[DIAG] API Keys status: X_AUTH_TOKEN=${process.env.X_AUTH_TOKEN ? 'SET' : 'MISSING'}`);
     console.log(`[DIAG] API Keys status: SPORTSDATA_IO_KEY=${process.env.SPORTSDATA_IO_KEY ? 'SET' : 'MISSING'}`);
     console.log(`[DIAG] DATA_MODE=${process.env.DATA_MODE || 'default'}`);

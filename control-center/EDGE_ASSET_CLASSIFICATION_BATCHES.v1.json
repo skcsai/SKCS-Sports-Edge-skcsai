@@ -14,7 +14,7 @@
           "control-center/"
         ]
       },
-      "asset_count": 61,
+      "asset_count": 62,
       "asset_paths": [
         "control-center/ALI-001_ACCURACY_AND_LOSS_INTELLIGENCE_PROPOSAL.v1.md",
         "control-center/E2E-001_C2_EXECUTION_READINESS_BLOCKER_RECONCILIATION.v1.md",
@@ -42,6 +42,7 @@
         "control-center/ESEC-001_C1_SECURITY_BOUNDARY_INSPECTION_AND_CONTRACT.v1.md",
         "control-center/ESEC-001_I1_FAIL_CLOSED_AUTHENTICATION_AND_CREDENTIAL_BOUNDARY_IMPLEMENTATION.v1.md",
         "control-center/ESEC-001_I2_PRODUCTION_RUNTIME_CREDENTIAL_AND_DEPLOYMENT_VERIFICATION.v1.md",
+        "control-center/ESEC-001_I3_PRODUCTION_CREDENTIAL_REMEDIATION_AND_KEY_VAULT_INTEGRATION.v1.md",
         "control-center/ESG-001_SPORT_GOVERNOR_AND_CANONICAL_RULE_REGISTRY_PROPOSAL.v1.md",
         "control-center/EST-001_SUPABASE_STORAGE_AND_FIP_RETENTION_CONTRACT.v1.md",
         "control-center/FIP-001_SCOUT_FIP_AUTHORITY_CONTRACT.v1.md",
@@ -1285,7 +1286,7 @@
           "tests/"
         ]
       },
-      "asset_count": 72,
+      "asset_count": 73,
       "asset_paths": [
         "tests/e2e-001-c2-execution-readiness.test.js",
         "tests/e2e-001d-async-context-cache-containment.test.js",
@@ -1313,6 +1314,7 @@
         "tests/esec-001-i1-scheduler-caller-boundary.test.js",
         "tests/esec-001-i1-scheduler-route-boundary.test.js",
         "tests/esec-001-i2-production-runtime-verification.test.js",
+        "tests/esec-001-i3-production-credential-remediation.test.js",
         "tests/fip-intake-evidence-service.test.js",
         "tests/fip-intake-m2m-authenticator.test.js",
         "tests/fip-intake-service.test.js",
@@ -1569,7 +1571,7 @@
           "infra/"
         ]
       },
-      "asset_count": 50,
+      "asset_count": 51,
       "asset_paths": [
         ".gemini/antigravity/README.md",
         ".gemini/antigravity/workflows/automated-data-sync.toml",
@@ -1602,6 +1604,7 @@
         "reports/e2e-001/execution-readiness-reconciliation.json",
         "reports/eops-001-a1/stage-a-inventory.json",
         "reports/esec-001-i2/production-runtime-verification.json",
+        "reports/esec-001-i3/production-credential-remediation.json",
         "reports/esec-001/fail-closed-authentication-implementation.json",
         "reports/esec-001/security-boundary-inspection.json",
         "reports/execution-spine-compliance-map.json",

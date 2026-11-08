@@ -14,16 +14,14 @@ function normalizeTier(tier) {
 }
 
 const SUPABASE_URL = String(process.env.SUPABASE_URL || config?.supabase?.url || '').trim();
-const SUPABASE_KEY = String(
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-    || process.env.SUPABASE_KEY
-    || process.env.SUPABASE_ANON_KEY
+const SUPABASE_ANON_KEY = String(
+    process.env.SUPABASE_ANON_KEY
     || config?.supabase?.anonKey
     || ''
 ).trim();
 
-const supabase = SUPABASE_URL && SUPABASE_KEY
-    ? createClient(SUPABASE_URL, SUPABASE_KEY, {
+const supabase = SUPABASE_URL && SUPABASE_ANON_KEY
+    ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
         auth: { persistSession: false, autoRefreshToken: false }
     })
     : null;

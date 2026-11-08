@@ -3485,13 +3485,19 @@
         "No Container App deployment, no RLS migration, no Supabase restore, no Render/Vercel/DNS mutation, no Stage B"
       ],
       "current_evidence": [
-        "2026-11-08 start point: ESEC-001-I2 TESTED/HOLD and published at 265d6d8d3a1ccf81ff387a399115b5276b4ed254; Edge worktree clean; proven blockers are CRED-RBAC-001, CRED-META-001, DEPLOY-SECRETREF-001, SECRET-LOG-001 and CRED-ALIAS-001; RLS-001 separately OPEN."
+        "2026-11-08 start point: ESEC-001-I2 TESTED/HOLD and published at 265d6d8d3a1ccf81ff387a399115b5276b4ed254; Edge worktree clean; proven blockers are CRED-RBAC-001, CRED-META-001, DEPLOY-SECRETREF-001, SECRET-LOG-001 and CRED-ALIAS-001; RLS-001 separately OPEN.",
+        "2026-11-08 source remediation PASS: provider diagnostic logs expose no secret prefixes; protected I3 runtime paths contain zero legacy process.env.SUPABASE_KEY fallbacks; read-only paths use SUPABASE_ANON_KEY and privileged write/RPC/cache/admin paths use SUPABASE_SERVICE_ROLE_KEY.",
+        "2026-11-08 Azure RBAC remediation PASS: Edge managed identity has Key Vault Secrets User at kv-skcs-edge036-zan1 scope only; deployment identity has Key Vault Reader at that vault scope only; no new subscription-wide role was granted.",
+        "2026-11-08 metadata-only Key Vault proof PASS without value retrieval; secret list returned zero entries, establishing blocker KV-SECRETS-EMPTY-001.",
+        "2026-11-08 Bicep build PASS; productionSecretsEnabled secret-reference design maps nine environment names to versionless Key Vault references with no values embedded; duplicate vault-role resource removed after what-if detected duplication risk.",
+        "2026-11-08 final what-if with productionSecretsEnabled=true Succeeded; one future Container App create, existing Edge vault/environment/identity/storage/logging ignored, zero destructive changes, no deployment performed.",
+        "2026-11-08 focused ESEC-001-I3 proof 8/8 PASS; related ESEC security regression 36/36 PASS; full npm run control:verify 369/369 PASS; Control Center/projects/assets/classification/runtime PASS; runtime 233 inventory / 224 discovered / 0 warnings."
       ],
       "open_gaps": [
-        "I3 remediation not yet implemented or proven.",
-        "RLS-001 remains separately OPEN and is not part of I3."
+        "KV-SECRETS-EMPTY-001: Edge Key Vault is accessible by metadata-only proof but contains zero production secrets; I3 is not authorized to create/import/rotate secret values.",
+        "RLS-001 remains separately OPEN and outside I3."
       ],
-      "next_action": "Run ESEC-001-I3 only after Control Center acceptance. Remediate code and Bicep, apply only scoped Key Vault RBAC roles, verify metadata without values, run what-if/tests, then close or HOLD. Do not deploy or start Stage B.",
+      "next_action": "Implementation proof is green. Publish I3 remediation evidence, then close I3 as TESTED/HOLD because the Edge vault contains zero production secrets. Do not deploy or start Stage B.",
       "owner_note": "Stephen authorized continuation through the correct Edge Control Center on 2026-11-08.",
       "last_updated": "2026-11-08"
     }

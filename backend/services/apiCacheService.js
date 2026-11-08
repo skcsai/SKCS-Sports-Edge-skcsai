@@ -23,9 +23,7 @@ function sportKeyForProvider(providerName) {
 }
 
 const SUPABASE_URL = String(process.env.SUPABASE_URL || '').trim();
-const SUPABASE_SERVICE_ROLE_KEY = String(
-    process.env.SUPABASE_SERVICE_ROLE_KEY || process.env.SUPABASE_KEY || ''
-).trim();
+const SUPABASE_SERVICE_ROLE_KEY = String(process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();
 
 const supabase = SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY
     ? createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {

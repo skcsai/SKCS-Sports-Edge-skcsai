@@ -5,8 +5,8 @@
   "source_command": "git ls-files",
   "coverage_policy": "Every tracked repository path must be REGISTERED_ASSET or EXPLICITLY_EXCLUDED. Registration records existence and governance visibility; it does not assert correctness, currency, approval, permanence, consumer presence, or Scout/FIP compatibility.",
   "unclassified_tracked_paths_allowed": false,
-  "tracked_path_count": 1067,
-  "registered_asset_count": 1066,
+  "tracked_path_count": 1070,
+  "registered_asset_count": 1069,
   "explicit_exclusion_count": 1,
   "assets": [
     {
@@ -36389,6 +36389,123 @@
         "6/6 focused tests PASS on 2026-11-08.",
         "Asserts no Stage B authorization or cloud mutation.",
         "Asserts provider diagnostics currently expose partial secret prefixes."
+      ]
+    },
+    {
+      "asset_path": "control-center/ESEC-001_I3_PRODUCTION_CREDENTIAL_REMEDIATION_AND_KEY_VAULT_INTEGRATION.v1.md",
+      "asset_type": "CONTROL_CENTER",
+      "asset_role": "CONTROL_GOVERNANCE",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_CONTRACT",
+      "current_state": "CURRENT",
+      "owner_project_id": "ESEC-001-I3",
+      "governed_by_control_task_id": "ESEC-001-I3",
+      "related_assets": [
+        "control-center/ESEC-001_I2_PRODUCTION_RUNTIME_CREDENTIAL_AND_DEPLOYMENT_VERIFICATION.v1.md",
+        "reports/esec-001-i3/production-credential-remediation.json",
+        "tests/esec-001-i3-production-credential-remediation.test.js",
+        "infra/azure/eops-001-a1/main.bicep"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Re-run ESEC-001-I3 focused proof and full Edge Control Center verification after any credential class, provider logging, Key Vault RBAC or secret-reference change.",
+      "notes": "Governed I3 remediation packet. RLS and secret population remain separate.",
+      "purpose_description": "Governs the production credential remediation, Key Vault RBAC proof and Container Apps secret-reference design following ESEC-001-I2 HOLD.",
+      "functional_group": "DEPLOYMENT_OPERATIONS",
+      "relationship_tags": [
+        "GOVERNANCE",
+        "DEPLOYMENT",
+        "SECURITY",
+        "AUDIT"
+      ],
+      "classification_evidence": [
+        "Records source credential separation remediation.",
+        "Records vault-scoped least-privilege RBAC and metadata-only proof.",
+        "Records empty-vault blocker and no-deployment boundary."
+      ]
+    },
+    {
+      "asset_path": "reports/esec-001-i3/production-credential-remediation.json",
+      "asset_type": "OTHER",
+      "asset_role": "CONTROL_AUDIT",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "ESEC-001-I3",
+      "governed_by_control_task_id": "ESEC-001-I3",
+      "related_assets": [
+        "control-center/ESEC-001_I3_PRODUCTION_CREDENTIAL_REMEDIATION_AND_KEY_VAULT_INTEGRATION.v1.md",
+        "tests/esec-001-i3-production-credential-remediation.test.js",
+        "infra/azure/eops-001-a1/main.bicep"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Refresh after any vault secret population, RBAC, Bicep secret binding, credential naming or source logging change.",
+      "notes": "Contains no secret values; records only role names/scopes, secret count and non-sensitive metadata.",
+      "purpose_description": "Machine-readable I3 evidence for source remediation, least-privilege vault RBAC, metadata-only access, Bicep secret references and remaining blockers.",
+      "functional_group": "DEPLOYMENT_OPERATIONS",
+      "relationship_tags": [
+        "AUDIT",
+        "DEPLOYMENT",
+        "SECURITY"
+      ],
+      "classification_evidence": [
+        "Provider secret-prefix logging removed.",
+        "Key Vault Reader/Secrets User roles verified at vault scope only.",
+        "Metadata listing returned zero secrets and no values were read."
+      ]
+    },
+    {
+      "asset_path": "tests/esec-001-i3-production-credential-remediation.test.js",
+      "asset_type": "TEST",
+      "asset_role": "TEST_PROOF",
+      "source_state": "PRE_EXISTING_MODIFIED",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "ESEC-001-I3",
+      "governed_by_control_task_id": "ESEC-001-I3",
+      "related_assets": [
+        "control-center/ESEC-001_I3_PRODUCTION_CREDENTIAL_REMEDIATION_AND_KEY_VAULT_INTEGRATION.v1.md",
+        "reports/esec-001-i3/production-credential-remediation.json",
+        "infra/azure/eops-001-a1/main.bicep",
+        "backend/services/dataProvider.js"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Re-run whenever I3 runtime credential files, provider diagnostics, RBAC evidence or Bicep secret-reference design changes.",
+      "notes": "Focused fail-closed I3 proof.",
+      "purpose_description": "Automated proof that provider secrets are not partially logged, Supabase credential classes are explicit, Key Vault references are value-free, RBAC is least privilege and the empty vault blocks Stage B.",
+      "functional_group": "TEST_PROOF",
+      "relationship_tags": [
+        "TEST_PROOF",
+        "DEPLOYMENT",
+        "SECURITY"
+      ],
+      "classification_evidence": [
+        "8/8 focused I3 tests PASS on 2026-11-08.",
+        "Asserts no legacy SUPABASE_KEY in protected I3 paths.",
+        "Asserts empty vault remains a HOLD and no deployment occurred."
       ]
     }
   ],

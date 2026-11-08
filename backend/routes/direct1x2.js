@@ -7,15 +7,10 @@ const { getRiskTier } = require('../services/direct1x2Builder');
 const router = express.Router();
 
 const SUPABASE_URL = String(process.env.SUPABASE_URL || '').trim();
-const SUPABASE_KEY = String(
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-    || process.env.SUPABASE_KEY
-    || process.env.SUPABASE_ANON_KEY
-    || ''
-).trim();
+const SUPABASE_ANON_KEY = String(process.env.SUPABASE_ANON_KEY || '').trim();
 
-const supabase = SUPABASE_URL && SUPABASE_KEY
-    ? createClient(SUPABASE_URL, SUPABASE_KEY, {
+const supabase = SUPABASE_URL && SUPABASE_ANON_KEY
+    ? createClient(SUPABASE_URL, SUPABASE_ANON_KEY, {
         auth: { persistSession: false, autoRefreshToken: false }
     })
     : null;

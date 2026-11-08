@@ -9,15 +9,10 @@ const config = require('../config');
 const { executeOperation } = require('../core/executionPipeline');
 
 const SUPABASE_URL = String(process.env.SUPABASE_URL || '').trim();
-const SUPABASE_KEY = String(
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-    || process.env.SUPABASE_KEY
-    || process.env.SUPABASE_ANON_KEY
-    || ''
-).trim();
+const SUPABASE_SERVICE_ROLE_KEY = String(process.env.SUPABASE_SERVICE_ROLE_KEY || '').trim();
 
-const supabase = SUPABASE_URL && SUPABASE_KEY
-    ? createClient(SUPABASE_URL, SUPABASE_KEY, {
+const supabase = SUPABASE_URL && SUPABASE_SERVICE_ROLE_KEY
+    ? createClient(SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY, {
         auth: { persistSession: false, autoRefreshToken: false }
     })
     : null;

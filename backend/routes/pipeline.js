@@ -234,7 +234,7 @@ router.get('/status', requireRole('admin'), async (_req, res) => {
         const { createClient } = require('@supabase/supabase-js');
         const supabase = createClient(
             process.env.SUPABASE_URL,
-            process.env.SUPABASE_KEY || process.env.SUPABASE_ANON_KEY
+            process.env.SUPABASE_SERVICE_ROLE_KEY
         );
         const { count: rawCount } = await supabase.from('predictions_raw').select('*', { count: 'exact', head: true });
         const { count: finalCount } = await supabase.from('direct1x2_prediction_final').select('*', { count: 'exact', head: true });
