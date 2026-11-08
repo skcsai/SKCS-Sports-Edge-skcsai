@@ -368,7 +368,7 @@ Blocks: none
 
 ## EOPS-001-A1 — Azure Migration Stage A - Inventory, Costed Candidate and Startup Safety
 
-Status: IN_PROGRESS
+Status: TESTED
 Governed by: EOPS-001-A1
 Blocked by: ESA-001, EST-001
 Blocks: none

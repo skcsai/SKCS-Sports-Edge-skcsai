@@ -2,7 +2,7 @@
   "project_id": "EOPS-001-A1",
   "title": "Azure Migration Stage A \u2014 Inventory, Costed Candidate and Startup Safety",
   "date": "2026-11-08",
-  "status": "LOCAL_CLOSURE_CANDIDATE_NOT_PUBLISHED",
+  "status": "TESTED_PUBLISHED_NO_DEPLOYMENT",
   "start_point": {
     "edge_head": "1ac5216b7b8515afea3f057ebaed4f08cc6e399c",
     "edge_initial_worktree": "clean",
@@ -215,5 +215,20 @@
       "discovered_surfaces": 224,
       "warnings": 0
     }
+  },
+  "publication": {
+    "commit": "3e9e40434b6fb2e9d5abe453d7332361546829e4",
+    "branch": "main",
+    "remote": "origin/main",
+    "verified_zero_ahead_zero_behind": true,
+    "live_deployment_performed": false
+  },
+  "formal_closure": {
+    "status": "TESTED",
+    "stage_b_authorized": false,
+    "remaining_evidence_items": [
+      "Exact remaining Azure startup credit balance is not exposed by the authenticated MCA available-balance endpoint (amount is null); this is explicitly carried to later cost governance and does not invalidate Stage A's measured ActualCost proof.",
+      "Supabase project vzzmirotzqrrwgoieojo remains INACTIVE, so live bucket/object/table volumes were not re-read; latest governed size evidence is retained and live migration sizing is carried to the later separately authorized migration stage."
+    ]
   }
 }

@@ -981,12 +981,13 @@
         "Control Center sequencing bypass"
       ],
       "recommended_order": 17,
-      "next_action": "Wait for system, storage, and security inventory.",
+      "next_action": "EOPS-001-A1 TESTED. Keep EOPS-001 parent governance gates unchanged. Any live Azure canary/deployment or subsequent migration stage requires a separately registered and authorized child project.",
       "owner_note": "Bootstrapped from the canonical Edge Control Center ledger. Exact task-ID overlaps mirror ledger sequencing state.",
-      "last_updated": "2026-07-05",
+      "last_updated": "2026-11-08",
       "governed_by_control_task_id": "EOPS-001",
       "current_evidence": [
-        "Edge package scripts expose sync, refresh, grading, settlement, provider audits, enrichment, pipeline, and Antigravity operational commands"
+        "Edge package scripts expose sync, refresh, grading, settlement, provider audits, enrichment, pipeline, and Antigravity operational commands",
+        "2026-11-08 EOPS-001-A1 TESTED and published at 3e9e40434b6fb2e9d5abe453d7332361546829e4; Stage A prepared Azure candidate only and performed no live cutover."
       ]
     },
     {
@@ -3256,9 +3257,9 @@
       "category": "Deployment and Operations",
       "description": "Bounded Stage A for the full Edge-to-Azure migration: verify current Azure cost/credit evidence and Supabase dependencies, implement canary-safe startup controls, and prepare/test a minimal Azure deployment candidate without live cutover.",
       "why_it_matters": "Edge cannot be moved safely until current costs, Supabase coupling and startup side effects are proven and the Azure candidate can boot without touching production data or launching duplicate schedules.",
-      "current_status": "IN_PROGRESS",
+      "current_status": "TESTED",
       "priority": "critical",
-      "startable": true,
+      "startable": false,
       "blocked_by": [
         "ESA-001",
         "EST-001"
@@ -3300,7 +3301,9 @@
         "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
         "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
         "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
-        "control-center/EDGE_CONTROL_CENTER.md"
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
       ],
       "related_tables": [],
       "known_issues": [
@@ -3336,7 +3339,7 @@
         "Azure credits could be consumed without a verified shared budget"
       ],
       "recommended_order": 53,
-      "next_action": "Run final asset/classification/full Control Center regression. If green, retain as local Stage A closure candidate and request only the missing Edge publication decision. Do not deploy or start Stage B.",
+      "next_action": "CLOSED. EOPS-001-A1 is TESTED and published. Preserve the canary-safe startup controls, secure production dependency graph, no-push container proof, Bicep/what-if evidence and rollback boundary. Do not deploy the Azure canary, restore Supabase, change Render/Vercel/DNS or begin Stage B without a new separately governed authorization.",
       "owner_note": "Stephen authorized Stage A from the 2026-11-08 full Azure migration handover. Existing live Render, Vercel, Supabase and Scout services must remain unchanged.",
       "last_updated": "2026-11-08",
       "governed_by_control_task_id": "EOPS-001-A1",
@@ -3351,12 +3354,14 @@
         "2026-11-08 final production dependency audit: 0 vulnerabilities after lockfile security refresh and Express 4.22.3 patch-level update.",
         "2026-11-08 ACR no-push secure container build df1f PASS; production npm install reported 0 vulnerabilities; no skcs-edge repository/tag persisted.",
         "2026-11-08 Bicep build PASS and resource-group what-if Succeeded; proposed changes limited to one canary Container App plus AcrPull role assignment; no deployment performed.",
-        "2026-11-08 final npm run control:verify PASS: 361/361 tests; control:center/projects/assets/classification/runtime PASS; runtime inventory 233 governed / 224 discovered / 0 warnings."
+        "2026-11-08 final npm run control:verify PASS: 361/361 tests; control:center/projects/assets/classification/runtime PASS; runtime inventory 233 governed / 224 discovered / 0 warnings.",
+        "2026-11-08 EOPS-001-A1 publication proof: canonical Edge main published at 3e9e40434b6fb2e9d5abe453d7332361546829e4; local HEAD and origin/main matched 0 ahead / 0 behind; final pre-publication control:verify 361/361 PASS; no Azure Container App deployment, Supabase restore, Render/Vercel/DNS change or Stage B start occurred.",
+        "2026-11-08 EOPS-001-A1 runtime-inventory hash reconciliation: backend/server-express.js, Dockerfile and package.json exact-byte source_content_sha256 values updated after Stage A; all three relationship_evidence_sha256 fingerprints remained unchanged, proving no semantic runtime classification drift.",
+        "2026-11-08 runtime map regenerated from reconciled canonical runtime inventory; control:runtime PASS with 233 inventory surfaces, 224 discovered surfaces and 0 warnings."
       ],
       "open_gaps": [
-        "Exact remaining Azure startup credit balance is not exposed by the authenticated MCA available-balance endpoint (amount is null).",
-        "Supabase project vzzmirotzqrrwgoieojo is INACTIVE, so live bucket/object/table volumes were not re-read; Stage A did not wake or restore it.",
-        "Stage A Edge publication is not authorized by the prior Scout-only publication approval; no commit or push may occur without a new Edge publication decision."
+        "Exact remaining Azure startup credit balance is not exposed by the authenticated MCA available-balance endpoint (amount is null); this is explicitly carried to later cost governance and does not invalidate Stage A's measured ActualCost proof.",
+        "Supabase project vzzmirotzqrrwgoieojo remains INACTIVE, so live bucket/object/table volumes were not re-read; latest governed size evidence is retained and live migration sizing is carried to the later separately authorized migration stage."
       ]
     }
   ]

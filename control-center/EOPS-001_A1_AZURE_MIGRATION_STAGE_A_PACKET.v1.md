@@ -2,7 +2,7 @@
 
 Date: 8 November 2026
 Owner: Stephen / SKCS AI SPORTS EDGE (PTY) LTD
-Status: **LOCAL CLOSURE CANDIDATE — NOT PUBLISHED — NO DEPLOYMENT**
+Status: **TESTED — PUBLISHED — NO DEPLOYMENT**
 
 ## 1. Boundary
 
@@ -177,7 +177,7 @@ Final full Edge verification after all Stage A changes: **361/361 tests PASS**; 
 
 Technical Stage A evidence is complete enough for a **local closure candidate** after final repository/governance regression.
 
-Publication is **not authorized by the prior Scout-only GitHub approval**. Do not commit/push or start Stage B without a new Edge publication/deployment decision.
+Publication completed under Stephen's explicit EOPS-001-A1 authorization at commit `3e9e40434b6fb2e9d5abe453d7332361546829e4`. Stage B and live deployment remain separately governed and not authorized.
 
 Open evidence items that carry forward:
 
@@ -185,3 +185,11 @@ Open evidence items that carry forward:
 2. live Supabase bucket/table/object volumes while the project remains inactive;
 3. Stage B deployment authorization;
 4. later-stage Azure database, identity and frontend pricing/cutover proof.
+
+## 11. Formal closure
+
+EOPS-001-A1 is **TESTED and CLOSED**. Canonical Edge publication: `3e9e40434b6fb2e9d5abe453d7332361546829e4`. The measured-cost limitation and inactive-Supabase live-volume limitation are explicitly preserved as later-stage evidence items; they do not invalidate Stage A because Stage A required those limitations to be recorded without waking or mutating production services. No live Azure canary, database, scheduler, frontend, DNS, Supabase, Render or Vercel cutover occurred.
+
+Runtime inventory closure reconciliation: Stage A changed the exact bytes of `backend/server-express.js`, `Dockerfile` and `package.json`. Their three `source_content_sha256` values were refreshed from the published files. The governed relationship-evidence fingerprints remained exactly unchanged, confirming no database-role, database-object, scheduler-trigger or deployment-surface classification drift.
+
+The synchronized `EDGE_SYSTEM_RUNTIME_MAP.md` was regenerated from the reconciled inventory, after which `npm run control:runtime` passed with 233 inventory surfaces, 224 discovered surfaces and zero warnings.
