@@ -189,3 +189,22 @@ If `DATABASE_URL` is missing:
 
 - `deploy` is the production remote to use for live updates.
 - `origin` may not be available or may not be the live deployment repo. Do not rely on `origin` for production deployment unless the user explicitly changes the setup.
+
+## Cursor Cloud specific instructions
+
+The startup update script runs `npm install` and `npm run build:supabase`. The notes below cover non-obvious caveats for running and testing in the cloud VM (dependencies are already installed by the update script).
+
+### Running the app locally
+- `npm run dev` runs the **entire app** (Express API + the static `public/` frontend) as one process. Locally `PORT` defaults to `3000` (the smoke test also uses `3000`), unlike Render which uses `10000`. Open `http://localhost:3000/`.
+- A local **PostgreSQL 16** is installed in the VM with a `skcs` role/database. It is not auto-started — run `sudo pg_ctlcluster 16 main start` at the start of a session before the app/tests. Root `.env` already has `DATABASE_URL=postgresql://skcs:skcs@127.0.0.1:5432/skcs`. `backend/dbBootstrap.js` auto-creates the schema on server startup.
+- A root `.env` (gitignored) holds dev-only placeholder secrets. Two non-obvious requirements it satisfies:
+  - `backend/db.js` forces TLS whenever a connection string is set; the local cluster works only because Ubuntu enables SSL (snakeoil cert) and the pool uses `rejectUnauthorized:false`. A non-SSL local Postgres would fail to connect.
+  - Several modules construct a Supabase client at require-time and throw `supabaseUrl is required` if it's empty, so `.env` must keep placeholder `SUPABASE_URL`/keys even without a real Supabase project.
+
+### Testing
+- `npm test` (smoke test) reads env from `backend/.env`, **not** root `.env`. Keep them in sync (`cp .env backend/.env`) or the server it spawns won't see your config. It asserts the `/api/accuracy` shape, so a running DB is required; it also needs `USER_API_KEY` (or `ADMIN_API_KEY`).
+- `npm run verify:rulebook` is a fast, offline static guard against legacy confidence thresholds — safe to run anytime. There is no separate eslint/build step for the backend.
+- On a fresh DB, bootstrap logs `Error: relation "match_context_data" does not exist` — this is benign; all core tables (including `predictions_accuracy`) are created before that point.
+
+### Data caveats
+- Without external sports API keys and a Groq key, the live sync (`npm run sync:live`) and AI pipeline cannot fetch real fixtures, so the predictions list is empty by default. To exercise the prediction-display flow, seed `direct1x2_prediction_final` directly: insert a `prediction_publish_runs` row with `status='completed'`, then a prediction row with a future `match_date`, a non-empty `matches` JSON array, and real `home_team`/`away_team` (rows are filtered out if `match_date <= NOW()` or teams are null/placeholder).
