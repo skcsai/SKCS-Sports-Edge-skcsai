@@ -5,8 +5,8 @@
   "source_command": "git ls-files",
   "coverage_policy": "Every tracked repository path must be REGISTERED_ASSET or EXPLICITLY_EXCLUDED. Registration records existence and governance visibility; it does not assert correctness, currency, approval, permanence, consumer presence, or Scout/FIP compatibility.",
   "unclassified_tracked_paths_allowed": false,
-  "tracked_path_count": 1091,
-  "registered_asset_count": 1090,
+  "tracked_path_count": 1092,
+  "registered_asset_count": 1091,
   "explicit_exclusion_count": 1,
   "assets": [
     {
@@ -37395,6 +37395,44 @@
         "SOCCER-GOV-001 exact scope",
         "Pinned canonical registry fingerprint",
         "Paired consumer byte parity and scoreline truth-table proof"
+      ]
+    },
+    {
+      "asset_path": "control-center/SOCCER-ACT-001_PRIVATE_AZURE_ACTIVATION_PACKET.v1.md",
+      "asset_type": "CONTROL_CENTER",
+      "asset_role": "CONTROL_GOVERNANCE",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "SOCCER-ACT-001",
+      "governed_by_control_task_id": "SOCCER-ACT-001",
+      "related_assets": [
+        "backend/services/edgeD1Proof.js",
+        "backend/services/governedFipIntakeAdapter.js"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "CATALOG_EXECUTION_BLOCKED",
+      "next_validation": "Restore the existing desktop connection and execute the packet read-only catalog check through the approved private-network path. Prove database, role, final/Pending relationship and current fixture authority before runtime wiring or deployment. Keep customer sign-in and subscriptions deferred.",
+      "notes": "Read-only activation preflight and exact next checkpoint; no live schema, permission, runtime or customer-access change is claimed.",
+      "purpose_description": "Records current Azure revision evidence, private access blocker and a bounded catalog-only SQL packet before private prediction activation.",
+      "functional_group": "DEPLOYMENT_OPERATIONS",
+      "relationship_tags": [
+        "GOVERNANCE",
+        "DATABASE",
+        "DEPLOYMENT",
+        "AUDIT"
+      ],
+      "classification_evidence": [
+        "Current Azure resource metadata captured without secrets.",
+        "Catalog packet starts READ ONLY and ends ROLLBACK.",
+        "Runtime and subscription gates remain preserved."
       ]
     }
   ],

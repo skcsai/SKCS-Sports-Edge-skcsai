@@ -85,3 +85,5 @@ A repository file is an asset. It is not automatically a project.
 | EPI-001-D1-M6 | Official Recommendation Lock | Prediction Pipeline Implementation | TESTED | critical | EPI-001-D1-M6 | CLOSED at TESTED for the local recommendation lock. Next govern the Pending, Final Results and Accumulated Accuracy read model against official recommendations and verified incidents. |
 
 | SOCCER-REL-001 | Paired Prediction-Only Release Baseline Reconciliation | Prediction Release Reconciliation | TESTED | critical | SOCCER-REL-001 | CLOSED / TESTED prediction-only source release. Main promotion, Azure activation, production routes, live database writes, subscriptions and customer sign-in remain separately governed. |
+
+| SOCCER-ACT-001 | Private Premier League Azure Runtime Activation | Private Production Activation | IN_PROGRESS | critical | SOCCER-ACT-001 | Restore the existing desktop connection and execute the packet read-only catalog check through the approved private-network path. Prove database, role, final/Pending relationship and current fixture authority before runtime wiring or deployment. Keep customer sign-in and subscriptions deferred. |

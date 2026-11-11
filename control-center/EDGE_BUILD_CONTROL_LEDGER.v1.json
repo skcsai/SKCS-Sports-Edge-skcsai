@@ -4547,6 +4547,83 @@
         "base_commit": "49fdd0f961e1de3edd761b08633c02b51cf9b551",
         "boundary": "SOURCE_RELEASE_ONLY; MAIN_AND_PRODUCTION_UNCHANGED"
       }
+    },
+    {
+      "task_id": "SOCCER-ACT-001",
+      "task_name": "Private Premier League Azure Runtime Activation",
+      "title": "Private Premier League Azure Runtime Activation",
+      "workstream": "Private Production Activation",
+      "description": "Inspect current Azure deployment and prepare the smallest governed private runtime connection for the tested Soccer Governor. Catalog proof and existing production gates remain prerequisites; public C14/subscriber work is excluded.",
+      "status": "IN_PROGRESS",
+      "startable": false,
+      "priority": "critical",
+      "blocked_by": [
+        "EFI-002"
+      ],
+      "blocks": [],
+      "affected_sports": [
+        "football"
+      ],
+      "affected_layers": [
+        "private runtime",
+        "Azure deployment readiness",
+        "governance"
+      ],
+      "related_contracts": [
+        "control-center/SOCCER-ACT-001_PRIVATE_AZURE_ACTIVATION_PACKET.v1.md"
+      ],
+      "affected_files": [
+        "control-center/SOCCER-ACT-001_PRIVATE_AZURE_ACTIVATION_PACKET.v1.md",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md"
+      ],
+      "related_files": [
+        "control-center/SOCCER-ACT-001_PRIVATE_AZURE_ACTIVATION_PACKET.v1.md",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md"
+      ],
+      "related_tables": [],
+      "completion_definition": "Fresh verified Premier League inputs reach the independent sealed comparison; GREEN-only immutable official final and Pending records are written atomically against the proven deployed schema with pre-kickoff recheck and zero-write replay; exact source/image and bounded runtime authority, private canary, monitoring and recovery are verified; Control Center evidence is complete. No customer sign-in, subscriptions, public traffic, DNS or payment work.",
+      "proof_required": [
+        "Read-only deployed catalog and role evidence",
+        "Current scheduled fixture, evidence freshness and canonical identity",
+        "Authenticated private runtime input and preserved proof-mode behavior",
+        "Original Edge seal before private Shadow access",
+        "Canonical rule fingerprint and GREEN-only immutable recommendation",
+        "Atomic final/Pending write, kickoff recheck and zero-write replay",
+        "Exact image/source mapping, private canary, monitoring and recovery",
+        "Both Control Centers and targeted regression"
+      ],
+      "current_evidence": [
+        "Stephen authorized controlled Azure activation after SOCCER-REL-001 publication in the current chat.",
+        "Published Scout 7e5e69178c68271d71f0ca128860951c968d21ba and Edge 11d0c435af696657a9cf2e356630242ace6fd3cb source trees were verified.",
+        "Azure Resource Graph confirms C14 trial revision 0000006 still pins earlier ddf8a498 image; no new release-to-image mapping is proved.",
+        "Scout daily collector schedule is 0 4 * * *; its configured image is scout-collector:df966d4a632b06a9ddb889632552c5836cf2124c. Latest successful execution and fresh package remain unverified.",
+        "Both existing Azure PostgreSQL servers are Ready with public network access Disabled.",
+        "Context proof intake and runEdgeD1Proof explicitly require PROOF_FIXTURE; Pending handoff returns in-memory products and is not a live transactional writer.",
+        "DeskMCP returned tunnel_client_not_seen; Desktop Commander reports the laptop Offline. No live catalog query was attempted using guessed credentials or an unapproved network change."
+      ],
+      "open_gaps": [
+        "Desktop connection unavailable for approved private access.",
+        "Actual database and runtime-role catalog, final/Pending foreign key and idempotency fields unproved.",
+        "Fresh production fixture input, post-seal private Shadow transport and atomic Pending writer not yet connected.",
+        "EFI-002 formal closure and bounded runtime/storage authority remain unresolved; global gates stay BLOCKED."
+      ],
+      "next_action": "Restore the existing desktop connection and execute the packet read-only catalog check through the approved private-network path. Prove database, role, final/Pending relationship and current fixture authority before runtime wiring or deployment. Keep customer sign-in and subscriptions deferred.",
+      "owner_note": "Stephen Fynn authorized this activation stage in the current chat. Initial packet is read-only and does not auto-clear runtime or storage gates.",
+      "last_updated": "2026-11-11"
     }
   ]
 }

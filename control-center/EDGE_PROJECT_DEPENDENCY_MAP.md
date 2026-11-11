@@ -495,3 +495,10 @@ Status: TESTED
 Governed by: SOCCER-REL-001
 Blocked by: none
 Blocks: none
+
+## SOCCER-ACT-001 - Private Premier League Azure Runtime Activation
+
+Status: IN_PROGRESS
+Governed by: SOCCER-ACT-001
+Blocked by: EFI-002
+Blocks: none

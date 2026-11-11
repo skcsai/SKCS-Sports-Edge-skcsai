@@ -14,7 +14,7 @@
           "control-center/"
         ]
       },
-      "asset_count": 65,
+      "asset_count": 66,
       "asset_paths": [
         "control-center/ALI-001_ACCURACY_AND_LOSS_INTELLIGENCE_PROPOSAL.v1.md",
         "control-center/check_control_center.js",
@@ -80,6 +80,7 @@
         "control-center/SEM-GOV-001D-UI3-I7_GOVERNED_FIP_INTAKE_ADAPTER_IMPLEMENTATION_PACKET.v1.md",
         "control-center/SEM-GOV-001D-UI3-I8_DURABLE_INTAKE_EVIDENCE_STORAGE_IMPLEMENTATION_PACKET.v1.md",
         "control-center/SEM-GOV-001D-UI3-I9_PRODUCTION_COMPOSITION_AND_M2M_AUTH_FOUNDATION_PACKET.v1.md",
+        "control-center/SOCCER-ACT-001_PRIVATE_AZURE_ACTIVATION_PACKET.v1.md",
         "control-center/SPM-001_UNIFIED_SUBSCRIPTION_MODEL_PROPOSAL.v1.md"
       ]
     },

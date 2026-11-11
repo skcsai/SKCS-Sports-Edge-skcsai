@@ -553,7 +553,7 @@ Required state snapshot:
   ],
   "eac_evidence_reusable": true,
   "eac_batch_manifest": "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
-  "total_governed_assets": 1090,
+  "total_governed_assets": 1091,
   "phase_0": {
     "status": "PHASE_CLOSED",
     "question": "What exact repository state is the cleanup programme starting from?",
@@ -562,7 +562,7 @@ Required state snapshot:
       "active_branch": "main",
       "head_commit": "7d21fc276629bb6aec056299d70e1541b462934f",
       "working_tree_status": "dirty_unrelated_changes_preserved",
-      "governed_asset_count": 1090,
+      "governed_asset_count": 1091,
       "eac_batch_manifest": "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
       "eac_batch_count": 29,
       "already_completed_or_removal_work": "Partial external sports provider removal (PARTIAL); EAC-001 B01-B29 classification inventory complete; prior Control Center per-asset investigations preserved as historical evidence",
@@ -10576,3 +10576,9 @@ Closure evidence on 11 November 2026 includes 57 focused tests, 390 Edge governa
 Status: TESTED. Carry forward the tested Premier League private Scout predictor, shared Double Chance laws, Edge proof intake, independent sealed forecast comparison, Pending recommendation lock and Soccer Governor onto the verified canonical GitHub bases. Exclude the six C13 sign-in and website paths. Publish isolated release branches only; production activation remains separate.
 
 Definition of Done: Prediction source bytes match the tested local candidates; deferred C13 files match canonical GitHub main; both Control Centers and focused cross-repository proof pass; exact scoped release commits are published and remotely verified in both canonical repositories. No main-branch promotion, Azure deployment, live database write, customer sign-in or subscription change.
+
+## SOCCER-ACT-001 - private Azure activation
+
+Status: IN_PROGRESS, not startable for runtime. Restore the existing desktop connection and execute the packet read-only catalog check through the approved private-network path. Prove database, role, final/Pending relationship and current fixture authority before runtime wiring or deployment. Keep customer sign-in and subscriptions deferred.
+
+Packet: control-center/SOCCER-ACT-001_PRIVATE_AZURE_ACTIVATION_PACKET.v1.md

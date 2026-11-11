@@ -1,14 +1,14 @@
 # EDGE ASSET REPOSITORY MAP
 EAC_PROJECT_ID: EAC-001
 MANIFEST_SCHEMA_VERSION: 1.0.0
-TOTAL_GOVERNED_ASSETS: 1090
-TOTAL_BATCHED_ASSETS: 1090
+TOTAL_GOVERNED_ASSETS: 1091
+TOTAL_BATCHED_ASSETS: 1091
 FULLY_CLASSIFIED_ASSETS: 0
-CLASSIFICATION_PENDING_ASSETS: 1090
+CLASSIFICATION_PENDING_ASSETS: 1091
 CLOSURE_READY: NO
 
 CURRENT_STATE_COUNTS
-- CURRENT: 149
+- CURRENT: 150
 - PARALLEL: 0
 - LEGACY: 0
 - HISTORICAL_EVIDENCE: 0
@@ -23,7 +23,7 @@ FUNCTIONAL_GROUP_COUNTS
 - PROVIDER_INTEGRATION: 119
 - DATABASE_MIGRATION: 100
 - GENERATED_OUTPUT: 65
-- DEPLOYMENT_OPERATIONS: 55
+- DEPLOYMENT_OPERATIONS: 56
 - FRONTEND_UI: 46
 - DATABASE: 42
 - PREDICTION: 30
@@ -42,22 +42,22 @@ FUNCTIONAL_GROUP_COUNTS
 - UNCATEGORIZED: 2
 
 RELATIONSHIP_TAG_COUNTS
-- GOVERNANCE: 301
+- GOVERNANCE: 302
 - RUNTIME: 297
 - SCRIPT_TOOL: 292
-- DATABASE: 275
+- DATABASE: 276
 - SQL: 240
 - PROVIDER: 205
 - TEST_PROOF: 183
 - DOCUMENTATION: 178
 - API: 173
-- AUDIT: 113
+- AUDIT: 114
 - PREDICTION: 112
 - UI: 112
 - MIGRATION: 106
 - OBSERVABILITY: 99
 - SECURITY: 93
-- DEPLOYMENT: 76
+- DEPLOYMENT: 77
 - GENERATED: 75
 - SERVICE: 68
 - ROUTE: 61
@@ -75,10 +75,10 @@ RELATIONSHIP_TAG_COUNTS
 - CONTROLLER: 2
 - RPC: 1
 
-NEXT_VALIDATION_NON_EMPTY_ASSETS: 1090
+NEXT_VALIDATION_NON_EMPTY_ASSETS: 1091
 
 BATCH_COMPLETION_SUMMARY
-- B01 | CONTROL_CENTER | ASSET_COUNT=65 | CLASSIFIED=0 | PENDING=65
+- B01 | CONTROL_CENTER | ASSET_COUNT=66 | CLASSIFIED=0 | PENDING=66
 - B02 | BACKEND_DIRECT_FILES | ASSET_COUNT=14 | CLASSIFIED=0 | PENDING=14
 - B03 | BACKEND_ROUTES_AND_CONTROLLERS | ASSET_COUNT=28 | CLASSIFIED=0 | PENDING=28
 - B04 | BACKEND_UTILS_SEMANTIC_CORE_AND_TEST | ASSET_COUNT=46 | CLASSIFIED=0 | PENDING=46
@@ -177,6 +177,7 @@ PER_ASSET_BY_BATCH
 | control-center/SEM-GOV-001D-UI3-I7_GOVERNED_FIP_INTAKE_ADAPTER_IMPLEMENTATION_PACKET.v1.md | Seals isolated governed FIP intake adapter implementation scope and Definition of Done. | DOCUMENTATION_KNOWLEDGE | CURRENT | ["DOCUMENTATION","GOVERNANCE","SERVICE"] | ["Documents adapter orchestration","Documents identity resolver law","Documents no HTTP route boundary","Verifies gates BLOCKED"] | npm run test:sem-gov-001d-ui3-i7 after UI3-I7 packet or registration change |
 | control-center/SEM-GOV-001D-UI3-I8_DURABLE_INTAKE_EVIDENCE_STORAGE_IMPLEMENTATION_PACKET.v1.md | Seals durable intake evidence storage design, retention law, security, and non-execution boundary. | DOCUMENTATION_KNOWLEDGE | CURRENT | ["DOCUMENTATION","GOVERNANCE","DATABASE"] | ["PASS WITH CORRECTION","17 columns","Migration NOT APPLIED","All gates BLOCKED"] | npm run test:sem-gov-001d-ui3-i8 after packet change |
 | control-center/SEM-GOV-001D-UI3-I9_PRODUCTION_COMPOSITION_AND_M2M_AUTH_FOUNDATION_PACKET.v1.md | Seals composition root and M2M auth foundation with fail-closed boundaries. | DOCUMENTATION_KNOWLEDGE | CURRENT | ["DOCUMENTATION","GOVERNANCE","SECURITY"] | ["PASS","No route","Feature flag disabled","All gates BLOCKED"] | npm run test:sem-gov-001d-ui3-i9 after packet change |
+| control-center/SOCCER-ACT-001_PRIVATE_AZURE_ACTIVATION_PACKET.v1.md | Records current Azure revision evidence, private access blocker and a bounded catalog-only SQL packet before private prediction activation. | DEPLOYMENT_OPERATIONS | CURRENT | ["GOVERNANCE","DATABASE","DEPLOYMENT","AUDIT"] | ["Current Azure resource metadata captured without secrets.","Catalog packet starts READ ONLY and ends ROLLBACK.","Runtime and subscription gates remain preserved."] | Restore the existing desktop connection and execute the packet read-only catalog check through the approved private-network path. Prove database, role, final/Pending relationship and current fixture authority before runtime wiring or deployment. Keep customer sign-in and subscriptions deferred. |
 | control-center/SPM-001_UNIFIED_SUBSCRIPTION_MODEL_PROPOSAL.v1.md | Control Center governance or proposal artifact for the Edge project identified by its filename. | CONTROL_CENTER | UNKNOWN | ["GOVERNANCE","DOCUMENTATION"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 
 ## B02 BACKEND_DIRECT_FILES
