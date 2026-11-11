@@ -1,14 +1,14 @@
 # Edge System Runtime Map
 
 Inventory version: 1.0.0
-Inventory SHA-256: f6067e98b02c6ace43bc20b391fca8cf948bd522d112b90da0fe1dc39d6870ef
+Inventory SHA-256: dcfc082382886892de0ea962478df184541d1f370d9479b8b15564fba00637ce
 
 > Synchronized review surface for `EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json`.
 > This map is observational and does not declare future Edge architecture or canonical authority.
 
 ## Summary
 
-- Runtime/system surfaces: 234
+- Runtime/system surfaces: 236
 - Candidate status establishes authority: false
 - Inventory declares future architecture: false
 
@@ -937,6 +937,19 @@ Inventory SHA-256: f6067e98b02c6ace43bc20b391fca8cf948bd522d112b90da0fe1dc39d687
 - External providers: None recorded
 - Next validation: Revalidate runtime reachability and relationships during the next governed Edge architecture review.
 
+### backend/services/edgeD1Proof.js
+
+- Surface classes: SCOUT_FIP_SURFACE, SERVICE
+- Reachability: CANDIDATE
+- Source state: COMMITTED_REPOSITORY
+- Governed by: ESA-001
+- Runtime callers: None recorded
+- Runtime consumers: None recorded
+- Database role: NONE
+- Database objects: None recorded
+- External providers: None recorded
+- Next validation: Revalidate runtime reachability and relationships during the next governed Edge architecture review.
+
 ### backend/services/enhancedMatchDetailsService.js
 
 - Surface classes: DATABASE_SURFACE, SERVICE
@@ -1324,6 +1337,19 @@ Inventory SHA-256: f6067e98b02c6ace43bc20b391fca8cf948bd522d112b90da0fe1dc39d687
 - Runtime consumers: backend/services/aiPipeline.js
 - Database role: WRITE
 - Database objects: direct_1x2_insights, direct_1x2_stages
+- External providers: None recorded
+- Next validation: Revalidate runtime reachability and relationships during the next governed Edge architecture review.
+
+### backend/services/scoutContextHandoffProof.js
+
+- Surface classes: SCOUT_FIP_SURFACE, SERVICE
+- Reachability: CANDIDATE
+- Source state: COMMITTED_REPOSITORY
+- Governed by: ESA-001
+- Runtime callers: None recorded
+- Runtime consumers: None recorded
+- Database role: NONE
+- Database objects: None recorded
 - External providers: None recorded
 - Next validation: Revalidate runtime reachability and relationships during the next governed Edge architecture review.
 

@@ -4,7 +4,7 @@
   "generated_at": "2026-07-05",
   "source_ledger": "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
   "project_policy": "The Master Project Register owns project/workstream truth. Exact project_id to ledger.task_id overlaps must mirror canonical Control Center sequencing state. Files are assets, not automatically projects.",
-  "project_count": 58,
+  "project_count": 70,
   "projects": [
     {
       "project_id": "ECC-001",
@@ -431,7 +431,8 @@
       ],
       "blocks": [
         "EPRV-001",
-        "E2E-001"
+        "E2E-001",
+        "EFI-002"
       ],
       "affected_layers": [
         "Scout handoff",
@@ -3195,7 +3196,9 @@
       "blocked_by": [
         "EPRV-001-C3"
       ],
-      "blocks": [],
+      "blocks": [
+        "EFI-002"
+      ],
       "affected_layers": [
         "governance",
         "fip-transport-contract",
@@ -3900,6 +3903,927 @@
       "open_gaps": [
         "Live application of the server-only privilege migration and live role/grant metadata proof remain deferred to the next separately authorized active database target; inactive Supabase was not restored."
       ]
+    },
+    {
+      "project_id": "EFI-002",
+      "project_name": "Scout to Edge proof bridge",
+      "category": "Scout and Edge integration",
+      "description": "Paired with Scout CC-NSCS-038. Accept verified Premier League context by evidence reference in isolated proof mode.",
+      "why_it_matters": "Governed Edge work must remain visible to Control Center sequencing.",
+      "current_status": "IN_PROGRESS",
+      "priority": "critical",
+      "blocked_by": [
+        "EFI-001",
+        "EPRV-001-C4"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "fip-intake",
+        "edge-proof",
+        "governance"
+      ],
+      "related_tasks": [
+        "EFI-002"
+      ],
+      "related_contracts": [
+        "control-center/EFI-001_FIP_INTAKE_HANDSHAKE_CONTRACT.v1.md",
+        "control-center/EPRV-001_C4_SCOUT_CONTEXT_TRANSPORT_FIELD_CONTRACT.v1.md",
+        "control-center/EST-001_SUPABASE_STORAGE_AND_FIP_RETENTION_CONTRACT.v1.md"
+      ],
+      "related_files": [
+        "backend/services/governedFipIntakeAdapter.js",
+        "backend/services/governedFipIntakeComposition.js",
+        "backend/services/scoutContextHandoffProof.js",
+        "tests/scout-context-handoff-proof.test.js"
+      ],
+      "related_tables": [],
+      "known_issues": [],
+      "required_decisions": [],
+      "completion_definition": "Real archived Scout evidence passes isolated Edge intake with original hashes and player features, zero downstream writes, and both Control Centers pass.",
+      "proof_required": [
+        "Accept signed manifest and verify evidence digest within its bound.",
+        "Preserve source hashes, provenance, player features and UNKNOWN states.",
+        "Reject invalid authentication, changed or missing evidence, post-cutoff history and production mode.",
+        "Verify safe repeat delivery and existing FIP behavior."
+      ],
+      "risks_if_ignored": [
+        "Hidden Edge work",
+        "Control Center sequencing bypass"
+      ],
+      "recommended_order": 59,
+      "next_action": "Verify the paired Scout CC-NSCS-038 and Edge governance checks before closing P0.",
+      "owner_note": "P0 only. Historical replay and no production activation.",
+      "last_updated": "2026-11-10",
+      "governed_by_control_task_id": "EFI-002",
+      "current_evidence": [
+        "Crystal Palace–Liverpool historical replay accepted with a 337-byte manifest and 60 player records. 87 focused tests passed."
+      ],
+      "startable": false,
+      "open_gaps": [
+        "Formal cross-repository verification and closure remain open."
+      ]
+    },
+    {
+      "project_id": "EPI-001-I1",
+      "project_name": "EPI-001-I1 Prediction Authority Repair",
+      "category": "Prediction Pipeline Implementation",
+      "description": "Repair the audited ACCA prediction-authority drift across canonical runtime components without changing Direct 1X2 Draw publication or prediction formulas.",
+      "why_it_matters": "The audit proved conflicting canonical ACCA law surfaces can admit prohibited standalone draws, apply different family caps, and permit excessive 12-leg card overlap, making published accumulator behaviour non-deterministic.",
+      "current_status": "TESTED",
+      "priority": "critical",
+      "startable": false,
+      "blocked_by": [
+        "EPI-001"
+      ],
+      "blocks": [
+        "E2E-001"
+      ],
+      "affected_layers": [
+        "prediction",
+        "ACCA core law",
+        "ACCA leg selection",
+        "governance"
+      ],
+      "related_tasks": [
+        "EPI-001-I1"
+      ],
+      "related_contracts": [
+        "control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md"
+      ],
+      "related_files": [
+        "backend/utils/insightEngine.js",
+        "backend/utils/accaLogicEngine.js",
+        "backend/test/smoke-test-insight-engine.js",
+        "backend/test/smoke-test-skcs-law.js",
+        "package.json",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "Standalone draw guard exists but is not invoked by isBannedMarket.",
+        "Canonical ACCA core-law and leg-selection family caps diverge.",
+        "12-leg overlap runtime limit drifted from four to six.",
+        "Legacy smoke tests incorrectly expect draw_no_bet to normalize as result."
+      ],
+      "required_decisions": [],
+      "completion_definition": "EPI-001-I1 reaches TESTED only when the proved prediction-authority drift is repaired without changing Direct 1X2 Draw publication: standalone 1X2 Draw is banned only from ACCA/insight eligibility, draw_no_bet remains a distinct family, accaLogicEngine shared family caps match the insightEngine core-law authority, 12-leg card overlap returns to the governed maximum of four shared fixtures, stale smoke expectations are corrected, focused ACCA law and EPI pipeline regressions pass, full Edge governance passes, and no SQL/database/provider/deployment/public-routing/subscription/Scout-prediction work occurs.",
+      "proof_required": [
+        "Standalone 1X2 Draw is rejected by the shared ACCA/insight banned-market law while Home/Away direct picks remain allowed",
+        "draw_no_bet remains a distinct governed family",
+        "accaLogicEngine shared family caps match insightEngine core-law caps used by publication",
+        "6-leg overlap >2 and 12-leg overlap >4 reject",
+        "Existing ACCA law smoke suites PASS",
+        "Master Rulebook alignment guard PASS",
+        "Prediction-pipeline integrity regression PASS",
+        "Full Edge Control Center/project/asset/classification/runtime regression PASS",
+        "No SQL, database mutation, provider removal, deployment, public routing, subscription, or Scout prediction change"
+      ],
+      "risks_if_ignored": [
+        "ACCA cards may include prohibited standalone Draw legs.",
+        "Different active builder paths can apply inconsistent family diversity caps.",
+        "Mega ACCA cards can reuse too many fixtures and reduce intended diversity."
+      ],
+      "recommended_order": 60,
+      "next_action": "CLOSED. Preserve the repaired ACCA prediction authority: standalone 1X2 Draw remains excluded from ACCA/insight eligibility only, Direct 1X2 Draw remains valid, shared family caps stay aligned to insightEngine core law, and 12-leg card overlap remains capped at four shared fixtures. Return to the audit sequence for the next separately governed repair.",
+      "owner_note": "Stephen authorized moving to the next audit repair on 2026-11-10. P1 scope is prediction-authority repair only.",
+      "last_updated": "2026-11-10",
+      "governed_by_control_task_id": "EPI-001-I1",
+      "current_evidence": [
+        "2026-11-10 audit proved insightEngine defines but does not invoke isStandaloneDrawPick in isBannedMarket.",
+        "Edge Phase 6 Control Center authority records insightEngine as CANONICAL_KEEP ACCA core law authority and accaLogicEngine as CANONICAL_KEEP ACCA math/leg-selection authority.",
+        "accaBuilder actively consumes both canonical utilities, proving divergent shared family caps are runtime drift rather than documentation-only drift.",
+        "backend/scripts/patch-card-uniqueness.js records governed overlap maximum >2 for 6-leg and >4 for 12-leg; current insightEngine used >6 for 12-leg.",
+        "Baseline law tests failed on standalone draw, divergent family caps, and 12-leg overlap; draw_no_bet test expectation was stale because both canonical utilities classify it as draw_no_bet.",
+        "2026-11-10 closure proof: focused EPI-001-I1 command PASS (67/67 ACCA engine law assertions, 44/44 final SKCS law assertions, 8/8 EPI-001-C1 contract tests); Master Rulebook alignment guard PASS across 942 scanned files; full Edge control:verify PASS with 387/387 tests plus Control Center, Project Register, Asset Register, Classification and Runtime Inventory PASS; runtime inventory 235 surfaces / 226 discovered / 0 warnings. Direct 1X2 engine/builder/route were unchanged and canonical Direct 1X2 Draw remains allowed. No SQL, database mutation, provider removal, deployment, public routing, subscription or Scout prediction change."
+      ],
+      "open_gaps": []
+    },
+    {
+      "project_id": "E2E-001-X1",
+      "project_name": "E2E-001-X1 Controlled Real Scout Prediction Proof and Abstention Safety",
+      "category": "Scout to Edge End-to-End Proof",
+      "description": "Run the separately authorized real single-fixture historical proof and repair the proven unsafe default-prediction behavior so missing governed prediction evidence fails closed instead of becoming a 58% home-win/Dolphin-only result.",
+      "why_it_matters": "A real Scout fixture must never appear to have a valid Edge prediction merely because the legacy scorer defaults to home advantage when no governed prediction signal exists.",
+      "current_status": "TESTED",
+      "priority": "critical",
+      "startable": false,
+      "blocked_by": [
+        "E2E-001"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "scout-edge-proof",
+        "prediction",
+        "provenance",
+        "governance"
+      ],
+      "related_tasks": [
+        "E2E-001-X1"
+      ],
+      "related_contracts": [
+        "control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md",
+        "control-center/E2E-001_SCOUT_EDGE_PROOF_PLANNING_PACKET.v1.md"
+      ],
+      "related_files": [
+        "backend/services/aiScoring.js",
+        "backend/services/aiPipeline.js",
+        "tests/epi-001-d1-r1-provenance.test.js",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "Legacy aiScoring returns home/58% fallback when no model/provider/odds/AI result exists.",
+        "Real CC-NSCS-034 package has odds=false and prediction_execution=false.",
+        "No approved D1 model specification exists in current Edge governance."
+      ],
+      "required_decisions": [],
+      "completion_definition": "E2E-001-X1 is complete only when the real governed Crystal Palace-Liverpool Scout evidence is replayed locally through the verified proof boundary, Edge never converts missing governed prediction evidence into a fabricated home-win/Dolphin prediction, legitimate existing model/provider/odds scoring behavior remains unchanged, the Scout proof retains provenance and context, all network/provider/database/Supabase/public-route/deployment side effects remain zero, marriage/storage gates remain BLOCKED, and focused plus full Edge governance regressions pass. A safe abstention is an acceptable proof outcome but does not constitute full Scout-to-Edge prediction readiness or marriage-gate clearance.",
+      "proof_required": [
+        "Real Crystal Palace-Liverpool historical Scout proof replay",
+        "Original Scout provenance/context retained",
+        "No fallback 58% home prediction from missing governed signal",
+        "No Dolphin-only prediction from insufficient Scout input",
+        "Existing explicit model/provider/odds scoring regression unchanged",
+        "R1 provenance fail-closed regression PASS",
+        "Zero network/provider/database/Supabase/public-route/deployment side effects",
+        "Marriage and storage gates remain BLOCKED",
+        "Full Edge control:verify PASS"
+      ],
+      "risks_if_ignored": [
+        "A real Scout fixture can be presented as a 58% home prediction without governed predictive evidence.",
+        "Historical E2E proof can falsely appear green while the D1 model-input gap remains unresolved."
+      ],
+      "recommended_order": 61,
+      "next_action": "CLOSED as TESTED controlled P3 safety proof. Preserve the fail-closed Scout scoring boundary. Do not represent this as full Scout-to-Edge prediction readiness: the real Crystal Palace-Liverpool replay correctly abstains because no governed D1 prediction signal or approved D1 model specification exists. Any D1 model implementation requires a separate governed mini-project; marriage/storage gates remain BLOCKED.",
+      "owner_note": "Stephen authorized the next audit repair on 2026-11-10. Historical proof only; no production activation.",
+      "last_updated": "2026-11-10",
+      "governed_by_control_task_id": "E2E-001-X1",
+      "current_evidence": [
+        "2026-11-10 P3 baseline reproduced aiScoring fallback for Crystal Palace v Liverpool-shaped input with no model/provider/odds signal: winner=home, confidence=58, source=fallback.",
+        "Scout CC-NSCS-034/035/037 evidence proves the real Crystal Palace-Liverpool package and context handoff are governed but prediction_execution=false and odds=false; Scout remains sports-truth/calculation owner for named features only.",
+        "EPI-001 contract identifies aiScoring->Dolphin as a risk surface and requires AI to analyze supplied facts without creating canonical sports truth.",
+        "No repository-approved D1 model specification was found; EPI-001-D1-R1 only integrated minimal R1 provenance into existing D1 metadata and explicitly preserved existing D1 behavior.",
+        "2026-11-10 controlled historical proof: real Crystal Palace-Liverpool Scout context handoff verified 5/5 with all Scout features/provenance preserved and zero downstream writes. Real decision replay returned ABSTAIN with EPI_D1_GOVERNED_SIGNAL_REQUIRED because the package has no governed prediction signal; network=0, database=0, provider=0, Supabase/public/deployment=0. Generic 58% home fallback is now prohibited for Scout-origin input, while existing governed sharp-odds scoring and non-Scout fallback behavior are preserved. Focused core regression 17/17 PASS; direct controlled marriage runner with governed odds PASS; full Edge control:verify 390/390 PASS plus Control Center/Project/Asset/Classification/Runtime PASS, runtime 235/226/0 warnings. Full genuine prediction readiness remains HOLD pending a separately governed approved D1 model signal/specification."
+      ],
+      "open_gaps": [
+        "Full genuine prediction output remains blocked until a separately governed approved D1 model signal/specification exists for real Scout packages without governed odds/model output."
+      ]
+    },
+    {
+      "project_id": "EPI-001-D1-M1",
+      "project_name": "EPI-001-D1-M1 Shared Rulebook Edge D1 Historical Proof",
+      "category": "Prediction Pipeline Implementation",
+      "why_it_matters": "A verified Scout fixture can receive a governed Edge prediction without a provider fallback or access to Scout Shadow.",
+      "current_status": "TESTED",
+      "related_tasks": [
+        "EPI-001-D1-M1",
+        "E2E-001-X1",
+        "EFI-002"
+      ],
+      "related_files": [
+        "backend/services/edgeD1Proof.js",
+        "backend/config/edgeD1Rulebook.v2.json",
+        "tests/scout-context-handoff-proof.test.js",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "V2 is uncalibrated and the proof is private."
+      ],
+      "required_decisions": [],
+      "risks_if_ignored": [
+        "Rule drift or unverified inputs can produce unsafe predictions."
+      ],
+      "recommended_order": 62,
+      "governed_by_control_task_id": "EPI-001-D1-M1",
+      "description": "Implement local Edge D1 calculation against the exact Scout CC-NSCS-040 v2 rulebook using only facts from authenticated, digest-bound historical Premier League proof intake.",
+      "priority": "critical",
+      "startable": false,
+      "blocked_by": [
+        "E2E-001-X1"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "prediction",
+        "scout-edge-proof",
+        "governance"
+      ],
+      "related_contracts": [
+        "control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md"
+      ],
+      "completion_definition": "Local historical Edge D1 proof reproduces the Scout v2 probabilities and decisions from verified facts alone, rejects wrong rulebook identity, abstains for ineligible input, and proves both Double Chance directions and strict confidence improvement. No publication, persistence, provider use, deployment or production gate clearance.",
+      "proof_required": [
+        "Pinned exact Scout v2 SHA-256",
+        "Authenticated real fixture replay",
+        "Home and away picks with eligible 1X and X2",
+        "Abstention and no standalone Draw",
+        "Focused and full Edge Control Center checks"
+      ],
+      "current_evidence": [
+        "Stephen authorized the Edge D1 build after Scout CC-NSCS-040 closed locally at 4987d77.",
+        "Local authenticated historical replay matched Scout v2 independently: Liverpool Win 60.53%; Liverpool-or-Draw 74% capped confidence (82.98% model probability).",
+        "Pinned Scout CC-NSCS-040 v2 SHA-256 9aaeccc92f8be4598ac88c6cafb2a7975ce2b0db13c5d816a2855a2af01ad22c; rulebook tampering and unauthenticated or ineligible input abstain.",
+        "16 focused tests passed, covering both Double Chance directions, the strict confidence comparison, abstention and existing Scout FIP fallback safety.",
+        "390 Edge Control Center tests passed. The local proof uses no provider, database, public route or production gate activation."
+      ],
+      "next_action": "CLOSED at TESTED for local historical Edge D1. Next separately govern immutable Edge prediction sealing; publication and storage remain blocked.",
+      "owner_note": "Stephen authorized local D1 proof on 2026-11-10.",
+      "last_updated": "2026-11-10",
+      "open_gaps": []
+    },
+    {
+      "project_id": "EPI-001-D1-M2",
+      "project_name": "EPI-001-D1-M2 Immutable Edge D1 Prediction Seal",
+      "category": "Prediction Pipeline Implementation",
+      "why_it_matters": "The future comparison must evaluate the exact Edge decision committed before Scout Shadow becomes available.",
+      "current_status": "TESTED",
+      "related_tasks": [
+        "EPI-001-D1-M2",
+        "EPI-001-D1-M1",
+        "EFI-002"
+      ],
+      "related_files": [
+        "backend/services/edgeD1Proof.js",
+        "tests/scout-context-handoff-proof.test.js",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "The original commitment ID needs a separately governed comparison boundary to retain and enforce it."
+      ],
+      "required_decisions": [],
+      "risks_if_ignored": [
+        "Replacing a prediction after seeing Scout Shadow would invalidate the comparison."
+      ],
+      "recommended_order": 63,
+      "governed_by_control_task_id": "EPI-001-D1-M2",
+      "description": "Bind the exact successful local Edge D1 decision, fixture, evidence identifiers, rulebook fingerprint and commitment timestamp before future Scout comparison.",
+      "priority": "critical",
+      "startable": false,
+      "blocked_by": [
+        "EPI-001-D1-M1"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "prediction",
+        "scout-edge-proof",
+        "governance"
+      ],
+      "related_contracts": [
+        "control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md"
+      ],
+      "completion_definition": "Local proof seals only successful D1 decisions, produces deterministic commitment IDs, verifies against an independently held original ID, and detects mutation, replacement and rehashing. No comparison, persistence, publication or deployment.",
+      "proof_required": [
+        "Authenticated real fixture sealing",
+        "Deterministic digest and immutable result",
+        "Reject altered decision, identity, evidence, rulebook and timestamp",
+        "Reject rehashed replacement under original commitment ID",
+        "Abstentions produce no seal",
+        "Edge governance checks"
+      ],
+      "current_evidence": [
+        "Stephen authorized the sealing build after Edge D1 closed locally at ae6a434.",
+        "Verified historical Edge D1 produced a deterministic, immutable seal for the exact fixture, evidence hashes, v2 rulebook, probabilities, confidence, Double Chance and timestamp.",
+        "The verifier requires the original independently held commitment ID and returns an immutable verified snapshot. Mutation and rehashed replacement fail against the original ID.",
+        "Abstentions produce no seal. An invalid commitment clock fails closed.",
+        "19 focused tests and 390 Edge Control Center tests passed. Project, asset, classification and runtime checks passed.",
+        "Scope remains local proof. Comparison, durable commitment storage and publication are separate."
+      ],
+      "next_action": "CLOSED at TESTED for the local Edge seal. The separate comparison governor must capture the original ID before receiving Scout Shadow and verify against that independently held ID.",
+      "owner_note": "Stephen authorized local sealing proof on 2026-11-10.",
+      "last_updated": "2026-11-10",
+      "open_gaps": []
+    },
+    {
+      "project_id": "EPI-001-D1-M3",
+      "project_name": "EPI-001-D1-M3 Sealed Edge and Scout Shadow Comparison Proof",
+      "category": "Prediction Pipeline Implementation",
+      "why_it_matters": "A publication decision must use the exact Edge forecast locked before Scout Shadow becomes available.",
+      "current_status": "TESTED",
+      "related_tasks": [
+        "EPI-001-D1-M3",
+        "EPI-001-D1-M2"
+      ],
+      "related_files": [
+        "backend/services/edgeD1Proof.js",
+        "tests/scout-context-handoff-proof.test.js",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "Review thresholds and the public accuracy handoff are separate."
+      ],
+      "required_decisions": [],
+      "risks_if_ignored": [
+        "Comparing a replacement Edge forecast would invalidate the review."
+      ],
+      "recommended_order": 64,
+      "governed_by_control_task_id": "EPI-001-D1-M3",
+      "description": "Verify the independently retained Edge commitment before asking for a private Scout Shadow result, then compare matched evidence and report discrepancies.",
+      "priority": "critical",
+      "startable": false,
+      "blocked_by": [
+        "EPI-001-D1-M2"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "prediction",
+        "scout-edge-proof",
+        "governance"
+      ],
+      "related_contracts": [
+        "control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md"
+      ],
+      "completion_definition": "Local proof verifies the original commitment before any Shadow read, enforces matching fixture, source evidence and rulebook, and reports discrepancies without exposing raw Scout output. Thresholds and publication are separate.",
+      "proof_required": [
+        "Real sealed historical replay",
+        "Altered seal causes zero Scout reads",
+        "Fixture, evidence and rulebook mismatch blocks comparison",
+        "Measured disagreements without publication clearance",
+        "Edge governance checks"
+      ],
+      "current_evidence": [
+        "Stephen authorized continuation after sealing closed locally at e99e426.",
+        "Historical authenticated Edge seal and private Scout Shadow returned identical outcomes, confidence, three-way probabilities and Double Chance.",
+        "A rehashed replacement caused zero Scout reads. Missing, abstained, mismatched or Edge-influenced Scout results were blocked.",
+        "Synthetic disagreement reported measured gaps. The report contains no raw Scout result or publication clearance.",
+        "21 focused tests and 390 Edge Control Center tests passed. Runtime inventory passed with zero warnings."
+      ],
+      "next_action": "CLOSED at TESTED for local comparison proof. Govern review thresholds next, then require clearance for the sealed Pending Accuracy Center record.",
+      "owner_note": "Stephen authorized local comparison proof on 2026-11-10.",
+      "last_updated": "2026-11-10",
+      "open_gaps": []
+    },
+    {
+      "project_id": "EPI-001-D1-M4",
+      "project_name": "EPI-001-D1-M4 Exact-Match Prediction Review Policy",
+      "category": "Prediction Pipeline Implementation",
+      "why_it_matters": "Edge needs an explicit review verdict before a sealed prediction can be considered for publication.",
+      "current_status": "TESTED",
+      "related_tasks": [
+        "EPI-001-D1-M4",
+        "EPI-001-D1-M3"
+      ],
+      "related_files": [
+        "backend/services/edgeD1Proof.js",
+        "tests/scout-context-handoff-proof.test.js",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "The live publication path and historical accuracy validation are separate."
+      ],
+      "required_decisions": [],
+      "risks_if_ignored": [
+        "Unreviewed differences could reach the publication step."
+      ],
+      "recommended_order": 65,
+      "governed_by_control_task_id": "EPI-001-D1-M4",
+      "description": "Apply the approved exact-match rule to the sealed local Scout and Edge comparison. Green requires agreement to two decimal places, amber holds differences for review, and red blocks invalid comparisons or differing outright picks.",
+      "priority": "critical",
+      "startable": false,
+      "blocked_by": [
+        "EPI-001-D1-M3"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "prediction",
+        "scout-edge-proof",
+        "governance"
+      ],
+      "related_contracts": [
+        "control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md"
+      ],
+      "completion_definition": "Historical agreement yields GREEN. A numeric or Double Chance discrepancy yields AMBER when the outright pick agrees. Different outright picks or an unverifiable comparison yield RED. Verdict is bound to the original commitment. Publication and storage remain separate.",
+      "proof_required": [
+        "Historical exact match passes",
+        "A 0.01 percentage point gap holds for review",
+        "Double Chance discrepancy holds",
+        "Different pick or invalid comparison blocks",
+        "Full Edge Control Center checks"
+      ],
+      "current_evidence": [
+        "Stephen approved the exact agreement policy after local comparison closure at be1ea3e.",
+        "Authenticated historical Scout and Edge comparison matched to two decimal places and received GREEN.",
+        "A 0.01 percentage point confidence difference and a missing Double Chance recommendation yielded AMBER. Sub-rounding differences alone remained GREEN.",
+        "Different outright outcomes and an invalid or unavailable comparison yielded RED.",
+        "21 focused tests and 390 Edge Control Center tests passed. Runtime inventory passed with zero warnings.",
+        "Decision is a local review verdict bound to the original commitment. Production fixture intake and publication gates remain separate.",
+        "Stephen confirmed predictions are pre-match only. The next handoff must reject new prediction and publication at or after verified kickoff or once a match has started."
+      ],
+      "next_action": "CLOSED at TESTED for the local exact-match policy. Next govern the GREEN-only Pending Accuracy Center handoff for verified upcoming fixtures, with a strict pre-kickoff prediction and publication cutoff. After kickoff only grade previously recorded predictions.",
+      "owner_note": "Stephen authorized the exact-match review policy on 2026-11-10.",
+      "last_updated": "2026-11-10",
+      "open_gaps": []
+    },
+    {
+      "project_id": "EPI-001-D1-M5",
+      "project_name": "EPI-001-D1-M5 Pre-Match Pending Accuracy Center Handoff Proof",
+      "category": "Prediction Pipeline Implementation",
+      "why_it_matters": "The public record must represent only the pre-match forecast that passed Scout comparison.",
+      "current_status": "TESTED",
+      "related_tasks": [
+        "EPI-001-D1-M5",
+        "EPI-001-D1-M4"
+      ],
+      "related_files": [
+        "backend/services/edgeD1Proof.js",
+        "tests/scout-context-handoff-proof.test.js",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "Production fixture intake, linked final prediction storage and release authorization are separate."
+      ],
+      "required_decisions": [],
+      "risks_if_ignored": [
+        "After-kickoff creation or an unreviewed prediction would distort the accuracy record."
+      ],
+      "recommended_order": 66,
+      "governed_by_control_task_id": "EPI-001-D1-M5",
+      "description": "Use authenticated Scout evidence, verified scheduled fixture status and the exact-match verdict to prepare Pending Accuracy Center products before kickoff.",
+      "priority": "critical",
+      "startable": false,
+      "blocked_by": [
+        "EPI-001-D1-M4"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "prediction",
+        "scout-edge-proof",
+        "governance"
+      ],
+      "related_contracts": [
+        "control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md"
+      ],
+      "completion_definition": "Local proof checks the verified fixture before scoring and after comparison, permits only a fresh GREEN for the original seal, and prepares exact direct and Double Chance Pending products for the existing accuracy aggregation. Live database writes, route activation and deployment remain gated.",
+      "proof_required": [
+        "Authenticated historical replay with a pre-kickoff clock",
+        "GREEN only",
+        "Block missing, changed, started or past-kickoff fixtures",
+        "Correct Pending aggregation and grading of the same picks",
+        "Edge governance checks"
+      ],
+      "current_evidence": [
+        "Stephen approved building or updating the handoff code after M4 closed at 5045fbd.",
+        "Authenticated historical fixture replay at a simulated pre-kickoff time yielded GREEN and two separate Pending candidates bound to the same original seal.",
+        "Pre-score and pre-handoff checks blocked missing, changed and in-progress fixtures and the kickoff boundary. AMBER and RED yielded no Pending candidates.",
+        "Existing Accuracy Center aggregation counted both linked test entries as Pending and neither as graded. A simulated draw grading update counted one win and one loss.",
+        "22 focused tests and 390 Edge Control Center tests passed. Runtime inventory passed with zero warnings.",
+        "Production intake, final prediction IDs, transaction persistence and public release remain separately governed."
+      ],
+      "next_action": "CLOSED at TESTED for the local Pending handoff. Next govern production fixture intake and a transactional final prediction and Pending writer with a pre-kickoff recheck and replay protection.",
+      "owner_note": "Stephen authorized local pre-match handoff on 2026-11-10.",
+      "last_updated": "2026-11-10",
+      "open_gaps": []
+    },
+    {
+      "project_id": "EPI-001-D1-M6",
+      "project_name": "EPI-001-D1-M6 Official Recommendation Lock",
+      "category": "Prediction Pipeline Implementation",
+      "why_it_matters": "Customer accuracy must count the recommendation actually issued.",
+      "current_status": "TESTED",
+      "related_tasks": [
+        "EPI-001-D1-M6",
+        "EPI-001-D1-M5"
+      ],
+      "related_files": [
+        "backend/services/edgeD1Proof.js",
+        "tests/scout-context-handoff-proof.test.js",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "Production persistence and Accuracy Center views are separate."
+      ],
+      "required_decisions": [],
+      "risks_if_ignored": [
+        "Context-only forecasts could be counted as customer recommendations."
+      ],
+      "recommended_order": 67,
+      "governed_by_control_task_id": "EPI-001-D1-M6",
+      "description": "Lock the explicitly chosen, eligible 1X2 or Double Chance recommendation inside the pre-kickoff seal. Retain the complete forecast for internal analysis.",
+      "priority": "critical",
+      "startable": false,
+      "blocked_by": [
+        "EPI-001-D1-M5"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "prediction",
+        "scout-edge-proof",
+        "governance"
+      ],
+      "related_contracts": [
+        "control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md"
+      ],
+      "completion_definition": "Exactly one eligible official pick reaches Pending after GREEN and before kickoff. The full forecast remains sealed. Missing or invalid choices fail closed. Existing historical proof callers still work.",
+      "proof_required": [
+        "Direct and Secondary choices",
+        "Missing or invalid choice blocked",
+        "Changing the official choice invalidates the original seal",
+        "Official Pending counts once",
+        "Full Edge governance checks"
+      ],
+      "current_evidence": [
+        "Stephen authorized the Accuracy Center changes after the M5 local handoff.",
+        "Trusted local caller explicitly selects eligible 1X2 or the offered Double Chance before sealing. No automatic recommendation selection was introduced.",
+        "The original seal binds the selected market and retains the full forecast. Tampering or invalid or absent choices fail closed.",
+        "Historical proof produced exactly one Pending product under the correct 1X2 or Secondary category. The simulated draw counted one Secondary win and no 1X2 result.",
+        "22 focused tests and 390 Edge Control Center tests passed. Runtime inventory passed with zero warnings.",
+        "Production persistence and public reporting views remain separately governed."
+      ],
+      "next_action": "CLOSED at TESTED for the local recommendation lock. Next govern the Pending, Final Results and Accumulated Accuracy read model against official recommendations and verified incidents.",
+      "owner_note": "Stephen authorized the local reporting work on 2026-11-10.",
+      "last_updated": "2026-11-10",
+      "open_gaps": []
+    },
+    {
+      "project_id": "EPI-001-I2",
+      "project_name": "EPI-001-I2 Scout Evidence-to-Baseline Prediction Proof",
+      "category": "Prediction Pipeline Implementation",
+      "description": "Premier League-only code-and-test proof that Edge can derive its own deterministic baseline 1X2 prediction key and confidence from verified Scout evidence, then pass that baseline into the existing Edge probability and direct-1X2 engines without odds, provider acquisition, AI fallback, database writes, deployment or public publication. Scout remains evidence/calculation-input owner only and must emit no prediction/model/probability output.",
+      "why_it_matters": "Edge already has downstream 1X2 probability and context-adjustment engines, but the frozen Scout evidence package deliberately contains no prediction, model probability or odds. Without a governed Edge-owned baseline bridge, the current scoring path can fall through to an unsuitable legacy fallback instead of producing an evidence-derived forecast.",
+      "current_status": "TESTED",
+      "priority": "critical",
+      "startable": false,
+      "blocked_by": [
+        "EPI-001",
+        "EPI-001-D1-R1",
+        "EPRV-001-C4"
+      ],
+      "blocks": [
+        "E2E-001"
+      ],
+      "affected_layers": [
+        "prediction",
+        "baseline scoring",
+        "Scout evidence consumption",
+        "1X2",
+        "governance"
+      ],
+      "related_tasks": [
+        "EPI-001-I2"
+      ],
+      "related_contracts": [
+        "control-center/EPI-001_PREDICTION_PIPELINE_INTEGRITY_CONTRACT.v1.md",
+        "control-center/EPRV-001_C4_SCOUT_CONTEXT_TRANSPORT_FIELD_CONTRACT.v1.md"
+      ],
+      "related_files": [
+        "backend/services/aiPipeline.js",
+        "backend/services/aiScoring.js",
+        "backend/services/direct1x2Engine.js",
+        "backend/services/scoutEvidenceBaseline.js",
+        "tests/epi-001-i1-scout-evidence-baseline.test.js",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "Current Scout evidence package has no prediction/model probability/odds by design.",
+        "Current aiScoring fallback can choose home at 58 percent when no stronger baseline is supplied; EPI-001-I1 must fail closed instead for governed Scout evidence."
+      ],
+      "required_decisions": [
+        "Activation and bounded implementation authority was granted by Stephen on 2026-11-11."
+      ],
+      "completion_definition": "EPI-001-I2 is TESTED only when a frozen verified Premier League Scout evidence package can be converted by Edge-owned deterministic and explainable baseline rules into an internal 1X2 starting assessment; the existing deriveWaterfallProbabilities/direct1x2 evaluation path consumes that baseline without provider, odds or AI fallback; missing or insufficient evidence fails closed instead of using the legacy home-58-percent fallback; Scout-origin fields and hashes remain traceable; focused regression and Control Center checks pass; and no live database write, route activation, external provider call, deployment, subscription/sign-in work or public prediction publication occurs.",
+      "proof_required": [
+        "Frozen Scout package identity and cutoff verified before calculation",
+        "Deterministic evidence-to-baseline rule proof with documented inputs",
+        "No provider, odds, Dolphin/AI or legacy home-58-percent fallback used",
+        "Missing/insufficient Scout evidence fails closed",
+        "Existing deriveWaterfallProbabilities and direct1x2Engine semantics preserved",
+        "Internal home/draw/away forecast produced for controlled Crystal Palace-Liverpool proof",
+        "Scout source hashes/provenance remain traceable through the result",
+        "Network attempts zero and database write attempts zero in focused proof",
+        "Focused prediction regression PASS",
+        "Edge Control Center/project/asset/classification/runtime regression PASS",
+        "No deployment, subscription/sign-in, public publication or gate clearance"
+      ],
+      "risks_if_ignored": [
+        "Edge can silently fall back to a non-evidence-based baseline for Scout-origin matches.",
+        "A displayed forecast could look valid while not being derived from the verified Scout evidence.",
+        "E2E prediction proof remains untrustworthy."
+      ],
+      "recommended_order": 60,
+      "next_action": "CLOSED / TESTED. EPI-001-I2 proved an Edge-owned deterministic evidence-to-baseline path from the frozen Scout Premier League package into the existing waterfall and direct 1X2 engines. Any production runtime wiring, deployment or public publication must be separately governed.",
+      "owner_note": "Stephen explicitly authorized activation and bounded implementation on 2026-11-11. EPI-001-I1 closed TESTED after the isolated real-package proof and final governance gate passed.",
+      "last_updated": "2026-11-11",
+      "governed_by_control_task_id": "EPI-001-I2",
+      "current_evidence": [
+        "2026-11-11 read-only trace: existing Edge aiPipeline derives waterfall probabilities and direct1x2Engine applies deterministic context adjustments.",
+        "2026-11-11 focused P1-B01 plus EPI-001-D1-R1 regression PASS 9/9 with zero network attempts and zero database connection/query attempts.",
+        "Frozen Scout Crystal Palace-Liverpool package SHA 153684f6d7511ce653d26e490c8f507b0a7e0ad23d834d84671d9adea5a65912 contains verified fixture identity, team form, H2H, availability and 60 player-history records but deliberately contains no prediction, model probability or odds.",
+        "EPI-001 current gap explicitly records that no prediction baseline regression fixture has been created yet.",
+        "EPI-001-D1-R1 is TESTED and preserves governed Scout provenance into D1 metadata; this project must not widen that provenance contract.",
+        "2026-11-11 canonical Scout package verification PASS: declared and independently recomputed package SHA-256 both 153684f6d7511ce653d26e490c8f507b0a7e0ad23d834d84671d9adea5a65912.",
+        "2026-11-11 real frozen Crystal Palace-Liverpool proof PASS: final 1X2 home 26.043%, draw 20.307%, away 53.650%; outcome away_win; confidence 54%; tier HIGH_RISK; network attempts 0 and no real database module.",
+        "2026-11-11 focused EPI-001-I1 plus P1-B01 plus EPI-001-D1-R1 regression PASS 15/15; database connection attempts 0, database query attempts 0, network attempts 0.",
+        "2026-11-11 final governance gate PASS: Control Center, project register, asset register, classification, runtime inventory and diff check; 1083 governed assets fully classified.",
+        "Implementation commit a5fbcc260d725129d5181a4e25a0317f27cd77c1 preserves the isolated proof on branch epi-001-i1-scout-baseline.",
+        "Reconciled as EPI-001-I2 in the combined Edge candidate. The historical proof closed as EPI-001-I1 at 917aa6fce0a147daa0d7cbff05ddc65108b20a1b. EPI-001-I1 remains the ACCA Prediction Authority Repair in the combined register."
+      ],
+      "open_gaps": [
+        "No open implementation gap remains inside EPI-001-I1; the bounded evidence-to-baseline proof is complete.",
+        "Production runtime wiring, deployment and public publication remain outside EPI-001-I1 and require separate governance."
+      ]
+    },
+    {
+      "project_id": "SOCCER-GOV-001",
+      "project_name": "Canonical Football Prediction and Contradiction Governor",
+      "category": "Prediction Quality Assurance",
+      "description": "Premier League only. One versioned Soccer Governor registry for logical compatibility across 1X2 double chance DNB goals totals BTTS team scoring and clean sheets with governed corners/cards extension points. Edge and Scout consume the same rule definitions while retaining independent forecast calculations. A private Scout shadow result is available for comparison only after Edge seals its own forecast. Reconcile GC-AUD-001 through the existing private exception and retain review holds for disagreements.",
+      "why_it_matters": "The legacy football rule tables disagree about compatible results and shared metadata paths caused ownership classification to select historical recovery projects.",
+      "current_status": "TESTED",
+      "startable": false,
+      "priority": "critical",
+      "blocked_by": [],
+      "blocks": [],
+      "affected_sports": [
+        "football"
+      ],
+      "affected_layers": [
+        "governance",
+        "private shadow prediction",
+        "Premier League market compatibility"
+      ],
+      "related_tasks": [
+        "EPI-001-I1",
+        "EPI-001-I2",
+        "EPI-001-D1-M3",
+        "EPI-001-D1-M4"
+      ],
+      "related_contracts": [
+        "control-center/ESG-001_SPORT_GOVERNOR_AND_CANONICAL_RULE_REGISTRY_PROPOSAL.v1.md"
+      ],
+      "related_files": [
+        "backend/governance/soccer-governor/registry.v1.json",
+        "backend/governance/soccer-governor/governor.js",
+        "backend/services/contradictionGovernance.js",
+        "backend/services/conflictEngine.js",
+        "backend/services/marketIntelligence.js",
+        "backend/utils/marketConsistency.js",
+        "backend/services/edgeD1Proof.js",
+        "backend/routes/predictions.js",
+        "backend/routes/v1/predictions.js",
+        "backend/services/accaBuilder.js",
+        "backend/services/comboEngine.js",
+        "backend/services/reEvaluationEngine.js",
+        "tests/soccer-gov-001.test.js",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md",
+        "tests/scout-context-handoff-proof.test.js"
+      ],
+      "related_tables": [],
+      "known_issues": [],
+      "required_decisions": [],
+      "completion_definition": "One canonical rule source and version; compatibility tests for supported markets; both independent consumers reference the same rules; private Scout boundary formally reconciled; major disagreement produces REVIEW_REQUIRED; focused and governance tests pass; both Control Centers synchronized. Local scope excludes deployment public publication production database writes subscriptions sign-in and provider purchases.",
+      "proof_required": [
+        "Canonical registry identity and consumer hash parity",
+        "Logical compatibility and invalid-selection tests",
+        "Independent forecasts and seal-before-shadow-read tests",
+        "GC-AUD-001 private exception tests",
+        "Major disagreement review hold tests",
+        "Both Control Center checks"
+      ],
+      "risks_if_ignored": [
+        "Hidden technical debt",
+        "Uncontrolled implementation work"
+      ],
+      "recommended_order": 261,
+      "next_action": "CLOSED locally at TESTED for the approved Premier League Soccer Governor code and proof. Review the exact local candidates and evidence before any separately governed publication or production activation.",
+      "owner_note": "Stephen Fynn authorized SOCCER-GOV-001 and the ownership resolution in this chat. The Soccer Governor role owns shared market semantics. Scout owns the canonical rule source and private shadow boundary. Edge owns forecast calculations and review consumption.",
+      "last_updated": "2026-11-11",
+      "current_evidence": [
+        "Stephen explicitly approved SOCCER-GOV-001 Premier League scope in this chat",
+        "Stephen requested resolution of the historical shared-path ownership overlap",
+        "CC-NSCS-039 and CC-NSCS-040 are TESTED in Scout baseline 4987d77",
+        "Historical recovery ownership records are preserved; this record owns this bounded current work",
+        "Scout counterpart at local soccer-gov-001-scout confirms SOCCER-GOV-001 ownership of all 11 requested paths under the ordinary classifier with authority checks enabled.",
+        "57 focused cross-repository market, private-boundary, historical forecast and sealed-comparison tests PASS with zero skips",
+        "Scout full project:verify PASS with 704 tests; authority and mutation policy checks PASS",
+        "Edge full control:verify PASS with 390 tests and Control Center, project, asset, classification and runtime checks PASS",
+        "Canonical registry SKCS_SOCCER_GOVERNOR_V1 version 1.0.0 SHA-256 404f8af407f8e0f03d75bd35973c3a062edf13d09d9ea1f4b4bb12a7654bc668; canonical Scout source and pinned Edge distribution are identical",
+        "Registry is scoped to explicitly identified football competition 39 and regulation time; legacy tables serve contexts outside this verified scope",
+        "Existing independent calculation modules retain the shared v2 model parameters; canonical compatibility checks run after each calculation",
+        "Original Edge seal is verified before private Scout access; registry mismatch and any rounded prediction disagreement produce REVIEW_REQUIRED",
+        "GC-AUD-001 remains enforced for ordinary Scout runtime; the existing exact private SHADOW_PREDICTION exception is retained",
+        "Historical EPI-001-I1 baseline source and test are preserved under reconciled project EPI-001-I2; active original workspaces are preserved"
+      ],
+      "governed_by_control_task_id": "SOCCER-GOV-001",
+      "open_gaps": []
+    },
+    {
+      "project_id": "SOCCER-REL-001",
+      "project_name": "Paired Prediction-Only Release Baseline Reconciliation",
+      "category": "Prediction Release Reconciliation",
+      "description": "Carry forward the tested Premier League private Scout predictor, shared Double Chance laws, Edge proof intake, independent sealed forecast comparison, Pending recommendation lock and Soccer Governor onto the verified canonical GitHub bases. Exclude the six C13 sign-in and website paths. Publish isolated release branches only; production activation remains separate.",
+      "why_it_matters": "Separate tested prediction prerequisites from deferred C13 sign-in staging.",
+      "current_status": "TESTED",
+      "startable": false,
+      "priority": "critical",
+      "blocked_by": [],
+      "blocks": [],
+      "affected_sports": [
+        "football"
+      ],
+      "affected_layers": [
+        "governance",
+        "private shadow prediction",
+        "Premier League market compatibility"
+      ],
+      "related_tasks": [
+        "SOCCER-GOV-001",
+        "EFI-002",
+        "EPI-001-I2"
+      ],
+      "related_contracts": [],
+      "related_files": [
+        "backend/config/edgeD1Rulebook.v2.json",
+        "backend/governance/soccer-governor/governor.js",
+        "backend/governance/soccer-governor/registry.v1.json",
+        "backend/routes/predictions.js",
+        "backend/routes/v1/predictions.js",
+        "backend/services/accaBuilder.js",
+        "backend/services/aiPipeline.js",
+        "backend/services/aiScoring.js",
+        "backend/services/conflictEngine.js",
+        "backend/services/contradictionGovernance.js",
+        "backend/services/edgeD1Proof.js",
+        "backend/services/governedFipIntakeAdapter.js",
+        "backend/services/governedFipIntakeComposition.js",
+        "backend/services/marketIntelligence.js",
+        "backend/services/scoutContextHandoffProof.js",
+        "backend/services/scoutEvidenceBaseline.js",
+        "backend/test/smoke-test-insight-engine.js",
+        "backend/test/smoke-test-skcs-law.js",
+        "backend/utils/accaLogicEngine.js",
+        "backend/utils/insightEngine.js",
+        "backend/utils/marketConsistency.js",
+        "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
+        "control-center/EDGE_ASSET_REPOSITORY_MAP.md",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_CONTROL_CENTER.md",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_REPOSITORY_ASSET_REGISTER.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_INVENTORY.v1.json",
+        "control-center/EDGE_SYSTEM_RUNTIME_MAP.md",
+        "package.json",
+        "tests/epi-001-d1-r1-provenance.test.js",
+        "tests/epi-001-i1-scout-evidence-baseline.test.js",
+        "tests/scout-context-handoff-proof.test.js",
+        "tests/soccer-gov-001.test.js"
+      ],
+      "related_tables": [],
+      "known_issues": [],
+      "required_decisions": [],
+      "completion_definition": "Prediction source bytes match the tested local candidates; deferred C13 files match canonical GitHub main; both Control Centers and focused cross-repository proof pass; exact scoped release commits are published and remotely verified in both canonical repositories. No main-branch promotion, Azure deployment, live database write, customer sign-in or subscription change.",
+      "proof_required": [
+        "Prediction source parity with reviewed candidates",
+        "Deferred sign-in and website path parity with canonical main",
+        "57 focused cross-repository tests with no skips",
+        "Both Control Centers and source integrity checks",
+        "Remote branch commit identity and scoped publication"
+      ],
+      "risks_if_ignored": [
+        "Hidden technical debt",
+        "Uncontrolled implementation work"
+      ],
+      "recommended_order": 262,
+      "next_action": "CLOSED / TESTED prediction-only source release. Main promotion, Azure activation, production routes, live database writes, subscriptions and customer sign-in remain separately governed.",
+      "owner_note": "Stephen Fynn authorized this bounded paired release reconciliation in the current chat.",
+      "last_updated": "2026-11-11",
+      "current_evidence": [
+        "Stephen authorized paired publication and then explicitly authorized prerequisite baseline reconciliation on 11 November 2026.",
+        "Canonical main bases: Scout ceb38afb2f82ab5cf2e4028fb14d7393a09625c2 and Edge 49fdd0f961e1de3edd761b08633c02b51cf9b551.",
+        "Original SOCCER-GOV-001 candidates and final paired patches are preserved.",
+        "C13 staging commit 5d080b8 and its six sign-in/website paths are excluded; current canonical versions are retained.",
+        "Reconciled release passes 57 focused cross-repository tests with zero failures and zero skips.",
+        "Scout Control Center regression passes 704 tests; Edge Control Center regression passes 390 tests.",
+        "All 37 non-metadata source and test files are byte-identical to the reviewed SOCCER-GOV-001 candidates.",
+        "All six deferred C13 sign-in and website paths retain canonical main content or canonical absence.",
+        "Edge inventory source hashes were reconciled for eight reviewed files only after their relationship fingerprints independently matched unchanged; final inventory passes with 236 surfaces, 227 discovered and zero warnings.",
+        "Release publication is limited to release/soccer-governor-20261111 in the two canonical repositories; remote identity is verified as the final publication step."
+      ],
+      "governed_by_control_task_id": "SOCCER-REL-001",
+      "open_gaps": [],
+      "release_publication": {
+        "repository": "skcsai/SKCS-Sports-Edge-skcsai",
+        "branch": "release/soccer-governor-20261111",
+        "base_commit": "49fdd0f961e1de3edd761b08633c02b51cf9b551",
+        "boundary": "SOURCE_RELEASE_ONLY; MAIN_AND_PRODUCTION_UNCHANGED"
+      }
     }
   ]
 }

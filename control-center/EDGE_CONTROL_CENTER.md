@@ -553,7 +553,7 @@ Required state snapshot:
   ],
   "eac_evidence_reusable": true,
   "eac_batch_manifest": "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
-  "total_governed_assets": 1081,
+  "total_governed_assets": 1090,
   "phase_0": {
     "status": "PHASE_CLOSED",
     "question": "What exact repository state is the cleanup programme starting from?",
@@ -562,7 +562,7 @@ Required state snapshot:
       "active_branch": "main",
       "head_commit": "7d21fc276629bb6aec056299d70e1541b462934f",
       "working_tree_status": "dirty_unrelated_changes_preserved",
-      "governed_asset_count": 1081,
+      "governed_asset_count": 1090,
       "eac_batch_manifest": "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
       "eac_batch_count": 29,
       "already_completed_or_removal_work": "Partial external sports provider removal (PARTIAL); EAC-001 B01-B29 classification inventory complete; prior Control Center per-asset investigations preserved as historical evidence",
@@ -10429,3 +10429,150 @@ Evidence:
 - ESEC-001 remains PARTIAL.
 - RLS-001 and runtime/deployment proof remain open.
 - Every runtime and marriage gate remains BLOCKED.
+
+
+## EFI-002 - Scout to Edge proof bridge
+
+Status: IN_PROGRESS. Automatic start disabled pending formal verification. Scout counterpart: CC-NSCS-038.
+
+The Crystal Palace-Liverpool archive passed isolated governed intake using a 337-byte signed manifest. All 60 player records and original provenance were preserved. Production intake remains blocked.
+
+Definition of Done: Real archived Scout evidence passes isolated Edge intake with original hashes and player features, zero downstream writes, and both Control Centers pass.
+
+
+## EPI-001-I1 - Prediction Authority Repair | 10 November 2026
+
+Status: IN_PROGRESS. Stephen authorized the next audit repair. Scope is limited to canonical ACCA/insight rule authority.
+
+Starting evidence:
+- Phase 6 already records backend/utils/insightEngine.js as CANONICAL_KEEP ACCA core-law authority and backend/utils/accaLogicEngine.js as CANONICAL_KEEP ACCA math/leg-selection authority.
+- accaBuilder consumes both; divergent shared caps are therefore live authority drift.
+- isStandaloneDrawPick exists but isBannedMarket did not invoke it.
+- governed patch evidence sets maximum shared fixtures at 2 for 6-leg and 4 for 12-leg cards; runtime had 6 for 12-leg.
+- draw_no_bet is a distinct canonical family; two smoke expectations were stale.
+
+No SQL, database, provider, deployment, public-routing, subscription, or Scout prediction change is authorized.
+
+
+### EPI-001-I1 Closure Evidence | 10 November 2026
+
+Result: TESTED / CLOSED.
+
+- Repaired standalone 1X2 Draw exclusion in ACCA/insight eligibility without changing Direct 1X2 Draw publication.
+- Aligned accaLogicEngine shared family caps to insightEngine CANONICAL_KEEP core-law caps.
+- Restored the governed 12-leg card overlap maximum to four shared fixtures.
+- Corrected stale draw_no_bet smoke expectations to the distinct draw_no_bet family.
+- Focused proof: 67/67 ACCA law assertions PASS; 44/44 final SKCS law assertions PASS; 8/8 EPI contract tests PASS.
+- Master Rulebook alignment guard PASS across 942 scanned files.
+- Full Edge proof: 387/387 Control Center tests PASS; control:center, control:projects, control:assets, control:classification and control:runtime all PASS; runtime inventory 235 surfaces / 226 discovered / 0 warnings.
+- Direct 1X2 engine/builder/route files unchanged; canonical Direct 1X2 Draw remains allowed and implemented.
+- No SQL, database mutation, provider removal, deployment, public routing, subscription or Scout prediction change.
+
+
+## E2E-001-X1 - Controlled Real Scout Prediction Proof and Abstention Safety | 10 November 2026
+
+Status: IN_PROGRESS. Separate owner authorization received for P3 historical proof only.
+
+Baseline defect: with no model/provider/odds signal and Dolphin unavailable, aiScoring returns HOME at 58% from its generic fallback. The real governed Crystal Palace-Liverpool Scout package has prediction_execution=false and odds=false. P3 must fail closed rather than present this generic fallback as a Scout-derived prediction. No new model formula, SQL, database/Supabase write, route, deployment, provider removal, public publication or gate clearance is authorized.
+
+
+### E2E-001-X1 Closure Evidence | 10 November 2026
+
+Result: TESTED controlled safety proof / FULL GENUINE PREDICTION READINESS HOLD.
+
+- Real Crystal Palace-Liverpool Scout context proof: 5/5 PASS; provenance and all governed context retained.
+- Historical decision replay at 2026-11-06T12:01:00Z: ABSTAIN / EPI_D1_GOVERNED_SIGNAL_REQUIRED; no prediction or confidence was invented.
+- Safety: network 0, database 0, provider 0, production/Supabase/public-route/deployment writes/actions 0.
+- Repaired legacy Scout-origin 58% home fallback; Dolphin/fallback-only scoring is not accepted as governed Scout prediction evidence.
+- Existing governed sharp-odds scoring path still produces a controlled prediction; non-Scout fallback behavior remains unchanged.
+- Focused core regression 17/17 PASS; full Edge control:verify 390/390 PASS; all canonical governance checks PASS; runtime warnings 0.
+- Full genuine prediction proof remains HOLD because no approved D1 model specification/signal exists for this real Scout package. Marriage and storage gates remain BLOCKED.
+
+## EPI-001-D1-M1 - Shared Rulebook Edge D1 Historical Proof
+
+Status: TESTED / CLOSED locally. Implement local Edge D1 calculation against the exact Scout CC-NSCS-040 v2 rulebook using only facts from authenticated, digest-bound historical Premier League proof intake.
+
+Local historical Edge D1 proof reproduces the Scout v2 probabilities and decisions from verified facts alone, rejects wrong rulebook identity, abstains for ineligible input, and proves both Double Chance directions and strict confidence improvement. No publication, persistence, provider use, deployment or production gate clearance.
+
+- Local authenticated historical replay matched Scout v2 independently: Liverpool Win 60.53%; Liverpool-or-Draw 74% capped confidence (82.98% model probability).
+- Pinned Scout CC-NSCS-040 v2 SHA-256 9aaeccc92f8be4598ac88c6cafb2a7975ce2b0db13c5d816a2855a2af01ad22c; rulebook tampering and unauthenticated or ineligible input abstain.
+- 16 focused tests passed, covering both Double Chance directions, the strict confidence comparison, abstention and existing Scout FIP fallback safety.
+- 390 Edge Control Center tests passed. The local proof uses no provider, database, public route or production gate activation.
+
+## EPI-001-D1-M2 - Immutable Edge D1 Prediction Seal
+
+Status: TESTED / CLOSED locally. Bind the exact successful local Edge D1 decision, fixture, evidence identifiers, rulebook fingerprint and commitment timestamp before future Scout comparison.
+
+Local proof seals only successful D1 decisions, produces deterministic commitment IDs, verifies against an independently held original ID, and detects mutation, replacement and rehashing. No comparison, persistence, publication or deployment.
+
+- Verified historical Edge D1 produced a deterministic, immutable seal for the exact fixture, evidence hashes, v2 rulebook, probabilities, confidence, Double Chance and timestamp.
+- The verifier requires the original independently held commitment ID and returns an immutable verified snapshot. Mutation and rehashed replacement fail against the original ID.
+- Abstentions produce no seal. An invalid commitment clock fails closed.
+- 19 focused tests and 390 Edge Control Center tests passed. Project, asset, classification and runtime checks passed.
+- Scope remains local proof. Comparison, durable commitment storage and publication are separate.
+
+## EPI-001-D1-M3 - Sealed Edge and Scout Shadow Comparison Proof
+
+Status: TESTED / CLOSED locally. Verify the independently retained Edge commitment before asking for a private Scout Shadow result, then compare matched evidence and report discrepancies.
+
+Local proof verifies the original commitment before any Shadow read, enforces matching fixture, source evidence and rulebook, and reports discrepancies without exposing raw Scout output. Thresholds and publication are separate.
+
+- Historical authenticated Edge seal and private Scout Shadow returned identical outcomes, confidence, three-way probabilities and Double Chance.
+- A rehashed replacement caused zero Scout reads. Missing, abstained, mismatched or Edge-influenced Scout results were blocked.
+- Synthetic disagreement reported measured gaps. The report contains no raw Scout result or publication clearance.
+- 21 focused tests and 390 Edge Control Center tests passed. Runtime inventory passed with zero warnings.
+
+## EPI-001-D1-M4 - Exact-Match Prediction Review Policy
+
+Status: TESTED / CLOSED locally. Apply the approved exact-match rule to the sealed local Scout and Edge comparison. Green requires agreement to two decimal places, amber holds differences for review, and red blocks invalid comparisons or differing outright picks.
+
+Historical agreement yields GREEN. A numeric or Double Chance discrepancy yields AMBER when the outright pick agrees. Different outright picks or an unverifiable comparison yield RED. Verdict is bound to the original commitment. Publication and storage remain separate.
+
+- Authenticated historical Scout and Edge comparison matched to two decimal places and received GREEN.
+- A 0.01 percentage point confidence difference and a missing Double Chance recommendation yielded AMBER. Sub-rounding differences alone remained GREEN.
+- Different outright outcomes and an invalid or unavailable comparison yielded RED.
+- 21 focused tests and 390 Edge Control Center tests passed. Runtime inventory passed with zero warnings.
+- Decision is a local review verdict bound to the original commitment. Production fixture intake and publication gates remain separate.
+- Stephen confirmed predictions are pre-match only. The next handoff must reject new prediction and publication at or after verified kickoff or once a match has started.
+
+## EPI-001-D1-M5 - Pre-Match Pending Accuracy Center Handoff Proof
+
+Status: TESTED / CLOSED locally. Use authenticated Scout evidence, verified scheduled fixture status and the exact-match verdict to prepare Pending Accuracy Center products before kickoff.
+
+Local proof checks the verified fixture before scoring and after comparison, permits only a fresh GREEN for the original seal, and prepares exact direct and Double Chance Pending products for the existing accuracy aggregation. Live database writes, route activation and deployment remain gated.
+
+- Authenticated historical fixture replay at a simulated pre-kickoff time yielded GREEN and two separate Pending candidates bound to the same original seal.
+- Pre-score and pre-handoff checks blocked missing, changed and in-progress fixtures and the kickoff boundary. AMBER and RED yielded no Pending candidates.
+- Existing Accuracy Center aggregation counted both linked test entries as Pending and neither as graded. A simulated draw grading update counted one win and one loss.
+- 22 focused tests and 390 Edge Control Center tests passed. Runtime inventory passed with zero warnings.
+- Production intake, final prediction IDs, transaction persistence and public release remain separately governed.
+
+## EPI-001-D1-M6 - Official Recommendation Lock
+
+Status: TESTED / CLOSED locally. Lock the explicitly chosen, eligible 1X2 or Double Chance recommendation inside the pre-kickoff seal. Retain the complete forecast for internal analysis.
+
+Exactly one eligible official pick reaches Pending after GREEN and before kickoff. The full forecast remains sealed. Missing or invalid choices fail closed. Existing historical proof callers still work.
+
+- Trusted local caller explicitly selects eligible 1X2 or the offered Double Chance before sealing. No automatic recommendation selection was introduced.
+- The original seal binds the selected market and retains the full forecast. Tampering or invalid or absent choices fail closed.
+- Historical proof produced exactly one Pending product under the correct 1X2 or Secondary category. The simulated draw counted one Secondary win and no 1X2 result.
+- 22 focused tests and 390 Edge Control Center tests passed. Runtime inventory passed with zero warnings.
+- Production persistence and public reporting views remain separately governed.
+
+## EPI-001-I2 - Scout Evidence-to-Baseline Prediction Proof
+
+Reconciled as EPI-001-I2 in the combined Edge candidate. The historical proof closed as EPI-001-I1 at 917aa6fce0a147daa0d7cbff05ddc65108b20a1b. EPI-001-I1 remains the ACCA Prediction Authority Repair in the combined register.
+
+Status is TESTED for the isolated Premier League proof. The production wiring, Scout handoff and publication gates retain their existing controls.
+
+## SOCCER-GOV-001 - Canonical Football Prediction and Contradiction Governor
+
+Status is TESTED for the approved local code and proof. Stephen authorized the Premier League mini-project and this ownership resolution. The Soccer Governor role owns common market semantics. Scout owns the canonical rule source and private shadow boundary. Edge owns its independent forecast calculations and the post-seal comparison consumer. The exact file scope is recorded in the matching register and ledger entries. Historical CC-RECOVERY-001 and CC-RECON-003 ownership records are preserved.
+
+Closure evidence on 11 November 2026 includes 57 focused tests, 390 Edge governance tests, 704 Scout governance tests and matching canonical artifact fingerprints. The private comparison preserves zero tolerance after rounding to two decimal percentage points. RED and AMBER require review. Refund-only combinations require review.
+
+## SOCCER-REL-001 - prediction-only release
+
+Status: TESTED. Carry forward the tested Premier League private Scout predictor, shared Double Chance laws, Edge proof intake, independent sealed forecast comparison, Pending recommendation lock and Soccer Governor onto the verified canonical GitHub bases. Exclude the six C13 sign-in and website paths. Publish isolated release branches only; production activation remains separate.
+
+Definition of Done: Prediction source bytes match the tested local candidates; deferred C13 files match canonical GitHub main; both Control Centers and focused cross-repository proof pass; exact scoped release commits are published and remotely verified in both canonical repositories. No main-branch promotion, Azure deployment, live database write, customer sign-in or subscription change.

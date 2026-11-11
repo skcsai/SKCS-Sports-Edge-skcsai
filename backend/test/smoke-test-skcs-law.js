@@ -62,7 +62,7 @@ function assert(condition, message) {
 console.log('\n=== SECTION 1: ALLOWED MARKET FAMILIES ===\n');
 assert(normalizeInsightFamily('1x2') === 'result', '1x2 → result');
 assert(normalizeInsightFamily('match_result') === 'result', 'match_result → result');
-assert(normalizeInsightFamily('draw_no_bet_home') === 'result', 'draw_no_bet → result');
+assert(normalizeInsightFamily('draw_no_bet_home') === 'draw_no_bet', 'draw_no_bet → result');
 assert(normalizeInsightFamily('double_chance_1x') === 'double_chance', 'double_chance → double_chance');
 assert(normalizeInsightFamily('over_under_2_5') === 'totals', 'over_under → totals');
 assert(normalizeInsightFamily('btts') === 'btts', 'btts → btts');

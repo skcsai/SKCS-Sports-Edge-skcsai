@@ -278,6 +278,8 @@ function normalizeInsightFamily(typeOrMarket) {
  * Catches standalone "draw" picks and other edge cases.
  */
 function isBannedMarket(market, prediction) {
+    if (isStandaloneDrawPick(market, prediction)) return true;
+
     const marketKey = String(market || '').toLowerCase();
     for (const pattern of BANNED_MARKET_PATTERNS) {
         if (marketKey.includes(pattern)) return true;
@@ -639,7 +641,7 @@ function exceedsCardOverlapLimit(candidateCard, publishedCards) {
     }
 
     const candidateSet = getCardFixtureKeySet(candidateCard);
-    const limit = candidateLegs.length === 12 ? 6 : 2;
+    const limit = candidateLegs.length === 12 ? 4 : 2;
 
     for (const existingCard of Array.isArray(publishedCards) ? publishedCards : []) {
         const existingLegs = Array.isArray(existingCard?.legs)

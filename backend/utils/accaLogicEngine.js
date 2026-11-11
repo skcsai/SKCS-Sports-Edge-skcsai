@@ -57,33 +57,33 @@ const ALLOWED_FAMILIES = new Set([
 
 const FAMILY_CAPS_6 = {
     result: 1,
-    double_chance: 2,
+    double_chance: 1,
     draw_no_bet: 1,
     totals: 2,
     btts: 1,
-    team_goals: 2,
+    team_goals: 1,
     handicap: 2,
     ht_ft: 1,
     half_markets: 1,
     first_score: 1,
     corners: 1,
-    cards: 1,
+    cards: 0,
     combo: 1
 };
 
 const FAMILY_CAPS_12 = {
-    result: 1,
-    double_chance: 4,
-    draw_no_bet: 3,
+    result: 2,
+    double_chance: 2,
+    draw_no_bet: 2,
     totals: 3,
-    btts: 1,
-    team_goals: 3,
+    btts: 2,
+    team_goals: 1,
     handicap: 3,
     ht_ft: 1,
-    half_markets: 0,
-    first_score: 0,
+    half_markets: 1,
+    first_score: 1,
     corners: 2,
-    cards: 2,
+    cards: 1,
     combo: 2
 };
 

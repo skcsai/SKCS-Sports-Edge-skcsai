@@ -1,0 +1,130 @@
+{
+  "schema_version": "1.0",
+  "rulebook_id": "SKCS_SHARED_D1_RULEBOOK_V2",
+  "status": "UNCALIBRATED_PROOF_RULEBOOK",
+  "scope": {
+    "sport": "football",
+    "competition": "Premier League",
+    "competition_id": 39,
+    "market": "1X2"
+  },
+  "parity_contract": {
+    "required_consumers": [
+      "SCOUT_SHADOW",
+      "EDGE_D1"
+    ],
+    "dual_update_required": true,
+    "edge_implementation_status": "NOT_YET_IMPLEMENTED",
+    "edge_reference_commit": "8ee137402f98e43baebe8a20653f24114d9e153e",
+    "edge_reference_sources": [
+      {
+        "path": "backend/services/aiPipeline.js",
+        "sha256": "d2cec25fad5b4c0df0537554accdfdf1eb5fb662ed23a7fafe144298e88d3d2c"
+      },
+      {
+        "path": "backend/services/aiScoring.js",
+        "sha256": "b48f2862d39d65d1ad8ef9474c1d8deb82e91dfaac64afe7f30e9252bf57bc0b"
+      },
+      {
+        "path": "backend/services/direct1x2Engine.js",
+        "sha256": "e11e7f7eb2a7bfb63631e31a8e6c5f8104d0e12e07ef1091fce3abbe8a6a6f7d"
+      }
+    ],
+    "mirrored_edge_laws": {
+      "allowed_outcomes": [
+        "home_win",
+        "draw",
+        "away_win"
+      ],
+      "minimum_prediction_confidence_pct": 45,
+      "confidence_bands": {
+        "low_risk_min_pct": 75,
+        "medium_risk_min_pct": 55,
+        "high_risk_min_pct": 30,
+        "extreme_risk_below_pct": 30
+      },
+      "missing_governed_signal": "ABSTAIN_NO_FALLBACK"
+    }
+  },
+  "evidence_requirements": {
+    "minimum_recent_form_matches": 3,
+    "minimum_season_matches": 3,
+    "h2h_optional": true,
+    "availability_scored_in_v1": false,
+    "required_fields": [
+      "fixture.canonical_fixture_id",
+      "fixture.home_team.name",
+      "fixture.away_team.name",
+      "team_form.home.current_form",
+      "team_form.away.current_form",
+      "team_form.home.season_summary",
+      "team_form.away.season_summary"
+    ],
+    "forbidden_inputs": [
+      "edge_prediction",
+      "edge_confidence",
+      "edge_recommendation",
+      "edge_probabilities",
+      "edge_pick",
+      "bookmaker_odds"
+    ],
+    "odds_policy": "NO_ODDS_INPUT_IN_SHADOW_V1"
+  },
+  "feature_weights": {
+    "recent_form": 0.4,
+    "season_points": 0.35,
+    "goal_difference": 0.25,
+    "h2h": 0.08,
+    "home_advantage": 0.12
+  },
+  "normalization": {
+    "recent_form": "2 * (points / (3 * matches)) - 1",
+    "season_points": "2 * (points / (3 * played)) - 1",
+    "goal_difference": "tanh(((goals_for - goals_against) / played) / 1.5)",
+    "h2h": "(won - lost) / played, signed to perspective_team"
+  },
+  "probability_model": {
+    "home_logit": "strength_delta",
+    "away_logit": "-strength_delta",
+    "draw_logit": "0.15 - (0.8 * abs(strength_delta))",
+    "softmax": true
+  },
+  "safety": {
+    "minimum_prediction_confidence_pct": 45,
+    "uncalibrated_confidence_cap_pct": 74,
+    "confidence_bands": {
+      "low_risk_min_pct": 75,
+      "medium_risk_min_pct": 55,
+      "high_risk_min_pct": 30,
+      "extreme_risk_below_pct": 30
+    },
+    "missing_required_evidence": "ABSTAIN",
+    "unsupported_scope": "ABSTAIN",
+    "forbidden_signal_present": "ABSTAIN",
+    "no_fallback_prediction": true,
+    "shadow_output_visibility": "PRIVATE_QC_ONLY",
+    "fip_exposure": false,
+    "edge_precommit_exposure": false,
+    "public_exposure": false,
+    "persistence_v1": "NONE"
+  },
+  "supersedes_rulebook_id": "SKCS_SHARED_D1_RULEBOOK_V1",
+  "decision_rules": {
+    "primary_eligible_outcomes": [
+      "home_win",
+      "away_win"
+    ],
+    "draw_probability_use": "DOUBLE_CHANCE_ONLY",
+    "secondary_double_chance": {
+      "minimum_confidence_pct": 72,
+      "requires_eligible_primary": true,
+      "must_exceed_primary_confidence": true,
+      "applies_shared_uncalibrated_confidence_cap": true,
+      "market_by_primary": {
+        "home_win": "double_chance_1x",
+        "away_win": "double_chance_x2"
+      }
+    }
+  },
+  "hash_contract": "SHA256_UTF8_LF"
+}

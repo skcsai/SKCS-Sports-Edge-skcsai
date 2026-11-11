@@ -22,6 +22,21 @@ function deriveVolatilityFromConfidence(confidence) {
 }
 
 function extractImpliedSignalFromOddsEvent(match, homeTeam, awayTeam) {
+    const sharpOdds = match?.sharp_odds;
+    const sharpHome = Number(sharpOdds?.home);
+    const sharpAway = Number(sharpOdds?.away);
+    if (Number.isFinite(sharpHome) && sharpHome > 1 && Number.isFinite(sharpAway) && sharpAway > 1) {
+        const homeProb = 1 / sharpHome;
+        const awayProb = 1 / sharpAway;
+        const total = homeProb + awayProb;
+        const normHome = homeProb / total;
+        const normAway = awayProb / total;
+        const edge = Math.abs(normHome - normAway);
+        const winner = normHome >= normAway ? 'home' : 'away';
+        const confidence = clamp(Math.round((56 + edge * 44) * 100) / 100, 50, 96);
+        return { winner, confidence, volatility: deriveVolatilityFromConfidence(confidence), source: 'odds' };
+    }
+
     const raw = match?.raw_provider_data || match?.metadata?.raw_provider_data || null;
     const bookmakers = Array.isArray(raw?.bookmakers) ? raw.bookmakers : [];
     if (!bookmakers.length || !homeTeam || !awayTeam) return null;
@@ -58,7 +73,8 @@ function extractImpliedSignalFromOddsEvent(match, homeTeam, awayTeam) {
         return {
             winner,
             confidence,
-            volatility: deriveVolatilityFromConfidence(confidence)
+            volatility: deriveVolatilityFromConfidence(confidence),
+            source: 'odds'
         };
     }
 
@@ -120,7 +136,8 @@ async function scoreMatch(match) {
         return {
             confidence,
             volatility,
-            winner: modelWinner
+            winner: modelWinner,
+            source: 'model'
         };
     }
 
@@ -136,7 +153,8 @@ async function scoreMatch(match) {
         return {
             confidence,
             volatility,
-            winner: baseWinner
+            winner: baseWinner,
+            source: 'provider_prediction'
         };
     }
 

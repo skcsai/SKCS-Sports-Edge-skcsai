@@ -96,7 +96,8 @@
     "test:epi-pipeline-integrity": "node --test tests/epi-pipeline-integrity-contract.test.js",
     "test:eprv-provider-removal-contract": "node --test tests/eprv-provider-removal-contract.test.js",
     "test:sem-gov": "node --test tests/sem-gov-001-lifecycle-contract.test.js",
-    "test:eprv-001-c2": "node --test tests/eprv-001-c2-fip-replacement-readiness.test.js"
+    "test:eprv-001-c2": "node --test tests/eprv-001-c2-fip-replacement-readiness.test.js",
+    "test:epi-001-i1": "node backend/test/smoke-test-insight-engine.js && node backend/test/smoke-test-skcs-law.js && node --test tests/epi-pipeline-integrity-contract.test.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

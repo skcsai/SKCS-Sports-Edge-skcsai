@@ -1,0 +1,352 @@
+{
+  "schema_version": "1.0",
+  "registry_id": "SKCS_SOCCER_GOVERNOR_V1",
+  "rule_version": "1.0.0",
+  "governance_owner": "SOCCER-GOV-001 / Soccer Governor",
+  "approved_by": "Stephen Fynn",
+  "effective_date": "2026-11-11",
+  "canonical_source": "Scout/scout/governance/soccer-governor/registry.v1.json",
+  "distribution": "Edge receives an identical pinned artifact. Consumer parity tests verify both bytes and decisions.",
+  "scope": {
+    "sport": "football",
+    "competition": "Premier League",
+    "competition_id": 39,
+    "period": "FULL_TIME_REGULATION"
+  },
+  "compatibility_definition": "A compatible prediction set has at least one regulation-time integer score at which every selection wins. If the only non-losing settlements include a DNB or integer-total refund, the set requires review. Duplicate-selection and portfolio eligibility limits are separate controls.",
+  "rules": [
+    {
+      "rule_id": "SG-RESULT-001",
+      "family": "result",
+      "definition": "Home goals greater than, equal to, or less than away goals define 1 X 2.",
+      "sport_id": "football",
+      "rule_name": "result",
+      "rule_version": "1.0.0",
+      "canonical_definition": "Home goals greater than, equal to, or less than away goals define 1 X 2.",
+      "outcome_or_market_scope": "result",
+      "input_requirements": [
+        "Verified Premier League fixture identity",
+        "Full regulation-time market and selection"
+      ],
+      "calculation_logic": "Home goals greater than, equal to, or less than away goals define 1 X 2.",
+      "competition_scope": {
+        "sport": "football",
+        "competition": "Premier League",
+        "competition_id": 39,
+        "period": "FULL_TIME_REGULATION"
+      },
+      "exceptions": [
+        "DNB and integer goal total equality refunds are explicit; a refund-only compatible set requires review"
+      ],
+      "eligibility_thresholds": {
+        "logical_compatibility": "At least one common all-winning scoreline",
+        "refund_only": "REVIEW_REQUIRED"
+      },
+      "rejection_reason_codes": [
+        "NO_NON_LOSING_SCORELINE",
+        "UNSUPPORTED_OR_INVALID_SELECTION",
+        "UNSUPPORTED_SOCCER_SCOPE"
+      ],
+      "validation_tests": [
+        "tests/soccer-gov-001.test.js"
+      ],
+      "effective_date": "2026-11-11",
+      "supersedes_rule_version": null,
+      "retirement_state": "ACTIVE",
+      "governance_owner": "SOCCER-GOV-001 / Soccer Governor"
+    },
+    {
+      "rule_id": "SG-DC-001",
+      "family": "double_chance",
+      "definition": "1X admits home win or draw; X2 admits draw or away win; 12 admits either outright win.",
+      "sport_id": "football",
+      "rule_name": "double_chance",
+      "rule_version": "1.0.0",
+      "canonical_definition": "1X admits home win or draw; X2 admits draw or away win; 12 admits either outright win.",
+      "outcome_or_market_scope": "double_chance",
+      "input_requirements": [
+        "Verified Premier League fixture identity",
+        "Full regulation-time market and selection"
+      ],
+      "calculation_logic": "1X admits home win or draw; X2 admits draw or away win; 12 admits either outright win.",
+      "competition_scope": {
+        "sport": "football",
+        "competition": "Premier League",
+        "competition_id": 39,
+        "period": "FULL_TIME_REGULATION"
+      },
+      "exceptions": [
+        "DNB and integer goal total equality refunds are explicit; a refund-only compatible set requires review"
+      ],
+      "eligibility_thresholds": {
+        "logical_compatibility": "At least one common all-winning scoreline",
+        "refund_only": "REVIEW_REQUIRED"
+      },
+      "rejection_reason_codes": [
+        "NO_NON_LOSING_SCORELINE",
+        "UNSUPPORTED_OR_INVALID_SELECTION",
+        "UNSUPPORTED_SOCCER_SCOPE"
+      ],
+      "validation_tests": [
+        "tests/soccer-gov-001.test.js"
+      ],
+      "effective_date": "2026-11-11",
+      "supersedes_rule_version": null,
+      "retirement_state": "ACTIVE",
+      "governance_owner": "SOCCER-GOV-001 / Soccer Governor"
+    },
+    {
+      "rule_id": "SG-DNB-001",
+      "family": "dnb",
+      "definition": "Selected side wins on its victory and is refunded on a draw.",
+      "sport_id": "football",
+      "rule_name": "dnb",
+      "rule_version": "1.0.0",
+      "canonical_definition": "Selected side wins on its victory and is refunded on a draw.",
+      "outcome_or_market_scope": "dnb",
+      "input_requirements": [
+        "Verified Premier League fixture identity",
+        "Full regulation-time market and selection"
+      ],
+      "calculation_logic": "Selected side wins on its victory and is refunded on a draw.",
+      "competition_scope": {
+        "sport": "football",
+        "competition": "Premier League",
+        "competition_id": 39,
+        "period": "FULL_TIME_REGULATION"
+      },
+      "exceptions": [
+        "DNB and integer goal total equality refunds are explicit; a refund-only compatible set requires review"
+      ],
+      "eligibility_thresholds": {
+        "logical_compatibility": "At least one common all-winning scoreline",
+        "refund_only": "REVIEW_REQUIRED"
+      },
+      "rejection_reason_codes": [
+        "NO_NON_LOSING_SCORELINE",
+        "UNSUPPORTED_OR_INVALID_SELECTION",
+        "UNSUPPORTED_SOCCER_SCOPE"
+      ],
+      "validation_tests": [
+        "tests/soccer-gov-001.test.js"
+      ],
+      "effective_date": "2026-11-11",
+      "supersedes_rule_version": null,
+      "retirement_state": "ACTIVE",
+      "governance_owner": "SOCCER-GOV-001 / Soccer Governor"
+    },
+    {
+      "rule_id": "SG-TOTAL-001",
+      "family": "total",
+      "definition": "Over wins when total goals exceed the line; Under wins below it; equality at an integer line is a refund. Half-goal lines have no refund.",
+      "sport_id": "football",
+      "rule_name": "total",
+      "rule_version": "1.0.0",
+      "canonical_definition": "Over wins when total goals exceed the line; Under wins below it; equality at an integer line is a refund. Half-goal lines have no refund.",
+      "outcome_or_market_scope": "total",
+      "input_requirements": [
+        "Verified Premier League fixture identity",
+        "Full regulation-time market and selection"
+      ],
+      "calculation_logic": "Over wins when total goals exceed the line; Under wins below it; equality at an integer line is a refund. Half-goal lines have no refund.",
+      "competition_scope": {
+        "sport": "football",
+        "competition": "Premier League",
+        "competition_id": 39,
+        "period": "FULL_TIME_REGULATION"
+      },
+      "exceptions": [
+        "DNB and integer goal total equality refunds are explicit; a refund-only compatible set requires review"
+      ],
+      "eligibility_thresholds": {
+        "logical_compatibility": "At least one common all-winning scoreline",
+        "refund_only": "REVIEW_REQUIRED"
+      },
+      "rejection_reason_codes": [
+        "NO_NON_LOSING_SCORELINE",
+        "UNSUPPORTED_OR_INVALID_SELECTION",
+        "UNSUPPORTED_SOCCER_SCOPE"
+      ],
+      "validation_tests": [
+        "tests/soccer-gov-001.test.js"
+      ],
+      "effective_date": "2026-11-11",
+      "supersedes_rule_version": null,
+      "retirement_state": "ACTIVE",
+      "governance_owner": "SOCCER-GOV-001 / Soccer Governor"
+    },
+    {
+      "rule_id": "SG-BTTS-001",
+      "family": "btts",
+      "definition": "Yes requires at least one goal by each side; No requires at least one side with zero.",
+      "sport_id": "football",
+      "rule_name": "btts",
+      "rule_version": "1.0.0",
+      "canonical_definition": "Yes requires at least one goal by each side; No requires at least one side with zero.",
+      "outcome_or_market_scope": "btts",
+      "input_requirements": [
+        "Verified Premier League fixture identity",
+        "Full regulation-time market and selection"
+      ],
+      "calculation_logic": "Yes requires at least one goal by each side; No requires at least one side with zero.",
+      "competition_scope": {
+        "sport": "football",
+        "competition": "Premier League",
+        "competition_id": 39,
+        "period": "FULL_TIME_REGULATION"
+      },
+      "exceptions": [
+        "DNB and integer goal total equality refunds are explicit; a refund-only compatible set requires review"
+      ],
+      "eligibility_thresholds": {
+        "logical_compatibility": "At least one common all-winning scoreline",
+        "refund_only": "REVIEW_REQUIRED"
+      },
+      "rejection_reason_codes": [
+        "NO_NON_LOSING_SCORELINE",
+        "UNSUPPORTED_OR_INVALID_SELECTION",
+        "UNSUPPORTED_SOCCER_SCOPE"
+      ],
+      "validation_tests": [
+        "tests/soccer-gov-001.test.js"
+      ],
+      "effective_date": "2026-11-11",
+      "supersedes_rule_version": null,
+      "retirement_state": "ACTIVE",
+      "governance_owner": "SOCCER-GOV-001 / Soccer Governor"
+    },
+    {
+      "rule_id": "SG-SCORING-001",
+      "family": "scoring",
+      "definition": "Team-to-score Yes requires that team to score. A team clean sheet requires its opponent to score zero.",
+      "sport_id": "football",
+      "rule_name": "scoring",
+      "rule_version": "1.0.0",
+      "canonical_definition": "Team-to-score Yes requires that team to score. A team clean sheet requires its opponent to score zero.",
+      "outcome_or_market_scope": "scoring",
+      "input_requirements": [
+        "Verified Premier League fixture identity",
+        "Full regulation-time market and selection"
+      ],
+      "calculation_logic": "Team-to-score Yes requires that team to score. A team clean sheet requires its opponent to score zero.",
+      "competition_scope": {
+        "sport": "football",
+        "competition": "Premier League",
+        "competition_id": 39,
+        "period": "FULL_TIME_REGULATION"
+      },
+      "exceptions": [
+        "DNB and integer goal total equality refunds are explicit; a refund-only compatible set requires review"
+      ],
+      "eligibility_thresholds": {
+        "logical_compatibility": "At least one common all-winning scoreline",
+        "refund_only": "REVIEW_REQUIRED"
+      },
+      "rejection_reason_codes": [
+        "NO_NON_LOSING_SCORELINE",
+        "UNSUPPORTED_OR_INVALID_SELECTION",
+        "UNSUPPORTED_SOCCER_SCOPE"
+      ],
+      "validation_tests": [
+        "tests/soccer-gov-001.test.js"
+      ],
+      "effective_date": "2026-11-11",
+      "supersedes_rule_version": null,
+      "retirement_state": "ACTIVE",
+      "governance_owner": "SOCCER-GOV-001 / Soccer Governor"
+    }
+  ],
+  "result_sets": {
+    "home_win": [
+      "H"
+    ],
+    "draw": [
+      "D"
+    ],
+    "away_win": [
+      "A"
+    ],
+    "double_chance_1x": [
+      "H",
+      "D"
+    ],
+    "double_chance_x2": [
+      "D",
+      "A"
+    ],
+    "double_chance_12": [
+      "H",
+      "A"
+    ],
+    "draw_no_bet_home": [
+      "H",
+      "D"
+    ],
+    "draw_no_bet_away": [
+      "D",
+      "A"
+    ]
+  },
+  "aliases": {
+    "1": "home_win",
+    "home": "home_win",
+    "home_win": "home_win",
+    "x": "draw",
+    "draw": "draw",
+    "2": "away_win",
+    "away": "away_win",
+    "away_win": "away_win",
+    "1x": "double_chance_1x",
+    "home_or_draw": "double_chance_1x",
+    "double_chance_1x": "double_chance_1x",
+    "x2": "double_chance_x2",
+    "draw_or_away": "double_chance_x2",
+    "away_or_draw": "double_chance_x2",
+    "double_chance_x2": "double_chance_x2",
+    "12": "double_chance_12",
+    "home_or_away": "double_chance_12",
+    "double_chance_12": "double_chance_12",
+    "home_dnb": "draw_no_bet_home",
+    "dnb_home": "draw_no_bet_home",
+    "draw_no_bet_home": "draw_no_bet_home",
+    "away_dnb": "draw_no_bet_away",
+    "dnb_away": "draw_no_bet_away",
+    "draw_no_bet_away": "draw_no_bet_away"
+  },
+  "comparison": {
+    "policy_id": "EDGE_D1_EXACT_MATCH_V1",
+    "confidence_tolerance_pct": 0,
+    "probability_tolerance_pct": 0,
+    "secondary_tolerance_pct": 0,
+    "outcome_mismatch": "RED",
+    "any_detail_mismatch": "AMBER",
+    "hold_action": "REVIEW_REQUIRED",
+    "release": "Only GREEN exact agreement passes the existing automatic proof handoff. A human review decision needs separately recorded authority."
+  },
+  "privacy": {
+    "scout_visibility": "PRIVATE_QC_ONLY",
+    "edge_seal_required_before_shadow_read": true,
+    "precommit_shadow_input": false
+  },
+  "extensions": {
+    "corners": {
+      "state": "REVIEW_REQUIRED",
+      "required_before_activation": [
+        "Versioned counting and settlement definition",
+        "Verified historical corners won and conceded",
+        "Approved line coverage and dedicated tests"
+      ]
+    },
+    "cards": {
+      "state": "REVIEW_REQUIRED",
+      "required_before_activation": [
+        "Versioned yellow-card counting and settlement definition",
+        "Verified discipline and referee evidence",
+        "Approved line coverage and dedicated tests"
+      ]
+    }
+  },
+  "unsupported_selection_action": "REVIEW_REQUIRED",
+  "supersedes_rule_version": null,
+  "retirement_state": "ACTIVE"
+}

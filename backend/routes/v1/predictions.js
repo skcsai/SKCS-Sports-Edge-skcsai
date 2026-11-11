@@ -82,7 +82,7 @@ router.get('/matches/:match_id/predictions', requireSupabaseUser, requireActiveS
         let filteredSecondaryLegs = secondaryLegs;
         let removedLegs = [];
         if (mainPickToken) {
-            const verdict = validateSMBCLegs(secondaryLegs, mainPickToken);
+            const verdict = validateSMBCLegs(secondaryLegs, mainPickToken, main);
             filteredSecondaryLegs = verdict.legs;
             removedLegs = verdict.removed;
         }
@@ -213,7 +213,7 @@ router.get('/predictions/batch', requireSupabaseUser, async (req, res) => {
                 }));
                 let filteredSecondaryLegs = secondaryLegs;
                 if (mainPickToken) {
-                    const verdict = validateSMBCLegs(secondaryLegs, mainPickToken);
+                    const verdict = validateSMBCLegs(secondaryLegs, mainPickToken, main);
                     filteredSecondaryLegs = verdict.legs;
                 }
                 

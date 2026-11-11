@@ -13,6 +13,7 @@ const {
   DOMAIN_CODES: AUTH_DOMAIN_CODES,
   computeSubmittedBodyHash
 } = require('./fipIntakeM2MAuthenticator');
+const contextProof = require('./scoutContextHandoffProof');
 
 function assertDependency(name, value) {
   if (value === null || value === undefined) {
@@ -170,6 +171,7 @@ function createGovernedFipIntakeAdapter(deps = {}) {
     const governedMode = context.governedMode || PROOF_FIXTURE_MODE;
     const callerIdentityRef = String(context.caller || '').trim();
     const maxFipBytes = context.maxFipBytes;
+    const isContextProof = fipPayload?.schema_version === contextProof.SCHEMA_VERSION;
 
     if (deps.featureFlagEnabled === false) {
       return rejectAdapter(
@@ -177,6 +179,18 @@ function createGovernedFipIntakeAdapter(deps = {}) {
         'Governed FIP intake adapter is disabled.',
         { downstream_calls: downstreamCalls }
       );
+    }
+
+    if (isContextProof) {
+      if (governedMode !== PROOF_FIXTURE_MODE || typeof deps.readContextProofEvidence !== 'function') {
+        return rejectAdapter(DOMAIN_CODES.FIP_INTAKE_UNAUTHORIZED,
+          'Scout context handoff is enabled only for an isolated proof.');
+      }
+      if (!contextProof.validManifest(fipPayload)) {
+        return rejectAdapter(DOMAIN_CODES.FIP_PAYLOAD_INVALID, 'Invalid Scout context proof manifest.');
+      }
+      // Keep a private snapshot of the exact manifest authenticated below.
+      fipPayload = Object.freeze({ ...fipPayload });
     }
 
     const gates = await deps.gateReader.readGates();
@@ -219,6 +233,29 @@ function createGovernedFipIntakeAdapter(deps = {}) {
         auth?.message || 'Caller is not authorized for governed FIP intake.',
         { downstream_calls: downstreamCalls }
       );
+    }
+
+    if (isContextProof) {
+      try {
+        const evidence = await contextProof.readVerifiedProof(
+          fipPayload, deps.readContextProofEvidence, deps.clock.now()
+        );
+        return {
+          accepted: true,
+          result: 'ACCEPTED',
+          rejection_code: null,
+          envelope: null,
+          canonical_fip: null,
+          context_handoff: evidence.handoff,
+          scout_provenance: evidence.provenance,
+          idempotency_key: fipPayload.evidence_sha256,
+          downstream_calls: downstreamCalls
+        };
+      } catch (error) {
+        const code = /^SCOUT_CONTEXT_PROOF_(EVIDENCE_(UNAVAILABLE|MISMATCH|INVALID)|TIME_INVALID)$/
+          .test(error?.message) ? error.message : 'SCOUT_CONTEXT_PROOF_EVIDENCE_UNAVAILABLE';
+        return rejectAdapter(code, 'Scout context proof could not be verified.');
+      }
     }
 
     const validation = validateIntake(fipPayload, {

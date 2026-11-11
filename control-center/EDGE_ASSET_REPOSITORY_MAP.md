@@ -1,14 +1,14 @@
 # EDGE ASSET REPOSITORY MAP
 EAC_PROJECT_ID: EAC-001
 MANIFEST_SCHEMA_VERSION: 1.0.0
-TOTAL_GOVERNED_ASSETS: 1081
-TOTAL_BATCHED_ASSETS: 1081
+TOTAL_GOVERNED_ASSETS: 1090
+TOTAL_BATCHED_ASSETS: 1090
 FULLY_CLASSIFIED_ASSETS: 0
-CLASSIFICATION_PENDING_ASSETS: 1081
+CLASSIFICATION_PENDING_ASSETS: 1090
 CLOSURE_READY: NO
 
 CURRENT_STATE_COUNTS
-- CURRENT: 140
+- CURRENT: 149
 - PARALLEL: 0
 - LEGACY: 0
 - HISTORICAL_EVIDENCE: 0
@@ -17,7 +17,7 @@ CURRENT_STATE_COUNTS
 - GENERATED: 0
 
 FUNCTIONAL_GROUP_COUNTS
-- TEST_PROOF: 169
+- TEST_PROOF: 172
 - SCRIPT_TOOL: 164
 - DOCUMENTATION_KNOWLEDGE: 143
 - PROVIDER_INTEGRATION: 119
@@ -27,11 +27,11 @@ FUNCTIONAL_GROUP_COUNTS
 - FRONTEND_UI: 46
 - DATABASE: 42
 - PREDICTION: 30
-- GOVERNANCE: 27
+- GOVERNANCE: 29
 - SCHEDULER_BACKGROUND: 25
+- BACKEND_RUNTIME: 20
 - API_ROUTE: 18
 - ACCA: 17
-- BACKEND_RUNTIME: 16
 - PUBLIC_ASSET: 10
 - AI_EDGEMIND: 8
 - CONTROL_CENTER: 8
@@ -42,28 +42,28 @@ FUNCTIONAL_GROUP_COUNTS
 - UNCATEGORIZED: 2
 
 RELATIONSHIP_TAG_COUNTS
+- GOVERNANCE: 301
 - RUNTIME: 297
-- GOVERNANCE: 292
 - SCRIPT_TOOL: 292
 - DATABASE: 275
 - SQL: 240
 - PROVIDER: 205
-- TEST_PROOF: 180
+- TEST_PROOF: 183
 - DOCUMENTATION: 178
 - API: 173
 - AUDIT: 113
+- PREDICTION: 112
 - UI: 112
-- PREDICTION: 110
 - MIGRATION: 106
 - OBSERVABILITY: 99
 - SECURITY: 93
 - DEPLOYMENT: 76
 - GENERATED: 75
-- SERVICE: 64
+- SERVICE: 68
 - ROUTE: 61
-- CONFIGURATION: 54
+- CONFIGURATION: 56
+- SCOUT: 41
 - FIP: 39
-- SCOUT: 39
 - PUBLIC_ASSET: 30
 - BACKGROUND_JOB: 28
 - RULEBOOK: 27
@@ -75,7 +75,7 @@ RELATIONSHIP_TAG_COUNTS
 - CONTROLLER: 2
 - RPC: 1
 
-NEXT_VALIDATION_NON_EMPTY_ASSETS: 1081
+NEXT_VALIDATION_NON_EMPTY_ASSETS: 1090
 
 BATCH_COMPLETION_SUMMARY
 - B01 | CONTROL_CENTER | ASSET_COUNT=65 | CLASSIFIED=0 | PENDING=65
@@ -85,8 +85,8 @@ BATCH_COMPLETION_SUMMARY
 - B05 | BACKEND_SCRIPTS | ASSET_COUNT=15 | CLASSIFIED=0 | PENDING=15
 - B06 | BACKEND_PROVIDERS | ASSET_COUNT=10 | CLASSIFIED=0 | PENDING=10
 - B07 | BACKEND_SRC_SERVICES | ASSET_COUNT=9 | CLASSIFIED=0 | PENDING=9
-- B08 | BACKEND_ADAPTERS_AND_CONFIG | ASSET_COUNT=13 | CLASSIFIED=0 | PENDING=13
-- B09 | BACKEND_SERVICES | ASSET_COUNT=96 | CLASSIFIED=0 | PENDING=96
+- B08 | BACKEND_ADAPTERS_AND_CONFIG | ASSET_COUNT=16 | CLASSIFIED=0 | PENDING=16
+- B09 | BACKEND_SERVICES | ASSET_COUNT=99 | CLASSIFIED=0 | PENDING=99
 - B10 | SCRIPTS_AUDIT_GOV | ASSET_COUNT=27 | CLASSIFIED=0 | PENDING=27
 - B11 | SCRIPTS_CHECK_VALIDATE_VERIFY | ASSET_COUNT=61 | CLASSIFIED=0 | PENDING=61
 - B12 | SCRIPTS_TEST_DIAG_TRACE | ASSET_COUNT=66 | CLASSIFIED=0 | PENDING=66
@@ -101,7 +101,7 @@ BATCH_COMPLETION_SUMMARY
 - B21 | PUBLIC_UI | ASSET_COUNT=70 | CLASSIFIED=0 | PENDING=70
 - B22 | SUPABASE_MIGRATIONS | ASSET_COUNT=65 | CLASSIFIED=0 | PENDING=65
 - B23 | DB_SQL_AND_SUPABASE_OTHER | ASSET_COUNT=19 | CLASSIFIED=0 | PENDING=19
-- B24 | TESTS | ASSET_COUNT=76 | CLASSIFIED=0 | PENDING=76
+- B24 | TESTS | ASSET_COUNT=79 | CLASSIFIED=0 | PENDING=79
 - B25 | SCRATCH | ASSET_COUNT=2 | CLASSIFIED=0 | PENDING=2
 - B26 | DEPLOYMENT_CI | ASSET_COUNT=3 | CLASSIFIED=0 | PENDING=3
 - B27 | ARCHIVE | ASSET_COUNT=58 | CLASSIFIED=0 | PENDING=58
@@ -335,12 +335,15 @@ PER_ASSET_BY_BATCH
 | backend/config/activeSports.js | Resolves active sports list from environment variable with normalization and defaults. | GOVERNANCE | UNKNOWN | ["CONFIGURATION","GOVERNANCE"] | ["Reads process.env.ACTIVE_DEPLOYMENT_SPORTS, normalizes aliases, and returns a Set with defaults."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/config/apiEndpoints.js | Exports API-Sports base URLs and shared headers plus internal daily rate limit safety cap. | GOVERNANCE | UNKNOWN | ["CONFIGURATION","PROVIDER","API"] | ["Defines apiSportsUrls for each supported sport and exports apiSportsHeaders using X_APISPORTS_KEY."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/config/bigBallsLeagueMap.js | Maps SKCS league identifiers to Big Balls Data football aliases for provider calls. | PROVIDER_INTEGRATION | UNKNOWN | ["PROVIDER","CONFIGURATION"] | ["Defines SKCS_TO_BBD_FOOTBALL array and resolves league by skcs_league_id or apisports_id."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
+| backend/config/edgeD1Rulebook.v2.json | Supplies governed Premier League model parameters and Double Chance eligibility for Edge D1 proof. | GOVERNANCE | CURRENT | ["CONFIGURATION","GOVERNANCE"] | ["Pinned SHA-256 over UTF-8 with LF line endings","Verified at load"] | Replay the authenticated local historical fixture with SKCS_SCOUT_PROOF_ROOT set to the paired Scout proof checkout. |
 | backend/config/footballRules.js | Football risk, confidence band, ACCA, and timing rules configuration used by prediction logic. | GOVERNANCE | UNKNOWN | ["CONFIGURATION","GOVERNANCE"] | ["Exports FOOTBALL_RULES including confidence bands, ACCA thresholds, and stale grace minutes."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/config/predictionOutcomes.js | Prediction outcomes configuration with validation for market schemas and outcomes per sport. | GOVERNANCE | UNKNOWN | ["CONFIGURATION","GOVERNANCE"] | ["Validates predictionOutcomes market entries require uppercase underscore market names and primary/secondary/advanced types."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/config/soccerDataLeagueMap.js | Maps SKCS leagues to Soccer Data API league identifiers and provides probe league resolution helpers. | PROVIDER_INTEGRATION | UNKNOWN | ["PROVIDER","CONFIGURATION"] | ["Exports resolveSoccerDataLeague and resolveFixtureProbeLeague, including env override for probe league id."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/config/sportRules.js | Sport-wide rules such as home advantage and weather impact flags by sport. | GOVERNANCE | UNKNOWN | ["CONFIGURATION","GOVERNANCE"] | ["Exports sportRules object with baseHomeAdvantage and weatherImpactsGame per sport."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/config/subscriptionMatrix.js | Defines subscription matrix with plan categories, sports coverage, market access, limits, and mega ACCA constraints. | GOVERNANCE | UNKNOWN | ["CONFIGURATION","GOVERNANCE"] | ["Exports SUBSCRIPTION_MATRIX with daily limits and mega ACCA allocation/constraints; uses normalizePlanId from subscriptionPlans."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/config/subscriptionPlans.js | Defines public subscription plan ids and helpers to normalize plan ids to canonical internal tier keys. | GOVERNANCE | UNKNOWN | ["CONFIGURATION","GOVERNANCE"] | ["Exports subscriptionPlans plus normalizePlanId and getTierKeyForPlan mapping plan ids/aliases to tierKey."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
+| backend/governance/soccer-governor/governor.js | Shared pure market compatibility and review evaluator. Forecast calculations belong to the independent model modules. | BACKEND_RUNTIME | CURRENT | ["SERVICE","GOVERNANCE"] | ["SOCCER-GOV-001 exact scope","Pinned canonical registry fingerprint","Paired consumer byte parity and scoreline truth-table proof"] | Run tests/soccer-gov-001.test.js with the paired Scout and Edge roots plus the sealed comparison regression. |
+| backend/governance/soccer-governor/registry.v1.json | Pinned distribution of the canonical Scout Premier League compatibility registry. | GOVERNANCE | CURRENT | ["CONFIGURATION","GOVERNANCE"] | ["SOCCER-GOV-001 exact scope","Pinned canonical registry fingerprint","Paired consumer byte parity and scoreline truth-table proof"] | Run tests/soccer-gov-001.test.js with the paired Scout and Edge roots plus the sealed comparison regression. |
 
 ## B09 BACKEND_SERVICES
 | asset_path | purpose_description | functional_group | current_state | relationship_tags | classification_evidence | next_validation |
@@ -381,6 +384,7 @@ PER_ASSET_BY_BATCH
 | backend/services/direct1x2Builder.js | Backend service: direct1x2Builder | DATABASE | UNKNOWN | ["DATABASE","SQL","PROVIDER"] | ["Top-level skim: require('@supabase/supabase-js') \| require('../db') \| require('../utils/secondaryMarketSelector') \| require('./aiProvider') \| require('../config/footballRules') \| require('../config').","Detected Supabase usage (createClient/from/SQL-like queries).","Detected external HTTP client usage (axios/fetch).","Detected caching behavior (cache/table/key patterns)."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/services/direct1x2Engine.js | Backend service: direct1x2Engine | PROVIDER_INTEGRATION | UNKNOWN | ["PROVIDER"] | ["Top-level skim: require('../config/footballRules')."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/services/divanscoreService.js | Backend service: divanscoreService | PROVIDER_INTEGRATION | UNKNOWN | ["PREDICTION","PROVIDER","API"] | ["Top-level skim: require('axios').","Detected external HTTP client usage (axios/fetch)."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
+| backend/services/edgeD1Proof.js | Calculates a private historical Edge D1 result from authenticated Scout facts using the pinned v2 rulebook. | BACKEND_RUNTIME | CURRENT | ["SERVICE","GOVERNANCE"] | ["Authenticated context proof","Exact shared rulebook digest","Local replay only","Local immutable seal verification requires the original independently held commitment ID."] | Replay the authenticated local historical fixture with SKCS_SCOUT_PROOF_ROOT set to the paired Scout proof checkout. |
 | backend/services/enhancedMatchDetailsService.js | Backend service: enhancedMatchDetailsService | PROVIDER_INTEGRATION | UNKNOWN | ["AI_EDGEMIND","PROVIDER","API"] | ["Top-level skim: require('./espnHiddenApiService') \| require('../utils/apiQueue') \| require('../db') \| require('../config').","Detected external HTTP client usage (axios/fetch)."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/services/espnHiddenApiService.js | Backend service: espnHiddenApiService | PROVIDER_INTEGRATION | UNKNOWN | ["PROVIDER","API"] | ["Top-level skim: require('node-fetch').","Detected external HTTP client usage (axios/fetch)."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/services/filterEngine.js | Backend service: filterEngine | DATABASE | UNKNOWN | ["DATABASE","SQL","PROVIDER"] | ["Top-level skim: require('../db') \| require('../utils/validation') \| require('@supabase/supabase-js') \| require('../config').","Detected Supabase usage (createClient/from/SQL-like queries)."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
@@ -424,6 +428,8 @@ PER_ASSET_BY_BATCH
 | backend/services/safeHavenSelector.js | Backend service: safeHavenSelector | PROVIDER_INTEGRATION | UNKNOWN | ["PROVIDER"] | ["Top-level skim: require('./marketIntelligence')."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/services/saveContextData.js | Backend service: saveContextData | DATABASE | UNKNOWN | ["PREDICTION","DATABASE","SQL","PROVIDER"] | ["Top-level skim: require('./tier1SchemaProfile').","Detected Supabase usage (createClient/from/SQL-like queries)."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/services/saveDirectInsights.js | Backend service: saveDirectInsights | DATABASE | UNKNOWN | ["DATABASE","SQL","PROVIDER"] | ["Detected Supabase usage (createClient/from/SQL-like queries)."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
+| backend/services/scoutContextHandoffProof.js | Verifies an authenticated proof manifest and digest-bound Scout evidence without a production reader. | BACKEND_RUNTIME | CURRENT | ["SERVICE","GOVERNANCE"] | ["Digest and size verification","Prematch and cutoff checks","Proof-only consumption"] | Run the cross-repository proof with SKCS_SCOUT_PROOF_ROOT pointing at the paired Scout checkout. |
+| backend/services/scoutEvidenceBaseline.js | Derives a deterministic Premier League 1X2 baseline prediction key and confidence from verified Scout season evidence while preserving fail-closed evidence boundaries. | BACKEND_RUNTIME | CURRENT | ["SERVICE","PREDICTION","SCOUT","GOVERNANCE"] | ["Uses only verified Scout season record and goals for baseline-v1.","Requires package SHA-256 and pre-kickoff prediction cutoff.","Rejects Scout odds/prediction execution and preserves EDGE_CONSUME_NO_RECOMPUTE.","No provider, AI fallback, database or network dependency."] | Run node --test tests/epi-001-i1-scout-evidence-baseline.test.js plus EPI/P1-B01 regression after any Scout evidence baseline rule change. |
 | backend/services/semanticDriftSummaryService.js | Backend service: semanticDriftSummaryService | PROVIDER_INTEGRATION | UNKNOWN | ["PROVIDER"] | ["Top-level skim: require('../db') \| require('../core/verificationController') \| require('../semantic-layer/controlPlaneEvaluator')."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/services/skcsHeartbeat.js | Scheduled job / background maintenance | SCHEDULER_BACKGROUND | UNKNOWN | ["SCHEDULER","BACKGROUND_JOB","DATABASE","SQL","PROVIDER","API"] | ["Top-level skim: require('./proFootballDataService') \| require('../core/executionPipeline') \| require('./hybridSportsDataService').","Detected external HTTP client usage (axios/fetch).","Detected caching behavior (cache/table/key patterns)."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | backend/services/soccerDataApiClient.js | Backend service: soccerDataApiClient | PROVIDER_INTEGRATION | UNKNOWN | ["PROVIDER","API"] | ["Top-level skim: require('axios') \| require('../config').","Detected external HTTP client usage (axios/fetch)."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
@@ -1049,6 +1055,7 @@ PER_ASSET_BY_BATCH
 | tests/edge-system-runtime-inventory.test.js | Runtime inventory contract test asset validating ESA-001 discovery surfaces are governed and validation rules fail closed on removal or unknown task bindings. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","RUNTIME","OBSERVABILITY","GOVERNANCE"] | ["File imports runtime inventory helpers (`discoverMaterialSurfaces`, `validateInventory`, `renderRuntimeMap`) and validates the canonical runtime inventory passes.","It includes fail-closed tests (e.g., removing a governed surface or altering control-task bindings) and asserts validation errors start with the expected failure markers."] | Revalidate this test asset??????s authority and coverage whenever the EAC-001 classification contract, batch manifest, or closure semantics change. |
 | tests/eops-001-a1-startup-safety.test.js | Focused EOPS-001-A1 proof for startup side-effect suppression, Supabase-bound import isolation and non-root Docker runtime. | TEST_PROOF | CURRENT | ["TEST_PROOF","DEPLOYMENT","SECURITY"] | ["8/8 focused tests pass after final dependency remediation.","Verifies default normal behavior remains enabled.","Verifies canary suppresses bootstrap, cron, heartbeat and import-time Supabase coupling."] | Re-run EOPS-001-A1 focused proof and full Edge Control Center verification after any Stage A deployment/startup/cost evidence change. |
 | tests/epi-001-d1-r1-provenance.test.js | Verifies that governed Scout FIP R1 provenance is carried into Edge D1 prediction metadata through an exact whitelist, fails closed when incomplete, excludes forbidden payload fields, and leaves provider inputs unchanged. | TEST_PROOF | CURRENT | ["TEST_PROOF","PREDICTION","SCOUT","FIP","DATABASE","GOVERNANCE"] | ["Proves EFI EdgeAnalysisEnvelope exposes the complete minimal R1 reference including validation time.","Proves SCOUT_FIP D1 provenance is exact-whitelist only and rejects incomplete R1 metadata.","Proves provider/non-Scout input receives no invented provenance and existing raw prediction validation accepts the metadata shape."] | Run node --test tests/epi-001-d1-r1-provenance.test.js plus EPI/P1-B01 regression after any governed D1/R1 provenance or FIP-envelope metadata change. |
+| tests/epi-001-i1-scout-evidence-baseline.test.js | Proves fail-closed Scout provenance/cutoff boundaries, deterministic evidence-only baseline scoring, and consumption by the existing Edge waterfall and direct 1X2 engines. | TEST_PROOF | CURRENT | ["TEST_PROOF","PREDICTION","SCOUT","GOVERNANCE"] | ["Fails closed without package hash or valid pre-kickoff cutoff.","Fails closed if Scout odds or prediction execution are enabled.","Proves Crystal Palace-Liverpool produces an evidence-derived away baseline.","Proves existing waterfall and direct1x2 engines consume the baseline under isolated dependencies."] | Run this focused test plus P1-B01 and EPI-001-D1-R1 regressions after any EPI-001-I1 baseline or test-only waterfall exposure change. |
 | tests/epi-pipeline-integrity-contract.test.js | Tests the EPI-001-C1 prediction pipeline integrity contract and its governance registration without importing or mutating runtime prediction code. | TEST_PROOF | CURRENT | ["TEST_PROOF","PREDICTION","ACCA","GOVERNANCE"] | ["Test reads the EPI-001-C1 contract and verifies protected surfaces and forbidden boundaries.","Test verifies ledger/project register EPI-001 state and BLOCKED gates.","Test verifies package control-center test suite includes the focused EPI proof."] | Run node --test tests/epi-pipeline-integrity-contract.test.js and npm run control:verify after any EPI contract or sequencing change. |
 | tests/eprv-001-c2-fip-replacement-readiness.test.js | Verifies class-by-class provider replacement readiness, generic-context insufficiency, current provider fallback evidence, future fail-closed law and blocked gates. | TEST_PROOF | CURRENT | ["TEST_PROOF","PROVIDER","FIP","PREDICTION","GOVERNANCE"] | ["Verifies the exact replacement matrix has two MAPPED and five MISSING_BLOCKER classes.","Verifies the canonical FIP requires only generic markets/context and does not require the missing context subclasses.","Verifies current provider fallback remains pre-removal behavior while future activated behavior is contractually fail-closed."] | Re-run EPRV-001-C2 focused proof and full Edge control/governor regression after any FIP context-class contract, provider-removal readiness, or fail-closed no-input law change. |
 | tests/eprv-001-c3-upstream-context-reconciliation.test.js | Verifies immutable Scout evidence identity, the three transport-gap classifications, the two upstream-absence classifications, owner routing and preserved provider-removal HOLD. | TEST_PROOF | CURRENT | ["TEST_PROOF","PROVIDER","FIP","SCOUT","GOVERNANCE"] | ["Verifies the exact Scout commit/package SHA recorded by C3.","Verifies exactly three UPSTREAM_EXISTS_NOT_TRANSPORTED classes and two UPSTREAM_ABSENT classes.","Verifies EPRV-001 remains PARTIAL and global runtime gates remain blocked."] | Re-run C3 focused proof after any Scout context availability, FIP transport contract, or EPRV provider-removal readiness change. |
@@ -1082,6 +1089,7 @@ PER_ASSET_BY_BATCH
 | tests/lifecycle-governor.test.js | Focused Node test coverage for SEM-GOV-001B-I3 pure Lifecycle Governor foundation: gate-before-flag, SAST window, admission, transitions, idempotency, rollover plan, and module isolation from DB, Supabase, SQL, and protected pipeline modules. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE","RULEBOOK"] | ["Verifies evaluateGovernorGate fail-closed ordering and feature-flag normalization.","Verifies eight-day SAST labels, football-only admission, 15-minute processing tolerance, legal transition matrix, deterministic SHA-256 idempotency, and rollover duplicate/gap rejection.","Verifies lifecycleGovernor.js source excludes DB, Supabase, SQL, predictions_raw, direct1x2_prediction_final, fixture_context_cache, aiPipeline, fipIntakeService, and syncService imports."] | SEM-GOV-001B-I3: run node --test tests/lifecycle-governor.test.js after any lifecycle governor evaluator change. |
 | tests/lifecycle-persistence-service.test.js | Focused Node test coverage for lifecycle persistence admission cap, idempotency, alias safety, atomic transitions, gate-before-DB law, and migration static validation. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE","DATABASE"] | ["Gate and feature-flag rejection causes zero withTransaction calls.","Admission 50 succeeds and 51 returns DAILY_ADMISSION_CAP_REACHED.","Alternate alias and durable idempotency reuse do not consume additional slots.","Migration static tests verify six tables and no prediction table alteration."] | SEM-GOV-001B-I4: run npm run test:lifecycle-persistence after any persistence service or migration change. |
 | tests/p1-b01-configured-fip-input.test.js | Verifies governed Scout FIP configured input, provider bypass, mapped-envelope-only flow, atomic batch rejection and request-contract validation. | TEST_PROOF | CURRENT | ["TEST_PROOF","SCOUT","FIP","RUNTIME","GOVERNANCE","PROVIDER"] | ["Exercises resolveConfiguredPredictionInput via aiPipeline.__test with injected provider and intake dependencies.","Verifies provider path remains active when fip_envelopes is absent and is bypassed when a valid PROOF_FIXTURE batch is supplied.","Verifies atomic batch rejection, malformed request-contract rejection, and mapped-envelope-only output without calling external providers."] | P1-B01: run node --test tests/p1-b01-configured-fip-input.test.js after any governed Scout FIP configured-input or aiPipeline intake-routing change. |
+| tests/scout-context-handoff-proof.test.js | Replays the actual Scout fixture through governed Edge intake with no database access. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE"] | ["Authenticated manifest","Preserves 60 player records","Zero downstream writes"] | Run the cross-repository proof with SKCS_SCOUT_PROOF_ROOT pointing at the paired Scout checkout. |
 | tests/sem-gov-001-lifecycle-contract.test.js | Tests the SEM-GOV-001A Unified Sports Intelligence Lifecycle contract and its Control Center registration without importing or mutating runtime code. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE"] | ["Test reads SEM-GOV-001 contract and verifies canonical lifecycle law sections.","Test verifies ledger unified_lifecycle_governor BLOCKED and SEM-GOV-001A registration.","Test verifies package control-center test suite includes the focused SEM-GOV proof."] | Run node --test tests/sem-gov-001-lifecycle-contract.test.js and npm run control:verify after any SEM-GOV-001 contract or sequencing change. |
 | tests/sem-gov-001b-governor-foundation-packet.test.js | Tests the SEM-GOV-001B-I2 Lifecycle Governor foundation implementation packet and its Control Center registration without importing or mutating runtime code. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE"] | ["Test verifies I2 packet sections and that future runtime files do not exist on disk.","Test verifies ledger registers SEM-GOV-001B-I2 APPROVED with all gates BLOCKED.","Test verifies package control-center test suite includes the focused I2 proof."] | Run node --test tests/sem-gov-001b-governor-foundation-packet.test.js and npm run control:verify after any I2 packet or sequencing change. |
 | tests/sem-gov-001b-i4-lifecycle-persistence-implementation-packet.test.js | Guards I4 implementation packet sections, allowed files, blocked gates, migration-not-applied state, and Control Center registration. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE"] | ["Verifies all packet sections A through V are present.","Verifies gates remain BLOCKED and migration is NOT APPLIED.","Verifies 50/day and 180-day retention law references.","Verifies I4-PURGE, I5, and SEM-GOV-001C are deferred."] | SEM-GOV-001B-I4: run npm run test:lifecycle-persistence after any I4 packet or registration change. |
@@ -1110,6 +1118,7 @@ PER_ASSET_BY_BATCH
 | tests/sem-gov-001d-ui3-i7-implementation-packet.test.js | Guards UI3-I7 PASS WITH CORRECTION, adapter files, and blocked gates. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE","SERVICE"] | ["Verifies packet sections","Verifies adapter services exist","Verifies no route","Verifies ledger registration"] | npm run test:sem-gov-001d-ui3-i7 after UI3-I7 packet change |
 | tests/sem-gov-001d-ui3-i8-implementation-packet.test.js | Guards UI3-I8 PASS WITH CORRECTION, evidence files, and blocked gates. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE","SERVICE"] | ["Verifies packet sections","Verifies evidence service exists","Verifies ledger registration"] | npm run test:sem-gov-001d-ui3-i8 after UI3-I8 packet change |
 | tests/sem-gov-001d-ui3-i9-implementation-packet.test.js | Guards UI3-I9 PASS, composition files, and blocked gates. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE"] | ["Verifies packet sections","Verifies composition files exist","Verifies ledger registration"] | npm run test:sem-gov-001d-ui3-i9 after UI3-I9 packet change |
+| tests/soccer-gov-001.test.js | Joint registry parity and exhaustive logical compatibility regression proof. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE"] | ["SOCCER-GOV-001 exact scope","Pinned canonical registry fingerprint","Paired consumer byte parity and scoreline truth-table proof"] | Run tests/soccer-gov-001.test.js with the paired Scout and Edge roots plus the sealed comparison regression. |
 | tests/sxe-fip-lab-001-canonical-validator.test.js | Focused automated proof for the governed Edge project indicated by the path and filename. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","SCOUT","FIP","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | tests/sxe-fip-lab-001-external-fip-loader.test.js | Focused automated proof for the governed Edge project indicated by the path and filename. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","SCOUT","FIP","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | tests/sxe-fip-lab-001-external-marriage.test.js | Focused automated proof for the governed Edge project indicated by the path and filename. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","SCOUT","FIP","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |

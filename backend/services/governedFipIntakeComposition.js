@@ -84,7 +84,8 @@ function createGovernedFipIntakeComposition(deps = {}) {
     authorizeCaller: authenticator.authorizeCaller,
     featureFlagEnabled,
     clock: deps.clock,
-    intakeIdGenerator: deps.intakeIdGenerator
+    intakeIdGenerator: deps.intakeIdGenerator,
+    readContextProofEvidence: deps.readContextProofEvidence
   });
 
   return Object.freeze({

@@ -56,7 +56,7 @@ Blocks: EFI-001, EST-001, ESEC-001, FIP-001
 Status: TESTED
 Governed by: EFI-001
 Blocked by: ESA-001, EMG-001
-Blocks: EPRV-001, E2E-001
+Blocks: EPRV-001, E2E-001, EFI-002
 
 ## EST-001 — Supabase Storage and FIP Retention Contract
 
@@ -345,6 +345,14 @@ Governed by: EPI-001-D1-R1
 Blocked by: EPI-001, EFI-001, EST-001, ESA-RR-004
 Blocks: E2E-001
 
+
+## EPI-001-I1 - EPI-001-I1 Prediction Authority Repair
+
+Status: TESTED
+Governed by: EPI-001-I1
+Blocked by: EPI-001
+Blocks: E2E-001
+
 ## EPRV-001-C2 - EPRV-001-C2 FIP Replacement Mapping and Fail-Closed Provider Readiness Contract
 
 Status: TESTED
@@ -364,7 +372,7 @@ Blocks: none
 Status: TESTED
 Governed by: EPRV-001-C4
 Blocked by: EPRV-001-C3
-Blocks: none
+Blocks: EFI-002
 
 ## EOPS-001-A1 — Azure Migration Stage A - Inventory, Costed Candidate and Startup Safety
 
@@ -406,4 +414,84 @@ Blocks: none
 Status: TESTED
 Governed by: ESEC-001-I6
 Blocked by: ESA-001, ESEC-001-I5, SEM-GOV-001D-UI3-I10
+Blocks: none
+
+## EFI-002 - Scout to Edge proof bridge
+
+Status: IN_PROGRESS
+Governed by: EFI-002
+Blocked by: EFI-001, EPRV-001-C4
+Blocks: none
+
+
+## E2E-001-X1 - Controlled Real Scout Prediction Proof and Abstention Safety
+
+Status: TESTED
+Governed by: E2E-001-X1
+Blocked by: E2E-001
+Blocks: none
+
+## EPI-001-D1-M1 - Shared Rulebook Edge D1 Historical Proof
+
+Status: TESTED
+Governed by: EPI-001-D1-M1
+Blocked by: E2E-001-X1
+Blocks: none
+
+## EPI-001-D1-M2 - Immutable Edge D1 Prediction Seal
+
+Status: TESTED
+Governed by: EPI-001-D1-M2
+Blocked by: EPI-001-D1-M1
+Blocks: none
+
+## EPI-001-D1-M3 - Sealed Edge and Scout Shadow Comparison Proof
+
+Status: TESTED
+Governed by: EPI-001-D1-M3
+Blocked by: EPI-001-D1-M2
+Blocks: none
+
+## EPI-001-D1-M4 - Exact-Match Prediction Review Policy
+
+Status: TESTED
+Governed by: EPI-001-D1-M4
+Blocked by: EPI-001-D1-M3
+Blocks: none
+
+## EPI-001-D1-M5 - Pre-Match Pending Accuracy Center Handoff Proof
+
+Status: TESTED
+Governed by: EPI-001-D1-M5
+Blocked by: EPI-001-D1-M4
+Blocks: none
+
+## EPI-001-D1-M6 - Official Recommendation Lock
+
+Status: TESTED
+Governed by: EPI-001-D1-M6
+Blocked by: EPI-001-D1-M5
+Blocks: none
+
+## EPI-001-I2 - Scout Evidence-to-Baseline Prediction Proof
+
+Status: TESTED
+Governed by: EPI-001-I2
+Blocked by: EPI-001, EPI-001-D1-R1, EPRV-001-C4
+Blocks: E2E-001
+Next: CLOSED / TESTED. Production runtime wiring and publication require a separate governed project.
+
+## SOCCER-GOV-001 - Canonical Football Prediction and Contradiction Governor
+
+Status: TESTED
+Governed by: SOCCER-GOV-001
+Blocked by: none
+Scout counterpart: SOCCER-GOV-001 in soccer-gov-001-scout.
+Next: CLOSED locally at TESTED for the approved Premier League Soccer Governor code and proof. Review the exact local candidates and evidence before any separately governed publication or production activation.
+
+## SOCCER-REL-001 - Paired Prediction-Only Release Baseline Reconciliation
+
+Status: TESTED
+Governed by: SOCCER-REL-001
+Blocked by: none
 Blocks: none

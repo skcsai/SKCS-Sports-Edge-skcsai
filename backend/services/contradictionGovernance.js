@@ -5,6 +5,9 @@
  * Contradiction mapping for Main 1X2 picks
  * Markets that contradict the main prediction and must be suppressed
  */
+const soccerGovernor = require('../governance/soccer-governor/governor');
+
+// Historical rules serve contexts outside the approved Premier League scope.
 const CONTRADICT_MAP = {
   '1': ['X2', 'Away DNB', 'draw_or_away', 'away_win_either_half'],   // X2, Draw No Bet (Away), and related
   'X': ['12', 'no_draw', 'btts_yes'],                               // 12 (no draw), BTTS Yes (implies scoring)
@@ -38,7 +41,10 @@ const DNB_CLASSIFICATION = {
  * @param {string} mainPick - The main 1X2 pick ('1', 'X', or '2')
  * @returns {boolean} True if compatible, false if contradictory
  */
-function isCompatibleWithMain(marketOutcome, mainPick) {
+function isCompatibleWithMain(marketOutcome, mainPick, scope) {
+  if (soccerGovernor.isPremierLeague(scope)) {
+    return soccerGovernor.evaluateSelections(scope, [{ market: '1X2', pick: mainPick }, marketOutcome]).compatible;
+  }
   if (!mainPick || !marketOutcome) return true;
   
   const normalizedMarket = String(marketOutcome).toLowerCase().replace(/[\s_-]/g, '');
@@ -96,7 +102,10 @@ function classifyDNBtoDC(dnbMarket) {
  * @param {string} mainPick - The main 1X2 pick ('1', 'X', or '2')
  * @returns {Array} Filtered markets compatible with main pick
  */
-function filterMarketsByMainPick(markets, mainPick) {
+function filterMarketsByMainPick(markets, mainPick, scope) {
+  if (soccerGovernor.isPremierLeague(scope) && Array.isArray(markets)) {
+    return markets.filter(market => isCompatibleWithMain(market, mainPick, scope));
+  }
   if (!mainPick || !Array.isArray(markets)) return markets;
   
   return markets.filter(market => {
@@ -197,7 +206,17 @@ function getContradictionWarning(marketName, mainPick) {
  * @param {string} mainPick - The main 1X2 pick for the match
  * @returns {Object} {valid: boolean, legs: Array, removed: Array}
  */
-function validateSMBCLegs(legs, mainPick) {
+function validateSMBCLegs(legs, mainPick, scope) {
+  if (soccerGovernor.isPremierLeague(scope) && Array.isArray(legs)) {
+    const kept = [];
+    const removed = [];
+    for (const leg of legs) {
+      const verdict = soccerGovernor.evaluateSelections(scope, [{ market: '1X2', pick: mainPick }, ...kept, leg]);
+      if (verdict.compatible) kept.push(leg);
+      else removed.push({ ...leg, reason: verdict.reason, governor_status: verdict.status });
+    }
+    return { valid: kept.length > 0, legs: kept, removed };
+  }
   if (!mainPick || !Array.isArray(legs)) {
     return { valid: true, legs: legs, removed: [] };
   }
@@ -231,7 +250,7 @@ function validateSMBCLegs(legs, mainPick) {
  * @param {Array} accaLegs - Array of ACCA legs with match info
  * @returns {Object} {valid: boolean, legs: Array, removed: Array}
  */
-function validateACCALegs(accaLegs) {
+function validateACCALegs(accaLegs, scope) {
   const validLegs = [];
   const removedLegs = [];
   
@@ -240,7 +259,7 @@ function validateACCALegs(accaLegs) {
     const marketName = leg.market || leg.prediction || '';
     
     // Only check contradictions if we have a main pick for this match
-    if (mainPick && !isCompatibleWithMain(marketName, mainPick)) {
+    if (mainPick && !isCompatibleWithMain(soccerGovernor.isPremierLeague(scope || leg) ? leg : marketName, mainPick, scope || leg)) {
       removedLegs.push({
         ...leg,
         reason: 'Contradicts main prediction in match',

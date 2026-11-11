@@ -894,6 +894,7 @@ function isDisplayFriendlySecondaryMarket(market) {
 function isCompatibleSecondaryMarket(primaryMatch, secondaryMarket) {
     return areLegsCompatible(
         {
+            ...primaryMatch,
             market: primaryMatch?.market,
             prediction: primaryMatch?.prediction
         },
@@ -2571,7 +2572,7 @@ router.get('/', requireSupabaseUser, requireActiveSubscription, async (req, res)
 
                 const markets = Array.isArray(shaped?.matches) ? shaped.matches : [];
                 if (mainPickToken) {
-                    const verdict = validateSMBCLegs(markets, mainPickToken);
+                    const verdict = validateSMBCLegs(markets, mainPickToken, p);
                     const out = { ...shaped, matches: verdict.legs };
                     if (isAdminAudit || includeAll) {
                         out.secondary_removed = verdict.removed;

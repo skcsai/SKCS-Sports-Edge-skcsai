@@ -1185,6 +1185,7 @@ function deriveEdgeMindReportFromMatches(matches) {
 function isCompatibleWithPrimaryPrediction(prediction, candidate) {
     return areLegsCompatible(
         {
+            ...prediction,
             market: prediction?.market,
             prediction: prediction?.prediction
         },

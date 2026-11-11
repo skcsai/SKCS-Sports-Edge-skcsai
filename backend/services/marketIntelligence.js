@@ -938,7 +938,13 @@ const HARD_MARKET_CONFLICT_PAIRS = Object.freeze(new Set([
     conflictPairKey('over_3_5', 'under_3_5')
 ]));
 
-function areMarketsConflicting(selectionA, selectionB) {
+const soccerGovernor = require('../governance/soccer-governor/governor');
+
+function areMarketsConflicting(selectionA, selectionB, scope) {
+    const context = soccerGovernor.isPremierLeague(scope) ? scope : soccerGovernor.isPremierLeague(selectionA) ? selectionA : selectionB;
+    if (soccerGovernor.isPremierLeague(context)) {
+        return !soccerGovernor.evaluateSelections(context, [selectionA, selectionB]).compatible;
+    }
     const a = normalizeMarketKey(selectionA?.market || selectionA);
     const b = normalizeMarketKey(selectionB?.market || selectionB);
     if (!a || !b) return false;

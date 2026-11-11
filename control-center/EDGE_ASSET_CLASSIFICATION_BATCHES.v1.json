@@ -17,6 +17,11 @@
       "asset_count": 65,
       "asset_paths": [
         "control-center/ALI-001_ACCURACY_AND_LOSS_INTELLIGENCE_PROPOSAL.v1.md",
+        "control-center/check_control_center.js",
+        "control-center/check_edge_asset_classification.js",
+        "control-center/check_edge_project_register.js",
+        "control-center/check_edge_repository_asset_register.js",
+        "control-center/check_edge_system_runtime_inventory.js",
         "control-center/E2E-001_C2_EXECUTION_READINESS_BLOCKER_RECONCILIATION.v1.md",
         "control-center/E2E-001_SCOUT_EDGE_PROOF_PLANNING_PACKET.v1.md",
         "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
@@ -52,20 +57,21 @@
         "control-center/PDM-001_PLAYER_DRIVEN_PREDICTION_OVERLAY.md",
         "control-center/RLL-001_REGIONAL_LANGUAGE_AND_LEGAL_LOCALISATION_PROPOSAL.v1.md",
         "control-center/SEE-001_SCOUT_EDGE_E2E_MARRIAGE_PROOF.v1.md",
+        "control-center/SEM-GOV-001_UNIFIED_SPORTS_INTELLIGENCE_LIFECYCLE_CONTRACT.v1.md",
+        "control-center/SEM-GOV-001B_FOOTBALL_LIFECYCLE_PERSISTENCE_CONTRACT.v1.md",
+        "control-center/SEM-GOV-001B_LIFECYCLE_GOVERNOR_FOUNDATION_IMPLEMENTATION_PACKET.v1.md",
         "control-center/SEM-GOV-001B-I4_CAP2_DAILY_ADMISSION_LIMIT_DESIGN.v1.md",
         "control-center/SEM-GOV-001B-I4_LIFECYCLE_PERSISTENCE_IMPLEMENTATION_PACKET.v1.md",
         "control-center/SEM-GOV-001B-I4_SUPABASE_FREE_TIER_CAPACITY_AND_RETENTION_DESIGN.v1.md",
-        "control-center/SEM-GOV-001B_FOOTBALL_LIFECYCLE_PERSISTENCE_CONTRACT.v1.md",
-        "control-center/SEM-GOV-001B_LIFECYCLE_GOVERNOR_FOUNDATION_IMPLEMENTATION_PACKET.v1.md",
         "control-center/SEM-GOV-001D-HOME1_HOME_PAGE_INFORMATION_ARCHITECTURE_AND_VISUAL_CONSOLIDATION.v1.md",
         "control-center/SEM-GOV-001D-UI1_SPORTS_MATCH_HUB_INFORMATION_ARCHITECTURE_AND_SCREEN_CONTRACT.v1.md",
         "control-center/SEM-GOV-001D-UI2_STATIC_SPORTS_MATCH_HUB_IMPLEMENTATION_PACKET.v1.md",
+        "control-center/SEM-GOV-001D-UI3-I1_LIFECYCLE_READ_MODEL_API_INSPECTION_AND_CONTRACT.v1.md",
         "control-center/SEM-GOV-001D-UI3-I10_MIGRATION_READINESS_AND_CONTROLLED_APPLY_PACKET.v1.md",
         "control-center/SEM-GOV-001D-UI3-I11_CONTRACT_RECONCILIATION_AND_MOCK_PROOF_AUTHORIZATION_PACKET.v1.md",
         "control-center/SEM-GOV-001D-UI3-I11_GATE_B_C1_HMAC_BODY_HASH_BINDING_CORRECTION_PACKET.v1.md",
         "control-center/SEM-GOV-001D-UI3-I11_GATE_B_MOCK_ONLY_ORCHESTRATION_PROOF_PACKET.v1.md",
         "control-center/SEM-GOV-001D-UI3-I11_GATE_C_FORMAL_CLOSURE_AND_E2E_READINESS_PACKET.v1.md",
-        "control-center/SEM-GOV-001D-UI3-I1_LIFECYCLE_READ_MODEL_API_INSPECTION_AND_CONTRACT.v1.md",
         "control-center/SEM-GOV-001D-UI3-I2_CANONICAL_FIXTURE_METADATA_PROJECTION_INSPECTION_AND_CONTRACT.v1.md",
         "control-center/SEM-GOV-001D-UI3-I3_SOURCE_B_STORAGE_POLICY_AND_RETENTION_CONTRACT.v1.md",
         "control-center/SEM-GOV-001D-UI3-I4_SOURCE_B_SCHEMA_AND_PERSISTENCE_IMPLEMENTATION_DESIGN.v1.md",
@@ -74,13 +80,7 @@
         "control-center/SEM-GOV-001D-UI3-I7_GOVERNED_FIP_INTAKE_ADAPTER_IMPLEMENTATION_PACKET.v1.md",
         "control-center/SEM-GOV-001D-UI3-I8_DURABLE_INTAKE_EVIDENCE_STORAGE_IMPLEMENTATION_PACKET.v1.md",
         "control-center/SEM-GOV-001D-UI3-I9_PRODUCTION_COMPOSITION_AND_M2M_AUTH_FOUNDATION_PACKET.v1.md",
-        "control-center/SEM-GOV-001_UNIFIED_SPORTS_INTELLIGENCE_LIFECYCLE_CONTRACT.v1.md",
-        "control-center/SPM-001_UNIFIED_SUBSCRIPTION_MODEL_PROPOSAL.v1.md",
-        "control-center/check_control_center.js",
-        "control-center/check_edge_asset_classification.js",
-        "control-center/check_edge_project_register.js",
-        "control-center/check_edge_repository_asset_register.js",
-        "control-center/check_edge_system_runtime_inventory.js"
+        "control-center/SPM-001_UNIFIED_SUBSCRIPTION_MODEL_PROPOSAL.v1.md"
       ]
     },
     {
@@ -287,8 +287,8 @@
       "asset_count": 9,
       "asset_paths": [
         "backend/src/services/contextIntelligence/adjustProbability.js",
-        "backend/src/services/contextIntelligence/aiPipeline.js",
         "backend/src/services/contextIntelligence/aiPipeline_core.js",
+        "backend/src/services/contextIntelligence/aiPipeline.js",
         "backend/src/services/contextIntelligence/availabilitySignal.js",
         "backend/src/services/contextIntelligence/cacheService.js",
         "backend/src/services/contextIntelligence/disciplineSignal.js",
@@ -305,10 +305,11 @@
         "type": "prefix_any",
         "values": [
           "backend/adapters/",
-          "backend/config/"
+          "backend/config/",
+          "backend/governance/"
         ]
       },
-      "asset_count": 13,
+      "asset_count": 16,
       "asset_paths": [
         "backend/adapters/f1Adapter.js",
         "backend/adapters/footballAdapter.js",
@@ -317,12 +318,15 @@
         "backend/config/activeSports.js",
         "backend/config/apiEndpoints.js",
         "backend/config/bigBallsLeagueMap.js",
+        "backend/config/edgeD1Rulebook.v2.json",
         "backend/config/footballRules.js",
         "backend/config/predictionOutcomes.js",
         "backend/config/soccerDataLeagueMap.js",
         "backend/config/sportRules.js",
         "backend/config/subscriptionMatrix.js",
-        "backend/config/subscriptionPlans.js"
+        "backend/config/subscriptionPlans.js",
+        "backend/governance/soccer-governor/governor.js",
+        "backend/governance/soccer-governor/registry.v1.json"
       ]
     },
     {
@@ -335,14 +339,14 @@
           "backend/services/"
         ]
       },
-      "asset_count": 96,
+      "asset_count": 99,
       "asset_paths": [
         "backend/services/accaBuilder.js",
         "backend/services/accaMathUtils.js",
         "backend/services/aiPipeline.js",
         "backend/services/aiPipelineOrchestrator.js",
-        "backend/services/aiProvider.js",
         "backend/services/aiProvider_odds_update.js",
+        "backend/services/aiProvider.js",
         "backend/services/aiScoring.js",
         "backend/services/aiTelemetryService.js",
         "backend/services/antigravity/WorkflowEngine.js",
@@ -373,6 +377,7 @@
         "backend/services/direct1x2Builder.js",
         "backend/services/direct1x2Engine.js",
         "backend/services/divanscoreService.js",
+        "backend/services/edgeD1Proof.js",
         "backend/services/enhancedMatchDetailsService.js",
         "backend/services/espnHiddenApiService.js",
         "backend/services/filterEngine.js",
@@ -416,6 +421,8 @@
         "backend/services/safeHavenSelector.js",
         "backend/services/saveContextData.js",
         "backend/services/saveDirectInsights.js",
+        "backend/services/scoutContextHandoffProof.js",
+        "backend/services/scoutEvidenceBaseline.js",
         "backend/services/semanticDriftSummaryService.js",
         "backend/services/skcsHeartbeat.js",
         "backend/services/soccerDataApiClient.js",
@@ -555,6 +562,7 @@
         "scripts/validate-backfill-accuracy.js",
         "scripts/validate-keys.js",
         "scripts/validate-relational-migration.js",
+        "scripts/verify_dom_structure.js",
         "scripts/verify-acca-legs.js",
         "scripts/verify-accas.js",
         "scripts/verify-bigballs-provider.js",
@@ -567,8 +575,7 @@
         "scripts/verify-new-predictions.js",
         "scripts/verify-soccerdata-provider.js",
         "scripts/verify-sportsdb-coverage.js",
-        "scripts/verify-vercel-build.js",
-        "scripts/verify_dom_structure.js"
+        "scripts/verify-vercel-build.js"
       ]
     },
     {
@@ -610,6 +617,7 @@
         "scripts/examine-tier-rules.js",
         "scripts/simulate-filtering.js",
         "scripts/smoke-test.js",
+        "scripts/test_full_fallback_flow.js",
         "scripts/test-ai-predictions-542703.js",
         "scripts/test-ai-predictions-endpoint.js",
         "scripts/test-all-rapid-hosts.js",
@@ -657,7 +665,6 @@
         "scripts/test-telemetry-integration.js",
         "scripts/test-thesportsdb-endpoints.js",
         "scripts/test-weather-pipeline.js",
-        "scripts/test_full_fallback_flow.js",
         "scripts/trace-data-flow.js",
         "scripts/trace-filtering-rules.js",
         "scripts/trace-filtering-timestamp.js"
@@ -860,8 +867,8 @@
         "scripts/create-indexes.js",
         "scripts/create-migration-plan.js",
         "scripts/db-cleanup.js",
-        "scripts/deployment-status.md",
         "scripts/deployment_verification.js",
+        "scripts/deployment-status.md",
         "scripts/fix-ai-predictions-endpoint.js",
         "scripts/fix-frontend-placeholders.js",
         "scripts/fix-json-simple.js",
@@ -887,8 +894,8 @@
         "scripts/requirements.txt",
         "scripts/resolve-results.js",
         "scripts/safe-migration-plan.js",
-        "scripts/supabase-diagnostics.js",
         "scripts/supabase_health_check.js",
+        "scripts/supabase-diagnostics.js",
         "scripts/track-prediction-accuracy.js"
       ]
     },
@@ -916,6 +923,7 @@
         "DEEPSEEK_STATE.md",
         "DEPLOYMENT_STATUS.md",
         "DEPLOYMENT_VERIFICATION_GUIDE.md",
+        "football-ecosystem-report.md",
         "FRONTEND_FIXES_SUMMARY.md",
         "FRONTEND_INVESTIGATION_REPORT.md",
         "FULL_WORKSPACE_AUDIT_REPORT.md",
@@ -925,9 +933,11 @@
         "MASTER_RULEBOOK_IMPLEMENTATION_GUIDE.md",
         "MIGRATION_FREEZE.md",
         "PRIVACY_POLICY.md",
-        "README.md",
         "README_DASHBOARD_REFACTOR.md",
         "README_DATA_INGESTION.md",
+        "README.md",
+        "requirements.txt",
+        "runtime.txt",
         "SINGLE_USE_AUDIT_REPORT.md",
         "SKCS_MASTER_RULEBOOK.md",
         "SMB_WINDSURF_FINAL_IMPLEMENTATION.md",
@@ -935,12 +945,9 @@
         "SPORT_CONSISTENCY_AUDIT_REPORT.md",
         "STRICT_RULES.md",
         "SUPABASE_DIAGNOSTIC_REPORT.md",
-        "SUPABASE_TABLES_SUMMARY.md",
         "SUPABASE_TABLE_ANALYSIS.md",
-        "TERMS_OF_SERVICE.md",
-        "football-ecosystem-report.md",
-        "requirements.txt",
-        "runtime.txt"
+        "SUPABASE_TABLES_SUMMARY.md",
+        "TERMS_OF_SERVICE.md"
       ]
     },
     {
@@ -955,14 +962,6 @@
       },
       "asset_count": 24,
       "asset_paths": [
-        "docs/DATA_INGESTION.md",
-        "docs/DEPLOYMENT_GUIDE.md",
-        "docs/README.md",
-        "docs/SKCS_ENGINE_V2_ADR.md",
-        "docs/SKCS_ENGINE_V2_PHASE05_INGEST_MAP.md",
-        "docs/SKCS_ENGINE_V2_PHASE0B5_REPLAY.md",
-        "docs/SKCS_ENGINE_V2_PHASE0_DESIGN.md",
-        "docs/VERCEL_DEPLOY_TROUBLESHOOTING.md",
         "docs/acca_rules_v2.1.md",
         "docs/alert-routing-degraded-state.md",
         "docs/api_quota_router.md",
@@ -970,14 +969,22 @@
         "docs/canonical_ingest_firewall.spec.md",
         "docs/control-plane-operational-pack.md",
         "docs/cricket-providers.md",
+        "docs/DATA_INGESTION.md",
+        "docs/DEPLOYMENT_GUIDE.md",
         "docs/football-leagues-apisports.md",
         "docs/pipeline-health-feed.md",
         "docs/provider-discovery/free-livescore-api.md",
         "docs/providers/live-football-api-policy.md",
+        "docs/README.md",
         "docs/runbook_degraded_states.md",
+        "docs/SKCS_ENGINE_V2_ADR.md",
+        "docs/SKCS_ENGINE_V2_PHASE0_DESIGN.md",
+        "docs/SKCS_ENGINE_V2_PHASE05_INGEST_MAP.md",
+        "docs/SKCS_ENGINE_V2_PHASE0B5_REPLAY.md",
         "docs/skcs_grading_snapshot_v1.spec.md",
         "docs/sportsdataio-pre-match-directive.md",
         "docs/supabase-tier-display-requirements.md",
+        "docs/VERCEL_DEPLOY_TROUBLESHOOTING.md",
         "docs/weekly-global-scrape-scheduler.md"
       ]
     },
@@ -1001,8 +1008,8 @@
         "SKCS-KNOWLEDGE/audit/migration_history.md",
         "SKCS-KNOWLEDGE/audit/observability_registry.md",
         "SKCS-KNOWLEDGE/audit/prediction_dependency_audit.md",
-        "SKCS-KNOWLEDGE/audit/runtime_consumer_audit.md",
         "SKCS-KNOWLEDGE/audit/runtime_consumer_audit_v2.md",
+        "SKCS-KNOWLEDGE/audit/runtime_consumer_audit.md",
         "SKCS-KNOWLEDGE/audit/schema_drift_log.md",
         "SKCS-KNOWLEDGE/audit/technical_debt.md",
         "SKCS-KNOWLEDGE/audit/undocumented_assets.md",
@@ -1034,7 +1041,6 @@
       },
       "asset_count": 17,
       "asset_paths": [
-        "SKCS-KNOWLEDGE/README.md",
         "SKCS-KNOWLEDGE/knowledge/api_registry.md",
         "SKCS-KNOWLEDGE/knowledge/architecture_decisions.md",
         "SKCS-KNOWLEDGE/knowledge/business_rules.md",
@@ -1050,7 +1056,8 @@
         "SKCS-KNOWLEDGE/knowledge/semantic_field_mapping_registry.md",
         "SKCS-KNOWLEDGE/knowledge/semantic_violation_log.md",
         "SKCS-KNOWLEDGE/knowledge/system_topology.md",
-        "SKCS-KNOWLEDGE/knowledge/views_and_materialized_views.md"
+        "SKCS-KNOWLEDGE/knowledge/views_and_materialized_views.md",
+        "SKCS-KNOWLEDGE/README.md"
       ]
     },
     {
@@ -1292,7 +1299,7 @@
           "tests/"
         ]
       },
-      "asset_count": 76,
+      "asset_count": 79,
       "asset_paths": [
         "tests/e2e-001-c2-execution-readiness.test.js",
         "tests/e2e-001d-async-context-cache-containment.test.js",
@@ -1305,6 +1312,7 @@
         "tests/edge-system-runtime-inventory.test.js",
         "tests/eops-001-a1-startup-safety.test.js",
         "tests/epi-001-d1-r1-provenance.test.js",
+        "tests/epi-001-i1-scout-evidence-baseline.test.js",
         "tests/epi-pipeline-integrity-contract.test.js",
         "tests/eprv-001-c2-fip-replacement-readiness.test.js",
         "tests/eprv-001-c3-upstream-context-reconciliation.test.js",
@@ -1338,6 +1346,7 @@
         "tests/lifecycle-governor.test.js",
         "tests/lifecycle-persistence-service.test.js",
         "tests/p1-b01-configured-fip-input.test.js",
+        "tests/scout-context-handoff-proof.test.js",
         "tests/sem-gov-001-lifecycle-contract.test.js",
         "tests/sem-gov-001b-governor-foundation-packet.test.js",
         "tests/sem-gov-001b-i4-lifecycle-persistence-implementation-packet.test.js",
@@ -1366,6 +1375,7 @@
         "tests/sem-gov-001d-ui3-i7-implementation-packet.test.js",
         "tests/sem-gov-001d-ui3-i8-implementation-packet.test.js",
         "tests/sem-gov-001d-ui3-i9-implementation-packet.test.js",
+        "tests/soccer-gov-001.test.js",
         "tests/sxe-fip-lab-001-canonical-validator.test.js",
         "tests/sxe-fip-lab-001-external-fip-loader.test.js",
         "tests/sxe-fip-lab-001-external-marriage.test.js",
@@ -1507,8 +1517,6 @@
         ".gitignore",
         ".gitmsg",
         ".vercelignore",
-        "LICENSE",
-        "SKCS_START.bat",
         "check-db.js",
         "check-football-times.js",
         "check-football.js",
@@ -1521,6 +1529,7 @@
         "find-active-files.js",
         "force-seed.js",
         "kabaddiPy",
+        "LICENSE",
         "market-explorer.html",
         "monitoring_dashboard_queries.sql",
         "overall-project-completion.json",
@@ -1538,6 +1547,7 @@
         "run-final-test.js",
         "safe-migration-plan.json",
         "scratch_test_pipeline.js",
+        "SKCS_START.bat",
         "sportbook",
         "supabase-diagnostics-report.json",
         "supabase-migration-plan.json",
@@ -1545,6 +1555,7 @@
         "supabase-visual-analysis-report.json",
         "table-dependency-map.json",
         "tailwind.config.js",
+        "test_scenarios_master_rulebook.js",
         "test-ai-insights.js",
         "test-ai-simulation.js",
         "test-bigballs-direct.js",
@@ -1553,7 +1564,6 @@
         "test-groq-models.js",
         "test-sportsdb.js",
         "test-wc-id.js",
-        "test_scenarios_master_rulebook.js",
         "trigger_ai.js"
       ]
     },

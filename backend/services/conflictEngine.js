@@ -1,5 +1,6 @@
 'use strict';
 
+const soccerGovernor = require('../governance/soccer-governor/governor');
 const { areMarketsConflicting } = require('./marketIntelligence');
 
 function normalizeMarket(market) {
@@ -194,6 +195,13 @@ function isValidCombination(legs, options = {}) {
     if (!Array.isArray(legs) || legs.length === 0) return false;
 
     const perScopeState = new Map();
+    const premierLeagueContexts = new Map();
+    for (const leg of legs) {
+        if (soccerGovernor.isPremierLeague(leg)) {
+            const id = String(leg?.match_id || leg?.metadata?.match_id || '').trim() || '__no_match_scope__';
+            premierLeagueContexts.set(id, leg);
+        }
+    }
     const seenMatchIds = new Set();
 
     for (const leg of legs) {
@@ -219,6 +227,15 @@ function isValidCombination(legs, options = {}) {
 
         // Same market duplicated within the same scope.
         if (scope.marketToPick.has(market)) return false;
+
+        const soccerScope = soccerGovernor.isPremierLeague(options.scope) ? options.scope : premierLeagueContexts.get(scopeKey);
+        if (soccerScope) {
+            scope.soccerSelections = scope.soccerSelections || [];
+            if (no_conflicting_markets && !soccerGovernor.evaluateSelections(soccerScope, [...scope.soccerSelections, leg]).compatible) return false;
+            scope.soccerSelections.push(leg);
+            scope.marketToPick.set(market, pick);
+            continue;
+        }
 
         // Check against conflict matrix (if no_conflicting_markets is enabled)
         if (no_conflicting_markets) {

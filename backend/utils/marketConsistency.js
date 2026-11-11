@@ -1,5 +1,6 @@
 'use strict';
 
+const soccerGovernor = require('../governance/soccer-governor/governor');
 const { areMarketsConflicting } = require('../services/marketIntelligence');
 
 // Football outcome universe
@@ -89,7 +90,14 @@ function toSkcsSelection(leg) {
     return market ? { market, prediction: String(pick || '').toLowerCase() } : null;
 }
 
-function areLegsCompatible(legA, legB) {
+function areLegsCompatible(legA, legB, scope) {
+    const context = soccerGovernor.isPremierLeague(scope) ? scope : soccerGovernor.isPremierLeague(legA) ? legA : legB;
+    if (soccerGovernor.isPremierLeague(context)) {
+        const idA = legA?.match_id || legA?.metadata?.match_id;
+        const idB = legB?.match_id || legB?.metadata?.match_id;
+        if (idA && idB && String(idA) !== String(idB)) return true;
+        return soccerGovernor.evaluateSelections(context, [legA, legB]).compatible;
+    }
     const skcsA = toSkcsSelection(legA);
     const skcsB = toSkcsSelection(legB);
     if (skcsA && skcsB && areMarketsConflicting(skcsA, skcsB)) {
@@ -148,18 +156,45 @@ function doubleChanceFromBaseline(baseline) {
     };
 }
 
-function sanitizeSameMatchLegs(legs) {
+function sanitizeSameMatchLegs(legs, scope) {
+    const context = soccerGovernor.isPremierLeague(scope) ? scope : legs.find(leg => soccerGovernor.isPremierLeague(leg));
+    if (soccerGovernor.isPremierLeague(context)) {
+        const kept = [];
+        for (const leg of legs) {
+            if (soccerGovernor.evaluateSelections(context, [...kept, leg]).compatible) kept.push(leg);
+        }
+        return kept;
+    }
     const out = [];
     for (const leg of legs) {
         // only accept leg if compatible with all already accepted legs
-        if (out.every((kept) => areLegsCompatible({ market: kept.market, prediction: kept.prediction }, { market: leg.market, prediction: leg.prediction }))) {
+        if (out.every((kept) => areLegsCompatible(kept, leg))) {
             out.push(leg);
         }
     }
     return out;
 }
 
-function validatePredictionSet(predictions) {
+function validatePredictionSet(predictions, scope) {
+    const context = soccerGovernor.isPremierLeague(scope) ? scope : predictions.find(leg => soccerGovernor.isPremierLeague(leg));
+    if (soccerGovernor.isPremierLeague(scope) || (predictions.length > 0 && predictions.every(leg => soccerGovernor.isPremierLeague(leg)))) {
+        const groups = new Map();
+        const valid = [];
+        const conflicts = [];
+        for (const prediction of predictions) {
+            const fixtureId = String(prediction.match_id || prediction.metadata?.match_id || '__same_match__');
+            const accepted = groups.get(fixtureId) || [];
+            const verdict = soccerGovernor.evaluateSelections(context, [...accepted, prediction]);
+            if (verdict.compatible) {
+                accepted.push(prediction);
+                groups.set(fixtureId, accepted);
+                valid.push(prediction);
+            } else {
+                conflicts.push({ prediction_a: prediction, reason: verdict.reason, governor_status: verdict.status });
+            }
+        }
+        return { valid, conflicts, is_valid: conflicts.length === 0 };
+    }
     const conflicts = [];
     const validPredictions = [];
 
@@ -171,8 +206,8 @@ function validatePredictionSet(predictions) {
             const existing = validPredictions[j];
             
             if (!areLegsCompatible(
-                { market: current.market, prediction: current.prediction },
-                { market: existing.market, prediction: existing.prediction }
+                current,
+                existing
             )) {
                 conflicts.push({
                     prediction_a: current,

@@ -1200,7 +1200,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "733cdb2b139c95e95f4085dfae0ca6e63d69df75c675d799996d25ecfc901319",
+        "source_content_sha256": "6473189962f626cb4afdc00b6e44388e4c5c8afc6bcff590496f3ef0345a0adb",
         "relationship_evidence_sha256": "f8b35f2e7169ee81f9b3b66c5d25560e7cf90c8877b6e877e17f24fbfbd3737b",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -1581,7 +1581,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "5d06af8ed3f54e986e06503e44ec41335b1f32998055a94e8f6a5f6bb4c85c3f",
+        "source_content_sha256": "19932a85fa0bfd42610af5c6e7391a249520a0f10c0094310ee2df1d5c0d0691",
         "relationship_evidence_sha256": "627652c46efcf6c328a9fd8e6369b2ae4ae217e582b6738a4449353bfd297934",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -1950,7 +1950,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "cd2abbe4d8033080b550c35ac1d828ba72c46dc48853dc809869b2365666f236",
+        "source_content_sha256": "93a04002f156bd2a2d59a79fe037121ab941f6905dedbba746b8f91ec35a011a",
         "relationship_evidence_sha256": "081fe57dd6255339d43a9c48595d814e5bc057d3da018537aea91542f8a4a0f0",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -2017,7 +2017,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "f02bd0ff36901732045832dc4da4827d4901342817196b0164637a091abada8a",
+        "source_content_sha256": "85dc5ba3146da03dee732454229c0938056b8021d5da4c0000716e5854b1febb",
         "relationship_evidence_sha256": "30d8a7629c6c5d2b11dfeec78c560bbb114eb4b65833f78d22aabede9f0c8f6c",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -2154,7 +2154,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "2c5d7f11d6e1eaecfb7279369c519c85ad16226c40efdc0cfd5c90af709682f2",
+        "source_content_sha256": "e5590fe1c1997109839dbbf64914924942fc289c6c23ae760db32e7cc0c40548",
         "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -2607,7 +2607,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "02b8a5a045e30aca6eab50e2d9c3334d832525b9d8a12b0d3dda2e58c7940298",
+        "source_content_sha256": "54c602658f7038c4628b7ed538060d0f0d27ab2f637d5db80fdf5472fec78df4",
         "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -2735,7 +2735,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "d1cfd1a685e0a358cf3c726ae481a1042d0392b722eb3406c430e886a8282e0a",
+        "source_content_sha256": "0dee4e4fbfb970841e0da47e3bd359c07ee1f98c7f807dc5af92a68e9ec9de6c",
         "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -3255,6 +3255,44 @@
       }
     },
     {
+      "asset_path": "backend/services/edgeD1Proof.js",
+      "source_state": "COMMITTED_REPOSITORY",
+      "surface_classes": [
+        "SCOUT_FIP_SURFACE",
+        "SERVICE"
+      ],
+      "reachability_state": "CANDIDATE",
+      "mount_paths": [],
+      "runtime_callers": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "backend/services/fipIntakeM2MAuthenticator.js",
+        "backend/services/fipIntakeService.js",
+        "backend/services/scoutContextHandoffProof.js",
+        "node:crypto",
+        "node:fs",
+        "node:path"
+      ],
+      "external_providers": [],
+      "environment_key_names": [],
+      "database_role": "NONE",
+      "database_objects": [],
+      "schedule_or_trigger": "",
+      "deployment_surface": "",
+      "governance_reachability_type": "NONE",
+      "governed_by_control_task_id": "ESA-001",
+      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
+      "evidence": [
+        "Static package/deployment/import/mount evidence."
+      ],
+      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
+      "relationship_evidence_provenance": {
+        "source_content_sha256": "31c0cd6d89e3a6ce46b4b66d6fa8adec9ef86701ca7d6410c41f08e6341b6daf",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
+        "captured_source_presence_state": "PRESENT_TRACKED"
+      }
+    },
+    {
       "asset_path": "backend/services/enhancedMatchDetailsService.js",
       "source_state": "PRE_EXISTING_MODIFIED",
       "surface_classes": [
@@ -3698,7 +3736,8 @@
       "runtime_consumers": [],
       "runtime_dependencies": [
         "backend/services/fipIntakeM2MAuthenticator.js",
-        "backend/services/fipIntakeService.js"
+        "backend/services/fipIntakeService.js",
+        "backend/services/scoutContextHandoffProof.js"
       ],
       "external_providers": [],
       "environment_key_names": [],
@@ -3714,7 +3753,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "28b6cd9b92cd20639cb76db7784723c5471ae9c9534283c8b246ecef1c767b88",
+        "source_content_sha256": "d295761b08d8a23975bd49188f1ff7dc07be7791f72780b003e00720ca89990e",
         "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -3752,7 +3791,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "43b76285b7942f839b141b91aa827cd424219c9476c8ac4400be8881d118fc29",
+        "source_content_sha256": "3baa62421714e4d28fd59307e97835573a4f884b8d071dc3843866b9f9dae04f",
         "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -3914,7 +3953,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "bc31b0439144b2a7441b6e8e229fea1863b83d6fe2ecd163f8691c669d4e871d",
+        "source_content_sha256": "2f5fcf7ed36e49668d8e0887b3055cc046462cf76aefbba19c397cc6ccf873ac",
         "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
@@ -4349,6 +4388,41 @@
       "relationship_evidence_provenance": {
         "source_content_sha256": "609a2b0878d475f02bb453c7b2d7976b7b648940c77c0e5ee8a171cd6af862c1",
         "relationship_evidence_sha256": "b92728ff68461e9f51dd53e45a6d68f7936f1a6fbb5b80ea37b5191354969457",
+        "captured_source_presence_state": "PRESENT_TRACKED"
+      }
+    },
+    {
+      "asset_path": "backend/services/scoutContextHandoffProof.js",
+      "source_state": "COMMITTED_REPOSITORY",
+      "surface_classes": [
+        "SCOUT_FIP_SURFACE",
+        "SERVICE"
+      ],
+      "reachability_state": "CANDIDATE",
+      "mount_paths": [],
+      "runtime_callers": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "backend/services/fipIntakeM2MAuthenticator.js",
+        "backend/services/fipIntakeService.js",
+        "node:crypto"
+      ],
+      "external_providers": [],
+      "environment_key_names": [],
+      "database_role": "NONE",
+      "database_objects": [],
+      "schedule_or_trigger": "",
+      "deployment_surface": "",
+      "governance_reachability_type": "NONE",
+      "governed_by_control_task_id": "ESA-001",
+      "next_validation": "Revalidate runtime reachability and relationships during the next governed Edge architecture review.",
+      "evidence": [
+        "Static package/deployment/import/mount evidence."
+      ],
+      "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
+      "relationship_evidence_provenance": {
+        "source_content_sha256": "8a173b8e468073b059295910e852d632b85b9a77cc55ddb0685446c296732abe",
+        "relationship_evidence_sha256": "accd4fc53fb718e971a854e22133cb3308286e84c2d070b03fc1c1b45f4925aa",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }
     },
@@ -5239,7 +5313,7 @@
       ],
       "notes": "Current-state inventory evidence only; this record does not declare future Edge architecture.",
       "relationship_evidence_provenance": {
-        "source_content_sha256": "40d28f0d4f0f61984cd2e24ec1c479bef8098b4fc2c62c29dd8834ef31d0bd6f",
+        "source_content_sha256": "ed88245c85e3cafefe2f1d710e05971086c71897fa9189c9a7305ef016bf5473",
         "relationship_evidence_sha256": "bfec5297138b7770aaa6d169c0d166b4eedb837d2dfacb4ee10ce67e634c0f01",
         "captured_source_presence_state": "PRESENT_TRACKED"
       }

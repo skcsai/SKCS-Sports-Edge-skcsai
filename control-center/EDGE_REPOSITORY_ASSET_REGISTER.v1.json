@@ -5,8 +5,8 @@
   "source_command": "git ls-files",
   "coverage_policy": "Every tracked repository path must be REGISTERED_ASSET or EXPLICITLY_EXCLUDED. Registration records existence and governance visibility; it does not assert correctness, currency, approval, permanence, consumer presence, or Scout/FIP compatibility.",
   "unclassified_tracked_paths_allowed": false,
-  "tracked_path_count": 1082,
-  "registered_asset_count": 1081,
+  "tracked_path_count": 1091,
+  "registered_asset_count": 1090,
   "explicit_exclusion_count": 1,
   "assets": [
     {
@@ -37017,6 +37017,384 @@
       "classification_evidence": [
         "6/6 focused tests PASS on 2026-11-08.",
         "Scans public assets and supabase-js calls for forbidden target-table access."
+      ]
+    },
+    {
+      "asset_path": "backend/services/scoutContextHandoffProof.js",
+      "asset_type": "SOURCE_CODE",
+      "asset_role": "APPLICATION_SOURCE",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "ACTIVE_GOVERNANCE",
+      "current_state": "CURRENT",
+      "owner_project_id": "EFI-002",
+      "governed_by_control_task_id": "EFI-002",
+      "related_assets": [
+        "backend/services/governedFipIntakeAdapter.js",
+        "tests/scout-context-handoff-proof.test.js"
+      ],
+      "related_tables": [],
+      "related_functions": [
+        "validManifest",
+        "readVerifiedProof"
+      ],
+      "runtime_consumers": [
+        "backend/services/governedFipIntakeAdapter.js"
+      ],
+      "runtime_dependencies": [
+        "backend/services/fipIntakeService.js",
+        "backend/services/fipIntakeM2MAuthenticator.js"
+      ],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "APPROVED",
+      "next_validation": "Run the cross-repository proof with SKCS_SCOUT_PROOF_ROOT pointing at the paired Scout checkout.",
+      "notes": "Injected bounded proof reader. No route, URL resolution, prediction or persistence.",
+      "purpose_description": "Verifies an authenticated proof manifest and digest-bound Scout evidence without a production reader.",
+      "functional_group": "BACKEND_RUNTIME",
+      "relationship_tags": [
+        "SERVICE",
+        "GOVERNANCE"
+      ],
+      "classification_evidence": [
+        "Digest and size verification",
+        "Prematch and cutoff checks",
+        "Proof-only consumption"
+      ]
+    },
+    {
+      "asset_path": "tests/scout-context-handoff-proof.test.js",
+      "asset_type": "TEST",
+      "asset_role": "CONTROL_AUDIT",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "EFI-002",
+      "governed_by_control_task_id": "EFI-002",
+      "related_assets": [
+        "backend/services/scoutContextHandoffProof.js",
+        "backend/services/governedFipIntakeComposition.js"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "backend/services/governedFipIntakeComposition.js"
+      ],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "APPROVED",
+      "next_validation": "Run the cross-repository proof with SKCS_SCOUT_PROOF_ROOT pointing at the paired Scout checkout.",
+      "notes": "Cross-repository historical proof with injected fixtures and no external connection.",
+      "purpose_description": "Replays the actual Scout fixture through governed Edge intake with no database access.",
+      "functional_group": "TEST_PROOF",
+      "relationship_tags": [
+        "TEST_PROOF",
+        "GOVERNANCE"
+      ],
+      "classification_evidence": [
+        "Authenticated manifest",
+        "Preserves 60 player records",
+        "Zero downstream writes"
+      ]
+    },
+    {
+      "asset_path": "backend/services/edgeD1Proof.js",
+      "asset_type": "SOURCE_CODE",
+      "asset_role": "APPLICATION_SOURCE",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "ACTIVE_GOVERNANCE",
+      "current_state": "CURRENT",
+      "owner_project_id": "EPI-001-D1-M1",
+      "governed_by_control_task_id": "EPI-001-D1-M1",
+      "related_tables": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "APPROVED",
+      "next_validation": "Replay the authenticated local historical fixture with SKCS_SCOUT_PROOF_ROOT set to the paired Scout proof checkout.",
+      "related_assets": [
+        "backend/config/edgeD1Rulebook.v2.json",
+        "tests/scout-context-handoff-proof.test.js",
+        "backend/services/scoutContextHandoffProof.js"
+      ],
+      "related_functions": [
+        "runEdgeD1Proof",
+        "runSealedEdgeD1Proof",
+        "verifyEdgeD1Seal"
+      ],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "backend/services/fipIntakeService.js",
+        "backend/services/scoutContextHandoffProof.js",
+        "backend/config/edgeD1Rulebook.v2.json",
+        "backend/services/fipIntakeM2MAuthenticator.js"
+      ],
+      "notes": "Read-only offline replay caller. No route, worker, provider or persistence.",
+      "purpose_description": "Calculates a private historical Edge D1 result from authenticated Scout facts using the pinned v2 rulebook.",
+      "functional_group": "BACKEND_RUNTIME",
+      "relationship_tags": [
+        "SERVICE",
+        "GOVERNANCE"
+      ],
+      "classification_evidence": [
+        "Authenticated context proof",
+        "Exact shared rulebook digest",
+        "Local replay only",
+        "Local immutable seal verification requires the original independently held commitment ID."
+      ]
+    },
+    {
+      "asset_path": "backend/config/edgeD1Rulebook.v2.json",
+      "asset_type": "CONFIG",
+      "asset_role": "APPLICATION_SOURCE",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "ACTIVE_GOVERNANCE",
+      "current_state": "CURRENT",
+      "owner_project_id": "EPI-001-D1-M1",
+      "governed_by_control_task_id": "EPI-001-D1-M1",
+      "related_tables": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "APPROVED",
+      "next_validation": "Replay the authenticated local historical fixture with SKCS_SCOUT_PROOF_ROOT set to the paired Scout proof checkout.",
+      "related_assets": [
+        "backend/services/edgeD1Proof.js",
+        "tests/scout-context-handoff-proof.test.js"
+      ],
+      "related_functions": [],
+      "runtime_consumers": [
+        "backend/services/edgeD1Proof.js"
+      ],
+      "runtime_dependencies": [],
+      "notes": "Exact copy of Scout CC-NSCS-040 v2 rulebook at commit 4987d77. Rule changes require dual governance.",
+      "purpose_description": "Supplies governed Premier League model parameters and Double Chance eligibility for Edge D1 proof.",
+      "functional_group": "GOVERNANCE",
+      "relationship_tags": [
+        "CONFIGURATION",
+        "GOVERNANCE"
+      ],
+      "classification_evidence": [
+        "Pinned SHA-256 over UTF-8 with LF line endings",
+        "Verified at load"
+      ]
+    },
+    {
+      "asset_path": "backend/services/scoutEvidenceBaseline.js",
+      "asset_type": "SOURCE_CODE",
+      "asset_role": "APPLICATION_SOURCE",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "ACTIVE_GOVERNANCE",
+      "current_state": "CURRENT",
+      "owner_project_id": "EPI-001-I2",
+      "governed_by_control_task_id": "EPI-001-I2",
+      "related_assets": [
+        "backend/services/aiPipeline.js",
+        "backend/services/direct1x2Engine.js",
+        "tests/epi-001-i1-scout-evidence-baseline.test.js"
+      ],
+      "related_tables": [],
+      "related_functions": [
+        "deriveScoutEvidenceBaseline",
+        "seasonStrength",
+        "recentFormPoints"
+      ],
+      "runtime_consumers": [
+        "tests/epi-001-i1-scout-evidence-baseline.test.js"
+      ],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "APPROVED",
+      "next_validation": "Run node --test tests/epi-001-i1-scout-evidence-baseline.test.js plus EPI/P1-B01 regression after any Scout evidence baseline rule change.",
+      "notes": "Pure Edge-owned EPI-001-I2 baseline scorer. It performs no network, provider, database, AI or publication action and has no production runtime caller in this proof project.",
+      "purpose_description": "Derives a deterministic Premier League 1X2 baseline prediction key and confidence from verified Scout season evidence while preserving fail-closed evidence boundaries.",
+      "functional_group": "BACKEND_RUNTIME",
+      "relationship_tags": [
+        "SERVICE",
+        "PREDICTION",
+        "SCOUT",
+        "GOVERNANCE"
+      ],
+      "classification_evidence": [
+        "Uses only verified Scout season record and goals for baseline-v1.",
+        "Requires package SHA-256 and pre-kickoff prediction cutoff.",
+        "Rejects Scout odds/prediction execution and preserves EDGE_CONSUME_NO_RECOMPUTE.",
+        "No provider, AI fallback, database or network dependency."
+      ]
+    },
+    {
+      "asset_path": "tests/epi-001-i1-scout-evidence-baseline.test.js",
+      "asset_type": "TEST",
+      "asset_role": "TEST_PROOF",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "EPI-001-I2",
+      "governed_by_control_task_id": "EPI-001-I2",
+      "related_assets": [
+        "backend/services/scoutEvidenceBaseline.js",
+        "backend/services/aiPipeline.js",
+        "backend/services/direct1x2Engine.js",
+        "tests/p1-b01-configured-fip-input.test.js",
+        "tests/epi-001-d1-r1-provenance.test.js"
+      ],
+      "related_tables": [],
+      "related_functions": [
+        "deriveScoutEvidenceBaseline",
+        "deriveWaterfallProbabilities",
+        "evaluateDirect1x2"
+      ],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "node:test",
+        "node:assert/strict",
+        "backend/services/scoutEvidenceBaseline.js",
+        "backend/services/aiPipeline.js",
+        "backend/services/direct1x2Engine.js"
+      ],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "TESTED",
+      "next_validation": "Run this focused test plus P1-B01 and EPI-001-D1-R1 regressions after any EPI-001-I1 baseline or test-only waterfall exposure change.",
+      "notes": "Isolated proof stubs both database modules and blocks HTTP/HTTPS/fetch before loading aiPipeline. No real database or network access is required.",
+      "purpose_description": "Proves fail-closed Scout provenance/cutoff boundaries, deterministic evidence-only baseline scoring, and consumption by the existing Edge waterfall and direct 1X2 engines.",
+      "functional_group": "TEST_PROOF",
+      "relationship_tags": [
+        "TEST_PROOF",
+        "PREDICTION",
+        "SCOUT",
+        "GOVERNANCE"
+      ],
+      "classification_evidence": [
+        "Fails closed without package hash or valid pre-kickoff cutoff.",
+        "Fails closed if Scout odds or prediction execution are enabled.",
+        "Proves Crystal Palace-Liverpool produces an evidence-derived away baseline.",
+        "Proves existing waterfall and direct1x2 engines consume the baseline under isolated dependencies."
+      ]
+    },
+    {
+      "asset_path": "backend/governance/soccer-governor/registry.v1.json",
+      "asset_type": "CONFIG",
+      "asset_role": "APPLICATION_SOURCE",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "ACTIVE_GOVERNANCE",
+      "current_state": "CURRENT",
+      "owner_project_id": "SOCCER-GOV-001",
+      "governed_by_control_task_id": "SOCCER-GOV-001",
+      "related_tables": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "APPROVED",
+      "next_validation": "Run tests/soccer-gov-001.test.js with the paired Scout and Edge roots plus the sealed comparison regression.",
+      "related_assets": [
+        "backend/services/edgeD1Proof.js",
+        "backend/governance/soccer-governor/registry.v1.json"
+      ],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "notes": "Pinned distribution of the canonical Scout Premier League compatibility registry.",
+      "purpose_description": "Pinned distribution of the canonical Scout Premier League compatibility registry.",
+      "functional_group": "GOVERNANCE",
+      "relationship_tags": [
+        "CONFIGURATION",
+        "GOVERNANCE"
+      ],
+      "classification_evidence": [
+        "SOCCER-GOV-001 exact scope",
+        "Pinned canonical registry fingerprint",
+        "Paired consumer byte parity and scoreline truth-table proof"
+      ]
+    },
+    {
+      "asset_path": "backend/governance/soccer-governor/governor.js",
+      "asset_type": "SOURCE_CODE",
+      "asset_role": "APPLICATION_SOURCE",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "ACTIVE_GOVERNANCE",
+      "current_state": "CURRENT",
+      "owner_project_id": "SOCCER-GOV-001",
+      "governed_by_control_task_id": "SOCCER-GOV-001",
+      "related_tables": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "APPROVED",
+      "next_validation": "Run tests/soccer-gov-001.test.js with the paired Scout and Edge roots plus the sealed comparison regression.",
+      "related_assets": [
+        "backend/services/edgeD1Proof.js",
+        "backend/governance/soccer-governor/registry.v1.json"
+      ],
+      "related_functions": [
+        "evaluateSelections",
+        "reviewDifferences",
+        "isPremierLeague"
+      ],
+      "runtime_consumers": [],
+      "runtime_dependencies": [
+        "backend/governance/soccer-governor/registry.v1.json"
+      ],
+      "notes": "Shared pure market compatibility and review evaluator. Forecast calculations belong to the independent model modules.",
+      "purpose_description": "Shared pure market compatibility and review evaluator. Forecast calculations belong to the independent model modules.",
+      "functional_group": "BACKEND_RUNTIME",
+      "relationship_tags": [
+        "SERVICE",
+        "GOVERNANCE"
+      ],
+      "classification_evidence": [
+        "SOCCER-GOV-001 exact scope",
+        "Pinned canonical registry fingerprint",
+        "Paired consumer byte parity and scoreline truth-table proof"
+      ]
+    },
+    {
+      "asset_path": "tests/soccer-gov-001.test.js",
+      "asset_type": "TEST",
+      "asset_role": "CONTROL_AUDIT",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "ACTIVE_AUDIT",
+      "current_state": "CURRENT",
+      "owner_project_id": "SOCCER-GOV-001",
+      "governed_by_control_task_id": "SOCCER-GOV-001",
+      "related_assets": [
+        "backend/services/edgeD1Proof.js",
+        "backend/governance/soccer-governor/registry.v1.json"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "APPROVED",
+      "next_validation": "Run tests/soccer-gov-001.test.js with the paired Scout and Edge roots plus the sealed comparison regression.",
+      "notes": "Joint registry parity and exhaustive logical compatibility regression proof.",
+      "purpose_description": "Joint registry parity and exhaustive logical compatibility regression proof.",
+      "functional_group": "TEST_PROOF",
+      "relationship_tags": [
+        "TEST_PROOF",
+        "GOVERNANCE"
+      ],
+      "classification_evidence": [
+        "SOCCER-GOV-001 exact scope",
+        "Pinned canonical registry fingerprint",
+        "Paired consumer byte parity and scoreline truth-table proof"
       ]
     }
   ],

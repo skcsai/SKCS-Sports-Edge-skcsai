@@ -1578,8 +1578,26 @@ async function buildRawPredictionFromProviderItem(item) {
         prediction: canonicalInput.prediction || null,
         confidence: canonicalInput.confidence,
         raw_provider_data: canonicalInput.raw_provider_data || matchContext.raw_provider_data || null,
+        sharp_odds: canonicalInput.sharp_odds || matchContext.sharp_odds || item.sharp_odds || null,
         metadata: canonicalInput.metadata || matchContext.metadata || null
     });
+
+    const scoutScoringSource = String(scoring?.source || '').trim().toLowerCase();
+    if (isScoutFipMode && (scoutScoringSource === 'fallback' || scoutScoringSource === 'dolphin')) {
+        pipelineLogger.rejectionAdd({
+            run_id: telemetryRunId,
+            sport,
+            bucket: 'validation_reject',
+            reason: 'insufficient_governed_prediction_signal',
+            metadata: { match_id, scoring_source: scoutScoringSource }
+        });
+        return {
+            rejected: true,
+            reason: 'insufficient_governed_prediction_signal',
+            rejection_code: 'EPI_D1_GOVERNED_SIGNAL_REQUIRED',
+            scoring_source: scoutScoringSource
+        };
+    }
 
     const providerPrediction = normalizePrediction(canonicalInput.prediction || matchContext.prediction);
     const predictionSource = providerPrediction ? 'provider' : 'ai_fallback';
@@ -2593,6 +2611,9 @@ module.exports = {
         applyFootballH2HEnrichment,
         resolveConfiguredPredictionInput,
         buildConfiguredInputRejection,
-        buildGovernedFipProvenanceMetadata
+        buildGovernedFipProvenanceMetadata,
+        deriveWaterfallProbabilities,
+        buildDirect1x2MatchContext,
+        buildRawPredictionFromProviderItem
     }
 };
