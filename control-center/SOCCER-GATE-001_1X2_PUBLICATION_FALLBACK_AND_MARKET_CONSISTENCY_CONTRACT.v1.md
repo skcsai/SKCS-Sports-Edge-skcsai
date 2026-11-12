@@ -104,3 +104,19 @@ SOCCER-GATE-001 is TESTED only when:
 7. Focused tests cover boundary values, promotion, veto, customer choice, contradictions and no-fabrication.
 8. Existing website/authentication/pre-kickoff protections remain green.
 9. Preview and custom-domain verification pass before closure.
+
+
+## Final source closeout — TESTED / HOLD
+Source/governance implementation is TESTED on 12 November 2026.
+
+Evidence:
+- 74/74 focused website, Governor and Control Center ledger tests PASS.
+- Control Center checker PASS.
+- 73.22% review-band example remains 73.22% and qualifies only with two distinct independent governed supports.
+- Synthetic secondary confidence defaults are disabled.
+- False contradiction between Draw and BTTS Yes is repaired.
+- Customer market order is live as 1X2 → Secondary Outcomes → Same Match Bet → Double Chance & Combinations.
+- Production deployment `dpl_9RXH9Xi7Vutq61QNTuvfaunJG6Xk` is READY on both custom domains and signed-out private evidence remains blocked.
+
+Activation boundary:
+The Governor contract recognizes player-v-player H2H, referee-v-team interaction, weather and tactical evidence as potential review-band corroboration, but no such factor may count unless its governed evidence contract, provenance, quality and independence-from-model status are proven. Player-v-player H2H and referee-v-team transport are not yet live. Weather was upstream-absent in EPRV-001-C4. Therefore contextual 70-<75% promotion remains fail-closed until separately authorized evidence work is completed.
