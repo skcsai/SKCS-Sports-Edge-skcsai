@@ -423,11 +423,12 @@
     return wrap;
   }
 
-  function renderMarketCatalogue(f,tab,title,intro){
+  function renderMarketCatalogue(f,tab,title,intro,excludeIds){
     var section=node('div');
     section.appendChild(node('h3',title,'fixture-probabilities__title'));
     if(intro)section.appendChild(node('p',intro,'fixture-evidence'));
-    var families=registryFamilies(tab);
+    var excluded=new Set(Array.isArray(excludeIds)?excludeIds:[]);
+    var families=registryFamilies(tab).filter(function(family){return !excluded.has(family.id);});
     if(!families.length){
       section.appendChild(renderUnavailableMarket(title,'The canonical football market registry could not be loaded for this tab.'));
       return section;
@@ -479,12 +480,7 @@
       grid.appendChild(marketProbabilityCard(item.code,item.label,item.value,false));
     });
     section.appendChild(grid);
-    section.appendChild(node('p','Standard Double Chance is derived exactly from the sealed mutually exclusive 1X2 probabilities: 1X = 1 + X, 12 = 1 + 2, X2 = X + 2.','fixture-evidence'));
-    section.appendChild(renderUnavailableMarket(
-      'Double Chance combinations',
-      'Double Chance + goals and Double Chance + BTTS require their own saved joint probabilities. Those joint outputs were not stored in this Nations League canary.',
-      'Examples reserved for governed evidence: 1X + Over/Under goals · X2 + BTTS Yes/No · 12 + Over/Under goals.'
-    ));
+    section.appendChild(node('p','Standard Double Chance is derived exactly from the sealed mutually exclusive 1X2 probabilities: 1X = 1 + X, 12 = 1 + 2, X2 = X + 2. Combination probabilities appear below only when a governed joint pre-match projection was saved.','fixture-evidence'));
     return section;
   }
 
@@ -532,7 +528,8 @@
         var dc=renderDoubleChanceMarket(f,probs);
         dc.appendChild(renderMarketCatalogue(
           f,'DOUBLE_CHANCE_AND_COMBINATIONS','Double Chance combination catalogue',
-          'Standard 1X / 12 / X2 is available above. Combination percentages require their own governed joint-event evidence.'
+          'Standard 1X / 12 / X2 is available above. Combination percentages below come from the saved joint pre-match model.',
+          ['double_chance_standard']
         ));
         panel.appendChild(dc);
       }
