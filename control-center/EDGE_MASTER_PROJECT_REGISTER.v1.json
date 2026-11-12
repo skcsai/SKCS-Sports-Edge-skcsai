@@ -4132,7 +4132,7 @@
       "category": "Football public-readiness markets",
       "description": "Establish one complete governed football market catalogue across 1X2, Secondary Outcomes, Same Match Bet, and Double Chance & Combinations, with market-specific probability semantics and evidence/H2H mapping.",
       "why_it_matters": "The current repository has fragmented market definitions and some legacy heuristic scorers; public release requires one source of truth and truthful probabilities for every market shown to customers.",
-      "current_status": "HOLD",
+      "current_status": "BLOCKED",
       "priority": "critical",
       "startable": false,
       "blocked_by": [
@@ -4198,7 +4198,7 @@
         "H2H/context evidence could be applied to the wrong type of outcome."
       ],
       "recommended_order": 62,
-      "next_action": "HOLD for EDGE-AZURE-CUTOVER-001. Resume market catalogue work only after Azure production cutover closes.",
+      "next_action": "BLOCKED by EDGE-AZURE-CUTOVER-001. Resume market catalogue work only after Azure production cutover closes.",
       "owner_note": "Stephen requires complete market-family treatment, not example-driven additions.",
       "last_updated": "2026-11-12",
       "governed_by_control_task_id": "SOCCER-MARKETS-001",
