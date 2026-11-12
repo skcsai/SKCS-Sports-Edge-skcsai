@@ -73,19 +73,10 @@ Definition of Done: Exact version/hash-verified Azure snapshot and prediction ba
 
 Closure: TESTED on 12 November 2026. Rolling 8-day lifecycle Hub restored over real saved evidence; all 38 accepted fixtures expose the sealed 1/X/2 probability split through a hash-pinned private Vercel projection; focused suite 11/11 PASS; production deployment dpl_9r9asVUnawjznjSFcDToD2DZBNKp READY on skcsai.co.za and www.skcsai.co.za; signed-out evidence remains blocked. Further customer prediction-market expansion is separate work.
 
-## SOCCER-WEB-002 — IN_PROGRESS
+## SOCCER-WEB-002 — TESTED
 
-Add four operational fixture-detail market tabs: **1X2**, **Same Match Bet**, **Secondary Outcomes**, and **Double Chance & Combinations**.
-
-Start point: SOCCER-WEB-001 TESTED at production commit `784d396aa52e6c1fc8e33263cea6d78f71a43b33`.
-
-Scope law:
-- Preserve the existing sealed 1X2 display unchanged.
-- Standard Double Chance (1X, X2, 12) may be derived only by adding the mutually exclusive sealed 1X2 probabilities.
-- Same Match Bet, secondary and other combination markets may display only real governed pre-match probabilities already saved for the fixture.
-- Never infer joint probability by multiplying or otherwise combining marginal percentages.
-- When evidence is absent, the tab remains operational but must say the market was not saved for this canary.
-- Preserve Microsoft owner-only access, existing HOLD gates, pre-kickoff law, lifecycle stages, home page and unrelated systems.
+Four operational fixture-detail market tabs: **1X2**, **Same Match Bet**, **Secondary Outcomes**, and **Double Chance & Combinations**.
 
 Definition of Done: exactly four accessible tabs operate in the fixture detail; 1X2 is unchanged; Double Chance displays exact derived 1X/X2/12 values; unsupported Same Match Bet/Secondary/combination outputs fail closed with plain-language unavailable status; no mock fallback; focused tests and live custom-domain verification pass.
 
+Closure: TESTED on 12 November 2026. Production deployment `dpl_HfAL9BFedQbeRCt4UzFuhbMxh214` is READY on `skcsai.co.za` and `www.skcsai.co.za`. Focused website tests 14/14 PASS; JavaScript syntax PASS; Control Center checker PASS. Standard Double Chance is derived only from sealed 1X2 probabilities. Unsupported joint markets are not fabricated and remain unavailable until a separately governed pre-match market pipeline saves them.
