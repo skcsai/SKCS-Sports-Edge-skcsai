@@ -71,6 +71,15 @@ test('linked Microsoft customer identity is supplied by runtime secrets and fail
   });
 });
 
+test('Azure auth profile route reuses the shared verifier and restricted PostgreSQL path', () => {
+  const source = read('api/auth/me.js');
+  assert.match(source, /validateMicrosoftToken/);
+  assert.match(source, /getLinkedIdentityConfig/);
+  assert.match(source, /getProfileById/);
+  assert.doesNotMatch(source, /SUPABASE_SERVICE_ROLE_KEY|SERVICE_ROLE_KEY|createClient/);
+  assert.doesNotMatch(source, /EXPECTED_MICROSOFT_OBJECT_ID|EDGE_PROFILE_ID|EXPECTED_EMAIL/);
+});
+
 test('C14 restricted subscription view is enabled only with canary startup', () => {
   const source = read('backend/database.js');
   assert.match(source, /SKCS_C14_LINKED_SUBSCRIPTIONS/);

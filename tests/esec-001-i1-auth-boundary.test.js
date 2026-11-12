@@ -87,7 +87,7 @@ test('ESEC-001-I1 core auth source is fail-closed', () => {
     assert.doesNotMatch(predictions, /isHardcodedAdmin/);
     assert.match(
         predictions,
-        /router\.get\('\/', requireSupabaseUser, requireActiveSubscription,/
+        /router\.get\('\/', requirePredictionsUser, requireActiveSubscription,/
     );
     assert.match(
         v1Predictions,
