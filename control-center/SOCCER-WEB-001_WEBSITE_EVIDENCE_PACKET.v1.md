@@ -71,3 +71,19 @@ Exact remaining action: provision the validated probability projection as sensit
 - Focused isolated tests remain 11/11 PASS. No fixture recollection, scoring rerun, Shadow call, API-SPORTS call, production prediction write or database mutation occurred.
 
 Production publication may now proceed only by non-force fast-forward from the previously verified production base `69c938c4c1919ae3fcdd61a82b742632a2c6f71d`, provided canonical main is still identical to that base.
+
+
+## Final closeout — TESTED
+
+SOCCER-WEB-001 is closed as **TESTED** on 12 November 2026.
+
+- Canonical publication advanced by non-force fast-forward only after main was proven identical to the verified production base.
+- Production deployment `dpl_9r9asVUnawjznjSFcDToD2DZBNKp` is READY from commit `99f989e878414d27dd17b419fd6fc695cc3955f9` and mapped to both `skcsai.co.za` and `www.skcsai.co.za`.
+- Live custom-domain delivery proves the rolling day-tabs, Lifecycle Funnel Summary, full `Expected 1X2 outcome` UI, `outcome_probabilities_pct` consumer and separate `governed confidence` label are present.
+- Live signed-out evidence access remains blocked by the existing Microsoft-owner boundary.
+- The 38 probability triplets are derived only from the original sealed pre-match Edge decisions. No forecast was recalculated after kickoff.
+- Existing 14 HOLD outcomes remain unchanged and no held fixture receives a fabricated 1X2 distribution.
+- No API-SPORTS calls, Shadow reruns, SQL writes, prediction writes, customer-auth changes, home-page changes, production/marriage-gate changes or unrelated repairs were performed in the 1X2 visibility repair.
+- Control Center canonical task/register/backlog/dependency views are synchronized to TESTED / closed.
+
+Definition of Done is satisfied for the authorized website evidence visibility mini-project. Any expansion into additional customer prediction markets or new production prediction behavior requires a separate governed mini-project.
