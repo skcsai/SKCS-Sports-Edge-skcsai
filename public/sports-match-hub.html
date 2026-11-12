@@ -1,53 +1,157 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
- <title>Sports Match Hub — SKCS AI</title>
- <meta name="description" content="Private review of saved pre-match Nations League test evidence.">
- <meta name="robots" content="noindex,nofollow"><link rel="icon" href="data:,">
- <link href="css/sports-match-hub.css" rel="stylesheet">
- <style>
- .smh-evidence-notice{padding:16px;border:1px solid #946f2a;background:#302919;border-radius:10px;margin:16px 0;line-height:1.6}
- .smh-evidence-scroll{overflow-x:auto}.smh-evidence-scroll table{width:100%;border-collapse:collapse;min-width:800px}
- .smh-evidence-scroll th,.smh-evidence-scroll td{padding:14px 10px;text-align:left;border-bottom:1px solid #29384e;vertical-align:top}
- .smh-evidence-scroll p{margin:0 0 8px}.smh-evidence-scroll th{color:#97a9be}.smh-evidence-scroll td:last-child{min-width:265px}
- #lifecycle-funnel{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
- .smh-funnel-stage{padding:16px;background:#152031;border:1px solid #29384e;border-radius:10px;display:flex;flex-direction:column;gap:10px}
- .smh-funnel-stage strong{font-size:28px;color:#f4f7fa}.smh-funnel-stage span{color:#aab9ca}
- .smh-evidence-filters{display:flex;gap:16px;flex-wrap:wrap;margin:20px 0}.smh-evidence-filters label{display:flex;flex-direction:column;gap:7px;flex:1;min-width:180px}
- #fixture-panel{padding:16px 0}#fixture-panel h2{margin-top:0}#fixture-panel p{line-height:1.5}
- #freshness-indicator{line-height:1.6}#evidence-fingerprints{overflow-wrap:anywhere;font-size:12px;line-height:1.8;color:#91a2b8}
- #lifecycle-funnel:empty{display:none}[hidden]{display:none!important}
- @media(max-width:600px){#lifecycle-funnel{grid-template-columns:repeat(2,minmax(0,1fr))}}
- </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sports Match Hub — SKCS AI</title>
+  <meta name="description" content="Private governed football fixture lifecycle review in South Africa (SAST).">
+  <meta name="robots" content="noindex,nofollow">
+  <link rel="icon" href="data:,">
+  <link href="css/sports-match-hub.css" rel="stylesheet">
+  <style>
+    .smh-evidence-notice{padding:.75rem 1rem;border:1px solid #946f2a;background:#302919;border-radius:10px;line-height:1.55;margin:0}
+    .smh-evidence-fingerprints{overflow-wrap:anywhere;font-size:.72rem;line-height:1.6;color:#91a2b8}
+    .fixture-evidence{font-size:.76rem;color:#91a2b8;line-height:1.45;margin-top:.35rem}
+    .fixture-detail__note{padding:.65rem .75rem;border:1px solid var(--smh-border);background:var(--smh-panel);border-radius:var(--smh-radius);color:var(--smh-muted);font-size:.8rem}
+  </style>
 </head>
 <body class="smh-page">
- <a class="smh-skip" href="#smh-main">Skip to main content</a>
- <header class="smh-header"><div class="smh-header__inner">
-  <a class="smh-logo" href="index.html">SKCS AI Sports Edge</a>
-  <nav class="site-nav" aria-label="Primary"><a href="index.html">Home</a><a href="sports-match-hub.html" aria-current="page">Sports Match Hub</a><a href="accuracy.html">Match Intelligence</a><a id="hub-account-link" href="login.html?next=sports-match-hub.html">Login</a></nav>
- </div></header>
- <main class="smh-main" id="smh-main">
-  <section class="smh-hub-header" aria-labelledby="smh-title">
-   <div><h1 id="smh-title">Sports Match Hub</h1><p>UEFA Nations League · Saved test evidence</p></div>
-   <div class="smh-hub-header__actions"><div class="smh-system-status" role="status"><span id="system-status-text">Checking access</span></div><button class="btn btn--outline" type="button" id="refresh-evidence">Refresh evidence</button></div>
-  </section>
-  <p class="smh-evidence-notice" id="evidence-notice">Private owner review of real saved test records. These uncalibrated test forecasts are separate from production predictions. Sign in to view the evidence.</p>
-  <section aria-label="Verified batch counts"><div id="lifecycle-funnel"></div></section>
-  <section class="smh-evidence-filters" id="hub-filters" hidden aria-label="Fixture filters">
-   <label>Kickoff date (SAST)<select class="smh-control-select" id="filter-date"><option value="">All saved fixture dates</option></select></label>
-   <label>Decision<select class="smh-control-select" id="filter-lifecycle"><option value="">All decisions</option><option value="SAVED_PREMATCH">Saved pre-match forecasts</option><option value="HELD">On hold</option></select></label>
-   <label>Team search<input class="smh-control-input" type="search" id="filter-team" autocomplete="off" placeholder="Team name"></label>
-  </section>
-  <section class="smh-fixtures-panel" aria-label="Saved fixture evidence">
-   <div class="smh-meta"><span id="result-count" aria-live="polite"></span><span id="freshness-indicator"></span></div>
-   <div id="fixture-panel" role="region" aria-live="polite"><p>Checking access to saved test evidence…</p></div>
-   <noscript>JavaScript is required to authenticate and display saved evidence. No sample data is shown.</noscript>
-  </section>
-  <p id="evidence-fingerprints"></p>
-  <p>Saved pre-match forecasts remain linked to Pending records until actual results are verified. A refresh reads the same saved batch; it does not recalculate predictions or collect new match data.</p>
- </main>
- <footer class="smh-footer"><p>Times shown in SAST (Africa/Johannesburg). Private test evidence — not a production prediction release.</p><p><a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></p></footer>
- <script src="js/sports-match-hub-evidence.js"></script>
+  <a class="smh-skip" href="#smh-main">Skip to main content</a>
+
+  <header class="smh-header">
+    <div class="smh-header__inner">
+      <a class="smh-logo" href="index.html">SKCS AI Sports Edge</a>
+      <button type="button" class="smh-nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">Menu</button>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="sports-match-hub.html" aria-current="page">Sports Match Hub</a>
+        <a href="accuracy.html">Match Intelligence</a>
+        <a href="subscribe">Subscribe</a>
+        <a id="hub-account-link" href="login.html?next=sports-match-hub.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="smh-main" id="smh-main">
+    <div class="smh-dashboard-layout">
+      <div class="smh-dashboard">
+        <section class="smh-hub-header" aria-labelledby="smh-title">
+          <div class="smh-hub-header__brand">
+            <h1 id="smh-title">Sports Match Hub</h1>
+            <p class="smh-hub-header__subtitle"><span class="smh-hub-header__brand-icon" aria-hidden="true"></span>UEFA Nations League · Real saved test evidence</p>
+          </div>
+          <div class="smh-hub-header__actions">
+            <div class="smh-system-status" role="status">
+              <span class="smh-system-status__label">STATUS</span>
+              <span class="smh-system-status__value" id="system-status-text">Checking access</span>
+              <span class="smh-system-status__dot" aria-hidden="true"></span>
+            </div>
+            <button type="button" class="btn btn--outline" id="refresh-evidence">Refresh evidence</button>
+          </div>
+        </section>
+
+        <p class="smh-evidence-notice" id="evidence-notice">Private owner review of the saved SOCCER-UNL-001 canary. This page reads verified evidence only; it does not create forecasts or update match results.</p>
+
+        <section class="smh-control-strip" id="hub-controls" hidden aria-label="Hub controls">
+          <div class="smh-control-group" data-control="1">
+            <span class="smh-control-group__number" aria-hidden="true">1</span>
+            <label class="smh-control-group__label" for="control-sport">Sport</label>
+            <select id="control-sport" class="smh-control-select" disabled aria-disabled="true"><option selected>Football</option></select>
+          </div>
+
+          <div class="smh-control-group" data-control="2">
+            <span class="smh-control-group__number" aria-hidden="true">2</span>
+            <label class="smh-control-group__label" for="filter-competition">Competition</label>
+            <select id="filter-competition" class="smh-control-select" disabled aria-disabled="true"><option selected>UEFA Nations League</option></select>
+          </div>
+
+          <div class="smh-control-group smh-control-group--days" data-control="3">
+            <span class="smh-control-group__number" aria-hidden="true">3</span>
+            <span class="smh-control-group__label" id="day-tabs-label">Date — Rolling 8-Day Window</span>
+            <div class="day-tabs" id="day-tabs" role="tablist" aria-labelledby="day-tabs-label"></div>
+          </div>
+
+          <div class="smh-control-group" data-control="4">
+            <span class="smh-control-group__number" aria-hidden="true">4</span>
+            <label class="smh-control-group__label" for="filter-lifecycle">View — Lifecycle State</label>
+            <select id="filter-lifecycle" class="smh-control-select">
+              <option value="">All governed states</option>
+              <option value="FINAL_APPROVED">Review Complete</option>
+              <option value="HELD">On Hold</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="smh-controls-secondary" id="secondary-controls" hidden aria-label="Additional filters">
+          <button type="button" class="smh-filter-toggle" id="filter-toggle" aria-expanded="false" aria-controls="filter-sheet">More filters</button>
+          <div class="filter-sheet" id="filter-sheet" hidden>
+            <div>
+              <label for="filter-team">Team search</label>
+              <input type="search" id="filter-team" class="smh-control-input" autocomplete="off" placeholder="Team name">
+            </div>
+          </div>
+          <div class="filter-chips" id="filter-chips" aria-live="polite"></div>
+          <button type="button" class="btn btn--ghost" id="clear-filters" hidden>Clear filters</button>
+        </section>
+
+        <section class="smh-funnel-panel" id="funnel-panel" hidden aria-labelledby="funnel-heading">
+          <h2 id="funnel-heading" class="smh-panel-heading">Lifecycle Funnel Summary</h2>
+          <div class="smh-funnel" id="lifecycle-funnel"></div>
+          <div class="smh-movement" id="movement-counters" aria-label="Selected-day outcome counters"></div>
+        </section>
+
+        <div class="smh-main-grid">
+          <section class="smh-fixtures-panel" aria-label="Fixture results">
+            <div class="smh-meta"><span id="result-count" aria-live="polite"></span><span id="freshness-indicator"></span></div>
+            <div id="fixture-panel"><p>Checking access to saved test evidence…</p></div>
+            <noscript>JavaScript is required to authenticate and display saved evidence. No sample data is shown.</noscript>
+          </section>
+
+          <aside class="smh-edgemind-panel" id="edgemind-panel" hidden aria-labelledby="edgemind-heading">
+            <h2 id="edgemind-heading" class="smh-panel-heading">EdgeMind BOT</h2>
+            <div id="edgemind-content"></div>
+          </aside>
+        </div>
+
+        <section class="smh-legend-panel" id="legend-panel" hidden aria-labelledby="legend-heading">
+          <h2 id="legend-heading" class="smh-visually-hidden">Lifecycle legend</h2>
+          <div class="smh-legend" id="lifecycle-legend"></div>
+        </section>
+
+        <p class="smh-evidence-fingerprints" id="evidence-fingerprints"></p>
+      </div>
+
+      <aside class="smh-guide-rail" aria-labelledby="guide-heading">
+        <h2 id="guide-heading" class="smh-panel-heading">How to use this Hub</h2>
+        <ol class="smh-guide-list">
+          <li><strong>Sport</strong> — Football is the governed sport.</li>
+          <li><strong>Competition</strong> — This saved test batch is UEFA Nations League.</li>
+          <li><strong>Date</strong> — Click Today through Day 8 to inspect each SAST fixture day.</li>
+          <li><strong>View</strong> — Filter Review Complete or On Hold.</li>
+          <li><strong>Funnel</strong> — See how many fixtures reached each governed review stage.</li>
+          <li><strong>Fixtures</strong> — See the stage where each fixture finished or was held.</li>
+          <li><strong>View fixture</strong> — Open the governed stage path and exact saved evidence.</li>
+          <li><strong>EdgeMind BOT</strong> — Plain-language summary of the selected saved day; no live inference.</li>
+        </ol>
+        <div class="smh-key-principles">
+          <h3>Key Principles</h3>
+          <ul>
+            <li>One lifecycle everywhere</li>
+            <li>Rolling 8-day funnel</li>
+            <li>Real evidence, no mock fallback</li>
+            <li>No new prediction after kickoff</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+    <div id="status-announcer" class="smh-visually-hidden" aria-live="polite" aria-atomic="true"></div>
+  </main>
+
+  <footer class="smh-footer">
+    <p>Times shown in SAST (Africa/Johannesburg). Private saved test evidence — not a production prediction release.</p>
+    <p><a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></p>
+  </footer>
+
+  <script src="js/sports-match-hub-evidence.js"></script>
 </body>
 </html>
