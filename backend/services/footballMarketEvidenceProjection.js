@@ -49,42 +49,41 @@ function calibrateScorelineToSealed1X2({sealed_1x2,base_home_goals,base_away_goa
   const bh=clamp(Number(base_home_goals),0.15,4.5);
   const ba=clamp(Number(base_away_goals),0.15,4.5);
   if(!Number.isFinite(bh)||!Number.isFinite(ba))throw new Error('BASE_GOAL_RATES_REQUIRED');
-  const baseTotal=bh+ba;
-  const baseLogRatio=Math.log((bh+0.15)/(ba+0.15));
-  let best=null;
 
-  function consider(lh,la){
-    const cells=poissonJoint(lh,la,max_goals);
-    const o=outcomeVector(cells);
-    const fit=(o.home-target.home)**2+(o.draw-target.draw)**2+(o.away-target.away)**2;
-    const totalPenalty=((lh+la-baseTotal)/Math.max(1,baseTotal))**2;
-    const ratioPenalty=(Math.log((lh+0.15)/(la+0.15))-baseLogRatio)**2;
-    const objective=30*fit+0.35*totalPenalty+0.05*ratioPenalty;
-    if(!best||objective<best.objective)best={lh,la,cells,o,objective,fit};
-  }
-
-  for(let lh=0.15;lh<=4.5;lh+=0.1){
-    for(let la=0.15;la<=4.5;la+=0.1)consider(Number(lh.toFixed(3)),Number(la.toFixed(3)));
-  }
-  const center=best;
-  for(let lh=Math.max(0.05,center.lh-0.15);lh<=Math.min(5,center.lh+0.15);lh+=0.01){
-    for(let la=Math.max(0.05,center.la-0.15);la<=Math.min(5,center.la+0.15);la+=0.01){
-      consider(Number(lh.toFixed(3)),Number(la.toFixed(3)));
-    }
-  }
+  // Start with the evidence-driven goal rates, then calibrate only the three
+  // mutually exclusive outcome masses to the already-sealed 1X2 authority.
+  // Within each outcome class (home/draw/away), the scoreline shape remains
+  // the evidence-driven Poisson shape. This avoids inventing a second 1X2.
+  const baseCells=poissonJoint(bh,ba,max_goals);
+  const base=outcomeVector(baseCells);
+  if(base.home<=0||base.draw<=0||base.away<=0)throw new Error('BASE_SCORELINE_OUTCOME_MASS_INVALID');
+  const factors={
+    home:target.home/base.home,
+    draw:target.draw/base.draw,
+    away:target.away/base.away
+  };
+  const cells=baseCells.map(r=>{
+    const outcome=r.home_goals>r.away_goals?'home':r.home_goals===r.away_goals?'draw':'away';
+    return {...r,probability:r.probability*factors[outcome]};
+  });
+  const total=cells.reduce((a,b)=>a+b.probability,0);
+  for(const r of cells)r.probability/=total;
+  const calibrated=outcomeVector(cells);
   const maxErr=Math.max(
-    Math.abs(best.o.home-target.home),
-    Math.abs(best.o.draw-target.draw),
-    Math.abs(best.o.away-target.away)
+    Math.abs(calibrated.home-target.home),
+    Math.abs(calibrated.draw-target.draw),
+    Math.abs(calibrated.away-target.away)
   )*100;
-  if(maxErr>3)throw new Error('SEALED_1X2_SCORELINE_CALIBRATION_FAILED');
+  if(maxErr>0.02)throw new Error('SEALED_1X2_SCORELINE_CALIBRATION_FAILED');
+
   return {
-    home_goal_rate:best.lh,
-    away_goal_rate:best.la,
+    calibration_method:'OUTCOME_MASS_REWEIGHT_V1',
+    home_goal_rate:bh,
+    away_goal_rate:ba,
     base_home_goal_rate:bh,
     base_away_goal_rate:ba,
     max_1x2_error_pct:pct(maxErr),
-    scoreline_cells:best.cells
+    scoreline_cells:cells
   };
 }
 
