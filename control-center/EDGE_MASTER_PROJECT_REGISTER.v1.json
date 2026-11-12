@@ -4052,9 +4052,9 @@
       "category": "Football public-readiness governance",
       "description": "Govern when 1X2 may publish, when to route preference toward Secondary Outcomes, how independent corroboration can qualify a 70-<75% review-band forecast without changing its probability, and how all customer market families remain independently selectable while mutually contradictory outcomes are blocked.",
       "why_it_matters": "Public release needs a truthful decision law between raw probability, contextual corroboration, customer market choice and contradiction safety.",
-      "current_status": "IN_PROGRESS",
+      "current_status": "TESTED",
       "priority": "critical",
-      "startable": true,
+      "startable": false,
       "blocked_by": [
         "SOCCER-WEB-002"
       ],
@@ -4085,9 +4085,8 @@
       ],
       "related_tables": [],
       "known_issues": [
-        "Legacy secondary fallback helpers synthesize fixed/default confidence values.",
-        "Existing generic market conflict utilities include portfolio-diversification conflicts that are not equivalent to customer publication contradictions.",
-        "Player-v-player H2H and referee-v-team evidence are not yet active governed transport inputs."
+        "Player-v-player H2H and referee-v-team evidence are not yet active governed transport inputs.",
+        "Weather was upstream-absent in EPRV-001-C4 and cannot currently qualify a review-band fixture."
       ],
       "required_decisions": [],
       "completion_definition": "SOCCER-GATE-001 is TESTED only after the contract, deterministic governor, no-fabrication secondary path, publication-specific contradiction rules, requested tab order, focused tests, Control Center checks and custom-domain verification all pass.",
@@ -4107,15 +4106,23 @@
         "Confusion between model probability and governed publication decision"
       ],
       "recommended_order": 61,
-      "next_action": "Complete only SOCCER-GATE-001.",
+      "next_action": "CLOSED / TESTED-HOLD. Preserve the 70-75 review-band contract, customer market independence, no-fabrication law and logical contradiction filter. Next work, if authorized, is a separate corroborating-evidence transport/quality mini-project before activating contextual review-zone promotion.",
       "owner_note": "Stephen authorized the provisional band and corroboration/fallback rule on 2026-11-12.",
       "last_updated": "2026-11-12",
       "governed_by_control_task_id": "SOCCER-GATE-001",
       "current_evidence": [
-        "Contract registered before runtime changes."
+        "Contract registered before runtime changes.",
+        "SOCCER-GATE-001 contract registered before implementation; provisional 1X2 bands are sealed outcome probability 75%+ STRONG, 70-<75 REVIEW, below 70 FALLBACK, with HOLD on hard veto.",
+        "Deterministic Governor test proves a 73.22% 1X2 remains exactly 73.22% when REVIEW_QUALIFIED; promotion requires at least two distinct governed independent supports and no material contradiction. Evidence already used by the base model does not count again.",
+        "Legacy fixed/default secondary confidence generation is disabled from customer publication paths; fallback may choose only independently scored governed markets.",
+        "Publication-specific logical consistency allows compatible customer choices (Home Win + 1X; Draw + BTTS Yes; Home Win + Over 2.5) while blocking impossible combinations (Home Win + X2; Draw + 12; BTTS Yes + BTTS No; Over 2.5 + Under 2.5).",
+        "Focused + website + Control Center ledger tests: 74/74 PASS, zero failures/skips; Control Center checker RESULT PASS.",
+        "Preview dpl_AJYKWRedCnELvHCssroGAyYHuwFe READY; deployed preview verified requested market order and preserved signed-out evidence denial.",
+        "Production dpl_9RXH9Xi7Vutq61QNTuvfaunJG6Xk READY at commit f57d06b943997eb9c6967c1fbdb04d8f69b18724 and mapped to skcsai.co.za/www.skcsai.co.za; live market order verified as 1X2 -> Secondary Outcomes -> Same Match Bet -> Double Chance & Combinations; signed-out evidence remains blocked.",
+        "Player-v-player H2H and referee-v-team corroboration are recognized by the contract but cannot count until governed evidence contracts/transport exist. EPRV-001-C4 currently covers team H2H/form/availability only; weather was upstream-absent in that contract."
       ],
       "open_gaps": [
-        "Implementation and verification pending."
+        "Runtime activation of 70-<75 review-zone promotion using player-v-player H2H, referee-v-team history and weather remains HOLD until those evidence families are governed, transported and quality-proven. The Governor fails closed rather than pretending these factors exist."
       ],
       "workstream": "Football public-readiness governance"
     }
