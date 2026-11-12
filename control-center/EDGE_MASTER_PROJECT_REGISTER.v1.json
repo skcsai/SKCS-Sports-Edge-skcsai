@@ -4175,8 +4175,7 @@
       ],
       "related_tables": [],
       "known_issues": [
-        "W7 still requires Preview runtime acceptance and live authenticated Hub verification before Production promotion.",
-        "The owner-provided Same Bet Builder benchmark exposed additional normal builder market families not yet represented in the canonical registry, including last-goal, HT-FT, half double chance, both-halves/team-both-halves variants, half handicaps/clean sheets/exact goals, odd/even, highest-scoring-half, richer multigoals/multiscores and richer player threshold variants.",
+        "The owner-provided Same Bet Builder benchmark exposed additional normal builder market families not yet represented in the canonical registry, including last-goal, HT-FT, half double chance, team-to-score-both-halves/both-halves variants, half handicaps/clean sheets/exact goals, odd/even, highest-scoring-half, richer multigoals/multiscores and richer player threshold variants.",
         "Player-specific public publication remains HOLD until current-fixture lineup/eligibility and expected-minutes evidence is confirmed.",
         "Sparse-evidence fixture families must continue to fail closed rather than receive defaults."
       ],
@@ -4196,24 +4195,25 @@
         "H2H/context evidence could be applied to the wrong type of outcome."
       ],
       "recommended_order": 62,
-      "next_action": "Remain inside SOCCER-MARKETS-001. Preview-deploy the W7 branch, verify SM001W7/38 fixtures/private Blob OIDC loading and the customer Same Match 4/6/8 top-three UI with grey 'Insufficient data' states. Only after Preview PASS may W7 be promoted to Production. Then continue the same mini-project by cataloguing and modelling the additional builder families identified by the owner benchmark before formal closure.",
+      "next_action": "Remain inside SOCCER-MARKETS-001. Treat W7 Same Match 4/6/8 as the live customer checkpoint. Continue cataloguing and modelling the additional builder families identified by the owner benchmark across Secondary/Same Match candidate eligibility before formal closure; preserve fail-closed player/current-lineup and sparse-evidence gates.",
       "owner_note": "Stephen requires complete market-family treatment, not example-driven additions.",
       "last_updated": "2026-11-12",
       "governed_by_control_task_id": "SOCCER-MARKETS-001",
       "current_evidence": [
-        "Canonical football market registry continues to drive all four customer tabs: 1X2 -> Secondary Outcomes -> Same Match Bet -> Double Chance & Combinations.",
+        "Canonical football market registry drives all four customer tabs: 1X2 -> Secondary Outcomes -> Same Match Bet -> Double Chance & Combinations.",
         "Existing sealed pre-match 1X2 remains unchanged and was not recollected or rewritten.",
-        "SM001W7 was generated from the existing governed W6 evidence at 2026-11-12T14:10:52.703Z (16:10:52 SAST), before the earliest 19:00 SAST kickoff; fixture_count=38.",
+        "SM001W7 was generated from the governed W6 evidence at 2026-11-12T14:10:52.703Z (16:10:52 SAST), before the earliest 19:00 SAST kickoff; fixture_count=38.",
         "W7 projection SHA-256 is 0be14df273654f52944bbaf4e0511d406f60199e8e125cbac0228ab098fe109c; source evidence SHA-256 remains ed8b5f78691e7aa06be487deff5e3a3eddd506836b9cc6dcb1a0983456a41eac.",
         "Private W7 is stored in skcs-edge-private-evidence at soccer-markets-001/2026-11-12/w7-CFyxiE39JXPAyN5bZiowDNurn4J9EK.json.",
-        "Same Match customer output is now governed as ranked 4-leg / 6-leg / 8-leg offers; the raw two-leg cross-market combination inventory is internal evidence only and is no longer the intended customer Same Match presentation.",
-        "Same Match tier labels are Tier 1 Statistical Edge, Tier 2 Speculative Edge, Tier 3 High-Variance Play; combinations below 8% joint probability are suppressed.",
-        "Same Match availability across the 38 saved fixtures: 6 fixtures max 2 legs, 13 max 4 legs, 9 max 6 legs, 10 max 8 legs; 4-leg offers available on 32/38, 6-leg on 19/38, 8-leg on 10/38.",
-        "Unavailable Same Match size tabs must be greyed and display only 'Insufficient data'.",
-        "W7 Same Match uses a correlation-aware Gaussian-copula joint model with contradiction screening; it does not multiply marginal percentages as independent.",
-        "The W7 customer UI renders only the top three ranked combinations per available 4/6/8 size and keeps the underlying candidate inventory hidden from the customer view.",
-        "Focused W7 regression is 56/56 PASS with zero failures/skips; Control Center checker RESULT PASS.",
-        "Current Production remains the proven W6 release until W7 Preview runtime acceptance passes."
+        "Same Match customer output is ranked 4-leg / 6-leg / 8-leg offers only; the raw two-leg cross-market combination inventory remains internal evidence and is not rendered as the customer Same Match product.",
+        "Same Match tier labels are Statistical Edge / Speculative Edge / High-Variance Play; combinations below 8% joint probability are suppressed.",
+        "Across 38 fixtures: 6 max at 2 legs, 13 max at 4, 9 max at 6, 10 max at 8; 4-leg available 32/38, 6-leg 19/38, 8-leg 10/38.",
+        "Unavailable Same Match size tabs are greyed and display only 'Insufficient data'.",
+        "W7 uses contradiction screening plus a correlation-aware Gaussian-copula joint model; marginal percentages are not multiplied as independent.",
+        "Focused W7 regression is 56/56 PASS with zero failures/skips; Control Center checker PASS.",
+        "Preview dpl_GA9hqSvr8bsTFPwx9h1aTKkoBvRA is READY and proved SM001W7, 38 fixtures, 40 market families and the exact pinned Blob/source hashes.",
+        "Production dpl_DF9TthytoB6SPW6xTJYz6RKZsCVN is READY at commit bb9358b0ea684b950b7ab15ba465988a289287e0 and mapped to www.skcsai.co.za and skcsai.co.za.",
+        "Production build verification confirms the 4/6/8 Same Match renderer, Insufficient data states, joint_probability_pct output and SMB CSS are present, while the old raw Same Match sentence/view is absent."
       ],
       "open_gaps": [
         "Vercel daily deployment quota currently prevents the required W6 Preview runtime acceptance and therefore blocks safe promotion of W6 to main/Production.",
