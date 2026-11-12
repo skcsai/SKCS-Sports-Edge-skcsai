@@ -3866,6 +3866,56 @@
         ".vercelignore"
       ],
       "title": "Website visibility of saved Nations League test evidence"
+    },
+    {
+      "task_id": "SOCCER-WEB-002",
+      "task_name": "Governed customer prediction market tabs",
+      "workstream": "Website evidence visibility",
+      "description": "Add four operational fixture-detail market tabs: 1X2, Same Match Bet, Secondary Outcomes, and Double Chance & Combinations. Preserve the existing real 1X2 display. Standard Double Chance may be derived only from sealed mutually-exclusive 1X2 probabilities. Same Match Bet, secondary and combination markets must display only real governed pre-match evidence and fail closed when that evidence is absent.",
+      "status": "IN_PROGRESS",
+      "startable": true,
+      "priority": "critical",
+      "blocked_by": [
+        "SOCCER-WEB-001"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "website evidence visibility"
+      ],
+      "related_contracts": [],
+      "affected_files": [
+        "public/sports-match-hub.html",
+        "public/js/sports-match-hub-evidence.js",
+        "tests/nations-league-website.test.js",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md"
+      ],
+      "affected_tables": [],
+      "completion_definition": "The live authenticated fixture detail has exactly four working market tabs. 1X2 preserves sealed probabilities; Double Chance shows mathematically valid 1X/X2/12 values derived only from sealed 1X2 probabilities; Same Match Bet and Secondary Outcomes show governed saved probabilities only when present and otherwise an explicit unavailable state; unsupported joint markets are never approximated or fabricated; existing authentication, HOLD gates, pre-kickoff evidence, lifecycle UI and home page remain unchanged; focused tests and custom-domain verification pass.",
+      "proof_required": [
+        "Exactly four accessible market tabs",
+        "Existing 1X2 values unchanged",
+        "Double Chance arithmetic verified from sealed 1X2 triplet",
+        "No joint probability inferred from independent marginal probabilities",
+        "Unavailable-state proof for absent Same Match Bet and Secondary Outcomes evidence",
+        "No mock fallback",
+        "Focused tests and live custom-domain verification",
+        "Control Center synchronization"
+      ],
+      "current_evidence": [
+        "2026-11-12 owner authorization: make the four market windows operational.",
+        "Read-only immutable canary inspection: sealed Edge decision keys are status, outcome, confidence_pct, raw_top_probability_pct, confidence_band, probabilities_pct, secondary_double_chance and reason.",
+        "Read-only immutable canary inspection found no BTTS, corners, cards or dedicated over_2_5 fields in the sealed decision payload; no governed joint Same Match Bet probabilities are available in this canary.",
+        "Sealed secondary_double_chance exists; Türkiye vs Belgium stores X2 at 88.11% with governed confidence 74. Standard 1X/X2/12 are exactly derivable from the sealed mutually-exclusive 1X2 probabilities."
+      ],
+      "open_gaps": [
+        "Implement and verify four-tab customer UI without inventing unsupported joint markets."
+      ],
+      "next_action": "Implement exact four-tab fixture-detail UI on isolated branch, run focused tests, stage preview, verify and publish only if canonical main remains unchanged.",
+      "owner_note": "Stephen approved the four-window layout: 1X2, Same Match Bet, Secondary Outcomes, Double Chance & Combinations.",
+      "last_updated": "2026-11-12"
     }
   ]
 }
