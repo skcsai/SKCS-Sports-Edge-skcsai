@@ -438,3 +438,44 @@ SOCCER-MARKETS-001 is TESTED only when:
 11. focused contract tests prove catalogue completeness and no orphan active market;
 12. Control Center checker passes;
 13. no public customer market is exposed as real until its probability engine and required evidence are proven.
+
+
+## W5 checkpoint — 12 November 2026
+
+SOCCER-MARKETS-001 remains **IN_PROGRESS**.
+
+Implemented and source-proven:
+- one canonical machine-readable football market registry across all four customer tabs;
+- coherent scoreline-derived goals/BTTS/team-total/correct-score/clean-sheet/win-to-nil/DNB/handicap/winning-margin markets;
+- event-count corner and yellow-card models with minimum evidence thresholds;
+- event-specific team H2H influence for corners/cards only when matching event evidence exists;
+- half-specific result/goals/BTTS projections from completed-match half-time/full-time history;
+- Same Match and Double Chance combinations represented by direct events from the coherent scoreline model rather than multiplication of marginal percentages;
+- fail-closed handling for unavailable player/referee/timeline-dependent families;
+- registry-driven private Hub rendering;
+- W5 pre-kickoff timing enforcement.
+
+W5 private evidence/projection proof:
+- 38 sealed Nations League fixtures;
+- 46 unique teams;
+- 361 historical fixture-stat records;
+- private source evidence SHA-256: `f008903b9e6f2a13b711333a2d9257389acf52792dcb849a98724f67db418953`;
+- W5 generated at `2026-11-12T09:48:00.201Z` (11:48:00 SAST), before the earliest 19:00 SAST kickoff;
+- 38/38 projections;
+- 19–27 populated market families per fixture;
+- Türkiye–Belgium: 27 populated families;
+- W5 projection SHA-256: `9e97104599d845aabdabd963e47f7d195ac7c53e8d0c6d4bff262a801d58296d`;
+- final canonical regression: **91/91 PASS**, zero failures/skips.
+
+Deployment boundary:
+- Production currently runs the earlier W2-capable market build.
+- W5 is staged as the Vercel Production/Preview Secret but is not active in any new deployment.
+- Vercel rejected both API and official CLI deployment attempts with hard quota `api-deployments-free-per-day` (>100 deployments/day).
+- W5 must not be described as live until a fresh Preview deployment proves the W5 runtime and authenticated Hub, followed by controlled main/Production promotion.
+
+Remaining fail-closed market families:
+- player props pending governed expected/confirmed lineup, expected-minutes and player-event evidence;
+- penalties/red-card/booking-points pending governed referee/event evidence;
+- cross-process Same Match combinations involving goals with corners/cards/player props pending a validated common joint-event simulation.
+
+No new 1X2 prediction is required and the existing sealed pre-match 1X2 must not be recollected or rewritten.
