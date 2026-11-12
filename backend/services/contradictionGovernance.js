@@ -7,7 +7,7 @@
  */
 const CONTRADICT_MAP = {
   '1': ['X2', 'Away DNB', 'draw_or_away', 'away_win_either_half'],   // X2, Draw No Bet (Away), and related
-  'X': ['12', 'no_draw', 'btts_yes'],                               // 12 (no draw), BTTS Yes (implies scoring)
+  'X': ['12', 'no_draw'],                               // 12 (no draw), BTTS Yes (implies scoring)
   '2': ['1X', 'Home DNB', 'home_or_draw', 'home_win_either_half']    // 1X, Draw No Bet (Home), and related
 };
 
