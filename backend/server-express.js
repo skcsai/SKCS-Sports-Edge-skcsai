@@ -50,13 +50,32 @@ const PRE_MATCH_ONLY_MODE = String(process.env.SKCS_PRE_MATCH_ONLY || 'true').tr
 const { getPlanCapabilities, filterPredictionsForPlan } = require('./config/subscriptionMatrix');
 const { normalizeFixtureDate, getPredictionWindow, isFixtureEligibleForPrediction } = require('./utils/dateNormalization');
 const { initCronJobs } = require('./services/cronJobs');
-const { resolveStartupMode } = require('./startupMode');
+const { resolveStartupMode, resolveCanaryRequestPolicy } = require('./startupMode');
+const nationsLeagueEvidenceHandler = require('../api/evidence/nations-league');
 const startupPolicy = resolveStartupMode();
+const canaryRequestPolicy = resolveCanaryRequestPolicy();
 
 const { syncDailyFixtures, enrichMatchContext, generateEdgeMindInsight } = require('./services/thesportsdbPipeline');
 
 // Initialize Express app BEFORE using it
 const app = express();
+
+// Azure Container Apps terminates public ingress at a trusted reverse proxy.
+// Trust exactly one proxy hop so express-rate-limit resolves the real client IP.
+app.set('trust proxy', 1);
+
+// C14 safety boundary: CANARY runtime is read-only by default.
+// This blocks mutation requests before any route-specific credential check or handler runs.
+app.use((req, res, next) => {
+  if (!canaryRequestPolicy.readOnly) return next();
+  if (['GET', 'HEAD', 'OPTIONS'].includes(String(req.method || '').toUpperCase())) {
+    return next();
+  }
+  return res.status(503).json({
+    error: 'C14 canary is read-only',
+    startup_mode: startupPolicy.mode
+  });
+});
 
 // Pipeline trigger endpoint for enrichment and AI processing
 app.post('/api/pipeline/trigger', requireSchedulerSecret, express.json({ limit: '10mb' }), async (req, res) => {
@@ -679,6 +698,7 @@ async function proxyOdds(req, res) {
 }
 
 app.use('/api/proxy/odds', proxyOdds);
+app.all('/api/evidence/nations-league', nationsLeagueEvidenceHandler);
 
 app.use('/api/predictions', predictionsRouter);
 app.use('/api/pipeline', pipelineRouter);

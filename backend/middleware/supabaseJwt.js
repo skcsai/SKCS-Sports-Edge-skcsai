@@ -2,6 +2,7 @@
 
 const { createClient } = require('@supabase/supabase-js');
 const config = require('../config');
+const { isMicrosoftEdgeToken, validateMicrosoftToken } = require('./microsoftEdgeIdentity');
 const {
     getProfileById,
     getLatestSubscriptionByUserId,
@@ -10,6 +11,8 @@ const {
 } = require('../database');
 const { getPlan, normalizePlanId } = require('../config/subscriptionPlans');
 const { ACTIVE_SUBSCRIPTION_STATUSES, buildSubscriptionContext } = require('../services/subscriptionTiming');
+const { resolveCanaryRequestPolicy } = require('../startupMode');
+const canaryRequestPolicy = resolveCanaryRequestPolicy();
 
 const hasSupabaseConfig =
     typeof config?.supabase?.url === 'string' && config.supabase.url.trim().length > 0 &&
@@ -128,15 +131,24 @@ function resolveAccessContext({ activeSubscriptions = [], profilePlanId = null, 
     };
 }
 
-async function requireSupabaseUser(req, res, next) {
-    if (!supabase) {
-        sendAuthError(req, res, 500, 'Supabase Auth is not configured (missing SUPABASE_URL / SUPABASE_ANON_KEY)');
-        return;
-    }
+function requireSupabaseUser(req, res, next) {
+    return requireUser(req, res, next, false);
+}
 
+function requirePredictionsUser(req, res, next) {
+    return requireUser(req, res, next, true);
+}
+
+async function requireUser(req, res, next, allowMicrosoft) {
     const authHeader = String(req.headers['authorization'] || '').trim();
     const bearerMatch = authHeader.match(/^Bearer\s+(.+)$/i);
     const token = bearerMatch?.[1]?.trim() || '';
+    const isMicrosoft = allowMicrosoft && isMicrosoftEdgeToken(token);
+
+    if (!isMicrosoft && !supabase) {
+        sendAuthError(req, res, 500, 'Supabase Auth is not configured (missing SUPABASE_URL / SUPABASE_ANON_KEY)');
+        return;
+    }
 
     if (!token) {
         sendAuthError(req, res, 401, 'Access token required');
@@ -144,35 +156,47 @@ async function requireSupabaseUser(req, res, next) {
     }
 
     try {
-        const { data, error } = await supabase.auth.getUser(token);
-        if (error || !data?.user) {
-            console.error('[SUPABASE_JWT] Token validation failed:', error?.message || 'Unknown error');
-            sendAuthError(req, res, 401, 'Invalid or expired token');
-            return;
+        let user;
+        if (isMicrosoft) {
+            user = await validateMicrosoftToken(token);
+        } else {
+            const { data, error } = await supabase.auth.getUser(token);
+            if (error || !data?.user) {
+                console.error('[SUPABASE_JWT] Token validation failed:', error?.message || 'Unknown error');
+                sendAuthError(req, res, 401, 'Invalid or expired token');
+                return;
+            }
+            user = data.user;
         }
 
-        const supaUser = data.user;
-
-        let profile = await getProfileById(supaUser.id);
+        let profile = await getProfileById(user.id);
+        if (isMicrosoft && (!profile || profile.email?.toLowerCase() !== user.email)) {
+            sendAuthError(req, res, 403, 'Linked Edge profile not available');
+            return;
+        }
+        if (!profile && (canaryRequestPolicy.readOnly || process.env.SKCS_C14_LINKED_SUBSCRIPTIONS === 'true')) {
+            sendAuthError(req, res, 403, 'Linked Edge profile not available');
+            return;
+        }
         if (!profile) {
             profile = await upsertProfile({
-                id: supaUser.id,
-                email: supaUser.email,
+                id: user.id,
+                email: user.email,
                 subscription_status: 'inactive',
                 is_test_user: false
             });
         }
 
-        const latestSubscription = await getLatestSubscriptionByUserId(supaUser.id);
-        const activeSubscriptions = await getActiveSubscriptionsByUserId(supaUser.id, new Date());
+        const latestSubscription = await getLatestSubscriptionByUserId(user.id);
+        const activeSubscriptions = await getActiveSubscriptionsByUserId(user.id, new Date());
         const subscriptionContext = buildSubscriptionContext({
             profile,
             subscription: latestSubscription,
             now: new Date()
         });
 
-        const userMetadata = supaUser?.user_metadata && typeof supaUser.user_metadata === 'object'
-            ? supaUser.user_metadata
+        const userMetadata = user.user_metadata && typeof user.user_metadata === 'object'
+            ? user.user_metadata
             : {};
         const profileRole = String(profile?.role || '').trim().toLowerCase();
         const profileIsAdmin =
@@ -192,8 +216,8 @@ async function requireSupabaseUser(req, res, next) {
         const hasActiveSubscriptions = Array.isArray(activeSubscriptions) && activeSubscriptions.length > 0;
 
         req.user = {
-            id: supaUser.id,
-            email: supaUser.email,
+            id: user.id,
+            email: user.email,
             first_name: profile?.first_name || userMetadata?.first_name || null,
             last_name: profile?.last_name || userMetadata?.last_name || userMetadata?.surname || null,
             id_number: profile?.id_number || userMetadata?.id_number || null,
@@ -269,5 +293,6 @@ function requireActiveSubscription(req, res, next) {
 module.exports = {
     isTestUserSubscriptionBypassEnabled,
     requireSupabaseUser,
+    requirePredictionsUser,
     requireActiveSubscription
 };

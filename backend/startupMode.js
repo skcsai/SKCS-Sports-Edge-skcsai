@@ -18,7 +18,23 @@ function resolveStartupMode(env = process.env) {
     });
 }
 
+function resolveCanaryRequestPolicy(env = process.env) {
+    const startup = resolveStartupMode(env);
+    const explicitRequestWrites = String(
+        env.SKCS_CANARY_ALLOW_REQUEST_WRITES || ''
+    ).trim().toLowerCase() === 'true';
+
+    const requestWritesEnabled =
+        startup.mode !== 'canary' || explicitRequestWrites;
+
+    return Object.freeze({
+        readOnly: startup.mode === 'canary' && !requestWritesEnabled,
+        requestWritesEnabled
+    });
+}
+
 module.exports = {
     ALLOWED_STARTUP_MODES,
-    resolveStartupMode
+    resolveStartupMode,
+    resolveCanaryRequestPolicy
 };

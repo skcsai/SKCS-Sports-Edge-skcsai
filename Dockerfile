@@ -13,6 +13,11 @@ RUN npm ci --omit=dev
 # files readable by the non-root process.
 COPY --chown=node:node . .
 
+# Azure production uses the same certificate-verified Supabase pooler TLS root
+# proven by the EOPS-001-C14 canary.
+COPY supabase-root-2021.crt /usr/local/share/ca-certificates/supabase-root-2021.crt
+ENV NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/supabase-root-2021.crt
+
 ENV NODE_ENV=production
 ENV PORT=8080
 EXPOSE 8080

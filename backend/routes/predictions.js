@@ -5,7 +5,7 @@ const { query } = require('../db');
 const { rebuildFinalOutputs } = require('../services/aiPipeline');
 const { requireRole } = require('../utils/auth');
 const { executeOperation } = require('../core/executionPipeline');
-const { requireSupabaseUser, requireActiveSubscription } = require('../middleware/supabaseJwt');
+const { requirePredictionsUser, requireActiveSubscription } = require('../middleware/supabaseJwt');
 const config = require('../config');
 const { createClient } = require('@supabase/supabase-js');
 const moment = require('moment-timezone');
@@ -2108,7 +2108,7 @@ function sendPredictionsError(res, statusCode, errorMessage, payload = {}) {
 
 // GET /api/predictions
 // Default tier = deep (elite pool); subscription limits use /api/user/predictions
-router.get('/', requireSupabaseUser, requireActiveSubscription, async (req, res) => {
+router.get('/', requirePredictionsUser, requireActiveSubscription, async (req, res) => {
     try {
         // DIAGNOSTIC: Log user info
         console.log('[DIAG] req.user:', JSON.stringify({

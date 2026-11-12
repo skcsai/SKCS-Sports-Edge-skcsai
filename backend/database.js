@@ -2,6 +2,13 @@ require('dotenv').config();
 
 const { Pool } = require('pg');
 const config = require('./config');
+const { resolveStartupMode } = require('./startupMode');
+const linkedSubscriptionReads = process.env.SKCS_C14_LINKED_SUBSCRIPTIONS === 'true';
+if (linkedSubscriptionReads && resolveStartupMode().mode !== 'canary') {
+    throw new Error('C14 linked subscription reads require canary startup mode');
+}
+const subscriptionReadSource = linkedSubscriptionReads ? 'edge_c14_access.linked_subscriptions' : 'subscriptions';
+
 console.log('✅ LOADING database.js (PostgreSQL version)');
 
 const databaseUrl = process.env.DATABASE_URL;
@@ -147,7 +154,7 @@ async function ensureDbInitialized() {
     try {
         const client = await pool.connect();
         client.release();
-        await initializeTables();
+        if (resolveStartupMode().runDatabaseBootstrap) await initializeTables();
         hasInitializedTables = true;
         console.log('Connected to PostgreSQL.');
         return true;
@@ -944,7 +951,7 @@ async function getLatestSubscriptionByUserId(userId) {
 
     const res = await pool.query(
         `SELECT *
-         FROM subscriptions
+         FROM ${subscriptionReadSource}
          WHERE user_id = $1
          ORDER BY payment_timestamp DESC, created_at DESC
          LIMIT 1`,
@@ -960,7 +967,7 @@ async function getActiveSubscriptionsByUserId(userId, now = new Date()) {
 
     const res = await pool.query(
         `SELECT *
-         FROM subscriptions
+         FROM ${subscriptionReadSource}
          WHERE user_id = $1
            AND status IN ('active', 'day_zero_bonus', 'day_zero_lite')
            AND expiration_time >= $2
