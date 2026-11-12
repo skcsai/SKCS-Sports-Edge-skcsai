@@ -171,10 +171,12 @@
   }
 
   function renderFunnel(){
-    var counts=data.counts;
-    var total=counts.upcoming_at_cutoff;
-    var afterHistory=total-counts.held_history;
-    var passed=counts.saved_prematch;
+    var dayRows=data.fixtures.filter(function(f){return ymd(f.kickoff_at)===ymdForOffset(selectedDay);});
+    var total=dayRows.length;
+    var history=dayRows.filter(function(f){return f.status==='HELD'&&f.hold_reason==='INSUFFICIENT_COMPLETED_MATCH_HISTORY';}).length;
+    var confidence=dayRows.filter(function(f){return f.status==='HELD'&&f.hold_reason!=='INSUFFICIENT_COMPLETED_MATCH_HISTORY';}).length;
+    var afterHistory=total-history;
+    var passed=afterHistory-confidence;
     var values=[total,afterHistory,afterHistory,passed,passed,passed];
     var root=$('lifecycle-funnel');
     root.replaceChildren();
