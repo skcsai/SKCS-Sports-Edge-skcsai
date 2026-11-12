@@ -33,7 +33,14 @@
     .fixture-market-catalogue{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;margin-top:.85rem}
     .fixture-market-family{padding:.85rem;border:1px solid var(--smh-border);border-radius:var(--smh-radius);background:var(--smh-panel-soft)}
     .fixture-market-family--pending{border-style:dashed}
-    .fixture-market-family__title{margin:0 0 .35rem;color:var(--smh-text);font-size:.84rem}
+    details.fixture-market-family{padding:0;overflow:hidden}
+    .fixture-market-family__summary{display:grid;gap:.2rem;padding:.85rem;cursor:pointer;list-style:none}
+    .fixture-market-family__summary::-webkit-details-marker{display:none}
+    details.fixture-market-family[open] .fixture-market-family__summary{border-bottom:1px solid var(--smh-border)}
+    details.fixture-market-family .fixture-probabilities__grid{padding:.85rem}
+    details.fixture-market-family .fixture-evidence{padding:0 .85rem .85rem;margin:0}
+    .fixture-market-family__title{margin:0;color:var(--smh-text);font-size:.84rem}
+    .fixture-market-family__best{color:var(--smh-accent-blue);font-size:.76rem;font-weight:700}
     .fixture-market-family__status{margin:.15rem 0 .35rem;color:var(--smh-muted);font-size:.75rem;font-weight:700}
     @media(max-width:800px){.fixture-market-tabs__list{grid-template-columns:repeat(2,minmax(0,1fr))}.fixture-market-catalogue{grid-template-columns:1fr}}
     @media(max-width:600px){.fixture-probabilities__grid{grid-template-columns:1fr}.fixture-market-tabs__list{grid-template-columns:1fr}}
