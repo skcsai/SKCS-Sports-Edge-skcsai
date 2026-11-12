@@ -81,20 +81,18 @@ Definition of Done: exactly four accessible tabs operate in the fixture detail; 
 
 Closure: TESTED on 12 November 2026. Production deployment `dpl_HfAL9BFedQbeRCt4UzFuhbMxh214` is READY on `skcsai.co.za` and `www.skcsai.co.za`. Focused website tests 14/14 PASS; JavaScript syntax PASS; Control Center checker PASS. Standard Double Chance is derived only from sealed 1X2 probabilities. Unsupported joint markets are not fabricated and remain unavailable until a separately governed pre-match market pipeline saves them.
 
-## SOCCER-GATE-001 — IN_PROGRESS
+## SOCCER-GATE-001 — TESTED / HOLD
 
-Implement the governed football customer-market publication law.
+Governed football customer-market publication law implemented and verified.
 
 - Customer order: **1X2 → Secondary Outcomes → Same Match Bet → Double Chance & Combinations**.
-- Customer choice: all four families may remain visible when each is independently valid.
-- 1X2 strong zone: sealed outcome probability **75%+**, subject to clean hard gates.
-- 1X2 review zone: **70% to below 75%**. The probability is never changed; publication requires independent corroborating evidence and no material contradiction.
-- Below 70%: do not publish 1X2 as the primary recommendation; evaluate independently valid Secondary Outcomes first, then later market families.
-- Any hard veto: HOLD regardless of probability.
-- No double counting of evidence already used by the model.
-- No synthetic/default secondary confidence.
-- No customer publication of logically contradictory markets.
-- Player-v-player H2H, referee-v-team interaction, weather and tactical context count only after governed evidence exists and passes quality/provenance checks.
+- 1X2 75%+ = STRONG candidate subject to hard gates.
+- 1X2 70% to below 75% = REVIEW band; original probability is never changed. Publication requires at least two distinct governed independent corroborating supports, Scout Shadow GREEN, clean provenance/pre-kickoff proof and no material contradiction.
+- Below 70% = route preference to independently valid Secondary Outcomes; other customer market families remain selectable when independently valid.
+- No synthetic/default secondary confidence may be published.
+- Logical contradiction is separated from correlation/overlap so compatible customer choices remain available.
+- Focused + website + Control Center ledger tests: **74/74 PASS**.
+- Production deployment `dpl_9RXH9Xi7Vutq61QNTuvfaunJG6Xk` READY on `skcsai.co.za` and `www.skcsai.co.za`; requested tab order and owner-only evidence boundary verified live.
 
-Definition of Done: contract, deterministic Governor, no-fabrication publication path, logical contradiction checks, requested tab order, focused tests, Control Center checks and custom-domain verification all pass.
+**HOLD boundary:** player-v-player H2H, referee-v-team history and weather cannot yet promote a 70-<75% review-band fixture because those evidence families are not all live governed transport inputs. The Governor fails closed until a separate evidence-transport/quality mini-project proves them.
 
