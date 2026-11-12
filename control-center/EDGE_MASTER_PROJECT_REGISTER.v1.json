@@ -4,7 +4,7 @@
   "generated_at": "2026-07-05",
   "source_ledger": "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
   "project_policy": "The Master Project Register owns project/workstream truth. Exact project_id to ledger.task_id overlaps must mirror canonical Control Center sequencing state. Files are assets, not automatically projects.",
-  "project_count": 59,
+  "project_count": 60,
   "projects": [
     {
       "project_id": "ECC-001",
@@ -3981,6 +3981,66 @@
       ],
       "startable": false,
       "open_gaps": [],
+      "workstream": "Website evidence visibility"
+    },
+    {
+      "project_id": "SOCCER-WEB-002",
+      "project_name": "Governed customer prediction market tabs",
+      "category": "Website evidence visibility",
+      "description": "Add four operational fixture-detail market tabs: 1X2, Same Match Bet, Secondary Outcomes, and Double Chance & Combinations. Preserve existing governed evidence boundaries and do not fabricate unsupported joint probabilities.",
+      "why_it_matters": "Customers need a clear market-group view while SKCS must distinguish mathematically valid derived markets from unsupported combinations.",
+      "current_status": "IN_PROGRESS",
+      "priority": "critical",
+      "startable": true,
+      "blocked_by": [
+        "SOCCER-WEB-001"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "website evidence visibility"
+      ],
+      "related_tasks": [
+        "SOCCER-WEB-001"
+      ],
+      "related_contracts": [],
+      "related_files": [
+        "public/sports-match-hub.html",
+        "public/js/sports-match-hub-evidence.js",
+        "tests/nations-league-website.test.js",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "Current Nations League canary contains 1X2 probabilities and a selected secondary Double Chance field, but no governed BTTS/corners/cards/joint Same Match Bet probability payload."
+      ],
+      "required_decisions": [],
+      "completion_definition": "Exactly four working market tabs are live; 1X2 unchanged; standard Double Chance derived only from sealed 1X2; absent markets fail closed; no mock or fabricated joint probabilities; authentication/HOLD/pre-kickoff/lifecycle rules preserved; tests and custom-domain verification pass.",
+      "proof_required": [
+        "Four-tab UI",
+        "Double Chance arithmetic proof",
+        "Unsupported joint markets unavailable rather than fabricated",
+        "Focused tests",
+        "Live owner-protected deployment"
+      ],
+      "risks_if_ignored": [
+        "Customer market taxonomy remains incomplete",
+        "Future UI could accidentally imply unsupported probabilities"
+      ],
+      "recommended_order": 60,
+      "next_action": "Implement and verify isolated SOCCER-WEB-002 market-tab release.",
+      "owner_note": "Stephen approved four operational market windows on 2026-11-12.",
+      "last_updated": "2026-11-12",
+      "governed_by_control_task_id": "SOCCER-WEB-002",
+      "current_evidence": [
+        "Immutable canary decision keys inspected read-only before implementation.",
+        "Standard Double Chance is mathematically derivable from mutually exclusive 1X2 outcomes; joint markets are not."
+      ],
+      "open_gaps": [
+        "Implementation and live verification pending."
+      ],
       "workstream": "Website evidence visibility"
     }
   ]
