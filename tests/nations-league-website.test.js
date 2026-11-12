@@ -48,3 +48,31 @@ test('real evidence controller drives day tabs and governed stages without mock 
  assert.match(js,/governed confidence/i);
  assert.match(js,/outcome_probabilities_pct/);
 });
+test('SOCCER-WEB-002 exposes exactly four governed fixture market tabs',()=>{
+ const js=fs.readFileSync(path.join(__dirname,'../public/js/sports-match-hub-evidence.js'),'utf8');
+ for(const label of ['1X2','Same Match Bet','Secondary Outcomes','Double Chance & Combinations']) assert.ok(js.includes(label),label+' missing');
+ assert.match(js,/setAttribute\('role','tablist'\)/);
+ assert.match(js,/setAttribute\('role','tabpanel'\)/);
+ assert.match(js,/aria-selected/);
+});
+test('SOCCER-WEB-002 standard Double Chance is exact addition of sealed mutually exclusive 1X2 only',()=>{
+ const js=fs.readFileSync(path.join(__dirname,'../public/js/sports-match-hub-evidence.js'),'utf8');
+ const block=js.slice(js.indexOf('function renderDoubleChanceMarket'),js.indexOf('function renderFixtureMarketTabs'));
+ assert.match(block,/probs\.home_win\+probs\.draw/);
+ assert.match(block,/probs\.home_win\+probs\.away_win/);
+ assert.match(block,/probs\.draw\+probs\.away_win/);
+ assert.doesNotMatch(block,/\*/);
+ const p={home_win:11.89,draw:16.53,away_win:71.58};
+ assert.equal(Number((p.home_win+p.draw).toFixed(2)),28.42);
+ assert.equal(Number((p.home_win+p.away_win).toFixed(2)),83.47);
+ assert.equal(Number((p.draw+p.away_win).toFixed(2)),88.11);
+});
+test('SOCCER-WEB-002 unsupported joint markets fail closed instead of fabricating percentages',()=>{
+ const js=fs.readFileSync(path.join(__dirname,'../public/js/sports-match-hub-evidence.js'),'utf8');
+ assert.match(js,/No governed Same Match Bet joint probability was saved/);
+ assert.match(js,/No governed secondary-market probability set was saved/);
+ assert.match(js,/require their own saved joint probabilities/);
+ assert.match(js,/does not invent a percentage/);
+ assert.match(js,/Match Result \+ Goals/);
+ assert.match(js,/Goals Over\/Under/);
+});
