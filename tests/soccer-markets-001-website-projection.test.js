@@ -14,20 +14,20 @@ const {
   attachMarketProbabilities
 }=require('../lib/nationsLeagueMarketWebsiteProjection');
 
-test('W6 private market projection is hash pinned and bounded',()=>{
-  assert.equal(ACTIVE_PROJECTION_VERSION,'SM001W6');
-  assert.equal(PROJECTION_HASH,'be56c53888878351c0fd5f1918cb766a29d12c35ac3769b59f6b09e390aff73f');
+test('W7 private market projection is hash pinned and bounded',()=>{
+  assert.equal(ACTIVE_PROJECTION_VERSION,'SM001W7');
+  assert.equal(PROJECTION_HASH,'0be14df273654f52944bbaf4e0511d406f60199e8e125cbac0228ab098fe109c');
   assert.equal(SOURCE_EVIDENCE_HASH,'ed8b5f78691e7aa06be487deff5e3a3eddd506836b9cc6dcb1a0983456a41eac');
-  assert.equal(PROJECTION_VERSIONS.SM001W6.projection_hash,PROJECTION_HASH);
-  assert.equal(PROJECTION_VERSIONS.SM001W6.source_evidence_hash,SOURCE_EVIDENCE_HASH);
-  assert.equal(PRIVATE_BLOB_PATH,'soccer-markets-001/2026-11-12/w6-jSYsQSELY0qCkAjkoTqFf82mSoeVyP.json');
+  assert.equal(PROJECTION_VERSIONS.SM001W7.projection_hash,PROJECTION_HASH);
+  assert.equal(PROJECTION_VERSIONS.SM001W7.source_evidence_hash,SOURCE_EVIDENCE_HASH);
+  assert.equal(PRIVATE_BLOB_PATH,'soccer-markets-001/2026-11-12/w7-CFyxiE39JXPAyN5bZiowDNurn4J9EK.json');
   assert.equal(MAX_PROJECTION_BYTES,8*1024*1024);
   assert.equal(MAX_ROWS_PER_FAMILY,600);
   assert.throws(()=>loadMarketProjectionFromEnvironment(''),/missing/);
   assert.throws(()=>loadMarketProjectionFromEnvironment(Buffer.from('bad').toString('base64')));
 });
 
-test('private Blob loader requests only W6 and fails closed on altered bytes',async()=>{
+test('private Blob loader requests only W7 and fails closed on altered bytes',async()=>{
   let call=null;
   const getter=async(pathname,options)=>{
     call={pathname,options};
@@ -60,7 +60,7 @@ test('market merge remains backwards-compatible with 2-field rollback rows',()=>
   assert.equal(merged.market_projection.transport,'ENV_ROLLBACK');
 });
 
-test('W6 preserves customer labels and must be generated before every saved fixture kickoff',()=>{
+test('W7 preserves customer labels and must be generated before every saved fixture kickoff',()=>{
   const saved=Array.from({length:38},(_,i)=>({
     fixture_id:'CANARY:API_SPORTS_FOOTBALL:5:2026:'+(5000+i),
     status:'SAVED_PREMATCH',kickoff_at:'2026-11-12T17:00:00Z'
@@ -69,10 +69,34 @@ test('W6 preserves customer labels and must be generated before every saved fixt
     btts:[['YES',55,'Both teams to score – Yes'],['NO',45,'Both teams to score – No']],
     player_goal:[['P101_ANYTIME',27.5,'Example Striker (Home expected) anytime scorer']]
   }]));
-  const good={v:'SM001W6',src:PROJECTION_VERSIONS.SM001W6.source_evidence_hash,n:38,at:'2026-11-12T10:21:26.461Z',f};
-  const merged=attachMarketProbabilities({schema_version:'soccer-website-evidence-v1',fixtures:saved},good,'PRIVATE_BLOB_W6');
-  assert.equal(merged.market_projection.generated_at,'2026-11-12T10:21:26.461Z');
-  assert.equal(merged.market_projection.transport,'PRIVATE_BLOB_W6');
+  const s=Object.fromEntries(saved.map(x=>[x.fixture_id,{
+    schema_version:'soccer-smb-offers-v1',
+    max_legs:4,
+    tiers:[
+      {id:'TIER_1',label:'Statistical Edge',min_probability_pct:25},
+      {id:'TIER_2',label:'Speculative Edge',min_probability_pct:15},
+      {id:'TIER_3',label:'High-Variance Play',min_probability_pct:8}
+    ],
+    sizes:{
+      4:{leg_count:4,available:true,status:'AVAILABLE',display:'4-Leg',offers:[{
+        leg_count:4,joint_probability_pct:26.5,tier_id:'TIER_1',tier_label:'Statistical Edge',
+        legs:[
+          {family:'total_goals',code:'O1.5',label:'Over 1.5',probability_pct:80},
+          {family:'btts',code:'NO',label:'BTTS No',probability_pct:70},
+          {family:'corners_total',code:'O6.5',label:'Over 6.5 corners',probability_pct:75},
+          {family:'cards_total',code:'O1.5',label:'Over 1.5 cards',probability_pct:72}
+        ]
+      }]},
+      6:{leg_count:6,available:false,status:'INSUFFICIENT_DATA',display:'Insufficient data',offers:[]},
+      8:{leg_count:8,available:false,status:'INSUFFICIENT_DATA',display:'Insufficient data',offers:[]}
+    }
+  }]));
+  const good={v:'SM001W7',src:PROJECTION_VERSIONS.SM001W7.source_evidence_hash,n:38,at:'2026-11-12T14:10:52.703Z',f,s};
+  const merged=attachMarketProbabilities({schema_version:'soccer-website-evidence-v1',fixtures:saved},good,'PRIVATE_BLOB_W7');
+  assert.equal(merged.market_projection.generated_at,'2026-11-12T14:10:52.703Z');
+  assert.equal(merged.market_projection.transport,'PRIVATE_BLOB_W7');
+  assert.equal(merged.fixtures[0].same_match_offers.sizes['4'].offers[0].tier_label,'Statistical Edge');
+  assert.equal(merged.fixtures[0].same_match_offers.sizes['6'].display,'Insufficient data');
   assert.deepEqual(merged.fixtures[0].market_probabilities.player_goal[0],{
     code:'P101_ANYTIME',probability_pct:27.5,label:'Example Striker (Home expected) anytime scorer'
   });
@@ -93,12 +117,12 @@ test('held fixture market data is rejected rather than leaked',()=>{
   ),/Held fixture unexpectedly/);
 });
 
-test('evidence route prefers private Blob W6 with explicit env rollback and Hub uses canonical registry',()=>{
+test('evidence route prefers private Blob W7 with explicit env rollback and Hub uses canonical registry',()=>{
   const route=fs.readFileSync(path.join(__dirname,'../api/evidence/nations-league.js'),'utf8');
   const js=fs.readFileSync(path.join(__dirname,'../public/js/sports-match-hub-evidence.js'),'utf8');
   assert.match(route,/BLOB_STORE_ID/);
   assert.match(route,/loadMarketProjectionFromPrivateBlob/);
-  assert.match(route,/PRIVATE_BLOB_W6/);
+  assert.match(route,/PRIVATE_BLOB_W7/);
   assert.match(route,/ENV_ROLLBACK/);
   assert.match(route,/SOCCER_MARKETS_001_PROJECTION_GZIP_BASE64/);
   assert.match(route,/attachMarketProbabilities/);
