@@ -70,6 +70,56 @@ function recentGoalRates(team,teamId){
   }
   return {gf:avg(vals.map(x=>x.gf)),ga:avg(vals.map(x=>x.ga)),n:vals.length};
 }
+function recentHalfRates(team,teamId,half){
+  const rows=Array.isArray(team?.recent_fixtures)?team.recent_fixtures:[];
+  const vals=[];
+  for(const f of rows){
+    const isHome=Number(f?.home?.id)===Number(teamId),isAway=Number(f?.away?.id)===Number(teamId);
+    if(!isHome&&!isAway)continue;
+    const htHome=finite(f?.halftime_goals?.home),htAway=finite(f?.halftime_goals?.away);
+    const ftHome=finite(f?.goals?.home),ftAway=finite(f?.goals?.away);
+    if(htHome===null||htAway===null||ftHome===null||ftAway===null)continue;
+    let homeGoals=htHome,awayGoals=htAway;
+    if(half==='SECOND'){
+      homeGoals=ftHome-htHome;awayGoals=ftAway-htAway;
+      if(homeGoals<0||awayGoals<0)continue;
+    }
+    vals.push({gf:isHome?homeGoals:awayGoals,ga:isHome?awayGoals:homeGoals});
+  }
+  return {gf:avg(vals.map(x=>x.gf)),ga:avg(vals.map(x=>x.ga)),n:vals.length};
+}
+function halfPrior(evidence,half){
+  const values=[];
+  for(const [teamId,team] of Object.entries(evidence?.teams||{})){
+    const r=recentHalfRates(team,teamId,half);
+    if(r.n>0&&r.gf!==null)values.push(...Array(r.n).fill(r.gf));
+  }
+  return avg(values)||0.65;
+}
+function halfAnchors(evidence,target,half){
+  const homeId=Number(target.teams.home.id),awayId=Number(target.teams.away.id);
+  const ht=evidence.teams?.[homeId]||evidence.teams?.[String(homeId)];
+  const at=evidence.teams?.[awayId]||evidence.teams?.[String(awayId)];
+  if(!ht||!at)return null;
+  const hr=recentHalfRates(ht,homeId,half),ar=recentHalfRates(at,awayId,half);
+  if(hr.n<MIN_EVENT_SAMPLE||ar.n<MIN_EVENT_SAMPLE)return null;
+  const prior=halfPrior(evidence,half);
+  const home=Math.sqrt(
+    Math.max(.02,shrink(hr.gf,hr.n,prior,5))*
+    Math.max(.02,shrink(ar.ga,ar.n,prior,5))
+  );
+  const away=Math.sqrt(
+    Math.max(.02,shrink(ar.gf,ar.n,prior,5))*
+    Math.max(.02,shrink(hr.ga,hr.n,prior,5))
+  );
+  return {home:clamp(home,.02,3),away:clamp(away,.02,3),samples:{home:hr.n,away:ar.n},prior};
+}
+function halfProjection(evidence,target,half){
+  const anchors=halfAnchors(evidence,target,half);if(!anchors)return null;
+  const cells=independentPoissonGrid(anchors.home,anchors.away,6);
+  const p=projectScoreline(cells,{goal_lines:[0.5,1.5,2.5],team_goal_lines:[0.5,1.5]});
+  return {anchors,cells,projection:p};
+}
 function goalPriors(evidence){
   const homeFor=[],awayFor=[];
   for(const team of Object.values(evidence?.teams||{})){
@@ -212,8 +262,62 @@ function buildScorelineMarkets(target,scoreCells,projection){
     addSelection(out,'goal_range',lo+'-'+hi,lo+'–'+(hi===10?'6+':hi)+' goals',p,note);
   }
   const target1=target.sealed_1x2;
-  addSelection(out,'draw_no_bet','HOME_WIN',target.teams.home.name+' DNB – win',target1.home_win,'Draw '+target1.draw.toFixed(2)+'% is the push/refund state.');
-  addSelection(out,'draw_no_bet','AWAY_WIN',target.teams.away.name+' DNB – win',target1.away_win,'Draw '+target1.draw.toFixed(2)+'% is the push/refund state.');
+  const dnbNote='Draw '+target1.draw.toFixed(2)+'% is the push/refund state; win/loss probabilities remain the sealed 1X2 masses.';
+  addSelection(out,'draw_no_bet','HOME_WIN',target.teams.home.name+' DNB – win',target1.home_win,dnbNote);
+  addSelection(out,'draw_no_bet','HOME_PUSH','Draw – push/refund',target1.draw,dnbNote);
+  addSelection(out,'draw_no_bet','HOME_LOSS',target.teams.home.name+' DNB – loss',target1.away_win,dnbNote);
+  addSelection(out,'draw_no_bet','AWAY_WIN',target.teams.away.name+' DNB – win',target1.away_win,dnbNote);
+  addSelection(out,'draw_no_bet','AWAY_PUSH','Draw – push/refund',target1.draw,dnbNote);
+  addSelection(out,'draw_no_bet','AWAY_LOSS',target.teams.away.name+' DNB – loss',target1.home_win,dnbNote);
+
+  for(const side of ['HOME','AWAY']){
+    const sign=side==='HOME'?1:-1;
+    const team=side==='HOME'?target.teams.home.name:target.teams.away.name;
+    for(const line of [-1,1]){
+      let win=0,drawH=0,lose=0;
+      for(const cell of scoreCells){
+        const adjusted=sign*(cell.home_goals-cell.away_goals)+line;
+        if(adjusted>0)win+=cell.probability;
+        else if(adjusted===0)drawH+=cell.probability;
+        else lose+=cell.probability;
+      }
+      const token=(line>0?'+':'')+line;
+      addSelection(out,'handicap_european',side+'_'+token+'_WIN',team+' '+token+' handicap – win',Math.round(win*10000)/100,note);
+      addSelection(out,'handicap_european',side+'_'+token+'_DRAW',team+' '+token+' handicap – draw',Math.round(drawH*10000)/100,note);
+      addSelection(out,'handicap_european',side+'_'+token+'_LOSS',team+' '+token+' handicap – loss',Math.round(lose*10000)/100,note);
+    }
+  }
+  for(const side of ['HOME','AWAY']){
+    const sign=side==='HOME'?1:-1;
+    const team=side==='HOME'?target.teams.home.name:target.teams.away.name;
+    for(const line of [-1,-0.5,0,0.5,1]){
+      let win=0,push=0,loss=0;
+      for(const cell of scoreCells){
+        const adjusted=sign*(cell.home_goals-cell.away_goals)+line;
+        if(adjusted>0)win+=cell.probability;
+        else if(adjusted===0)push+=cell.probability;
+        else loss+=cell.probability;
+      }
+      const token=(line>0?'+':'')+line;
+      const asianNote='Asian handicap settlement distribution for '+team+' '+token+'.';
+      addSelection(out,'handicap_asian',side+'_'+token+'_WIN',team+' '+token+' – win',Math.round(win*10000)/100,asianNote);
+      if(push>0)addSelection(out,'handicap_asian',side+'_'+token+'_PUSH',team+' '+token+' – push',Math.round(push*10000)/100,asianNote);
+      addSelection(out,'handicap_asian',side+'_'+token+'_LOSS',team+' '+token+' – loss',Math.round(loss*10000)/100,asianNote);
+    }
+  }
+
+  for(const side of ['HOME','AWAY']){
+    const team=side==='HOME'?target.teams.home.name:target.teams.away.name;
+    const sign=side==='HOME'?1:-1;
+    const bands=[[1,1],[2,2],[3,10]];
+    for(const [lo,hi] of bands){
+      const p=eventPct(scoreCells,cell=>{
+        const margin=sign*(cell.home_goals-cell.away_goals);
+        return margin>=lo&&margin<=hi;
+      });
+      addSelection(out,'winning_margin',side+'_'+lo+'_'+(hi===10?'PLUS':hi),team+' by '+(hi===10?lo+'+':lo===hi?lo:lo+'–'+hi)+' goal'+(lo===1&&hi===1?'':'s'),p,note);
+    }
+  }
 
   const resultPred={
     HOME:c=>c.home_goals>c.away_goals,
@@ -266,10 +370,31 @@ function buildCountMarkets(evidence,target,key,families,lines){
   addSelection(out,families.most,'HOME',target.teams.home.name+' most',p.most.home_pct,note);
   addSelection(out,families.most,'DRAW','Equal',p.most.draw_pct,note);
   addSelection(out,families.most,'AWAY',target.teams.away.name+' most',p.most.away_pct,note);
+  if(families.range){
+    for(const [lo,hi] of [[0,7],[8,10],[11,13],[14,48]]){
+      const rp=eventPct(grid,x=>{const n=x.home_count+x.away_count;return n>=lo&&n<=hi;});
+      addSelection(out,families.range,lo+'_'+(hi===48?'PLUS':hi),(hi===48?lo+'+':lo+'–'+hi),rp,note);
+    }
+    for(const exact of [7,8,9,10,11,12]){
+      addSelection(out,families.range,'EXACT_'+exact,'Exactly '+exact,eventPct(grid,x=>x.home_count+x.away_count===exact),note);
+    }
+  }
+  if(families.handicap){
+    for(const side of ['HOME','AWAY']){
+      const sign=side==='HOME'?1:-1;
+      const team=side==='HOME'?target.teams.home.name:target.teams.away.name;
+      for(const line of [-2.5,-1.5,-0.5,0.5,1.5,2.5]){
+        const cover=eventPct(grid,x=>sign*(x.home_count-x.away_count)+line>0);
+        const token=(line>0?'+':'')+line;
+        addSelection(out,families.handicap,side+'_'+token+'_COVER',team+' '+token+' cover',cover,note);
+        addSelection(out,families.handicap,side+'_'+token+'_NO',team+' '+token+' not cover',100-cover,note);
+      }
+    }
+  }
   return {markets:out,model:l};
 }
 function projectFixture(evidence,fixtureId){
-  if(evidence?.schema_version!=='soccer-markets-001-nations-league-evidence-v1')throw new Error('MARKET_EVIDENCE_SCHEMA_INVALID');
+  if(!['soccer-markets-001-nations-league-evidence-v1','soccer-markets-001-nations-league-evidence-v2'].includes(evidence?.schema_version))throw new Error('MARKET_EVIDENCE_SCHEMA_INVALID');
   const target=evidence.targets?.[fixtureId];if(!target)throw new Error('TARGET_FIXTURE_MISSING');
   const anchors=goalAnchors(evidence,target);
   const base=independentPoissonGrid(anchors.home,anchors.away);
@@ -277,25 +402,49 @@ function projectFixture(evidence,fixtureId){
   const projection=projectScoreline(scoreCells,{goal_lines:[0.5,1.5,2.5,3.5,4.5,5.5],team_goal_lines:[0.5,1.5,2.5,3.5]});
   let markets=buildScorelineMarkets(target,scoreCells,projection);
   const corners=buildCountMarkets(evidence,target,'corner_kicks',
-    {total:'corners_total',team:'corners_team',most:'corners_most'},[6.5,7.5,8.5,9.5,10.5,11.5,12.5]);
+    {total:'corners_total',team:'corners_team',most:'corners_most',range:'corners_range',handicap:'corners_handicap'},[6.5,7.5,8.5,9.5,10.5,11.5,12.5]);
   const cards=buildCountMarkets(evidence,target,'yellow_cards',
     {total:'cards_total',team:'cards_team',most:'cards_most'},[1.5,2.5,3.5,4.5,5.5,6.5]);
   markets=mergeFamilies(markets,corners.markets);
   markets=mergeFamilies(markets,cards.markets);
+  const first=halfProjection(evidence,target,'FIRST');
+  const second=halfProjection(evidence,target,'SECOND');
+  const halfNote='Half-specific pre-match goal model from recent completed-match half-time/full-time scoring history; test-only and uncalibrated.';
+  for(const item of [{name:'FIRST',data:first},{name:'SECOND',data:second}]){
+    if(!item.data)continue;
+    const hp=item.data.projection;
+    addSelection(markets,'half_result',item.name+'_HOME',(item.name==='FIRST'?'1st':'2nd')+' half '+target.teams.home.name+' win',hp.match_result.home_pct,halfNote);
+    addSelection(markets,'half_result',item.name+'_DRAW',(item.name==='FIRST'?'1st':'2nd')+' half draw',hp.match_result.draw_pct,halfNote);
+    addSelection(markets,'half_result',item.name+'_AWAY',(item.name==='FIRST'?'1st':'2nd')+' half '+target.teams.away.name+' win',hp.match_result.away_pct,halfNote);
+    for(const [line,v] of Object.entries(hp.total_goals)){
+      addSelection(markets,'half_total_goals',item.name+'_O'+line,(item.name==='FIRST'?'1st':'2nd')+' half Over '+line,v.over_pct,halfNote);
+      addSelection(markets,'half_total_goals',item.name+'_U'+line,(item.name==='FIRST'?'1st':'2nd')+' half Under '+line,v.under_pct,halfNote);
+    }
+    addSelection(markets,'half_btts',item.name+'_YES',(item.name==='FIRST'?'1st':'2nd')+' half BTTS Yes',hp.btts.yes_pct,halfNote);
+    addSelection(markets,'half_btts',item.name+'_NO',(item.name==='FIRST'?'1st':'2nd')+' half BTTS No',hp.btts.no_pct,halfNote);
+  }
+  if(first&&second){
+    const homeEither=100-((1-first.projection.match_result.home_pct/100)*(1-second.projection.match_result.home_pct/100))*100;
+    const awayEither=100-((1-first.projection.match_result.away_pct/100)*(1-second.projection.match_result.away_pct/100))*100;
+    const eitherNote='Derived from first- and second-half result models with an explicit independence approximation between half-result events; test-only.';
+    addSelection(markets,'team_win_either_half','HOME_YES',target.teams.home.name+' to win either half',homeEither,eitherNote);
+    addSelection(markets,'team_win_either_half','AWAY_YES',target.teams.away.name+' to win either half',awayEither,eitherNote);
+  }
   return {
     fixture_id:fixtureId,
     kickoff_at:target.kickoff_at,
     model:{
       scoreline:{method:'POISSON_HISTORY_PLUS_1X2_RAKING',lambda_home:anchors.home,lambda_away:anchors.away,h2h_used:anchors.h2h_used,recent_samples:anchors.recent_samples},
       corners:corners.model?{method:'TEAM_FOR_AGAINST_POISSON',...corners.model}:null,
-      cards:cards.model?{method:'TEAM_FOR_AGAINST_POISSON',...cards.model}:null
+      cards:cards.model?{method:'TEAM_FOR_AGAINST_POISSON',...cards.model}:null,
+      first_half:first?{method:'HALF_GOAL_HISTORY_POISSON',...first.anchors}:null,
+      second_half:second?{method:'HALF_GOAL_HISTORY_POISSON',...second.anchors}:null
     },
     market_probabilities:markets,
     unavailable_families:[
       'player_goal','player_assist','player_shots','player_shots_on_target','player_passes',
       'player_tackles','player_fouls','player_card','goalkeeper_saves','penalty_awarded',
-      'red_card','booking_points','handicap_asian','handicap_european','half_result',
-      'half_total_goals','half_btts','team_win_either_half','team_to_score_first'
+      'red_card','booking_points','team_to_score_first'
     ],
     evidence_note:'Test-only uncalibrated market projection. Player/referee/weather-dependent families remain fail-closed until their governed inputs are available.'
   };
@@ -316,6 +465,6 @@ function projectBatch(evidence){
 }
 
 module.exports={
-  goalAnchors,eventHistory,eventLambdas,independentPoissonGrid,rakeScorelineTo1X2,
+  goalAnchors,recentHalfRates,halfAnchors,halfProjection,eventHistory,eventLambdas,independentPoissonGrid,rakeScorelineTo1X2,
   buildScorelineMarkets,projectFixture,projectBatch
 };
