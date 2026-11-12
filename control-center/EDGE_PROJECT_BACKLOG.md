@@ -96,28 +96,28 @@ Governed football customer-market publication law implemented and verified.
 
 **HOLD boundary:** player-v-player H2H, referee-v-team history and weather cannot yet promote a 70-<75% review-band fixture because those evidence families are not all live governed transport inputs. The Governor fails closed until a separate evidence-transport/quality mini-project proves them.
 
-## SOCCER-MARKETS-001 - IN_PROGRESS / W6 DEPLOYMENT HOLD
+## SOCCER-MARKETS-001 - IN_PROGRESS / W7 PREVIEW GATE
 
 Create one governed football market catalogue across **1X2 -> Secondary Outcomes -> Same Match Bet -> Double Chance & Combinations**.
 
-Current evidence:
+Current W7 evidence:
 - Existing sealed pre-match 1X2 remains unchanged and was not recollected.
-- W6 private source combines the prior 38-fixture/46-team/361-stat evidence with 361 historical event timelines and 13,566 player-match rows across 3,586 unique players.
-- Combined private source SHA-256: `ed8b5f78691e7aa06be487deff5e3a3eddd506836b9cc6dcb1a0983456a41eac`.
-- W6 generated pre-match at `2026-11-12T10:21:26.461Z` (12:21:26 SAST), before the earliest 19:00 SAST kickoff.
-- W6 projection SHA-256: `be56c53888878351c0fd5f1918cb766a29d12c35ac3769b59f6b09e390aff73f`.
-- Private W6 is stored in `skcs-edge-private-evidence` and verified through the Node Vercel Blob OIDC loader.
-- 30/38 fixtures have all 40 registry market families; seven miss only goalkeeper-saves; one also fails closed for corners/cards because its event-history sample is below the minimum gate.
-- All 38 fixtures have team-to-score-first, red-card, penalty-awarded and booking-points projections.
-- Player/goalkeeper projections are private/test-only expected-lineup outputs until current-fixture eligibility and expected-minutes evidence is confirmed.
-- Focused W6 regression: **50/50 PASS**; syntax checks PASS; Control Center checker PASS.
-- Preview `dpl_WxqBRR5NRaxvZZbajgTQeDWr7vh3` proves the project builds with Blob/OIDC, but W6 itself cannot be deployed today because Vercel is enforcing `api-deployments-free-per-day` (>100 deployments/day).
-- Production remains unchanged; W6 is **not claimed live**.
+- W7 uses the existing governed W6 market/event/player evidence and was generated at `2026-11-12T14:10:52.703Z` (16:10:52 SAST), before the earliest 19:00 SAST kickoff.
+- W7 projection SHA-256: `0be14df273654f52944bbaf4e0511d406f60199e8e125cbac0228ab098fe109c`.
+- Private W7 is stored in `skcs-edge-private-evidence`.
+- Same Match customer output is now **4-Leg / 6-Leg / 8-Leg**, with only the top three ranked compatible combinations shown per available size.
+- Tier labels: **Statistical Edge / Speculative Edge / High-Variance Play**. Joint probability below 8% is suppressed.
+- Unavailable size tabs are greyed and display only **Insufficient data**.
+- Across 38 fixtures: 6 max at 2 legs, 13 max at 4, 9 max at 6, 10 max at 8; 4-leg is available on 32/38, 6-leg on 19/38, 8-leg on 10/38.
+- The old raw two-leg Same Match combination list is internal candidate evidence only and is no longer the intended customer presentation.
+- W7 uses contradiction screening plus a correlation-aware Gaussian-copula joint model; marginal percentages are not multiplied as if independent.
+- Focused W7 regression: **56/56 PASS**; Control Center checker PASS.
+- Production remains on proven W6 until W7 Preview acceptance passes.
 
-Fail-closed boundaries:
-- Current-fixture player eligibility/expected-minutes is still required before public player-prop publication.
-- Player-v-player H2H/matchup and referee/weather modifiers remain absent unless governed evidence is available.
-- Cross-process Same Match combinations involving goals with corners/cards/player props still require a validated common joint-event simulation.
-- Sparse fixture evidence remains visibly unavailable rather than being filled with defaults.
+Remaining fail-closed boundaries:
+- W7 Preview runtime acceptance and authenticated Hub verification are still required before Production.
+- The owner-provided Same Bet Builder benchmark identified additional normal builder market families that still need canonical registry/model coverage before SOCCER-MARKETS-001 can formally close.
+- Current-fixture player eligibility/expected-minutes remains required before public player-prop publication.
+- Sparse evidence remains unavailable rather than being filled with defaults.
 
-Next action: Remain inside SOCCER-MARKETS-001. Do not recollect or rewrite the sealed 1X2. When Vercel permits another deployment, deploy the current W6 branch to Preview once, verify SM001W6/38 fixtures/private Blob OIDC loading/customer labels/authenticated Hub rendering, then fast-forward main only if Preview passes. Keep player publication HOLD until current-fixture eligibility/expected-minutes evidence is confirmed; keep sparse-evidence and cross-process joint markets fail-closed.
+Next action: Remain inside SOCCER-MARKETS-001. Preview-deploy the W7 branch, verify SM001W7/38 fixtures/private Blob OIDC loading and the customer Same Match 4/6/8 top-three UI with grey 'Insufficient data' states. Only after Preview PASS may W7 be promoted to Production. Then continue the same mini-project by cataloguing and modelling the additional builder families identified by the owner benchmark before formal closure.
