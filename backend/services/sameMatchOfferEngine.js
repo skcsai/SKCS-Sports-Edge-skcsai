@@ -358,9 +358,11 @@ function beamCandidates(pool,size,context,fixture){
   }
   return beam.filter(combo=>processDiverse(combo,size)).slice(0,FINALISTS_PER_SIZE);
 }
-function buildSameMatchOffers({market_probabilities,probabilities_pct,fixture={},goal_diff=null,h2h_matches=null,include_player_markets=false}){
+function buildSameMatchOffers({market_probabilities,probabilities_pct,fixture={},goal_diff=null,h2h_matches=null,include_player_markets=false,max_legs_override=null}){
   const fav=favoriteInfo(probabilities_pct,fixture);
-  const maxLegs=maxLegsAllowed(probabilities_pct,goal_diff,fixture);
+  const computedMax=maxLegsAllowed(probabilities_pct,goal_diff,fixture);
+  const override=Number(max_legs_override);
+  const maxLegs=[2,4,6,8].includes(override)?override:computedMax;
   const context={favorite_side:fav?.favorite?.side||null,h2h_matches};
   const pool=candidatePool({market_probabilities,probabilities_pct,fixture,include_player_markets});
   const sizes={};
