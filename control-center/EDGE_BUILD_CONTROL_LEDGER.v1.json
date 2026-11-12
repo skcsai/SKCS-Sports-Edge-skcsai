@@ -3775,7 +3775,7 @@
       "task_name": "Website visibility of saved Nations League test evidence",
       "workstream": "Website evidence visibility",
       "description": "Display the existing immutable Nations League test evidence on skcsai.co.za through existing owner authentication. All fixture and forecast data remains private; signed-out visitors see an access message. No Shadow output disclosure, recalculation, new provider calls, production prediction writes, subscription/sign-in behaviour changes or production scope expansion. Preserve existing HOLD gates and unrelated work.",
-      "status": "IN_PROGRESS",
+      "status": "TESTED",
       "priority": "critical",
       "blocked_by": [],
       "blocks": [],
@@ -3828,16 +3828,18 @@
         "Source reconciliation preserves already-live C13 home/auth assets and the exact /api/auth/me handler. No customer profile, entitlement, password, database permission, Microsoft callback or sign-in behaviour was changed. Historical UI2 mock page is frozen only in tests.",
         "Rollback deployment: dpl_FYbJMaa9udoQTs8ZwQd1GkWDu8aL. All pre-existing canonical project records compare equal to the frozen main-branch baseline; existing production prediction and marriage gates remain held.",
         "Before publication, live GitHub metadata proved the Edge repository public. No forecast file was committed or pushed. The exact 26,693-byte website projection is instead compressed into a 4,072-byte sensitive production server setting; the reader pins SHA-256 18a22f32e5bf7f42114abff3127376a7498adc314f5d6e1a84643bfd55288279 and rejects altered/missing values. Only website reader code is released.",
-        "2026-11-12 Stephen explicitly answered Go ahead to storing the saved Nations League snapshot in the existing Vercel private production server settings for owner-authenticated display. Sensitive setting created successfully without logging its value. Final focused suite: 169 passed, zero failures/skips; all four governance checks PASS."
+        "2026-11-12 Stephen explicitly answered Go ahead to storing the saved Nations League snapshot in the existing Vercel private production server settings for owner-authenticated display. Sensitive setting created successfully without logging its value. Final focused suite: 169 passed, zero failures/skips; all four governance checks PASS.",
+        "2026-11-12 rolling-day Sports Match Hub restoration published and verified on www.skcsai.co.za; original UI2 day-tabs, lifecycle funnel and governed stages retained while mock runtime remains excluded.",
+        "Immutable sealed Edge decisions recovered read-only from the existing SOCCER-UNL-001 Azure evidence export; all 38 accepted fixtures contain complete home/draw/away probabilities summing to 100%, with no rerun, provider call or prediction write.",
+        "Hash-pinned 1X2 projection SHA-256 2489fd77c34ea2ba812254a54552a52574f2b79853f51d236c18774753b08a98 stored as hidden Vercel Secret for Production and Preview; temporary local transfer file removed.",
+        "Focused isolated 1X2 website suite PASS: 11/11, zero failures/skips. Türkiye vs Belgium sealed example verified as 11.89% / 16.53% / 71.58%.",
+        "Production deployment dpl_9r9asVUnawjznjSFcDToD2DZBNKp at commit 99f989e878414d27dd17b419fd6fc695cc3955f9 is READY and mapped to skcsai.co.za and www.skcsai.co.za; live delivery contains day-tabs, lifecycle funnel, Expected 1X2 outcome UI and separate governed-confidence label; signed-out evidence remains blocked."
       ],
-      "open_gaps": [
-        "Private-setting release staging, canonical source publication and custom-domain activation pending.",
-        "Real owner signed-in browser verification remains pending."
-      ],
-      "next_action": "Stage source with the authorized sensitive setting, verify guarded routes, publish only reviewed website code, promote and verify www.skcsai.co.za.",
+      "open_gaps": [],
+      "next_action": "CLOSED / TESTED. Preserve the restored rolling lifecycle Hub, private 1X2 probability projection, owner-only evidence boundary and existing HOLD gates. Further customer prediction-market expansion requires a separate approved mini-project.",
       "owner_note": "Stephen: I NEED TO SEE THAT DATA ON THE WEBSITE; go ahead, unlocked.",
       "last_updated": "2026-11-12",
-      "startable": true,
+      "startable": false,
       "related_files": [
         "api/auth/me.js",
         "api/evidence/nations-league.js",
