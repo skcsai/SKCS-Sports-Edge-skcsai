@@ -277,7 +277,11 @@
       var sum=node('td');sum.setAttribute('data-label','Status / Evidence');
       sum.append(node('span',summaryText(f),'fixture-summary'));
       if(f.status==='SAVED_PREMATCH'){
-        sum.appendChild(node('div',pickText(f)+' · '+(f.confidence_pct===undefined?'—':f.confidence_pct+'% confidence'),'fixture-evidence'));
+        var probs=f.outcome_probabilities_pct;
+        if(probs){
+          sum.appendChild(node('div','1 '+probs.home_win.toFixed(2)+'% · X '+probs.draw.toFixed(2)+'% · 2 '+probs.away_win.toFixed(2)+'%','fixture-evidence'));
+        }
+        sum.appendChild(node('div',pickText(f)+' · governed confidence '+(f.confidence_pct===undefined?'—':f.confidence_pct+'%'),'fixture-evidence'));
       }
       var action=node('td');action.setAttribute('data-label','Action');action.className='fixture-table__action-cell';
       var btn=node('button','View fixture','btn btn--ghost');
@@ -324,8 +328,26 @@
     box.appendChild(node('p',summaryText(f),'fixture-detail__note'));
 
     if(f.status==='SAVED_PREMATCH'){
+      var probs=f.outcome_probabilities_pct;
+      if(probs){
+        var probabilitySection=node('section',undefined,'fixture-probabilities');
+        probabilitySection.appendChild(node('h3','Expected 1X2 outcome','fixture-probabilities__title'));
+        var grid=node('div',undefined,'fixture-probabilities__grid');
+        [
+          {code:'1',label:f.home_team,value:probs.home_win,outcome:'home_win'},
+          {code:'X',label:'Draw',value:probs.draw,outcome:'draw'},
+          {code:'2',label:f.away_team,value:probs.away_win,outcome:'away_win'}
+        ].forEach(function(item){
+          var card=node('div',undefined,'fixture-probability'+(f.prediction===item.outcome?' fixture-probability--selected':''));
+          card.append(node('span',item.code,'fixture-probability__code'),node('strong',item.value.toFixed(2)+'%','fixture-probability__value'),node('span',item.label,'fixture-probability__label'));
+          grid.appendChild(card);
+        });
+        probabilitySection.appendChild(grid);
+        probabilitySection.appendChild(node('p','These are the sealed pre-match expected outcome probabilities. Governed confidence is shown separately below.','fixture-evidence'));
+        box.appendChild(probabilitySection);
+      }
       var p=node('p');
-      p.textContent='Saved forecast: '+pickText(f)+' · '+(f.confidence_pct===undefined?'—':f.confidence_pct+'%')+' · sealed '+fmt(f.committed_at)+' · saved '+fmt(f.persisted_at)+'.';
+      p.textContent='Saved forecast: '+pickText(f)+' · governed confidence '+(f.confidence_pct===undefined?'—':f.confidence_pct+'%')+' · sealed '+fmt(f.committed_at)+' · saved '+fmt(f.persisted_at)+'.';
       box.appendChild(p);
       box.appendChild(node('p','Independent comparison: GREEN. Result: pending.'));
       if(f.prediction_record_id)box.appendChild(node('p','Prediction record: '+f.prediction_record_id,'fixture-evidence'));
