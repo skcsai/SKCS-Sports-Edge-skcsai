@@ -3989,9 +3989,9 @@
       "category": "Website evidence visibility",
       "description": "Add four operational fixture-detail market tabs: 1X2, Same Match Bet, Secondary Outcomes, and Double Chance & Combinations. Preserve existing governed evidence boundaries and do not fabricate unsupported joint probabilities.",
       "why_it_matters": "Customers need a clear market-group view while SKCS must distinguish mathematically valid derived markets from unsupported combinations.",
-      "current_status": "IN_PROGRESS",
+      "current_status": "TESTED",
       "priority": "critical",
-      "startable": true,
+      "startable": false,
       "blocked_by": [
         "SOCCER-WEB-001"
       ],
@@ -4030,17 +4030,20 @@
         "Future UI could accidentally imply unsupported probabilities"
       ],
       "recommended_order": 60,
-      "next_action": "Implement and verify isolated SOCCER-WEB-002 market-tab release.",
+      "next_action": "CLOSED / TESTED. Preserve the four-tab market UI and fail-closed evidence law. Populate Same Match Bet, Secondary Outcomes and combination markets only when a separate governed prediction-market pipeline seals valid pre-match probabilities.",
       "owner_note": "Stephen approved four operational market windows on 2026-11-12.",
       "last_updated": "2026-11-12",
       "governed_by_control_task_id": "SOCCER-WEB-002",
       "current_evidence": [
         "Immutable canary decision keys inspected read-only before implementation.",
-        "Standard Double Chance is mathematically derivable from mutually exclusive 1X2 outcomes; joint markets are not."
+        "Standard Double Chance is mathematically derivable from mutually exclusive 1X2 outcomes; joint markets are not.",
+        "SOCCER-WEB-002 live production deployment dpl_HfAL9BFedQbeRCt4UzFuhbMxh214 READY at commit e4e2c156a7ef4e0d9e1b24436bb5d186a8a961dc and mapped to skcsai.co.za and www.skcsai.co.za.",
+        "Live custom-domain verification: 1X2, Same Match Bet, Secondary Outcomes, and Double Chance & Combinations tabs all present; tab CSS present; signed-out evidence remains blocked.",
+        "Focused website tests PASS 14/14; JavaScript syntax check PASS; Control Center checker PASS.",
+        "Standard Double Chance is derived only from mutually exclusive sealed 1X2 probabilities. Türkiye vs Belgium therefore yields 1X 28.42%, 12 83.47%, X2 88.11%.",
+        "Immutable canary inspection found no governed BTTS/corners/cards/joint Same Match Bet probability set in the saved canary. Those tabs fail closed with an explicit unavailable state rather than fabricated percentages."
       ],
-      "open_gaps": [
-        "Implementation and live verification pending."
-      ],
+      "open_gaps": [],
       "workstream": "Website evidence visibility"
     }
   ]
