@@ -202,6 +202,21 @@ function eventPrior(evidence,key){
   }
   return avg(vals);
 }
+function h2hEventRates(evidence,target,homeId,awayId,key){
+  const rows=Array.isArray(target?.team_h2h)?target.team_h2h:[];
+  const home=[],away=[];
+  const cutoff=Date.parse(target?.kickoff_at||'');
+  for(const f of rows){
+    const when=Date.parse(f?.date||'');
+    if(Number.isFinite(cutoff)&&Number.isFinite(when)&&when>=cutoff)continue;
+    const hs=fixtureTeamStats(evidence,f?.fixture_id,homeId);
+    const as=fixtureTeamStats(evidence,f?.fixture_id,awayId);
+    const hv=statNumber(hs?.statistics?.[key]),av=statNumber(as?.statistics?.[key]);
+    if(hv!==null&&av!==null){home.push(hv);away.push(av);}
+  }
+  if(home.length<2||away.length<2)return null;
+  return {home:avg(home),away:avg(away),n:Math.min(home.length,away.length)};
+}
 function eventLambdas(evidence,target,key){
   const homeId=Number(target.teams.home.id),awayId=Number(target.teams.away.id);
   const h=eventHistory(evidence,homeId,key),a=eventHistory(evidence,awayId,key);
@@ -211,10 +226,20 @@ function eventLambdas(evidence,target,key){
   const ha=shrink(avg(h.map(x=>x.against)),h.length,prior,5);
   const af=shrink(avg(a.map(x=>x.for)),a.length,prior,5);
   const aa=shrink(avg(a.map(x=>x.against)),a.length,prior,5);
+  let home=clamp(Math.sqrt(Math.max(.02,hf)*Math.max(.02,aa)),.02,20);
+  let away=clamp(Math.sqrt(Math.max(.02,af)*Math.max(.02,ha)),.02,20);
+  const h2h=h2hEventRates(evidence,target,homeId,awayId,key);
+  if(h2h){
+    const weight=Math.min(.20,.05*h2h.n);
+    home=clamp((1-weight)*home+weight*shrink(h2h.home,h2h.n,home,5),.02,20);
+    away=clamp((1-weight)*away+weight*shrink(h2h.away,h2h.n,away,5),.02,20);
+  }
   return {
-    home:clamp(Math.sqrt(Math.max(.02,hf)*Math.max(.02,aa)),.02,20),
-    away:clamp(Math.sqrt(Math.max(.02,af)*Math.max(.02,ha)),.02,20),
-    samples:{home:h.length,away:a.length},prior
+    home,away,
+    samples:{home:h.length,away:a.length},
+    prior,
+    h2h_used:Boolean(h2h),
+    h2h_samples:h2h?.n||0
   };
 }
 function independentCountGrid(lambdaHome,lambdaAway,max=COUNT_MAX){
@@ -472,6 +497,6 @@ function projectBatch(evidence){
 }
 
 module.exports={
-  goalAnchors,recentHalfRates,halfAnchors,halfProjection,eventHistory,eventLambdas,independentPoissonGrid,rakeScorelineTo1X2,
+  goalAnchors,recentHalfRates,halfAnchors,halfProjection,eventHistory,h2hEventRates,eventLambdas,independentPoissonGrid,rakeScorelineTo1X2,
   buildScorelineMarkets,projectFixture,projectBatch
 };
