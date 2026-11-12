@@ -3,7 +3,7 @@
 const test=require('node:test');
 const assert=require('node:assert/strict');
 const {
-  maxLegsAllowed,tierFor,contradictory,buildSameMatchOffers
+  maxLegsAllowed,tierForSize,candidatePool,contradictory,buildSameMatchOffers
 }=require('../backend/services/sameMatchOfferEngine');
 
 const fixture={home_team:'Alpha FC',away_team:'Beta FC'};
@@ -40,11 +40,24 @@ test('locked Gulf-in-Class leg caps are applied from favourite win probability',
   assert.equal(maxLegsAllowed({home_win:81,draw:12,away_win:7},null,fixture),8);
 });
 
-test('customer tier names use approved SKCS branding',()=>{
-  assert.equal(tierFor(31).label,'Statistical Edge');
-  assert.equal(tierFor(20).label,'Speculative Edge');
-  assert.equal(tierFor(10).label,'High-Variance Play');
-  assert.equal(tierFor(7.99),null);
+test('customer tier names are locked to 4/6/8 leg sizes',()=>{
+  assert.equal(tierForSize(4).label,'Statistical Edge');
+  assert.equal(tierForSize(6).label,'Speculative Edge');
+  assert.equal(tierForSize(8).label,'High-Variance Play');
+  assert.equal(tierForSize(2),null);
+});
+
+test('customer candidate pool is broad but excludes unconfirmed player props by default',()=>{
+  const pool=candidatePool({
+    market_probabilities:richMarkets(),
+    probabilities_pct:{home_win:72,draw:17,away_win:11},
+    fixture
+  });
+  assert.ok(pool.some(x=>x.family==='double_chance_standard'));
+  assert.ok(pool.filter(x=>x.family==='total_goals').length>=2);
+  assert.ok(pool.some(x=>x.family==='corners_total'));
+  assert.ok(pool.some(x=>x.family==='cards_total'));
+  assert.equal(pool.some(x=>x.family.startsWith('player_')||x.family==='goalkeeper_saves'),false);
 });
 
 test('hard contradictions are blocked before combination scoring',()=>{
@@ -74,7 +87,7 @@ test('strong fixture produces ranked top-three 4/6/8-leg offers with tier labels
     for(const offer of result.sizes[size].offers){
       assert.equal(offer.legs.length,size);
       assert.ok(offer.joint_probability_pct>=8);
-      assert.ok(['Statistical Edge','Speculative Edge','High-Variance Play'].includes(offer.tier_label));
+      assert.equal(offer.tier_label,size===4?'Statistical Edge':size===6?'Speculative Edge':'High-Variance Play');
       assert.equal(new Set(offer.legs.map(x=>x.family+':'+x.code)).size,size);
     }
   }
