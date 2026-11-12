@@ -1,7 +1,7 @@
 (function () {
     'use strict';
 
-    const API_BASE = window.API_BASE_URL || 'https://skcs-sports-edge-skcsai.onrender.com';
+    const API_BASE = window.API_BASE_URL || window.location.origin;
 
     const feedEl = document.getElementById('uxFeedbackFeed');
     const formEl = document.getElementById('uxFeedbackForm');

@@ -12,7 +12,7 @@
  */
 
 // Backend URL for API calls (defined outside IIFE for global helper function access)
-const BACKEND_URL = "https://skcs-sports-edge-skcsai.onrender.com";
+const BACKEND_URL = window.API_BASE_URL || window.location.origin;
 
 async function getSubscriberHeaders(extraHeaders = {}) {
     if (!window.supabaseClient || !window.supabaseClient.auth) {

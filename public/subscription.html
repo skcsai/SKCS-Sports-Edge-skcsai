@@ -610,7 +610,7 @@ function showElite(){
 async function loadBillingStatus() {
   const banner = document.getElementById('billingBanner');
   try {
-    const backend = window.API_BASE_URL || "https://skcs-sports-edge-skcsai.onrender.com";
+    const backend = window.API_BASE_URL || window.location.origin;
     const res = await fetch(backend + "/api/billing-status");
     billingStatus = await res.json();
 

@@ -176,7 +176,7 @@
 
     <script src="js/config.js"></script>
     <script>
-        const BACKEND_URL = (window.API_BASE_URL || 'https://skcs-sports-edge-skcsai.onrender.com').replace(/\/$/, '');
+        const BACKEND_URL = (window.API_BASE_URL || window.location.origin).replace(/\/$/, '');
         const ADMIN_KEY_STORAGE = 'skcs_admin_api_key';
 
         function getApiKey() {

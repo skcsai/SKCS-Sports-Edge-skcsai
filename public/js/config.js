@@ -1,9 +1,9 @@
-// Default to the live Render API, but allow an earlier override for migration tests.
+// Default to the current hosted origin, but allow an earlier override for migration tests.
 // Dynamically route to localhost when doing local development to avoid hitting production
 window.API_BASE_URL = window.API_BASE_URL || (
     window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
         ? "http://localhost:3000" 
-        : "https://skcs-sports-edge-skcsai.onrender.com"
+        : window.location.origin
 );
 
 // Safety check: ensure no trailing slash

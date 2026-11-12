@@ -30,7 +30,7 @@
     // ============================================
     // API & CONFIG
     // ============================================
-    const API_BASE = window.API_BASE_URL || 'https://skcs-sports-edge-skcsai.onrender.com';
+    const API_BASE = window.API_BASE_URL || window.location.origin;
     const includeAllParam = new URLSearchParams(window.location.search).get('include_all');
     const INCLUDE_ALL_MODE = !['0', 'false'].includes(String(includeAllParam || '1').trim().toLowerCase());
 
