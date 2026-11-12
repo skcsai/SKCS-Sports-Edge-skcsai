@@ -3990,6 +3990,68 @@
       "next_action": "CLOSED / TESTED-HOLD. Preserve the 70-75 review-band contract, customer market independence, no-fabrication law and logical contradiction filter. Next work, if authorized, is a separate corroborating-evidence transport/quality mini-project before activating contextual review-zone promotion.",
       "owner_note": "Stephen clarified the fallback/customer-choice relationship and requested Control Center governance on 2026-11-12.",
       "last_updated": "2026-11-12"
+    },
+    {
+      "task_id": "SOCCER-MARKETS-001",
+      "task_name": "Complete football market catalogue and probability contract",
+      "workstream": "Football public-readiness markets",
+      "description": "Create the canonical football market catalogue for all four customer tabs and bind every market family to truthful probability semantics, evidence/H2H inputs, model family, contradiction rules and market-specific publication gates.",
+      "status": "IN_PROGRESS",
+      "startable": true,
+      "priority": "critical",
+      "blocked_by": [
+        "SOCCER-GATE-001"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "prediction-markets",
+        "probability-engine",
+        "market-routing",
+        "website",
+        "governance"
+      ],
+      "related_contracts": [
+        "control-center/SOCCER-MARKETS-001_COMPLETE_FOOTBALL_MARKET_CATALOGUE_AND_PROBABILITY_CONTRACT.v1.md"
+      ],
+      "affected_files": [
+        "backend/config/predictionOutcomes.js",
+        "backend/utils/secondaryMarketSelector.js",
+        "backend/services/safeHavenSelector.js",
+        "backend/services/marketScoringEngine.js",
+        "backend/services/marketIntelligence.js",
+        "backend/routes/predictions.js",
+        "public/js/sports-match-hub-evidence.js",
+        "control-center/SOCCER-MARKETS-001_COMPLETE_FOOTBALL_MARKET_CATALOGUE_AND_PROBABILITY_CONTRACT.v1.md"
+      ],
+      "affected_tables": [],
+      "completion_definition": "One canonical machine-readable football market registry covers all four tabs; every market family has its own probability semantics and governed evidence mapping; 1X2 remains unchanged; Secondary markets either use real market-specific probability engines or remain unavailable; Same Match Bet and Double Chance combinations use a validated joint-event probability engine; no synthetic/default/seeded probability path can publish customer probabilities; focused tests and Control Center checks pass.",
+      "proof_required": [
+        "Canonical market registry",
+        "All active football market identifiers map to one canonical family and customer tab",
+        "No orphan or duplicate active market aliases",
+        "1X2 probability remains sealed and unchanged",
+        "Secondary probability semantics are market-specific",
+        "Same Match Bet joint probability does not multiply marginals",
+        "Double Chance standard sums remain exact",
+        "H2H/referee/weather role-event mapping contract",
+        "No seeded/default heuristic customer publication path",
+        "Focused tests and Control Center PASS"
+      ],
+      "current_evidence": [
+        "2026-11-12 repository audit: 1X2 is the only currently proven customer-facing market with a sealed full probability distribution.",
+        "Repository contains fragmented Secondary, Same Match Bet and Double Chance/combination support across allowlists, validators, scoring helpers, routes and legacy UI.",
+        "secondaryMarketSelector currently contains generic fallback baselines, league-average formulas and deterministic seed adjustments; marketScoringEngine also uses generic base-confidence/hash bias for several market families. These paths are not accepted as public probability authority under this project.",
+        "External market audit confirms football market catalogues extend materially beyond the few examples already discussed, including result, goals, team totals, BTTS, half markets, corners, cards, handicaps, player stats, set pieces and multi-leg same-match combinations.",
+        "API-Sports exposes a pre-match /odds/bets reference endpoint; it may be used for market discovery only, not SKCS probability authority."
+      ],
+      "open_gaps": [
+        "Canonical registry not yet implemented.",
+        "Secondary/Same Match/Double Chance-combination probability engines are not yet complete.",
+        "Player-v-player, referee-v-team and weather evidence transport remains incomplete for several market families."
+      ],
+      "next_action": "Build the canonical machine-readable football market registry and map all existing active market aliases before changing scoring engines.",
+      "owner_note": "Stephen explicitly instructed SKCS to treat each market family as a whole rather than only the examples raised in conversation.",
+      "last_updated": "2026-11-12"
     }
   ]
 }
