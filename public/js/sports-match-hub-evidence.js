@@ -495,6 +495,7 @@
     }
 
     var sizes=[4,6,8];
+    var tierNames={4:'Statistical Edge',6:'Speculative Edge',8:'High-Variance Play'};
     var tabs=node('div',undefined,'smb-size-tabs');
     tabs.setAttribute('role','tablist');
     tabs.setAttribute('aria-label','Same Match Bet leg count');
@@ -520,7 +521,7 @@
         button.setAttribute('aria-selected',selected?'true':'false');
         button.setAttribute('aria-disabled',slot.available?'false':'true');
         button.disabled=!slot.available;
-        button.textContent=slot.available?(size+'-Leg'):(size+'-Leg · Insufficient data');
+        button.textContent=slot.available?(size+'-Leg - '+tierNames[size]):(size+'-Leg - '+tierNames[size]+' · Insufficient data');
       });
 
       panel.replaceChildren();
@@ -535,7 +536,7 @@
         var card=node('article',undefined,'smb-offer');
         var head=node('div',undefined,'smb-offer__head');
         head.append(
-          node('span','#'+(index+1)+' '+offer.tier_label,'smb-tier '+tierClass(offer.tier_id)),
+          node('span','Option #'+(index+1),'smb-tier '+tierClass(slot.tier_id||offer.tier_id)),
           node('strong',Number(offer.joint_probability_pct).toFixed(2)+'%','smb-offer__probability')
         );
         card.appendChild(head);
@@ -557,7 +558,7 @@
     }
 
     sizes.forEach(function(size){
-      var button=node('button',size+'-Leg','smb-size-tab');
+      var button=node('button',size+'-Leg - '+tierNames[size],'smb-size-tab');
       button.type='button';
       button.setAttribute('role','tab');
       button.addEventListener('click',function(){
