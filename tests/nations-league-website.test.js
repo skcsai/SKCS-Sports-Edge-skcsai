@@ -69,8 +69,8 @@ test('SOCCER-WEB-002 standard Double Chance is exact addition of sealed mutually
 });
 test('SOCCER-WEB-002 unsupported joint markets fail closed instead of fabricating percentages',()=>{
  const js=fs.readFileSync(path.join(__dirname,'../public/js/sports-match-hub-evidence.js'),'utf8');
- assert.match(js,/No governed Same Match Bet joint probability was saved/);
- assert.match(js,/No governed secondary-market probability set was saved/);
+ assert.match(js,/No governed probability was saved for this fixture in the current canary/);
+ assert.match(js,/Same Match percentages are joint-event probabilities/);
  assert.match(js,/require their own saved joint probabilities/);
  assert.match(js,/does not invent a percentage/);
  assert.match(js,/Match Result \+ Goals/);
