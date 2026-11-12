@@ -3996,11 +3996,12 @@
       "task_name": "Complete football market catalogue and probability contract",
       "workstream": "Football public-readiness markets",
       "description": "Create the canonical football market catalogue for all four customer tabs and bind every market family to truthful probability semantics, evidence/H2H inputs, model family, contradiction rules and market-specific publication gates.",
-      "status": "IN_PROGRESS",
+      "status": "BLOCKED",
       "startable": false,
       "priority": "critical",
       "blocked_by": [
-        "SOCCER-GATE-001"
+        "SOCCER-GATE-001",
+        "EDGE-AZURE-CUTOVER-001"
       ],
       "blocks": [],
       "affected_layers": [
@@ -4071,8 +4072,85 @@
         "Additional normal Same Bet Builder market families from the owner benchmark still require canonical catalogue/model coverage before formal closure.",
         "Player-specific public publication remains HOLD until current-fixture lineup/eligibility and expected-minutes evidence is confirmed."
       ],
-      "next_action": "Remain inside SOCCER-MARKETS-001. When Vercel permits a new deployment, Preview the corrected selector, verify the 4-Leg - Statistical Edge / 6-Leg - Speculative Edge / 8-Leg - High-Variance Play labels and diversified top-three outputs, then promote only for fixtures whose corrected combinations were generated pre-match. Do not regenerate already-started fixture predictions after kickoff. Continue expanding the eligible builder market catalogue before formal closure.",
+      "next_action": "BLOCKED by EDGE-AZURE-CUTOVER-001. Preserve all sealed pre-match evidence and market logic unchanged until the production hosting migration is formally closed.",
       "owner_note": "Stephen explicitly instructed SKCS to treat each market family as a whole rather than only the examples raised in conversation.",
+      "last_updated": "2026-11-12"
+    },
+    {
+      "task_id": "EDGE-AZURE-CUTOVER-001",
+      "task_name": "Vercel to Azure production cutover",
+      "workstream": "Production infrastructure migration",
+      "description": "Move skcsai.co.za and www.skcsai.co.za production hosting from Vercel to Azure Container Apps using the frozen tested Edge application plus the already-proven C14 Azure runtime/auth compatibility layer. Preserve pre-match-only rules, rollback and unrelated football-model code.",
+      "status": "IN_PROGRESS",
+      "startable": false,
+      "priority": "critical",
+      "blocked_by": [],
+      "blocks": [
+        "SOCCER-MARKETS-001"
+      ],
+      "affected_layers": [
+        "hosting",
+        "website",
+        "api",
+        "authentication",
+        "observability",
+        "deployment-governance"
+      ],
+      "related_contracts": [],
+      "affected_files": [
+        "Dockerfile",
+        "supabase-root-2021.crt",
+        "backend/database.js",
+        "backend/middleware/microsoftEdgeIdentity.js",
+        "backend/middleware/supabaseJwt.js",
+        "backend/routes/predictions.js",
+        "backend/server-express.js",
+        "backend/startupMode.js",
+        "public/admin-sync.html",
+        "public/js/config.js",
+        "public/js/smh-hub.js",
+        "public/js/user-experience-feedback.js",
+        "public/js/vip-stress-dashboard.js",
+        "public/subscription.html",
+        "tests/edge-azure-cutover-001-runtime.test.js",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md",
+        "control-center/EDGE_CONTROL_CENTER.md"
+      ],
+      "affected_tables": [],
+      "completion_definition": "Both skcsai.co.za and www.skcsai.co.za are served from Azure; website, API, login and Sports Match Hub work there; rollback is proven; Vercel no longer carries production traffic; Control Center and focused tests pass.",
+      "proof_required": [
+        "Frozen source and immutable image proof",
+        "Azure database/auth/runtime acceptance",
+        "Health probes and Log Analytics evidence",
+        "Website/API/login/Sports Match Hub Azure-hostname acceptance",
+        "Custom-domain TLS and DNS verification",
+        "Rollback proof",
+        "Vercel production-traffic removal",
+        "Control Center PASS"
+      ],
+      "current_evidence": [
+        "Cutover branch edge-azure-cutover-001 is based on frozen application commit 84e0fac1ef9eee281d0321a6a6d256cd018cb819; commit b2963452f595fc41cbad1e2e3077aa7761e7169c changes only six frontend API fallbacks from the suspended Render host to same-origin routing.",
+        "Azure production candidate ca-skcs-edge-prod-zan-001 exists in cae-skcs-edge-c14-zan-001 with external HTTPS ingress, managed identity, Key Vault secret references, restricted C14 database credential, min/max replicas 1, SKCS_PRE_MATCH_ONLY=true and SKCS_STARTUP_MODE=canary.",
+        "C14 managed-environment diagnostics were repaired by adding edge-c14-logs for ContainerAppSystemLogs and ContainerAppConsoleLogs to log-skcs-edge036-zan-001.",
+        "The proven running C14 container supplied byte-for-byte hashes for the Azure auth/database patch and Supabase TLS root. The exact certificate SHA-256 is 700723581420dd1ac98fd7e9ac529f0ef210eadcaf87fc868a3ad7d114c2f3b7.",
+        "Focused cutover and startup-safety tests: 15/15 PASS. No football model or prediction probability logic is modified by the runtime patch.",
+        "Initial plain frozen Docker build proved website/health startup but failed certificate-verified Supabase PostgreSQL TLS; DNS and Vercel production traffic remain unchanged pending rebuilt Azure runtime acceptance.",
+        "Cutover branch runtime bridge commit 949e1373c86b9346ff91fbb30624721adf36720d is based on frozen 84e0fac1 and contains no football probability/model file changes.",
+        "Microsoft linked-customer identity values were moved out of public source into three Key Vault secrets; the production candidate references only secret names and the temporary operator Secrets Officer assignment was removed, leaving Key Vault Reader only.",
+        "C14-equivalent Liveness and Readiness probes are configured on /api/health port 8080. Production candidate remains pre-match-only, canary/read-only, min/max replicas 1.",
+        "Focused runtime plus Azure private-evidence transport suite: 19/19 PASS. Control Center core checker PASS.",
+        "Baseline proof at parent commit b2963452: edge-repository-asset-register.test.js already had 9 failures from pre-existing Soccer Markets/asset-count drift before the Azure runtime bridge. That unrelated drift is recorded for future governance repair and is not being modified inside EDGE-AZURE-CUTOVER-001."
+      ],
+      "open_gaps": [
+        "Build and deploy a clean immutable image from the governed cutover commit and prove certificate-verified database reads, API and Microsoft authentication on the Azure hostname.",
+        "Transfer the current owner-only website and market evidence from Vercel-held transport to private Azure Blob storage, grant only managed-identity read access, and prove hash-pinned Sports Match Hub evidence.",
+        "Bind skcsai.co.za and www.skcsai.co.za with TLS, change DNS only after Azure acceptance, verify production and rollback, then remove Vercel from production traffic."
+      ],
+      "next_action": "Remain inside EDGE-AZURE-CUTOVER-001. Build the frozen cutover branch with the byte-verified C14 runtime/auth and TLS compatibility layer, deploy beside C14, prove Azure hostname acceptance, then bind domains and move DNS only after all gates pass.",
+      "owner_note": "Stephen authorized the Vercel-to-Azure production cutover and fully unlocked DeskMCP on 2026-11-12. No football-model changes are permitted during migration.",
       "last_updated": "2026-11-12"
     }
   ]

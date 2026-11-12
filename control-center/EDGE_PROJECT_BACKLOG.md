@@ -96,7 +96,7 @@ Governed football customer-market publication law implemented and verified.
 
 **HOLD boundary:** player-v-player H2H, referee-v-team history and weather cannot yet promote a 70-<75% review-band fixture because those evidence families are not all live governed transport inputs. The Governor fails closed until a separate evidence-transport/quality mini-project proves them.
 
-## SOCCER-MARKETS-001 - IN_PROGRESS / W7 LIVE CHECKPOINT
+## SOCCER-MARKETS-001 - BLOCKED BY EDGE-AZURE-CUTOVER-001
 
 Create one governed football market catalogue across **1X2 -> Secondary Outcomes -> Same Match Bet -> Double Chance & Combinations**.
 
@@ -120,4 +120,22 @@ Remaining scope before formal closure:
 - Keep player publication HOLD until current-fixture eligibility/expected-minutes is confirmed.
 - Keep sparse evidence fail-closed.
 
-Next action: Remain inside SOCCER-MARKETS-001. Treat W7 Same Match 4/6/8 as the live customer checkpoint. Continue cataloguing and modelling the additional builder families identified by the owner benchmark across Secondary/Same Match candidate eligibility before formal closure; preserve fail-closed player/current-lineup and sparse-evidence gates.
+Next action: BLOCKED by EDGE-AZURE-CUTOVER-001. Preserve the sealed W7 pre-match evidence and all market logic unchanged until the production hosting migration is formally closed.
+
+## EDGE-AZURE-CUTOVER-001 - IN_PROGRESS
+
+Move production hosting for `skcsai.co.za` and `www.skcsai.co.za` from Vercel to Azure Container Apps without changing football-model logic.
+
+Current proof:
+- Cutover branch is based on frozen application commit `84e0fac1ef9eee281d0321a6a6d256cd018cb819`; `b2963452` changes only frontend API routing from the suspended Render host to same-origin.
+- Azure production runtime bridge commit `949e1373c86b9346ff91fbb30624721adf36720d` adds the previously proven C14 Azure DB/auth safety layer plus private Azure Blob evidence transport; no football probability/model files changed.
+- Production candidate `ca-skcs-edge-prod-zan-001` exists beside C14 with managed identity, Key Vault references, restricted database credential, pre-match-only mode, canary/read-only startup and min/max replicas 1.
+- C14 environment diagnostics now send Container App system and console logs to `log-skcs-edge036-zan-001`.
+- Microsoft linked-customer identifiers are held in Key Vault and referenced by environment variables; operator temporary secret-write access was removed after provisioning.
+- C14-equivalent liveness/readiness probes are configured on `/api/health`.
+- Focused cutover/runtime/evidence tests: 19/19 PASS.
+
+Remaining gates:
+- Build and deploy one immutable image from the clean governed cutover commit and prove certificate-verified database reads, API, login and Sports Match Hub/evidence on the Azure hostname.
+- Stage the private website/market evidence in Azure Blob with managed-identity access and verify the hash-pinned owner-only endpoint.
+- Bind both custom domains with TLS, change DNS only after Azure acceptance, prove rollback, then remove Vercel from production traffic.
