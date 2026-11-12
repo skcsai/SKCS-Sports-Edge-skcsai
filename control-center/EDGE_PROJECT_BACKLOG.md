@@ -80,3 +80,21 @@ Four operational fixture-detail market tabs: **1X2**, **Same Match Bet**, **Seco
 Definition of Done: exactly four accessible tabs operate in the fixture detail; 1X2 is unchanged; Double Chance displays exact derived 1X/X2/12 values; unsupported Same Match Bet/Secondary/combination outputs fail closed with plain-language unavailable status; no mock fallback; focused tests and live custom-domain verification pass.
 
 Closure: TESTED on 12 November 2026. Production deployment `dpl_HfAL9BFedQbeRCt4UzFuhbMxh214` is READY on `skcsai.co.za` and `www.skcsai.co.za`. Focused website tests 14/14 PASS; JavaScript syntax PASS; Control Center checker PASS. Standard Double Chance is derived only from sealed 1X2 probabilities. Unsupported joint markets are not fabricated and remain unavailable until a separately governed pre-match market pipeline saves them.
+
+## SOCCER-GATE-001 — IN_PROGRESS
+
+Implement the governed football customer-market publication law.
+
+- Customer order: **1X2 → Secondary Outcomes → Same Match Bet → Double Chance & Combinations**.
+- Customer choice: all four families may remain visible when each is independently valid.
+- 1X2 strong zone: sealed outcome probability **75%+**, subject to clean hard gates.
+- 1X2 review zone: **70% to below 75%**. The probability is never changed; publication requires independent corroborating evidence and no material contradiction.
+- Below 70%: do not publish 1X2 as the primary recommendation; evaluate independently valid Secondary Outcomes first, then later market families.
+- Any hard veto: HOLD regardless of probability.
+- No double counting of evidence already used by the model.
+- No synthetic/default secondary confidence.
+- No customer publication of logically contradictory markets.
+- Player-v-player H2H, referee-v-team interaction, weather and tactical context count only after governed evidence exists and passes quality/provenance checks.
+
+Definition of Done: contract, deterministic Governor, no-fabrication publication path, logical contradiction checks, requested tab order, focused tests, Control Center checks and custom-domain verification all pass.
+
