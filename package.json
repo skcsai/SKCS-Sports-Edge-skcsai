@@ -102,6 +102,7 @@
     "@google/generative-ai": "^0.24.1",
     "@iarna/toml": "^2.2.5",
     "@supabase/supabase-js": "^2.105.1",
+    "@vercel/blob": "^2.6.1",
     "axios": "^1.16.1",
     "bcrypt": "^6.0.0",
     "bottleneck": "^2.19.5",
