@@ -130,8 +130,8 @@ function projectBernoulli(probability){
   return {yes_pct:pct(p),no_pct:pct(1-p)};
 }
 function projectPlayerCount(pairs,lines){
-  const rows=distributionFromPairs(pairs);
-  return Object.fromEntries((lines||[0.5,1.5,2.5]).map(line=>[String(line),overUnderFromCountDistribution(rows,line)]));
+  distributionFromPairs(pairs);
+  return Object.fromEntries((lines||[0.5,1.5,2.5]).map(line=>[String(line),overUnderFromCountDistribution(pairs,line)]));
 }
 function jointProbabilityFromSamples(samples,predicates){
   if(!Array.isArray(samples)||samples.length===0)throw new Error('JOINT_SAMPLES_REQUIRED');
