@@ -79,3 +79,29 @@ test('event-history markets fail closed below sample minimum',()=>{
   assert.equal(p.market_probabilities.corners_total,undefined);
   assert.equal(p.market_probabilities.cards_total,undefined);
 });
+
+test('event-specific H2H influences corner/card lambdas only when matching event evidence exists',()=>{
+  const e=evidence();
+  e.targets.F1.team_h2h=[
+    {fixture_id:900,date:'2025-10-01T18:00:00Z',home:{id:1},away:{id:2},goals:{home:1,away:0}},
+    {fixture_id:901,date:'2024-10-01T18:00:00Z',home:{id:2},away:{id:1},goals:{home:0,away:1}}
+  ];
+  e.fixture_statistics[900]=[
+    {team_id:1,statistics:{corner_kicks:10,yellow_cards:4}},
+    {team_id:2,statistics:{corner_kicks:2,yellow_cards:1}}
+  ];
+  e.fixture_statistics[901]=[
+    {team_id:1,statistics:{corner_kicks:9,yellow_cards:3}},
+    {team_id:2,statistics:{corner_kicks:3,yellow_cards:1}}
+  ];
+  const cornerH2H=m.h2hEventRates(e,e.targets.F1,1,2,'corner_kicks');
+  const cardH2H=m.h2hEventRates(e,e.targets.F1,1,2,'yellow_cards');
+  assert.deepEqual(cornerH2H,{home:9.5,away:2.5,n:2});
+  assert.deepEqual(cardH2H,{home:3.5,away:1,n:2});
+  const corners=m.eventLambdas(e,e.targets.F1,'corner_kicks');
+  const cards=m.eventLambdas(e,e.targets.F1,'yellow_cards');
+  assert.equal(corners.h2h_used,true);
+  assert.equal(cards.h2h_used,true);
+  assert.equal(corners.h2h_samples,2);
+  assert.equal(cards.h2h_samples,2);
+});
