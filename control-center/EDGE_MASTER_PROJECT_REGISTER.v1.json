@@ -4168,15 +4168,17 @@
         "scripts/soccer-markets-001-build-private-projection.js",
         "tests/soccer-markets-001-timeline-player.test.js",
         "tests/soccer-markets-001-website-projection.test.js",
-        "tests/nations-league-website.test.js"
+        "tests/nations-league-website.test.js",
+        "backend/services/sameMatchOfferEngine.js",
+        "tests/soccer-markets-001-same-match-offers.test.js",
+        "public/sports-match-hub.html"
       ],
       "related_tables": [],
       "known_issues": [
-        "Vercel daily deployment quota currently prevents the required W6 Preview runtime acceptance and therefore blocks safe promotion of W6 to main/Production.",
-        "Player-specific outputs in W6 are private/test-only expected-lineup projections; public publication remains HOLD until current-fixture lineup/eligibility and expected-minutes evidence is confirmed.",
-        "Player-v-player matchup/H2H and referee/weather modifiers are not yet transported into every relevant player/discipline model; absent modifiers must remain absent rather than be fabricated.",
-        "Cross-process Same Match combinations involving goals with corners/cards/player props still require a validated common joint-event simulation and must not be approximated by multiplying marginal percentages.",
-        "Eight fixtures retain truthful evidence-depth gaps: seven lack only goalkeeper-saves; one additionally lacks corners/cards market families because its recent sample is below the minimum event-history gate."
+        "W7 still requires Preview runtime acceptance and live authenticated Hub verification before Production promotion.",
+        "The owner-provided Same Bet Builder benchmark exposed additional normal builder market families not yet represented in the canonical registry, including last-goal, HT-FT, half double chance, both-halves/team-both-halves variants, half handicaps/clean sheets/exact goals, odd/even, highest-scoring-half, richer multigoals/multiscores and richer player threshold variants.",
+        "Player-specific public publication remains HOLD until current-fixture lineup/eligibility and expected-minutes evidence is confirmed.",
+        "Sparse-evidence fixture families must continue to fail closed rather than receive defaults."
       ],
       "required_decisions": [],
       "completion_definition": "Canonical registry, alias normalization, truthful probability semantics, market-specific model/evidence mapping, joint-event combination engine, no-fabrication proof, tests and Control Center PASS.",
@@ -4194,26 +4196,24 @@
         "H2H/context evidence could be applied to the wrong type of outcome."
       ],
       "recommended_order": 62,
-      "next_action": "Remain inside SOCCER-MARKETS-001. Do not recollect or rewrite the sealed 1X2. When Vercel permits another deployment, deploy the current W6 branch to Preview once, verify SM001W6/38 fixtures/private Blob OIDC loading/customer labels/authenticated Hub rendering, then fast-forward main only if Preview passes. Keep player publication HOLD until current-fixture eligibility/expected-minutes evidence is confirmed; keep sparse-evidence and cross-process joint markets fail-closed.",
+      "next_action": "Remain inside SOCCER-MARKETS-001. Preview-deploy the W7 branch, verify SM001W7/38 fixtures/private Blob OIDC loading and the customer Same Match 4/6/8 top-three UI with grey 'Insufficient data' states. Only after Preview PASS may W7 be promoted to Production. Then continue the same mini-project by cataloguing and modelling the additional builder families identified by the owner benchmark before formal closure.",
       "owner_note": "Stephen requires complete market-family treatment, not example-driven additions.",
       "last_updated": "2026-11-12",
       "governed_by_control_task_id": "SOCCER-MARKETS-001",
       "current_evidence": [
-        "Canonical football market registry drives all four customer tabs: 1X2 -> Secondary Outcomes -> Same Match Bet -> Double Chance & Combinations.",
+        "Canonical football market registry continues to drive all four customer tabs: 1X2 -> Secondary Outcomes -> Same Match Bet -> Double Chance & Combinations.",
         "Existing sealed pre-match 1X2 remains unchanged and was not recollected or rewritten.",
-        "Private market evidence covers 38 sealed Nations League fixtures, 46 teams and 361 historical fixture-stat records; market evidence SHA-256 f008903b9e6f2a13b711333a2d9257389acf52792dcb849a98724f67db418953.",
-        "Private event/player evidence covers all 361 historical fixtures for event timelines and 13,566 player-match rows across 3,586 unique players; player/event evidence SHA-256 16062dab8526171490252f8224b5f936f14da93115c45bddd7f9151a7c9649bc.",
-        "W6 combined private source SHA-256 is ed8b5f78691e7aa06be487deff5e3a3eddd506836b9cc6dcb1a0983456a41eac; normalized evidence SHA-256 8b9107f3a73904baf16ee88747210206d1412928a3fa206b2fae498177ddec85.",
-        "SM001W6 was generated at 2026-11-12T10:21:26.461Z (12:21:26 SAST), before the earliest 19:00 SAST kickoff; fixture_count=38.",
-        "W6 projection SHA-256 is be56c53888878351c0fd5f1918cb766a29d12c35ac3769b59f6b09e390aff73f; gzip SHA-256 40e9d410e0bf747271623316b1291a9245e65cc78cd08e2f1928ba93127dfc22; private projection size 3,397,424 bytes.",
-        "W6 is stored in the private Vercel Blob store skcs-edge-private-evidence and was read back through the Node @vercel/blob OIDC path with exact version SM001W6, 38 fixtures and the pinned source/hash checks.",
-        "W6 adds governed test-only team-to-score-first, red-card, penalty-awarded, booking-points and player/goalkeeper market projections while preserving existing scoreline, goals, corners, cards, half, Same Match and Double Chance models.",
-        "Coverage: 30/38 fixtures have all 40 registry market families handled by the private projection; 7/38 miss only goalkeeper-saves due to evidence depth; 1/38 has 31 families and fails closed for corners/cards plus goalkeeper-saves because the recent sample is below the minimum gate.",
-        "All 38 fixtures have the new team/event families team-to-score-first, red-card, penalty-awarded and booking-points.",
-        "Player projections use recent-start expected eligibility and are explicitly private/test-only until current-fixture lineup/expected-minutes eligibility is confirmed; missing player/referee/matchup evidence is not fabricated.",
-        "Focused W6 engine/website/governance regression is 50/50 PASS with syntax checks PASS and Control Center checker RESULT PASS.",
-        "Preview deployment dpl_WxqBRR5NRaxvZZbajgTQeDWr7vh3 is READY on branch commit b508401 and proves the project builds with the private Blob/OIDC dependency; W6 itself is not deployed because Vercel then enforced api-deployments-free-per-day (>100 deployments/day).",
-        "Production remains unchanged; W6 must not be described as live until a fresh W6 Preview deployment proves private Blob loading and authenticated Hub rendering, followed by controlled main/Production promotion."
+        "SM001W7 was generated from the existing governed W6 evidence at 2026-11-12T14:10:52.703Z (16:10:52 SAST), before the earliest 19:00 SAST kickoff; fixture_count=38.",
+        "W7 projection SHA-256 is 0be14df273654f52944bbaf4e0511d406f60199e8e125cbac0228ab098fe109c; source evidence SHA-256 remains ed8b5f78691e7aa06be487deff5e3a3eddd506836b9cc6dcb1a0983456a41eac.",
+        "Private W7 is stored in skcs-edge-private-evidence at soccer-markets-001/2026-11-12/w7-CFyxiE39JXPAyN5bZiowDNurn4J9EK.json.",
+        "Same Match customer output is now governed as ranked 4-leg / 6-leg / 8-leg offers; the raw two-leg cross-market combination inventory is internal evidence only and is no longer the intended customer Same Match presentation.",
+        "Same Match tier labels are Tier 1 Statistical Edge, Tier 2 Speculative Edge, Tier 3 High-Variance Play; combinations below 8% joint probability are suppressed.",
+        "Same Match availability across the 38 saved fixtures: 6 fixtures max 2 legs, 13 max 4 legs, 9 max 6 legs, 10 max 8 legs; 4-leg offers available on 32/38, 6-leg on 19/38, 8-leg on 10/38.",
+        "Unavailable Same Match size tabs must be greyed and display only 'Insufficient data'.",
+        "W7 Same Match uses a correlation-aware Gaussian-copula joint model with contradiction screening; it does not multiply marginal percentages as independent.",
+        "The W7 customer UI renders only the top three ranked combinations per available 4/6/8 size and keeps the underlying candidate inventory hidden from the customer view.",
+        "Focused W7 regression is 56/56 PASS with zero failures/skips; Control Center checker RESULT PASS.",
+        "Current Production remains the proven W6 release until W7 Preview runtime acceptance passes."
       ],
       "open_gaps": [
         "Vercel daily deployment quota currently prevents the required W6 Preview runtime acceptance and therefore blocks safe promotion of W6 to main/Production.",
