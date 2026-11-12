@@ -302,6 +302,128 @@
     });
   }
 
+  function marketProbabilityCard(code,label,value,selected){
+    var card=node('div',undefined,'fixture-probability'+(selected?' fixture-probability--selected':''));
+    card.append(
+      node('span',code,'fixture-probability__code'),
+      node('strong',value.toFixed(2)+'%','fixture-probability__value'),
+      node('span',label,'fixture-probability__label')
+    );
+    return card;
+  }
+
+  function renderUnavailableMarket(title,explanation,examples){
+    var wrap=node('div',undefined,'fixture-market-empty');
+    wrap.appendChild(node('h4',title));
+    wrap.appendChild(node('p',explanation));
+    if(examples)wrap.appendChild(node('p',examples,'fixture-evidence'));
+    wrap.appendChild(node('p','SKCS does not invent a percentage when the required governed pre-match evidence was not saved.','fixture-evidence'));
+    return wrap;
+  }
+
+  function render1X2Market(f,probs){
+    var section=node('div');
+    section.appendChild(node('h3','Expected 1X2 outcome','fixture-probabilities__title'));
+    var grid=node('div',undefined,'fixture-probabilities__grid');
+    [
+      {code:'1',label:f.home_team,value:probs.home_win,outcome:'home_win'},
+      {code:'X',label:'Draw',value:probs.draw,outcome:'draw'},
+      {code:'2',label:f.away_team,value:probs.away_win,outcome:'away_win'}
+    ].forEach(function(item){
+      grid.appendChild(marketProbabilityCard(item.code,item.label,item.value,f.prediction===item.outcome));
+    });
+    section.appendChild(grid);
+    section.appendChild(node('p','These are the sealed pre-match expected outcome probabilities. Governed confidence is shown separately below.','fixture-evidence'));
+    return section;
+  }
+
+  function renderDoubleChanceMarket(f,probs){
+    var section=node('div');
+    section.appendChild(node('h3','Standard Double Chance','fixture-probabilities__title'));
+    var grid=node('div',undefined,'fixture-probabilities__grid');
+    var oneX=probs.home_win+probs.draw;
+    var oneTwo=probs.home_win+probs.away_win;
+    var xTwo=probs.draw+probs.away_win;
+    [
+      {code:'1X',label:f.home_team+' or Draw',value:oneX},
+      {code:'12',label:f.home_team+' or '+f.away_team,value:oneTwo},
+      {code:'X2',label:'Draw or '+f.away_team,value:xTwo}
+    ].forEach(function(item){
+      grid.appendChild(marketProbabilityCard(item.code,item.label,item.value,false));
+    });
+    section.appendChild(grid);
+    section.appendChild(node('p','Standard Double Chance is derived exactly from the sealed mutually exclusive 1X2 probabilities: 1X = 1 + X, 12 = 1 + 2, X2 = X + 2.','fixture-evidence'));
+    section.appendChild(renderUnavailableMarket(
+      'Double Chance combinations',
+      'Double Chance + goals and Double Chance + BTTS require their own saved joint probabilities. Those joint outputs were not stored in this Nations League canary.',
+      'Examples reserved for governed evidence: 1X + Over/Under goals · X2 + BTTS Yes/No · 12 + Over/Under goals.'
+    ));
+    return section;
+  }
+
+  function renderFixtureMarketTabs(f,probs){
+    var shell=node('section',undefined,'fixture-market-tabs');
+    shell.setAttribute('aria-label','Expected outcome markets');
+    var tabs=node('div',undefined,'fixture-market-tabs__list');
+    tabs.setAttribute('role','tablist');
+    tabs.setAttribute('aria-label','Prediction market groups');
+    var panel=node('div',undefined,'fixture-market-tabs__panel');
+    panel.id='fixture-market-panel';
+    panel.setAttribute('role','tabpanel');
+
+    var definitions=[
+      {id:'1x2',label:'1X2'},
+      {id:'same-match',label:'Same Match Bet'},
+      {id:'secondary',label:'Secondary Outcomes'},
+      {id:'double-chance',label:'Double Chance & Combinations'}
+    ];
+    var active='1x2';
+    var buttons={};
+
+    function paint(){
+      definitions.forEach(function(def){
+        var b=buttons[def.id];
+        var on=def.id===active;
+        b.className='fixture-market-tab'+(on?' fixture-market-tab--active':'');
+        b.setAttribute('aria-selected',on?'true':'false');
+        b.tabIndex=on?0:-1;
+      });
+      panel.replaceChildren();
+      if(active==='1x2'){
+        panel.appendChild(render1X2Market(f,probs));
+      }else if(active==='same-match'){
+        panel.appendChild(renderUnavailableMarket(
+          'Same Match Bet',
+          'No governed Same Match Bet joint probability was saved for this fixture in the current canary.',
+          'Examples that require a future sealed joint model: Match Result + Goals · Match Result + BTTS · Goals + BTTS.'
+        ));
+      }else if(active==='secondary'){
+        panel.appendChild(renderUnavailableMarket(
+          'Secondary Outcomes',
+          'No governed secondary-market probability set was saved for this fixture in the current canary.',
+          'SKCS-recognised groups include Goals Over/Under · BTTS · Draw No Bet · Corners · Yellow Cards · First-Half markets. They will appear here only when Edge seals them pre-match and the existing governors accept them.'
+        ));
+      }else{
+        panel.appendChild(renderDoubleChanceMarket(f,probs));
+      }
+      announce(definitions.find(function(def){return def.id===active;}).label+' tab selected');
+    }
+
+    definitions.forEach(function(def){
+      var b=node('button',def.label,'fixture-market-tab');
+      b.type='button';
+      b.id='fixture-market-tab-'+def.id;
+      b.setAttribute('role','tab');
+      b.setAttribute('aria-controls','fixture-market-panel');
+      b.addEventListener('click',function(){active=def.id;paint();});
+      buttons[def.id]=b;
+      tabs.appendChild(b);
+    });
+    shell.append(tabs,panel);
+    paint();
+    return shell;
+  }
+
   function renderDetail(f){
     var info=stageFor(f);
     var box=node('article',undefined,'fixture-detail');
@@ -330,21 +452,7 @@
     if(f.status==='SAVED_PREMATCH'){
       var probs=f.outcome_probabilities_pct;
       if(probs){
-        var probabilitySection=node('section',undefined,'fixture-probabilities');
-        probabilitySection.appendChild(node('h3','Expected 1X2 outcome','fixture-probabilities__title'));
-        var grid=node('div',undefined,'fixture-probabilities__grid');
-        [
-          {code:'1',label:f.home_team,value:probs.home_win,outcome:'home_win'},
-          {code:'X',label:'Draw',value:probs.draw,outcome:'draw'},
-          {code:'2',label:f.away_team,value:probs.away_win,outcome:'away_win'}
-        ].forEach(function(item){
-          var card=node('div',undefined,'fixture-probability'+(f.prediction===item.outcome?' fixture-probability--selected':''));
-          card.append(node('span',item.code,'fixture-probability__code'),node('strong',item.value.toFixed(2)+'%','fixture-probability__value'),node('span',item.label,'fixture-probability__label'));
-          grid.appendChild(card);
-        });
-        probabilitySection.appendChild(grid);
-        probabilitySection.appendChild(node('p','These are the sealed pre-match expected outcome probabilities. Governed confidence is shown separately below.','fixture-evidence'));
-        box.appendChild(probabilitySection);
+        box.appendChild(renderFixtureMarketTabs(f,probs));
       }
       var p=node('p');
       p.textContent='Saved forecast: '+pickText(f)+' · governed confidence '+(f.confidence_pct===undefined?'—':f.confidence_pct+'%')+' · sealed '+fmt(f.committed_at)+' · saved '+fmt(f.persisted_at)+'.';
