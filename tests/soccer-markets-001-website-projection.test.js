@@ -12,10 +12,12 @@ const {
 }=require('../lib/nationsLeagueMarketWebsiteProjection');
 
 test('private market projection is hash pinned and fails closed when missing or altered',()=>{
-  assert.equal(PROJECTION_HASH,'060a92886581d3be87229916cdc47c7cce62391ea5ffc822f06b4c4d619210dc');
-  assert.equal(SOURCE_EVIDENCE_HASH,'9c9fb9a45a50b3e38317839bd66aeb252c011162c4bd17a43a62a4032f02ddbc');
+  assert.equal(PROJECTION_HASH,'9e97104599d845aabdabd963e47f7d195ac7c53e8d0c6d4bff262a801d58296d');
+  assert.equal(SOURCE_EVIDENCE_HASH,'f008903b9e6f2a13b711333a2d9257389acf52792dcb849a98724f67db418953');
   assert.equal(PROJECTION_VERSIONS.SM001W3.projection_hash,'f70178f1aeadb28a6a7be4d08715da9f36d5d3f2a592e3e1a1f6fa29e47b2cac');
   assert.equal(PROJECTION_VERSIONS.SM001W3.source_evidence_hash,'c44911d157a3bd0be56ecc802f3cca36dc44b8046297267cdcc609b41b38f6b6');
+  assert.equal(PROJECTION_VERSIONS.SM001W5.projection_hash,'9e97104599d845aabdabd963e47f7d195ac7c53e8d0c6d4bff262a801d58296d');
+  assert.equal(PROJECTION_VERSIONS.SM001W5.source_evidence_hash,'f008903b9e6f2a13b711333a2d9257389acf52792dcb849a98724f67db418953');
   assert.equal(PROJECTION_VERSIONS.SM001W4.projection_hash,'b2cec1855d697cbb3e31d510f010af498c527c2546442b2d5a9c44410ec27296');
   assert.equal(PROJECTION_VERSIONS.SM001W4.source_evidence_hash,'f008903b9e6f2a13b711333a2d9257389acf52792dcb849a98724f67db418953');
   assert.throws(()=>loadMarketProjectionFromEnvironment(''),/missing/);
@@ -44,6 +46,22 @@ test('market merge attaches only the 38 accepted saved fixtures and never held f
   assert.equal(merged.fixtures[38].market_probabilities,undefined);
   assert.equal(merged.market_projection.test_only,true);
   assert.equal(merged.market_projection.uncalibrated,true);
+});
+
+test('W5 market projection must be generated before every saved fixture kickoff',()=>{
+  const saved=Array.from({length:38},(_,i)=>({
+    fixture_id:'CANARY:API_SPORTS_FOOTBALL:5:2026:'+(5000+i),
+    status:'SAVED_PREMATCH',
+    kickoff_at:'2026-11-12T17:00:00Z'
+  }));
+  const f=Object.fromEntries(saved.map(x=>[x.fixture_id,{btts:[['YES',55],['NO',45]]}]));
+  const good={v:'SM001W5',src:PROJECTION_VERSIONS.SM001W5.source_evidence_hash,n:38,at:'2026-11-12T09:48:00.201Z',f};
+  const merged=attachMarketProbabilities({schema_version:'soccer-website-evidence-v1',fixtures:saved},good);
+  assert.equal(merged.market_projection.generated_at,'2026-11-12T09:48:00.201Z');
+  assert.throws(()=>attachMarketProbabilities(
+    {schema_version:'soccer-website-evidence-v1',fixtures:saved},
+    {...good,at:'2026-11-12T17:00:00Z'}
+  ),/not created before kickoff/);
 });
 
 test('held fixture market data is rejected rather than leaked',()=>{
