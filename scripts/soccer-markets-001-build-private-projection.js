@@ -6,6 +6,7 @@ const crypto=require('node:crypto');
 const zlib=require('node:zlib');
 const {projectBatch}=require('../backend/services/nationsLeagueMarketProjection');
 const {families}=require('../backend/config/footballMarketRegistry');
+const {buildSameMatchOffers}=require('../backend/services/sameMatchOfferEngine');
 
 function fail(message){throw new Error(message);}
 function sha256(bytes){return crypto.createHash('sha256').update(bytes).digest('hex');}
@@ -142,9 +143,9 @@ function normalizeEvidence(raw,rawHash,playerRaw,playerHash){
   };
 }
 
-function compactProjection(batch,version,sourceHash){
+function compactProjection(batch,version,sourceHash,evidence){
   const familyIds=new Set(families.map(x=>x.id));
-  const f={};
+  const f={},s={};
   for(const [fixtureId,p] of Object.entries(batch.fixtures||{})){
     const groups={};
     for(const [family,rows] of Object.entries(p.market_probabilities||{})){
@@ -161,9 +162,21 @@ function compactProjection(batch,version,sourceHash){
       });
     }
     f[fixtureId]=groups;
+
+    const target=evidence?.targets?.[fixtureId];
+    if(!target)fail('SMB_TARGET_MISSING:'+fixtureId);
+    const goalDiff=Number(p?.model?.scoreline?.lambda_home)-Number(p?.model?.scoreline?.lambda_away);
+    const offers=buildSameMatchOffers({
+      market_probabilities:p.market_probabilities,
+      probabilities_pct:target.sealed_1x2,
+      fixture:{home_team:target.teams.home.name,away_team:target.teams.away.name},
+      goal_diff:Number.isFinite(goalDiff)?goalDiff:null,
+      h2h_matches:Array.isArray(target.team_h2h)?target.team_h2h.length:0
+    });
+    s[fixtureId]=offers;
   }
-  if(Object.keys(f).length!==38)fail('PROJECTION_FIXTURE_COUNT_INVALID');
-  return {v:version,src:sourceHash,n:38,at:batch.generated_at,f};
+  if(Object.keys(f).length!==38||Object.keys(s).length!==38)fail('PROJECTION_FIXTURE_COUNT_INVALID');
+  return {v:version,src:sourceHash,n:38,at:batch.generated_at,f,s};
 }
 function summarize(view){
   const familyCounts={};
@@ -174,7 +187,7 @@ function summarize(view){
 }
 
 function main(){
-  const input=process.argv[2],outDir=process.argv[3],version=process.argv[4]||'SM001W6',playerInput=process.argv[5];
+  const input=process.argv[2],outDir=process.argv[3],version=process.argv[4]||'SM001W7',playerInput=process.argv[5];
   if(!input||!outDir||!playerInput){
     fail('USAGE: node script <raw-evidence.json> <out-dir> [version] <player-event-evidence.json>');
   }
@@ -188,7 +201,7 @@ function main(){
 
   const evidenceBytes=Buffer.from(JSON.stringify(evidence));
   const batchBytes=Buffer.from(JSON.stringify(batch));
-  const view=compactProjection(batch,version,evidence.evidence_sha256);
+  const view=compactProjection(batch,version,evidence.evidence_sha256,evidence);
   const viewBytes=Buffer.from(JSON.stringify(view));
   const gz=zlib.gzipSync(viewBytes,{level:9});
 
