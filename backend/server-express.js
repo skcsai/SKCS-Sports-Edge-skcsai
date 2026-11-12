@@ -52,6 +52,8 @@ const { normalizeFixtureDate, getPredictionWindow, isFixtureEligibleForPredictio
 const { initCronJobs } = require('./services/cronJobs');
 const { resolveStartupMode, resolveCanaryRequestPolicy } = require('./startupMode');
 const nationsLeagueEvidenceHandler = require('../api/evidence/nations-league');
+const authMeHandler = require('../api/auth/me');
+const footballMarketHandler = require('../api/markets/football');
 const startupPolicy = resolveStartupMode();
 const canaryRequestPolicy = resolveCanaryRequestPolicy();
 
@@ -698,7 +700,9 @@ async function proxyOdds(req, res) {
 }
 
 app.use('/api/proxy/odds', proxyOdds);
+app.all('/api/auth/me', authMeHandler);
 app.all('/api/evidence/nations-league', nationsLeagueEvidenceHandler);
+app.all('/api/markets/football', footballMarketHandler);
 
 app.use('/api/predictions', predictionsRouter);
 app.use('/api/pipeline', pipelineRouter);

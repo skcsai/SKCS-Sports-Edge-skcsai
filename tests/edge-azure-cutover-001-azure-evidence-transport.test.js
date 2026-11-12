@@ -148,6 +148,14 @@ test('Docker context and Express route include governed evidence runtime', () =>
   assert.doesNotMatch(dockerignore, /^lib\/$/m);
   assert.match(
     server,
+    /app\.all\('\/api\/auth\/me',\s*authMeHandler\)/
+  );
+  assert.match(
+    server,
     /app\.all\('\/api\/evidence\/nations-league',\s*nationsLeagueEvidenceHandler\)/
+  );
+  assert.match(
+    server,
+    /app\.all\('\/api\/markets\/football',\s*footballMarketHandler\)/
   );
 });
