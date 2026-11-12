@@ -179,30 +179,10 @@ function isRedCardMarket(market) {
     return BANNED_RED_CARD_MARKETS.has(key);
 }
 
-function getStandardSecondaryMarkets(matchContext, primaryPrediction) {
-    const homeWin = primaryPrediction === 'home_win';
-    const awayWin = primaryPrediction === 'away_win';
-
-    if (homeWin) {
-        return [
-            { market: 'draw_no_bet_home', prediction: 'home', confidence: 81, source: 'rule_of_4' },
-            { market: 'over_1_5', prediction: 'over', confidence: 79, source: 'rule_of_4' },
-            { market: 'under_4_5', prediction: 'under', confidence: 78, source: 'rule_of_4' }
-        ].filter((item) => !isRedCardMarket(item.market));
-    }
-
-    if (awayWin) {
-        return [
-            { market: 'draw_no_bet_away', prediction: 'away', confidence: 81, source: 'rule_of_4' },
-            { market: 'over_1_5', prediction: 'over', confidence: 79, source: 'rule_of_4' },
-            { market: 'under_4_5', prediction: 'under', confidence: 78, source: 'rule_of_4' }
-        ].filter((item) => !isRedCardMarket(item.market));
-    }
-
-    return [
-        { market: 'under_3_5', prediction: 'under', confidence: 79, source: 'rule_of_4' },
-        { market: 'btts_no', prediction: 'no', confidence: 77, source: 'rule_of_4' }
-    ].filter((item) => !isRedCardMarket(item.market));
+function getStandardSecondaryMarkets(_matchContext, _primaryPrediction) {
+    // SOCCER-GATE-001: customer publication may use only independently
+    // scored governed markets. Legacy fixed-confidence defaults are disabled.
+    return [];
 }
 
 const DIRECT_SAFE_MARKETS = Object.freeze(new Set([
