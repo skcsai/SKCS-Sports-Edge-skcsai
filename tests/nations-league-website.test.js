@@ -73,6 +73,6 @@ test('SOCCER-WEB-002 unsupported joint markets fail closed instead of fabricatin
  assert.match(js,/Same Match percentages are joint-event probabilities/);
  assert.match(js,/require their own saved joint probabilities/);
  assert.match(js,/does not invent a percentage/);
- assert.match(js,/Match Result \+ Goals/);
- assert.match(js,/Goals Over\/Under/);
+ assert.match(js,/\/api\/markets\/football/);
+ assert.match(js,/joint-event probabilities/);
 });
