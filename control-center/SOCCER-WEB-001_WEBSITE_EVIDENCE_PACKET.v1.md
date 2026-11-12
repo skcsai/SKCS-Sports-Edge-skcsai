@@ -40,3 +40,22 @@ Repair scope remains inside SOCCER-WEB-001. The home page, authentication handle
 Repair branch: `repair/soccer-web-001-ui2-restore`, based exactly on published `f680515eaf3134982b816b00f1f9051e0d7acacb`.
 
 Repair acceptance remains pending until the branch preview is READY, the restored UI is verified against the real authenticated evidence path, and the exact reviewed repair is promoted to the custom domain.
+
+
+## Full 1X2 probability visibility repair
+
+Stephen confirmed that the customer-facing 1X2 example must show all three expected outcomes (1 / X / 2), not only the selected outcome and governed confidence.
+
+Evidence inspection was read-only against the immutable `SOCCER-UNL-001` batch already exported in Azure logs. No API-SPORTS request, prediction rerun, Shadow call, or database/write operation occurred.
+
+- All 38 accepted saved Edge seals contain `decision.probabilities_pct.home_win`, `draw`, and `away_win`.
+- Each triplet sums to 100% within stored rounding; the selected prediction is the largest stored probability. Two stored `raw_top_probability_pct` values differ from their rounded selected value by 0.01 percentage point and are accepted only within the explicit 0.011 stored-rounding tolerance.
+- Example verified from the immutable seal: Türkiye 11.89%, Draw 16.53%, Belgium 71.58%.
+- Governed confidence remains a separate field. Where the raw top probability exceeds the existing confidence cap, the website must show the full expected 1X2 probability and the governed confidence separately rather than treating them as the same metric.
+- A probability-only private projection was derived for exactly 38 accepted fixtures, SHA-256 `2489fd77c34ea2ba812254a54552a52574f2b79853f51d236c18774753b08a98`. Held fixtures have no forecast probabilities.
+- Public source contains no probability dataset. Code accepts the projection only from sensitive server configuration and pins its exact SHA-256.
+- Focused isolated Vercel Sandbox test: 11 tests, 11 pass, 0 fail/skipped. The hash-pinned loader independently read all 38 probability rows and returned the Türkiye/Belgium triplet above.
+- Preview deployment for branch `repair/soccer-web-001-1x2-probabilities` is READY. The existing production website remains unchanged at this checkpoint.
+- Publication is blocked only by Vercel configuration authority: the connected Vercel credential returns HTTP 403 for both listing and creating project environment variables. The code fails safe and preserves the current website when `SOCCER_WEB_001_1X2_JSON` is absent. No private values were committed as a workaround.
+
+Exact remaining action: provision the validated probability projection as sensitive Vercel variable `SOCCER_WEB_001_1X2_JSON` for production/preview using an authorized Vercel account or CLI, then verify the authenticated owner view and publish the reviewed branch.
