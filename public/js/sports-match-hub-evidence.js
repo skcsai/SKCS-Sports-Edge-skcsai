@@ -373,8 +373,8 @@
 
     var definitions=[
       {id:'1x2',label:'1X2'},
-      {id:'same-match',label:'Same Match Bet'},
       {id:'secondary',label:'Secondary Outcomes'},
+      {id:'same-match',label:'Same Match Bet'},
       {id:'double-chance',label:'Double Chance & Combinations'}
     ];
     var active='1x2';
