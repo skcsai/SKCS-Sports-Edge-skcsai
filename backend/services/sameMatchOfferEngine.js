@@ -3,15 +3,19 @@
 const crypto=require('node:crypto');
 
 const TIERS=Object.freeze({
-  TIER_1:{id:'TIER_1',label:'Statistical Edge',min:25},
-  TIER_2:{id:'TIER_2',label:'Speculative Edge',min:15},
-  TIER_3:{id:'TIER_3',label:'High-Variance Play',min:8}
+  TIER_1:{id:'TIER_1',label:'Statistical Edge',leg_count:4},
+  TIER_2:{id:'TIER_2',label:'Speculative Edge',leg_count:6},
+  TIER_3:{id:'TIER_3',label:'High-Variance Play',leg_count:8}
 });
+const TIER_BY_SIZE=Object.freeze({4:TIERS.TIER_1,6:TIERS.TIER_2,8:TIERS.TIER_3});
 const LEG_SIZES=[4,6,8];
-const MIN_LEG_PROBABILITY=55;
-const MAX_POOL=32;
-const BEAM_WIDTH=320;
-const FINALISTS_PER_SIZE=12;
+const PLAYER_FAMILIES=new Set(['player_goal','player_assist','player_shots','player_shots_on_target','player_passes','player_tackles','player_fouls','player_card','goalkeeper_saves']);
+const MIN_LEG_PROBABILITY=50;
+const MIN_JOINT_PROBABILITY=8;
+const MAX_POOL=80;
+const MAX_ALTERNATIVES_PER_GROUP=4;
+const BEAM_WIDTH=700;
+const FINALISTS_PER_SIZE=36;
 const COPULA_SAMPLES=4096;
 
 function clamp(n,lo,hi){return Math.max(lo,Math.min(hi,n));}
@@ -102,7 +106,7 @@ function metadata(family,code,label,fixture){
   const l=String(label||'');
   const side=teamSideFromLabel(l,fixture);
   let process='other',direction='neutral',line=null;
-  if(f==='match_result_1x2'){process='result';direction=c;}
+  if(f==='match_result_1x2'||f==='double_chance_standard'){process='result';direction=c;}
   else if(['total_goals','team_total_goals','btts','clean_sheet','win_to_nil','team_to_score','goal_range','handicap_european','handicap_asian','winning_margin'].includes(f))process='goals';
   else if(['half_result','half_total_goals','half_btts','team_win_either_half'].includes(f))process='half';
   else if(f.startsWith('corners_'))process='corners';
@@ -143,13 +147,7 @@ function maxLegsAllowed(probabilities,goalDiff=null,fixture=null){
   if(p>=50||(gd!==null&&Math.abs(gd)>=1))return 4;
   return 2;
 }
-function tierFor(jointPct){
-  const p=Number(jointPct);
-  if(p>=TIERS.TIER_1.min)return TIERS.TIER_1;
-  if(p>=TIERS.TIER_2.min)return TIERS.TIER_2;
-  if(p>=TIERS.TIER_3.min)return TIERS.TIER_3;
-  return null;
-}
+function tierForSize(size){return TIER_BY_SIZE[Number(size)]||null;}
 function selectionGroup(leg){
   const m=leg.meta;
   if(m.player)return m.family+':P'+m.player;
@@ -237,7 +235,8 @@ function heuristicJoint(combo,context){
   for(const leg of combo)log+=Math.log(clamp(leg.probability_pct/100,.001,.999));
   let corr=0;
   for(let i=0;i<combo.length;i++)for(let j=i+1;j<combo.length;j++)corr+=pairCorrelation(combo[i],combo[j],context);
-  return Math.exp(log)*Math.exp(.32*corr);
+  const processBonus=1+Math.max(0,new Set(combo.map(x=>x.meta.process)).size-1)*0.025;
+  return Math.exp(log)*Math.exp(.32*corr)*processBonus;
 }
 function gaussianCopulaJoint(combo,context,samples=COPULA_SAMPLES){
   const p=combo.map(x=>clamp(x.probability_pct/100,.0001,.9999));
@@ -268,9 +267,9 @@ function rowToLeg(family,row,fixture){
   leg.meta=metadata(family,code,label,fixture);
   return leg;
 }
-function candidatePool({market_probabilities,probabilities_pct,fixture}){
+function candidatePool({market_probabilities,probabilities_pct,fixture,include_player_markets=false}){
   const excluded=new Set([
-    'same_match_builder','double_chance_standard','double_chance_combination',
+    'same_match_builder','double_chance_combination',
     'correct_score','exact_total_goals'
   ]);
   const rows=[];
@@ -279,31 +278,61 @@ function candidatePool({market_probabilities,probabilities_pct,fixture}){
     const leg={family:'match_result_1x2',code:fav.favorite.code,label:fav.favorite.label,probability_pct:pct(fav.favorite.probability_pct)};
     leg.meta=metadata(leg.family,leg.code,leg.label,fixture);rows.push(leg);
   }
+
+  const home=finite(probabilities_pct?.home_win??probabilities_pct?.home_pct);
+  const draw=finite(probabilities_pct?.draw??probabilities_pct?.draw_pct);
+  const away=finite(probabilities_pct?.away_win??probabilities_pct?.away_pct);
+  if([home,draw,away].every(Number.isFinite)){
+    const dc=[
+      {code:'1X',label:(fixture?.home_team||fixture?.home||'Home')+' or Draw',p:home+draw},
+      {code:'12',label:(fixture?.home_team||fixture?.home||'Home')+' or '+(fixture?.away_team||fixture?.away||'Away'),p:home+away},
+      {code:'X2',label:'Draw or '+(fixture?.away_team||fixture?.away||'Away'),p:draw+away}
+    ];
+    for(const row of dc){
+      if(row.p<MIN_LEG_PROBABILITY||row.p>=99.5)continue;
+      const leg={family:'double_chance_standard',code:row.code,label:row.label,probability_pct:pct(row.p)};
+      leg.meta=metadata(leg.family,leg.code,leg.label,fixture);rows.push(leg);
+    }
+  }
+
   for(const [family,selections] of Object.entries(market_probabilities||{})){
     if(excluded.has(family)||!Array.isArray(selections))continue;
-    const bestByGroup=new Map();
+    if(PLAYER_FAMILIES.has(family)&&!include_player_markets)continue;
+    const grouped=new Map();
     for(const row of selections){
       const leg=rowToLeg(family,row,fixture);if(!leg)continue;
       const g=selectionGroup(leg);
-      const current=bestByGroup.get(g);
-      if(!current||leg.probability_pct>current.probability_pct)bestByGroup.set(g,leg);
+      if(!grouped.has(g))grouped.set(g,[]);
+      grouped.get(g).push(leg);
     }
-    rows.push(...bestByGroup.values());
+    for(const list of grouped.values()){
+      list.sort((a,b)=>b.probability_pct-a.probability_pct);
+      rows.push(...list.slice(0,MAX_ALTERNATIVES_PER_GROUP));
+    }
   }
-  // Avoid drowning the search in player rows: keep strongest two per player family.
-  const nonPlayer=[],byPlayerFamily=new Map();
-  for(const leg of rows){
-    if(leg.meta.player){
-      if(!byPlayerFamily.has(leg.family))byPlayerFamily.set(leg.family,[]);
-      byPlayerFamily.get(leg.family).push(leg);
-    }else nonPlayer.push(leg);
+
+  const seen=new Set(),unique=[];
+  for(const leg of rows.sort((a,b)=>b.probability_pct-a.probability_pct)){
+    const key=leg.family+':'+leg.code;
+    if(seen.has(key))continue;
+    seen.add(key);unique.push(leg);
+    if(unique.length>=MAX_POOL)break;
   }
-  for(const list of byPlayerFamily.values()){
-    list.sort((a,b)=>b.probability_pct-a.probability_pct);
-    nonPlayer.push(...list.slice(0,2));
-  }
-  nonPlayer.sort((a,b)=>b.probability_pct-a.probability_pct);
-  return nonPlayer.slice(0,MAX_POOL);
+  return unique;
+}
+function requiredProcessCount(size){
+  return Number(size)===4?3:Number(size)===6?4:5;
+}
+function processDiverse(combo,size){
+  return new Set(combo.map(x=>x.meta.process)).size>=requiredProcessCount(size);
+}
+function overlapCount(a,b){
+  const A=new Set(a.map(x=>x.family+':'+x.code));
+  return b.reduce((n,x)=>n+(A.has(x.family+':'+x.code)?1:0),0);
+}
+function sufficientlyDifferent(combo,selected,size){
+  const minimumDifferent=Number(size)===4?2:Number(size)===6?2:3;
+  return selected.every(item=>Number(size)-overlapCount(combo,item.legs)>=minimumDifferent);
 }
 function compatibleWithCombo(combo,leg,fixture){
   return combo.every(existing=>!contradictory(existing,leg,fixture));
@@ -327,13 +356,13 @@ function beamCandidates(pool,size,context,fixture){
     beam=next.slice(0,BEAM_WIDTH).map(x=>x.combo);
     if(!beam.length)break;
   }
-  return beam.slice(0,FINALISTS_PER_SIZE);
+  return beam.filter(combo=>processDiverse(combo,size)).slice(0,FINALISTS_PER_SIZE);
 }
-function buildSameMatchOffers({market_probabilities,probabilities_pct,fixture={},goal_diff=null,h2h_matches=null}){
+function buildSameMatchOffers({market_probabilities,probabilities_pct,fixture={},goal_diff=null,h2h_matches=null,include_player_markets=false}){
   const fav=favoriteInfo(probabilities_pct,fixture);
   const maxLegs=maxLegsAllowed(probabilities_pct,goal_diff,fixture);
   const context={favorite_side:fav?.favorite?.side||null,h2h_matches};
-  const pool=candidatePool({market_probabilities,probabilities_pct,fixture});
+  const pool=candidatePool({market_probabilities,probabilities_pct,fixture,include_player_markets});
   const sizes={};
   for(const size of LEG_SIZES){
     if(size>maxLegs){
@@ -344,8 +373,8 @@ function buildSameMatchOffers({market_probabilities,probabilities_pct,fixture={}
     const scored=[];
     for(const combo of candidates){
       const joint=pct(gaussianCopulaJoint(combo,context));
-      const tier=tierFor(joint);
-      if(!tier)continue;
+      const tier=tierForSize(size);
+      if(!tier||joint<MIN_JOINT_PROBABILITY)continue;
       scored.push({
         leg_count:size,
         joint_probability_pct:joint,
@@ -358,28 +387,30 @@ function buildSameMatchOffers({market_probabilities,probabilities_pct,fixture={}
     const unique=[],seen=new Set();
     for(const item of scored){
       const sig=item.legs.map(x=>x.family+':'+x.code).sort().join('|');
-      if(seen.has(sig))continue;seen.add(sig);unique.push(item);
+      if(seen.has(sig)||!sufficientlyDifferent(item.legs,unique,size))continue;
+      seen.add(sig);unique.push(item);
       if(unique.length===3)break;
     }
+    const fixedTier=tierForSize(size);
     sizes[size]=unique.length
-      ?{leg_count:size,available:true,status:'AVAILABLE',display:size+'-Leg',offers:unique}
-      :{leg_count:size,available:false,status:'INSUFFICIENT_DATA',display:'Insufficient data',offers:[]};
+      ?{leg_count:size,available:true,status:'AVAILABLE',display:size+'-Leg - '+fixedTier.label,tier_id:fixedTier.id,tier_label:fixedTier.label,offers:unique}
+      :{leg_count:size,available:false,status:'INSUFFICIENT_DATA',display:'Insufficient data',tier_id:fixedTier.id,tier_label:fixedTier.label,offers:[]};
   }
   return {
     schema_version:'soccer-smb-offers-v1',
     max_legs:maxLegs,
     favorite:fav?{code:fav.favorite.code,label:fav.favorite.label,probability_pct:pct(fav.favorite.probability_pct)}:null,
     tiers:[
-      {id:'TIER_1',label:'Statistical Edge',min_probability_pct:25},
-      {id:'TIER_2',label:'Speculative Edge',min_probability_pct:15},
-      {id:'TIER_3',label:'High-Variance Play',min_probability_pct:8}
+      {id:'TIER_1',label:'Statistical Edge',leg_count:4},
+      {id:'TIER_2',label:'Speculative Edge',leg_count:6},
+      {id:'TIER_3',label:'High-Variance Play',leg_count:8}
     ],
     sizes
   };
 }
 
 module.exports={
-  TIERS,LEG_SIZES,MIN_LEG_PROBABILITY,
-  maxLegsAllowed,tierFor,candidatePool,contradictory,pairCorrelation,
+  TIERS,TIER_BY_SIZE,LEG_SIZES,MIN_LEG_PROBABILITY,MIN_JOINT_PROBABILITY,
+  maxLegsAllowed,tierForSize,candidatePool,contradictory,pairCorrelation,
   gaussianCopulaJoint,buildSameMatchOffers
 };
