@@ -24,7 +24,7 @@ module.exports=createEvidenceHandler(authenticate,async()=>{
  if(process.env.BLOB_STORE_ID){
    try{
      marketView=await loadMarketProjectionFromPrivateBlob();
-     transport='PRIVATE_BLOB_W5';
+     transport='PRIVATE_BLOB_W6';
    }catch(error){
      const marketConfig=process.env.SOCCER_MARKETS_001_PROJECTION_GZIP_BASE64;
      if(!marketConfig)throw error;

@@ -5,6 +5,7 @@ const {
   projectTwoTeamCountDistribution,
   assertPercentageVector
 }=require('./footballMarketProbabilityEngine');
+const {buildTimelinePlayerMarkets}=require('./timelinePlayerMarketProjection');
 
 const GOAL_MAX=10;
 const COUNT_MAX=24;
@@ -424,7 +425,7 @@ function buildCountMarkets(evidence,target,key,families,config){
   return {markets:out,model:l};
 }
 function projectFixture(evidence,fixtureId){
-  if(!['soccer-markets-001-nations-league-evidence-v1','soccer-markets-001-nations-league-evidence-v2'].includes(evidence?.schema_version))throw new Error('MARKET_EVIDENCE_SCHEMA_INVALID');
+  if(!['soccer-markets-001-nations-league-evidence-v1','soccer-markets-001-nations-league-evidence-v2','soccer-markets-001-nations-league-evidence-v3'].includes(evidence?.schema_version))throw new Error('MARKET_EVIDENCE_SCHEMA_INVALID');
   const target=evidence.targets?.[fixtureId];if(!target)throw new Error('TARGET_FIXTURE_MISSING');
   const anchors=goalAnchors(evidence,target);
   const base=independentPoissonGrid(anchors.home,anchors.away);
@@ -439,6 +440,18 @@ function projectFixture(evidence,fixtureId){
     {totalLines:[1.5,2.5,3.5,4.5,5.5,6.5],teamLines:[0.5,1.5,2.5,3.5]});
   markets=mergeFamilies(markets,corners.markets);
   markets=mergeFamilies(markets,cards.markets);
+  const shotsOnGoal=eventLambdas(evidence,target,'shots_on_goal');
+  const timelinePlayer=buildTimelinePlayerMarkets(evidence,target,{
+    score_cells:scoreCells,
+    goal_anchors:anchors,
+    goal_home:anchors.home,
+    goal_away:anchors.away,
+    card_home:cards.model?.home,
+    card_away:cards.model?.away,
+    sot_home:shotsOnGoal?.home,
+    sot_away:shotsOnGoal?.away
+  });
+  markets=mergeFamilies(markets,timelinePlayer);
   const first=halfProjection(evidence,target,'FIRST');
   const second=halfProjection(evidence,target,'SECOND');
   const halfNote='Half-specific pre-match goal model from recent completed-match half-time/full-time scoring history; test-only and uncalibrated.';
@@ -469,6 +482,8 @@ function projectFixture(evidence,fixtureId){
       scoreline:{method:'POISSON_HISTORY_PLUS_1X2_RAKING',lambda_home:anchors.home,lambda_away:anchors.away,h2h_used:anchors.h2h_used,recent_samples:anchors.recent_samples},
       corners:corners.model?{method:'TEAM_FOR_AGAINST_POISSON',...corners.model}:null,
       cards:cards.model?{method:'TEAM_FOR_AGAINST_POISSON',...cards.model}:null,
+      shots_on_goal:shotsOnGoal?{method:'TEAM_FOR_AGAINST_POISSON',...shotsOnGoal}:null,
+      player_markets:{method:'RECENT_PLAYER_EVENT_RATES',eligibility:'EXPECTED_RECENT_STARTERS_TEST_ONLY',public_gate:'CURRENT_FIXTURE_ELIGIBILITY_REQUIRED'},
       first_half:first?{method:'HALF_GOAL_HISTORY_POISSON',...first.anchors}:null,
       second_half:second?{method:'HALF_GOAL_HISTORY_POISSON',...second.anchors}:null
     },
@@ -477,8 +492,8 @@ function projectFixture(evidence,fixtureId){
       'player_goal','player_assist','player_shots','player_shots_on_target','player_passes',
       'player_tackles','player_fouls','player_card','goalkeeper_saves','penalty_awarded',
       'red_card','booking_points','team_to_score_first'
-    ],
-    evidence_note:'Test-only uncalibrated market projection. Player/referee/weather-dependent families remain fail-closed until their governed inputs are available.'
+    ].filter(family=>!Array.isArray(markets[family])||markets[family].length===0),
+    evidence_note:'Test-only uncalibrated market projection. Player selections use recent-start expected eligibility only and remain public-HOLD until current-fixture eligibility is confirmed. Referee/weather and unsupported cross-process joint modifiers remain fail-closed.'
   };
 }
 function projectBatch(evidence){

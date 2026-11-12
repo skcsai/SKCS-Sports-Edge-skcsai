@@ -4161,14 +4161,22 @@
         "backend/services/safeHavenSelector.js",
         "backend/services/marketScoringEngine.js",
         "backend/routes/predictions.js",
-        "public/js/sports-match-hub-evidence.js"
+        "public/js/sports-match-hub-evidence.js",
+        "backend/services/nationsLeagueMarketProjection.js",
+        "backend/services/timelinePlayerMarketProjection.js",
+        "lib/nationsLeagueMarketWebsiteProjection.js",
+        "scripts/soccer-markets-001-build-private-projection.js",
+        "tests/soccer-markets-001-timeline-player.test.js",
+        "tests/soccer-markets-001-website-projection.test.js",
+        "tests/nations-league-website.test.js"
       ],
       "related_tables": [],
       "known_issues": [
-        "Vercel daily deployment quota prevents creating the W5 Preview deployment required for runtime acceptance and therefore prevents safe promotion of W5 to main/Production in this session.",
-        "Player-specific props remain unavailable until governed expected/confirmed lineup, expected-minutes and player-event evidence is present.",
-        "Referee-dependent penalty/red-card/booking-points markets remain unavailable until governed referee/event evidence is transported for the fixture.",
-        "Cross-process Same Match combinations involving goals + corners/cards/player props require a validated common joint-event simulation; they must not be approximated by multiplying marginal percentages."
+        "Vercel daily deployment quota currently prevents the required W6 Preview runtime acceptance and therefore blocks safe promotion of W6 to main/Production.",
+        "Player-specific outputs in W6 are private/test-only expected-lineup projections; public publication remains HOLD until current-fixture lineup/eligibility and expected-minutes evidence is confirmed.",
+        "Player-v-player matchup/H2H and referee/weather modifiers are not yet transported into every relevant player/discipline model; absent modifiers must remain absent rather than be fabricated.",
+        "Cross-process Same Match combinations involving goals with corners/cards/player props still require a validated common joint-event simulation and must not be approximated by multiplying marginal percentages.",
+        "Eight fixtures retain truthful evidence-depth gaps: seven lack only goalkeeper-saves; one additionally lacks corners/cards market families because its recent sample is below the minimum event-history gate."
       ],
       "required_decisions": [],
       "completion_definition": "Canonical registry, alias normalization, truthful probability semantics, market-specific model/evidence mapping, joint-event combination engine, no-fabrication proof, tests and Control Center PASS.",
@@ -4186,30 +4194,33 @@
         "H2H/context evidence could be applied to the wrong type of outcome."
       ],
       "recommended_order": 62,
-      "next_action": "Remain inside SOCCER-MARKETS-001. Do not recollect or recreate sealed 1X2. First runtime continuation is to create one W5 Preview deployment when Vercel permits deployment, verify W5/38 fixtures/family counts and authenticated Hub rendering, then fast-forward main only if Preview passes. Continue fail-closed evidence work for currently unavailable player/referee/timeline families; do not fabricate percentages.",
+      "next_action": "Remain inside SOCCER-MARKETS-001. Do not recollect or rewrite the sealed 1X2. When Vercel permits another deployment, deploy the current W6 branch to Preview once, verify SM001W6/38 fixtures/private Blob OIDC loading/customer labels/authenticated Hub rendering, then fast-forward main only if Preview passes. Keep player publication HOLD until current-fixture eligibility/expected-minutes evidence is confirmed; keep sparse-evidence and cross-process joint markets fail-closed.",
       "owner_note": "Stephen requires complete market-family treatment, not example-driven additions.",
       "last_updated": "2026-11-12",
       "governed_by_control_task_id": "SOCCER-MARKETS-001",
       "current_evidence": [
-        "Canonical football market registry is implemented and drives the four customer tabs: 1X2 -> Secondary Outcomes -> Same Match Bet -> Double Chance & Combinations.",
-        "Production deployment dpl_5Mt3pUeXfBTrjdZaM2SGt4qYxm7W is READY at main commit aa5479379fe8c588904e8934de23b0a99fcf46f5; this is the earlier W2-capable market build.",
-        "Preview runtime probe on dpl_Aihmxd6Vy8oZnT72bftBkZTFts16 proved the installed W2 private projection decodes in Vercel: version SM001W2, 38 fixtures, Türkiye-Belgium 18 populated market families.",
-        "Private API-Sports evidence collection for the same 38 sealed pre-match fixtures completed with 46 unique teams and 361 historical fixture-stat records; raw evidence remains private and is not committed to the public Edge repository.",
-        "Current private source evidence SHA-256 is f008903b9e6f2a13b711333a2d9257389acf52792dcb849a98724f67db418953.",
-        "SM001W5 was generated at 2026-11-12T09:48:00.201Z (11:48:00 SAST), before the earliest 19:00 SAST kickoff; fixture_count=38, min populated family count=19, max=27, Türkiye-Belgium=27.",
-        "SM001W5 projection SHA-256 is 9e97104599d845aabdabd963e47f7d195ac7c53e8d0c6d4bff262a801d58296d; gzip SHA-256 is 362dd784e5e0d745554f678afd1c8bda9375c1ade966d44ca962235f978e58c8.",
-        "W5 preserves the original sealed 1X2 masses exactly, derives scoreline/goal markets from real goal history, applies event-specific team H2H to corners/cards only when matching event evidence exists, and fails closed below sample minimum.",
-        "W5 contains evidence-driven goals, team totals, BTTS, DNB, correct score, goal ranges, clean sheet, win-to-nil, winning margin, European/Asian handicap, corners totals/team/most/range/handicap, cards totals/team/most, first/second-half result/goals/BTTS, team-win-either-half, Same Match scoreline combinations, and Double Chance combinations where the joint event is represented by the coherent scoreline model.",
-        "Player props, penalties, red-card/booking-points and team-to-score-first remain fail-closed where required governed lineup/player/referee/timeline inputs are unavailable; the catalogue remains visible rather than fabricating probabilities.",
-        "SOCCER_MARKETS_001_PROJECTION_GZIP_BASE64 was updated as a Vercel Secret for Production and Preview with the W5 payload; existing deployments retain their prior environment snapshot until redeployed.",
-        "Final canonical source regression after removing temporary runtime probe: 91/91 PASS, 0 failures, 0 skipped, including Control Center, W5 pre-kickoff timing, event-specific H2H, held-fixture non-leakage, 1X2 preservation and four-tab website wiring.",
-        "New Preview/Production deployment is externally blocked by Vercel api-deployments-free-per-day after more than 100 deployments; both API deployment and official CLI fallback returned the same hard quota error. Production was deliberately not changed or falsely declared W5-live."
+        "Canonical football market registry drives all four customer tabs: 1X2 -> Secondary Outcomes -> Same Match Bet -> Double Chance & Combinations.",
+        "Existing sealed pre-match 1X2 remains unchanged and was not recollected or rewritten.",
+        "Private market evidence covers 38 sealed Nations League fixtures, 46 teams and 361 historical fixture-stat records; market evidence SHA-256 f008903b9e6f2a13b711333a2d9257389acf52792dcb849a98724f67db418953.",
+        "Private event/player evidence covers all 361 historical fixtures for event timelines and 13,566 player-match rows across 3,586 unique players; player/event evidence SHA-256 16062dab8526171490252f8224b5f936f14da93115c45bddd7f9151a7c9649bc.",
+        "W6 combined private source SHA-256 is ed8b5f78691e7aa06be487deff5e3a3eddd506836b9cc6dcb1a0983456a41eac; normalized evidence SHA-256 8b9107f3a73904baf16ee88747210206d1412928a3fa206b2fae498177ddec85.",
+        "SM001W6 was generated at 2026-11-12T10:21:26.461Z (12:21:26 SAST), before the earliest 19:00 SAST kickoff; fixture_count=38.",
+        "W6 projection SHA-256 is be56c53888878351c0fd5f1918cb766a29d12c35ac3769b59f6b09e390aff73f; gzip SHA-256 40e9d410e0bf747271623316b1291a9245e65cc78cd08e2f1928ba93127dfc22; private projection size 3,397,424 bytes.",
+        "W6 is stored in the private Vercel Blob store skcs-edge-private-evidence and was read back through the Node @vercel/blob OIDC path with exact version SM001W6, 38 fixtures and the pinned source/hash checks.",
+        "W6 adds governed test-only team-to-score-first, red-card, penalty-awarded, booking-points and player/goalkeeper market projections while preserving existing scoreline, goals, corners, cards, half, Same Match and Double Chance models.",
+        "Coverage: 30/38 fixtures have all 40 registry market families handled by the private projection; 7/38 miss only goalkeeper-saves due to evidence depth; 1/38 has 31 families and fails closed for corners/cards plus goalkeeper-saves because the recent sample is below the minimum gate.",
+        "All 38 fixtures have the new team/event families team-to-score-first, red-card, penalty-awarded and booking-points.",
+        "Player projections use recent-start expected eligibility and are explicitly private/test-only until current-fixture lineup/expected-minutes eligibility is confirmed; missing player/referee/matchup evidence is not fabricated.",
+        "Focused W6 engine/website/governance regression is 50/50 PASS with syntax checks PASS and Control Center checker RESULT PASS.",
+        "Preview deployment dpl_WxqBRR5NRaxvZZbajgTQeDWr7vh3 is READY on branch commit b508401 and proves the project builds with the private Blob/OIDC dependency; W6 itself is not deployed because Vercel then enforced api-deployments-free-per-day (>100 deployments/day).",
+        "Production remains unchanged; W6 must not be described as live until a fresh W6 Preview deployment proves private Blob loading and authenticated Hub rendering, followed by controlled main/Production promotion."
       ],
       "open_gaps": [
-        "Vercel daily deployment quota prevents creating the W5 Preview deployment required for runtime acceptance and therefore prevents safe promotion of W5 to main/Production in this session.",
-        "Player-specific props remain unavailable until governed expected/confirmed lineup, expected-minutes and player-event evidence is present.",
-        "Referee-dependent penalty/red-card/booking-points markets remain unavailable until governed referee/event evidence is transported for the fixture.",
-        "Cross-process Same Match combinations involving goals + corners/cards/player props require a validated common joint-event simulation; they must not be approximated by multiplying marginal percentages."
+        "Vercel daily deployment quota currently prevents the required W6 Preview runtime acceptance and therefore blocks safe promotion of W6 to main/Production.",
+        "Player-specific outputs in W6 are private/test-only expected-lineup projections; public publication remains HOLD until current-fixture lineup/eligibility and expected-minutes evidence is confirmed.",
+        "Player-v-player matchup/H2H and referee/weather modifiers are not yet transported into every relevant player/discipline model; absent modifiers must remain absent rather than be fabricated.",
+        "Cross-process Same Match combinations involving goals with corners/cards/player props still require a validated common joint-event simulation and must not be approximated by multiplying marginal percentages.",
+        "Eight fixtures retain truthful evidence-depth gaps: seven lack only goalkeeper-saves; one additionally lacks corners/cards market families because its recent sample is below the minimum event-history gate."
       ],
       "workstream": "Football public-readiness markets"
     }

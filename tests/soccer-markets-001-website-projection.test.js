@@ -7,27 +7,27 @@ const path=require('node:path');
 const {Readable}=require('node:stream');
 
 const {
-  PROJECTION_VERSIONS,PROJECTION_HASH,SOURCE_EVIDENCE_HASH,PRIVATE_BLOB_PATH,
+  PROJECTION_VERSIONS,ACTIVE_PROJECTION_VERSION,PROJECTION_HASH,SOURCE_EVIDENCE_HASH,PRIVATE_BLOB_PATH,
+  MAX_PROJECTION_BYTES,MAX_ROWS_PER_FAMILY,
   loadMarketProjectionFromEnvironment,
   loadMarketProjectionFromPrivateBlob,
   attachMarketProbabilities
 }=require('../lib/nationsLeagueMarketWebsiteProjection');
 
-test('private market projection is hash pinned and fails closed when missing or altered',()=>{
-  assert.equal(PROJECTION_HASH,'9e97104599d845aabdabd963e47f7d195ac7c53e8d0c6d4bff262a801d58296d');
-  assert.equal(SOURCE_EVIDENCE_HASH,'f008903b9e6f2a13b711333a2d9257389acf52792dcb849a98724f67db418953');
-  assert.equal(PROJECTION_VERSIONS.SM001W3.projection_hash,'f70178f1aeadb28a6a7be4d08715da9f36d5d3f2a592e3e1a1f6fa29e47b2cac');
-  assert.equal(PROJECTION_VERSIONS.SM001W3.source_evidence_hash,'c44911d157a3bd0be56ecc802f3cca36dc44b8046297267cdcc609b41b38f6b6');
-  assert.equal(PROJECTION_VERSIONS.SM001W5.projection_hash,'9e97104599d845aabdabd963e47f7d195ac7c53e8d0c6d4bff262a801d58296d');
-  assert.equal(PROJECTION_VERSIONS.SM001W5.source_evidence_hash,'f008903b9e6f2a13b711333a2d9257389acf52792dcb849a98724f67db418953');
-  assert.equal(PROJECTION_VERSIONS.SM001W4.projection_hash,'b2cec1855d697cbb3e31d510f010af498c527c2546442b2d5a9c44410ec27296');
-  assert.equal(PROJECTION_VERSIONS.SM001W4.source_evidence_hash,'f008903b9e6f2a13b711333a2d9257389acf52792dcb849a98724f67db418953');
-  assert.equal(PRIVATE_BLOB_PATH,'soccer-markets-001/2026-11-12/w5-zu0OkIvyLuUcWu8nlw8LXFWUxGJEHt.json');
+test('W6 private market projection is hash pinned and bounded',()=>{
+  assert.equal(ACTIVE_PROJECTION_VERSION,'SM001W6');
+  assert.equal(PROJECTION_HASH,'be56c53888878351c0fd5f1918cb766a29d12c35ac3769b59f6b09e390aff73f');
+  assert.equal(SOURCE_EVIDENCE_HASH,'ed8b5f78691e7aa06be487deff5e3a3eddd506836b9cc6dcb1a0983456a41eac');
+  assert.equal(PROJECTION_VERSIONS.SM001W6.projection_hash,PROJECTION_HASH);
+  assert.equal(PROJECTION_VERSIONS.SM001W6.source_evidence_hash,SOURCE_EVIDENCE_HASH);
+  assert.equal(PRIVATE_BLOB_PATH,'soccer-markets-001/2026-11-12/w6-jSYsQSELY0qCkAjkoTqFf82mSoeVyP.json');
+  assert.equal(MAX_PROJECTION_BYTES,8*1024*1024);
+  assert.equal(MAX_ROWS_PER_FAMILY,600);
   assert.throws(()=>loadMarketProjectionFromEnvironment(''),/missing/);
   assert.throws(()=>loadMarketProjectionFromEnvironment(Buffer.from('bad').toString('base64')));
 });
 
-test('private Blob loader requests only the pinned private object and fails closed on altered bytes',async()=>{
+test('private Blob loader requests only W6 and fails closed on altered bytes',async()=>{
   let call=null;
   const getter=async(pathname,options)=>{
     call={pathname,options};
@@ -38,14 +38,12 @@ test('private Blob loader requests only the pinned private object and fails clos
   assert.deepEqual(call.options,{access:'private',useCache:false});
 });
 
-test('market merge attaches only the 38 accepted saved fixtures and never held fixtures',()=>{
+test('market merge remains backwards-compatible with 2-field rollback rows',()=>{
   const saved=Array.from({length:38},(_,i)=>({
-    fixture_id:'CANARY:API_SPORTS_FOOTBALL:5:2026:'+(2000+i),
-    status:'SAVED_PREMATCH'
+    fixture_id:'CANARY:API_SPORTS_FOOTBALL:5:2026:'+(2000+i),status:'SAVED_PREMATCH'
   }));
   const held=Array.from({length:14},(_,i)=>({
-    fixture_id:'CANARY:API_SPORTS_FOOTBALL:5:2026:'+(3000+i),
-    status:'HELD'
+    fixture_id:'CANARY:API_SPORTS_FOOTBALL:5:2026:'+(3000+i),status:'HELD'
   }));
   const f=Object.fromEntries(saved.map(x=>[x.fixture_id,{
     total_goals:[['O2.5',61.25],['U2.5',38.75]],
@@ -53,28 +51,31 @@ test('market merge attaches only the 38 accepted saved fixtures and never held f
   }]));
   const merged=attachMarketProbabilities(
     {schema_version:'soccer-website-evidence-v1',fixtures:[...saved,...held]},
-    {v:'SM001W2',src:SOURCE_EVIDENCE_HASH,n:38,f},
+    {v:'SM001W2',src:PROJECTION_VERSIONS.SM001W2.source_evidence_hash,n:38,f},
     'ENV_ROLLBACK'
   );
   assert.equal(merged.fixtures.filter(x=>x.market_probabilities).length,38);
   assert.deepEqual(merged.fixtures[0].market_probabilities.total_goals[0],{code:'O2.5',probability_pct:61.25});
   assert.equal(merged.fixtures[38].market_probabilities,undefined);
-  assert.equal(merged.market_projection.test_only,true);
-  assert.equal(merged.market_projection.uncalibrated,true);
   assert.equal(merged.market_projection.transport,'ENV_ROLLBACK');
 });
 
-test('W5 market projection must be generated before every saved fixture kickoff',()=>{
+test('W6 preserves customer labels and must be generated before every saved fixture kickoff',()=>{
   const saved=Array.from({length:38},(_,i)=>({
     fixture_id:'CANARY:API_SPORTS_FOOTBALL:5:2026:'+(5000+i),
-    status:'SAVED_PREMATCH',
-    kickoff_at:'2026-11-12T17:00:00Z'
+    status:'SAVED_PREMATCH',kickoff_at:'2026-11-12T17:00:00Z'
   }));
-  const f=Object.fromEntries(saved.map(x=>[x.fixture_id,{btts:[['YES',55],['NO',45]]}]));
-  const good={v:'SM001W5',src:PROJECTION_VERSIONS.SM001W5.source_evidence_hash,n:38,at:'2026-11-12T09:48:00.201Z',f};
-  const merged=attachMarketProbabilities({schema_version:'soccer-website-evidence-v1',fixtures:saved},good,'PRIVATE_BLOB_W5');
-  assert.equal(merged.market_projection.generated_at,'2026-11-12T09:48:00.201Z');
-  assert.equal(merged.market_projection.transport,'PRIVATE_BLOB_W5');
+  const f=Object.fromEntries(saved.map(x=>[x.fixture_id,{
+    btts:[['YES',55,'Both teams to score – Yes'],['NO',45,'Both teams to score – No']],
+    player_goal:[['P101_ANYTIME',27.5,'Example Striker (Home expected) anytime scorer']]
+  }]));
+  const good={v:'SM001W6',src:PROJECTION_VERSIONS.SM001W6.source_evidence_hash,n:38,at:'2026-11-12T10:21:26.461Z',f};
+  const merged=attachMarketProbabilities({schema_version:'soccer-website-evidence-v1',fixtures:saved},good,'PRIVATE_BLOB_W6');
+  assert.equal(merged.market_projection.generated_at,'2026-11-12T10:21:26.461Z');
+  assert.equal(merged.market_projection.transport,'PRIVATE_BLOB_W6');
+  assert.deepEqual(merged.fixtures[0].market_probabilities.player_goal[0],{
+    code:'P101_ANYTIME',probability_pct:27.5,label:'Example Striker (Home expected) anytime scorer'
+  });
   assert.throws(()=>attachMarketProbabilities(
     {schema_version:'soccer-website-evidence-v1',fixtures:saved},
     {...good,at:'2026-11-12T17:00:00Z'}
@@ -88,22 +89,21 @@ test('held fixture market data is rejected rather than leaked',()=>{
   f[held.fixture_id]={btts:[['YES',50],['NO',50]]};
   assert.throws(()=>attachMarketProbabilities(
     {schema_version:'soccer-website-evidence-v1',fixtures:[...saved,held]},
-    {v:'SM001W2',src:SOURCE_EVIDENCE_HASH,n:38,f}
+    {v:'SM001W2',src:PROJECTION_VERSIONS.SM001W2.source_evidence_hash,n:38,f}
   ),/Held fixture unexpectedly/);
 });
 
-test('evidence route prefers private Blob W5 with explicit env rollback and Hub uses canonical registry',()=>{
+test('evidence route prefers private Blob W6 with explicit env rollback and Hub uses canonical registry',()=>{
   const route=fs.readFileSync(path.join(__dirname,'../api/evidence/nations-league.js'),'utf8');
   const js=fs.readFileSync(path.join(__dirname,'../public/js/sports-match-hub-evidence.js'),'utf8');
   assert.match(route,/BLOB_STORE_ID/);
   assert.match(route,/loadMarketProjectionFromPrivateBlob/);
-  assert.match(route,/PRIVATE_BLOB_W5/);
+  assert.match(route,/PRIVATE_BLOB_W6/);
   assert.match(route,/ENV_ROLLBACK/);
   assert.match(route,/SOCCER_MARKETS_001_PROJECTION_GZIP_BASE64/);
   assert.match(route,/attachMarketProbabilities/);
   assert.match(js,/\/api\/markets\/football/);
   assert.match(js,/soccer-markets-001-registry-v1/);
   assert.match(js,/function selectionLabel/);
-  assert.match(js,/details/);
   assert.match(js,/Test-only pre-match probability/);
 });

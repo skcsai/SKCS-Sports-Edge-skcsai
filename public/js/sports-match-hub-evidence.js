@@ -398,7 +398,7 @@
   function renderSavedMarketSelections(f,family){
     var all=f.market_probabilities&&f.market_probabilities[family.id];
     if(!Array.isArray(all)||!all.length)return null;
-    var valid=all.map(function(item){return {code:item.code,value:Number(item.probability_pct)};})
+    var valid=all.map(function(item){return {code:item.code,value:Number(item.probability_pct),label:item.label?String(item.label):''};})
       .filter(function(item){return Number.isFinite(item.value);});
     if(!valid.length)return null;
     var best=valid.slice().sort(function(a,b){return b.value-a.value;})[0];
@@ -406,14 +406,14 @@
     var summary=node('summary',undefined,'fixture-market-family__summary');
     summary.append(
       node('span',family.label,'fixture-market-family__title'),
-      node('span',selectionLabel(family.id,best.code,f)+' · '+best.value.toFixed(2)+'%','fixture-market-family__best')
+      node('span',(best.label||selectionLabel(family.id,best.code,f))+' · '+best.value.toFixed(2)+'%','fixture-market-family__best')
     );
     wrap.appendChild(summary);
     var grid=node('div',undefined,'fixture-probabilities__grid');
     valid.forEach(function(item){
       grid.appendChild(marketProbabilityCard(
         item.code,
-        selectionLabel(family.id,item.code,f),
+        (item.label||selectionLabel(family.id,item.code,f)),
         item.value,
         false
       ));

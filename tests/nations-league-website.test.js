@@ -75,4 +75,5 @@ test('SOCCER-MARKETS-001 renders saved governed market projections and still fai
  assert.match(js,/does not invent a percentage/);
  assert.match(js,/\/api\/markets\/football/);
  assert.match(js,/joint-event probabilities/);
+ assert.match(js,/item\.label\|\|selectionLabel/);
 });
