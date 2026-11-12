@@ -67,11 +67,11 @@ test('SOCCER-WEB-002 standard Double Chance is exact addition of sealed mutually
  assert.equal(Number((p.home_win+p.away_win).toFixed(2)),83.47);
  assert.equal(Number((p.draw+p.away_win).toFixed(2)),88.11);
 });
-test('SOCCER-WEB-002 unsupported joint markets fail closed instead of fabricating percentages',()=>{
+test('SOCCER-MARKETS-001 renders saved governed market projections and still fails closed when a family is missing',()=>{
  const js=fs.readFileSync(path.join(__dirname,'../public/js/sports-match-hub-evidence.js'),'utf8');
  assert.match(js,/No governed probability was saved for this fixture in the current canary/);
  assert.match(js,/Same Match percentages are joint-event probabilities/);
- assert.match(js,/require their own saved joint probabilities/);
+ assert.match(js,/Combination probabilities appear below only when a governed joint pre-match projection was saved/);
  assert.match(js,/does not invent a percentage/);
  assert.match(js,/\/api\/markets\/football/);
  assert.match(js,/joint-event probabilities/);
