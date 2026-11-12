@@ -12,4 +12,27 @@ test('write methods cannot authenticate or read evidence',async()=>{const h=crea
 test('missing or invalid data fails closed without demo fallback',async()=>{const h=createEvidenceHandler(async(q,r)=>r.status(200).json(owner),()=>{throw Error('private path must not leak');});const r=response();await h({method:'GET'},r);assert.equal(r.code,503);assert.ok(!JSON.stringify(r.body).includes('private path'));assert.match(r.body.error,/No demonstration/);});
 test('private evidence is read from server configuration, without a committed forecast file',()=>{const route=fs.readFileSync(path.join(__dirname,'../api/evidence/nations-league.js'),'utf8');assert.match(route,/loadWebsiteSnapshotFromEnvironment\(process\.env\.SOCCER_WEB_001_SNAPSHOT_GZIP_BASE64\)/);assert.doesNotMatch(route,/require\([^)]*evidence\/nations-league/);});
 test('missing or altered private configuration cannot supply fabricated data',()=>{assert.throws(()=>loadWebsiteSnapshotFromEnvironment(''),/missing/);const bad=require('node:zlib').gzipSync(Buffer.from('{"fixtures":[]}')).toString('base64');assert.throws(()=>loadWebsiteSnapshotFromEnvironment(bad),/hash mismatch/);});
-test('active page loads private evidence and no static mock or embedded forecast data',()=>{const html=fs.readFileSync(path.join(__dirname,'../public/sports-match-hub.html'),'utf8');assert.match(html,/sports-match-hub-evidence\.js/);assert.doesNotMatch(html,/sports-match-hub-mock-data\.js|src="js\/sports-match-hub\.js"|CANARY_FINAL_|71\.58|14 Jul/);assert.match(html,/uncalibrated/i);assert.match(html,/Africa\/Johannesburg/);});
+test('active page restores the rolling lifecycle hub while keeping real private evidence only',()=>{
+ const html=fs.readFileSync(path.join(__dirname,'../public/sports-match-hub.html'),'utf8');
+ assert.match(html,/Date — Rolling 8-Day Window/);
+ assert.match(html,/id="day-tabs"/);
+ assert.match(html,/Lifecycle Funnel Summary/);
+ assert.match(html,/id="movement-counters"/);
+ assert.match(html,/How to use this Hub/);
+ assert.match(html,/sports-match-hub-evidence\.js/);
+ assert.doesNotMatch(html,/sports-match-hub-mock-data\.js|src="js\/sports-match-hub\.js"|CANARY_FINAL_|71\.58|14 Jul/);
+ assert.match(html,/Real saved test evidence/);
+ assert.match(html,/Africa\/Johannesburg/);
+});
+test('real evidence controller drives day tabs and governed stages without mock fallback',()=>{
+ const js=fs.readFileSync(path.join(__dirname,'../public/js/sports-match-hub-evidence.js'),'utf8');
+ assert.match(js,/\/api\/evidence\/nations-league/);
+ assert.match(js,/renderDayTabs/);
+ assert.match(js,/EVIDENCE_REVIEW/);
+ assert.match(js,/STABILITY_REVIEW/);
+ assert.match(js,/FINAL_DECISION/);
+ assert.match(js,/INSUFFICIENT_COMPLETED_MATCH_HISTORY/);
+ assert.match(js,/BELOW_MINIMUM_CONFIDENCE|below the existing confidence requirement/i);
+ assert.doesNotMatch(js,/SportsMatchHubMock|sports-match-hub-mock-data/);
+ assert.match(js,/does not contain per-stage timestamps/i);
+});
