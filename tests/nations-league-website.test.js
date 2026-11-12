@@ -67,13 +67,18 @@ test('SOCCER-WEB-002 standard Double Chance is exact addition of sealed mutually
  assert.equal(Number((p.home_win+p.away_win).toFixed(2)),83.47);
  assert.equal(Number((p.draw+p.away_win).toFixed(2)),88.11);
 });
-test('SOCCER-MARKETS-001 renders saved governed market projections and still fails closed when a family is missing',()=>{
+test('SOCCER-MARKETS-001 renders ranked Same Match 4/6/8 tabs instead of the raw combination inventory',()=>{
  const js=fs.readFileSync(path.join(__dirname,'../public/js/sports-match-hub-evidence.js'),'utf8');
- assert.match(js,/No governed probability was saved for this fixture in the current canary/);
- assert.match(js,/Same Match percentages are joint-event probabilities/);
- assert.match(js,/Combination probabilities appear below only when a governed joint pre-match projection was saved/);
- assert.match(js,/does not invent a percentage/);
+ const html=fs.readFileSync(path.join(__dirname,'../public/sports-match-hub.html'),'utf8');
+ assert.match(js,/function renderSameMatchOffers/);
+ assert.match(js,/\[4,6,8\]/);
+ assert.match(js,/Statistical Edge|offer\.tier_label/);
+ assert.match(js,/Insufficient data/);
+ assert.match(js,/joint_probability_pct/);
+ assert.match(js,/slot\.offers\.forEach/);
+ assert.doesNotMatch(js,/Same Match percentages are joint-event probabilities from common match simulations/);
+ assert.match(html,/smb-size-tabs/);
+ assert.match(html,/smb-offer__legs/);
  assert.match(js,/\/api\/markets\/football/);
- assert.match(js,/joint-event probabilities/);
  assert.match(js,/item\.label\|\|selectionLabel/);
 });
