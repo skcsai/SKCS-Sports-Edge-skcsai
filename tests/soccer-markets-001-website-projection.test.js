@@ -16,6 +16,8 @@ test('private market projection is hash pinned and fails closed when missing or 
   assert.equal(SOURCE_EVIDENCE_HASH,'9c9fb9a45a50b3e38317839bd66aeb252c011162c4bd17a43a62a4032f02ddbc');
   assert.equal(PROJECTION_VERSIONS.SM001W3.projection_hash,'f70178f1aeadb28a6a7be4d08715da9f36d5d3f2a592e3e1a1f6fa29e47b2cac');
   assert.equal(PROJECTION_VERSIONS.SM001W3.source_evidence_hash,'c44911d157a3bd0be56ecc802f3cca36dc44b8046297267cdcc609b41b38f6b6');
+  assert.equal(PROJECTION_VERSIONS.SM001W4.projection_hash,'b2cec1855d697cbb3e31d510f010af498c527c2546442b2d5a9c44410ec27296');
+  assert.equal(PROJECTION_VERSIONS.SM001W4.source_evidence_hash,'f008903b9e6f2a13b711333a2d9257389acf52792dcb849a98724f67db418953');
   assert.throws(()=>loadMarketProjectionFromEnvironment(''),/missing/);
   assert.throws(()=>loadMarketProjectionFromEnvironment(Buffer.from('bad').toString('base64')));
 });
