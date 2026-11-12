@@ -22,3 +22,21 @@ The website-only reader is placed under lib and intentionally tracked despite th
 Remaining acceptance: custom-domain deployment and the real owner signed-in view.
 
 Privacy release proof: the Edge repository is public. No private forecast file was committed or pushed; all real fixture/forecast data stays in sensitive server configuration and authenticated responses.
+
+## UI2 lifecycle-hub restoration repair
+
+Stephen reported that the published saved-evidence table had displaced the deliberately designed rolling lifecycle Sports Match Hub. The preserved UI2 source was inspected at the previous canonical commit and in the retained acceptance fixture before any repair.
+
+Repair scope remains inside SOCCER-WEB-001. The home page, authentication handler, private snapshot, provider usage, prediction code, Shadow output, production/marriage gates and unrelated assets are unchanged.
+
+- Restored the original dashboard structure: Sport, Competition, **Date — Rolling 8-Day Window**, Lifecycle State, Lifecycle Funnel Summary, selected-day counters, fixture stage/state table, fixture detail stage path, EdgeMind saved-evidence summary and guide rail.
+- Did **not** restore the old mock-data runtime. The active page still loads only `js/sports-match-hub-evidence.js` and the authenticated `/api/evidence/nations-league` endpoint.
+- The immutable canary evidence is mapped conservatively: insufficient-history holds stop at Evidence Review; confidence holds stop at Stability Review; GREEN saved pre-match records reach Final Decision / Review Complete.
+- The UI explicitly states that the immutable snapshot does not contain per-stage timestamps and therefore does not invent them.
+- The lifecycle funnel uses the verified batch counts: 52 upcoming-at-cutoff; 48 after four history holds; 38 after ten confidence holds; 38 GREEN saved records through publication/final decision.
+- Eight clickable day tabs are anchored to the saved evidence window, preserving the intended day-by-day operating view while the current source remains a fixed canary snapshot.
+- Focused regression protection now asserts the rolling day tabs, lifecycle funnel, governed stage mapping, real evidence endpoint and absence of mock runtime fallback.
+
+Repair branch: `repair/soccer-web-001-ui2-restore`, based exactly on published `f680515eaf3134982b816b00f1f9051e0d7acacb`.
+
+Repair acceptance remains pending until the branch preview is READY, the restored UI is verified against the real authenticated evidence path, and the exact reviewed repair is promoted to the custom domain.
