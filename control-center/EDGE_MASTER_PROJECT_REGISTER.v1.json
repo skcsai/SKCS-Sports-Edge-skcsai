@@ -4175,9 +4175,11 @@
       ],
       "related_tables": [],
       "known_issues": [
-        "The owner-provided Same Bet Builder benchmark exposed additional normal builder market families not yet represented in the canonical registry, including last-goal, HT-FT, half double chance, team-to-score-both-halves/both-halves variants, half handicaps/clean sheets/exact goals, odd/even, highest-scoring-half, richer multigoals/multiscores and richer player threshold variants.",
-        "Player-specific public publication remains HOLD until current-fixture lineup/eligibility and expected-minutes evidence is confirmed.",
-        "Sparse-evidence fixture families must continue to fail closed rather than receive defaults."
+        "Vercel Hobby daily deployment cap currently prevents deployment of the corrected Same Match selector.",
+        "Current live W7 Same Match combinations were generated before the owner correction and remain immutable; do not recompute those fixtures after kickoff.",
+        "Future/fresh pre-match packages must use the corrected 4/6/8 selector and broader builder market universe.",
+        "Additional normal Same Bet Builder market families from the owner benchmark still require canonical catalogue/model coverage before formal closure.",
+        "Player-specific public publication remains HOLD until current-fixture lineup/eligibility and expected-minutes evidence is confirmed."
       ],
       "required_decisions": [],
       "completion_definition": "Canonical registry, alias normalization, truthful probability semantics, market-specific model/evidence mapping, joint-event combination engine, no-fabrication proof, tests and Control Center PASS.",
@@ -4195,7 +4197,7 @@
         "H2H/context evidence could be applied to the wrong type of outcome."
       ],
       "recommended_order": 62,
-      "next_action": "Remain inside SOCCER-MARKETS-001. Treat W7 Same Match 4/6/8 as the live customer checkpoint. Continue cataloguing and modelling the additional builder families identified by the owner benchmark across Secondary/Same Match candidate eligibility before formal closure; preserve fail-closed player/current-lineup and sparse-evidence gates.",
+      "next_action": "Remain inside SOCCER-MARKETS-001. When Vercel permits a new deployment, Preview the corrected selector, verify the 4-Leg - Statistical Edge / 6-Leg - Speculative Edge / 8-Leg - High-Variance Play labels and diversified top-three outputs, then promote only for fixtures whose corrected combinations were generated pre-match. Do not regenerate already-started fixture predictions after kickoff. Continue expanding the eligible builder market catalogue before formal closure.",
       "owner_note": "Stephen requires complete market-family treatment, not example-driven additions.",
       "last_updated": "2026-11-12",
       "governed_by_control_task_id": "SOCCER-MARKETS-001",
@@ -4206,14 +4208,15 @@
         "W7 projection SHA-256 is 0be14df273654f52944bbaf4e0511d406f60199e8e125cbac0228ab098fe109c; source evidence SHA-256 remains ed8b5f78691e7aa06be487deff5e3a3eddd506836b9cc6dcb1a0983456a41eac.",
         "Private W7 is stored in skcs-edge-private-evidence at soccer-markets-001/2026-11-12/w7-CFyxiE39JXPAyN5bZiowDNurn4J9EK.json.",
         "Same Match customer output is ranked 4-leg / 6-leg / 8-leg offers only; the raw two-leg cross-market combination inventory remains internal evidence and is not rendered as the customer Same Match product.",
-        "Same Match tier labels are Statistical Edge / Speculative Edge / High-Variance Play; combinations below 8% joint probability are suppressed.",
         "Across 38 fixtures: 6 max at 2 legs, 13 max at 4, 9 max at 6, 10 max at 8; 4-leg available 32/38, 6-leg 19/38, 8-leg 10/38.",
         "Unavailable Same Match size tabs are greyed and display only 'Insufficient data'.",
-        "W7 uses contradiction screening plus a correlation-aware Gaussian-copula joint model; marginal percentages are not multiplied as independent.",
         "Focused W7 regression is 56/56 PASS with zero failures/skips; Control Center checker PASS.",
         "Preview dpl_GA9hqSvr8bsTFPwx9h1aTKkoBvRA is READY and proved SM001W7, 38 fixtures, 40 market families and the exact pinned Blob/source hashes.",
         "Production dpl_DF9TthytoB6SPW6xTJYz6RKZsCVN is READY at commit bb9358b0ea684b950b7ab15ba465988a289287e0 and mapped to www.skcsai.co.za and skcsai.co.za.",
-        "Production build verification confirms the 4/6/8 Same Match renderer, Insufficient data states, joint_probability_pct output and SMB CSS are present, while the old raw Same Match sentence/view is absent."
+        "Production build verification confirms the 4/6/8 Same Match renderer, Insufficient data states, joint_probability_pct output and SMB CSS are present, while the old raw Same Match sentence/view is absent.",
+        "Owner correction locks Same Match tab names to 4-Leg - Statistical Edge, 6-Leg - Speculative Edge, and 8-Leg - High-Variance Play; tier branding is leg-count based.",
+        "Corrected selector broadens candidate lines, includes standard Double Chance, enforces multi-process diversity and meaningfully different top-three offers, and excludes unconfirmed player props while player publication remains HOLD.",
+        "Corrected focused regression: 57/57 PASS; Control Center checker PASS."
       ],
       "open_gaps": [
         "Vercel daily deployment quota currently prevents the required W6 Preview runtime acceptance and therefore blocks safe promotion of W6 to main/Production.",
