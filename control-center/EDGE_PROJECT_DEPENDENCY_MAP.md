@@ -439,28 +439,28 @@ Governed football customer-market publication law implemented and verified.
 
 **HOLD boundary:** player-v-player H2H, referee-v-team history and weather cannot yet promote a 70-<75% review-band fixture because those evidence families are not all live governed transport inputs. The Governor fails closed until a separate evidence-transport/quality mini-project proves them.
 
-## SOCCER-MARKETS-001 - IN_PROGRESS / W7 PREVIEW GATE
+## SOCCER-MARKETS-001 - IN_PROGRESS / W7 LIVE CHECKPOINT
 
 Create one governed football market catalogue across **1X2 -> Secondary Outcomes -> Same Match Bet -> Double Chance & Combinations**.
 
-Current W7 evidence:
+Live W7 checkpoint:
 - Existing sealed pre-match 1X2 remains unchanged and was not recollected.
-- W7 uses the existing governed W6 market/event/player evidence and was generated at `2026-11-12T14:10:52.703Z` (16:10:52 SAST), before the earliest 19:00 SAST kickoff.
+- W7 was generated at `2026-11-12T14:10:52.703Z` (16:10:52 SAST), before the earliest 19:00 SAST kickoff.
 - W7 projection SHA-256: `0be14df273654f52944bbaf4e0511d406f60199e8e125cbac0228ab098fe109c`.
-- Private W7 is stored in `skcs-edge-private-evidence`.
-- Same Match customer output is now **4-Leg / 6-Leg / 8-Leg**, with only the top three ranked compatible combinations shown per available size.
-- Tier labels: **Statistical Edge / Speculative Edge / High-Variance Play**. Joint probability below 8% is suppressed.
+- Same Match customer output is **4-Leg / 6-Leg / 8-Leg** only; the raw two-leg combination inventory is internal evidence.
+- Each available size displays at most the top three ranked compatible offers.
+- Tiers: **Statistical Edge / Speculative Edge / High-Variance Play**; <8% joint probability is suppressed.
 - Unavailable size tabs are greyed and display only **Insufficient data**.
-- Across 38 fixtures: 6 max at 2 legs, 13 max at 4, 9 max at 6, 10 max at 8; 4-leg is available on 32/38, 6-leg on 19/38, 8-leg on 10/38.
-- The old raw two-leg Same Match combination list is internal candidate evidence only and is no longer the intended customer presentation.
-- W7 uses contradiction screening plus a correlation-aware Gaussian-copula joint model; marginal percentages are not multiplied as if independent.
-- Focused W7 regression: **56/56 PASS**; Control Center checker PASS.
-- Production remains on proven W6 until W7 Preview acceptance passes.
+- 4-leg available 32/38; 6-leg 19/38; 8-leg 10/38.
+- W7 uses contradiction screening plus a correlation-aware Gaussian-copula joint model.
+- Focused regression **56/56 PASS**; Control Center checker PASS.
+- Preview `dpl_GA9hqSvr8bsTFPwx9h1aTKkoBvRA` READY and private Blob runtime proof PASS.
+- Production `dpl_DF9TthytoB6SPW6xTJYz6RKZsCVN` READY at `bb9358b0ea684b950b7ab15ba465988a289287e0`, mapped to `www.skcsai.co.za` and `skcsai.co.za`.
+- Production static verification confirms the new 4/6/8 renderer and removes the old raw Same Match presentation.
 
-Remaining fail-closed boundaries:
-- W7 Preview runtime acceptance and authenticated Hub verification are still required before Production.
-- The owner-provided Same Bet Builder benchmark identified additional normal builder market families that still need canonical registry/model coverage before SOCCER-MARKETS-001 can formally close.
-- Current-fixture player eligibility/expected-minutes remains required before public player-prop publication.
-- Sparse evidence remains unavailable rather than being filled with defaults.
+Remaining scope before formal closure:
+- Add/catalogue the additional builder families identified by the owner-provided Same Bet Builder benchmark.
+- Keep player publication HOLD until current-fixture eligibility/expected-minutes is confirmed.
+- Keep sparse evidence fail-closed.
 
-Next action: Remain inside SOCCER-MARKETS-001. Preview-deploy the W7 branch, verify SM001W7/38 fixtures/private Blob OIDC loading and the customer Same Match 4/6/8 top-three UI with grey 'Insufficient data' states. Only after Preview PASS may W7 be promoted to Production. Then continue the same mini-project by cataloguing and modelling the additional builder families identified by the owner benchmark before formal closure.
+Next action: Remain inside SOCCER-MARKETS-001. Treat W7 Same Match 4/6/8 as the live customer checkpoint. Continue cataloguing and modelling the additional builder families identified by the owner benchmark across Secondary/Same Match candidate eligibility before formal closure; preserve fail-closed player/current-lineup and sparse-evidence gates.
