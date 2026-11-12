@@ -96,3 +96,17 @@ Governed football customer-market publication law implemented and verified.
 
 **HOLD boundary:** player-v-player H2H, referee-v-team history and weather cannot yet promote a 70-<75% review-band fixture because those evidence families are not all live governed transport inputs. The Governor fails closed until a separate evidence-transport/quality mini-project proves them.
 
+## SOCCER-MARKETS-001 — IN_PROGRESS
+
+Create one governed football market catalogue across **1X2 → Secondary Outcomes → Same Match Bet → Double Chance & Combinations**.
+
+Rules:
+- Each market family has its own probability semantics and publication gate.
+- The 70–75% review band belongs to 1X2 only.
+- Player/team/referee/weather H2H/context is mapped by event type, not applied generically.
+- Same Match and Double Chance combinations require real joint probabilities, not multiplication of marginals.
+- Legacy generic/default/seeded scoring paths are not accepted as public probability authority.
+- Markets with insufficient evidence remain unavailable rather than fabricated.
+
+Definition of Done: canonical machine-readable registry; alias normalization; complete four-tab catalogue; market-specific probability/evidence/model/contradiction metadata; joint-event engine contract; no-fabrication proof; focused tests and Control Center PASS.
+
