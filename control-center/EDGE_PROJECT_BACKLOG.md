@@ -72,3 +72,20 @@ Display the existing immutable Nations League test evidence on skcsai.co.za thro
 Definition of Done: Exact version/hash-verified Azure snapshot and prediction batch; 52 upcoming-at-cutoff fixtures, 38 saved forecasts and 14 holds accurately projected; pre-kickoff timestamps and test/snapshot freshness visible; no mock fallback; owner-only forecast access and public denial tested; staged then verified custom-domain deployment; focused tests, rollback and Control Center evidence.
 
 Closure: TESTED on 12 November 2026. Rolling 8-day lifecycle Hub restored over real saved evidence; all 38 accepted fixtures expose the sealed 1/X/2 probability split through a hash-pinned private Vercel projection; focused suite 11/11 PASS; production deployment dpl_9r9asVUnawjznjSFcDToD2DZBNKp READY on skcsai.co.za and www.skcsai.co.za; signed-out evidence remains blocked. Further customer prediction-market expansion is separate work.
+
+## SOCCER-WEB-002 — IN_PROGRESS
+
+Add four operational fixture-detail market tabs: **1X2**, **Same Match Bet**, **Secondary Outcomes**, and **Double Chance & Combinations**.
+
+Start point: SOCCER-WEB-001 TESTED at production commit `784d396aa52e6c1fc8e33263cea6d78f71a43b33`.
+
+Scope law:
+- Preserve the existing sealed 1X2 display unchanged.
+- Standard Double Chance (1X, X2, 12) may be derived only by adding the mutually exclusive sealed 1X2 probabilities.
+- Same Match Bet, secondary and other combination markets may display only real governed pre-match probabilities already saved for the fixture.
+- Never infer joint probability by multiplying or otherwise combining marginal percentages.
+- When evidence is absent, the tab remains operational but must say the market was not saved for this canary.
+- Preserve Microsoft owner-only access, existing HOLD gates, pre-kickoff law, lifecycle stages, home page and unrelated systems.
+
+Definition of Done: exactly four accessible tabs operate in the fixture detail; 1X2 is unchanged; Double Chance displays exact derived 1X/X2/12 values; unsupported Same Match Bet/Secondary/combination outputs fail closed with plain-language unavailable status; no mock fallback; focused tests and live custom-domain verification pass.
+
