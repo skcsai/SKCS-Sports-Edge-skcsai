@@ -8,7 +8,7 @@ const {
   load1X2ProbabilityProjectionFromEnvironment,
   attach1X2Probabilities
 }=require('../../lib/nationsLeagueWebsiteSnapshot');
-const {buildSameMatchOffers}=require('../../backend/services/sameMatchOfferEngine');
+const {buildSameMatchOffers}=require('../../lib/sameMatchOfferEngine');
 
 const PATH='soccer-markets-001/2026-11-12/w8.json';
 const hash=b=>crypto.createHash('sha256').update(b).digest('hex');
