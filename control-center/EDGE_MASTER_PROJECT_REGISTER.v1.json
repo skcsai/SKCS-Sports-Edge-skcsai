@@ -4,7 +4,7 @@
   "generated_at": "2026-07-05",
   "source_ledger": "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
   "project_policy": "The Master Project Register owns project/workstream truth. Exact project_id to ledger.task_id overlaps must mirror canonical Control Center sequencing state. Files are assets, not automatically projects.",
-  "project_count": 60,
+  "project_count": 61,
   "projects": [
     {
       "project_id": "ECC-001",
@@ -4045,6 +4045,79 @@
       ],
       "open_gaps": [],
       "workstream": "Website evidence visibility"
+    },
+    {
+      "project_id": "SOCCER-GATE-001",
+      "project_name": "1X2 publication, fallback and market consistency governor",
+      "category": "Football public-readiness governance",
+      "description": "Govern when 1X2 may publish, when to route preference toward Secondary Outcomes, how independent corroboration can qualify a 70-<75% review-band forecast without changing its probability, and how all customer market families remain independently selectable while mutually contradictory outcomes are blocked.",
+      "why_it_matters": "Public release needs a truthful decision law between raw probability, contextual corroboration, customer market choice and contradiction safety.",
+      "current_status": "IN_PROGRESS",
+      "priority": "critical",
+      "startable": true,
+      "blocked_by": [
+        "SOCCER-WEB-002"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "prediction-governance",
+        "market-routing",
+        "website evidence visibility",
+        "public-readiness"
+      ],
+      "related_tasks": [
+        "SOCCER-WEB-001",
+        "SOCCER-WEB-002",
+        "PDM-001",
+        "EPRV-001-C4"
+      ],
+      "related_contracts": [
+        "control-center/SOCCER-GATE-001_1X2_PUBLICATION_FALLBACK_AND_MARKET_CONSISTENCY_CONTRACT.v1.md"
+      ],
+      "related_files": [
+        "backend/services/primaryMarketPublicationGovernor.js",
+        "backend/services/contradictionGovernance.js",
+        "backend/services/marketIntelligence.js",
+        "backend/services/aiPipeline.js",
+        "public/js/sports-match-hub-evidence.js",
+        "tests/soccer-gate-001-market-publication-governor.test.js",
+        "tests/nations-league-website.test.js"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "Legacy secondary fallback helpers synthesize fixed/default confidence values.",
+        "Existing generic market conflict utilities include portfolio-diversification conflicts that are not equivalent to customer publication contradictions.",
+        "Player-v-player H2H and referee-v-team evidence are not yet active governed transport inputs."
+      ],
+      "required_decisions": [],
+      "completion_definition": "SOCCER-GATE-001 is TESTED only after the contract, deterministic governor, no-fabrication secondary path, publication-specific contradiction rules, requested tab order, focused tests, Control Center checks and custom-domain verification all pass.",
+      "proof_required": [
+        "70/75 band boundaries",
+        "Review promotion without probability mutation",
+        "Independent evidence only",
+        "No double counting",
+        "No fabricated fallback markets",
+        "Cross-market contradiction safety",
+        "Live tab order"
+      ],
+      "risks_if_ignored": [
+        "False confidence promotion",
+        "Customer-visible contradictory markets",
+        "Synthetic secondary percentages",
+        "Confusion between model probability and governed publication decision"
+      ],
+      "recommended_order": 61,
+      "next_action": "Complete only SOCCER-GATE-001.",
+      "owner_note": "Stephen authorized the provisional band and corroboration/fallback rule on 2026-11-12.",
+      "last_updated": "2026-11-12",
+      "governed_by_control_task_id": "SOCCER-GATE-001",
+      "current_evidence": [
+        "Contract registered before runtime changes."
+      ],
+      "open_gaps": [
+        "Implementation and verification pending."
+      ],
+      "workstream": "Football public-readiness governance"
     }
   ]
 }
