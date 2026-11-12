@@ -333,25 +333,65 @@
     return 'Requires governed market evidence';
   }
 
+  function selectionLabel(familyId,code,f){
+    var raw=String(code||'');
+    var home=f.home_team,away=f.away_team;
+    var m;
+    if(familyId==='total_goals'&&(m=raw.match(/^([OU])(\d+(?:\.\d+)?)$/)))return (m[1]==='O'?'Over ':'Under ')+m[2]+' goals';
+    if(familyId==='team_total_goals'&&(m=raw.match(/^(HOME|AWAY)_([OU])(\d+(?:\.\d+)?)$/)))return (m[1]==='HOME'?home:away)+' '+(m[2]==='O'?'Over ':'Under ')+m[3]+' goals';
+    if(familyId==='btts')return 'Both teams to score – '+(raw==='YES'?'Yes':'No');
+    if(familyId==='clean_sheet'&&(m=raw.match(/^(HOME|AWAY)_YES$/)))return (m[1]==='HOME'?home:away)+' clean sheet';
+    if(familyId==='win_to_nil'&&(m=raw.match(/^(HOME|AWAY)_YES$/)))return (m[1]==='HOME'?home:away)+' win to nil';
+    if(familyId==='team_to_score'&&(m=raw.match(/^(HOME|AWAY)_YES$/)))return (m[1]==='HOME'?home:away)+' to score';
+    if(familyId==='correct_score')return raw;
+    if(familyId==='exact_total_goals')return raw+' total goals';
+    if(familyId==='goal_range')return raw==='6-10'?'6+ goals':raw+' goals';
+    if(familyId==='draw_no_bet')return raw==='HOME_WIN'?home+' Draw No Bet':away+' Draw No Bet';
+    if((familyId==='corners_total'||familyId==='cards_total')&&(m=raw.match(/^([OU])(\d+(?:\.\d+)?)$/)))return (m[1]==='O'?'Over ':'Under ')+m[2]+(familyId==='corners_total'?' corners':' yellow cards');
+    if((familyId==='corners_team'||familyId==='cards_team')&&(m=raw.match(/^(HOME|AWAY)_([OU])(\d+(?:\.\d+)?)$/)))return (m[1]==='HOME'?home:away)+' '+(m[2]==='O'?'Over ':'Under ')+m[3]+(familyId==='corners_team'?' corners':' yellow cards');
+    if(familyId==='corners_most'||familyId==='cards_most'){
+      if(raw==='HOME')return home+' most';
+      if(raw==='AWAY')return away+' most';
+      if(raw==='DRAW')return 'Equal';
+    }
+    function resultName(token){return token==='HOME'?home+' win':token==='AWAY'?away+' win':token==='DRAW'?'Draw':token;}
+    if(familyId==='same_match_builder'){
+      if((m=raw.match(/^(HOME|AWAY|DRAW)_([OU])(\d+(?:\.\d+)?)$/)))return resultName(m[1])+' + '+(m[2]==='O'?'Over ':'Under ')+m[3];
+      if((m=raw.match(/^(HOME|AWAY|DRAW)_BTTS_(YES|NO)$/)))return resultName(m[1])+' + BTTS '+(m[2]==='YES'?'Yes':'No');
+      if((m=raw.match(/^BTTS_(YES|NO)_([OU])(\d+(?:\.\d+)?)$/)))return 'BTTS '+(m[1]==='YES'?'Yes':'No')+' + '+(m[2]==='O'?'Over ':'Under ')+m[3];
+    }
+    if(familyId==='double_chance_combination'){
+      if((m=raw.match(/^(1X|12|X2)_([OU])(\d+(?:\.\d+)?)$/)))return m[1]+' + '+(m[2]==='O'?'Over ':'Under ')+m[3];
+      if((m=raw.match(/^(1X|12|X2)_BTTS_(YES|NO)$/)))return m[1]+' + BTTS '+(m[2]==='YES'?'Yes':'No');
+    }
+    return raw.replace(/_/g,' ');
+  }
+
   function renderSavedMarketSelections(f,family){
     var all=f.market_probabilities&&f.market_probabilities[family.id];
     if(!Array.isArray(all)||!all.length)return null;
-    var wrap=node('div',undefined,'fixture-market-family');
-    wrap.appendChild(node('h4',family.label,'fixture-market-family__title'));
+    var valid=all.map(function(item){return {code:item.code,value:Number(item.probability_pct)};})
+      .filter(function(item){return Number.isFinite(item.value);});
+    if(!valid.length)return null;
+    var best=valid.slice().sort(function(a,b){return b.value-a.value;})[0];
+    var wrap=node('details',undefined,'fixture-market-family fixture-market-family--available');
+    var summary=node('summary',undefined,'fixture-market-family__summary');
+    summary.append(
+      node('span',family.label,'fixture-market-family__title'),
+      node('span',selectionLabel(family.id,best.code,f)+' · '+best.value.toFixed(2)+'%','fixture-market-family__best')
+    );
+    wrap.appendChild(summary);
     var grid=node('div',undefined,'fixture-probabilities__grid');
-    all.forEach(function(item){
-      var value=Number(item.probability_pct);
-      if(!Number.isFinite(value))return;
+    valid.forEach(function(item){
       grid.appendChild(marketProbabilityCard(
-        item.code||item.outcome||'',
-        item.label||item.outcome||family.label,
-        value,
-        item.selected===true
+        item.code,
+        selectionLabel(family.id,item.code,f),
+        item.value,
+        false
       ));
     });
-    if(!grid.children.length)return null;
     wrap.appendChild(grid);
-    if(all[0]&&all[0].evidence_note)wrap.appendChild(node('p',all[0].evidence_note,'fixture-evidence'));
+    wrap.appendChild(node('p','Test-only pre-match probability. This market uses its own governed event model; it is not copied from the 1X2 percentage.','fixture-evidence'));
     return wrap;
   }
 
