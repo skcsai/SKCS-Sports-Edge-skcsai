@@ -65,8 +65,10 @@ A repository file is an asset. It is not automatically a project.
 | ESEC-001-I5 | Azure Scheduler and Refresh Credential Boundary Resolution | Subscriber and Security Boundary | TESTED | critical | ESEC-001-I5 | CLOSED / HOLD. Azure uses ADMIN_API_KEY for refresh/operator auth; Azure-only cron-secret created securely; temporary write role revoked; RLS remains separate; no deployment or Stage B. |
 | ESEC-001-I6 | RLS-001 Server-Only Table Boundary and Privilege Hardening | Subscriber and Security Boundary | TESTED | critical | ESEC-001-I6 | CLOSED / HOLD — source hardening proven; live migration apply deferred to next authorized active database target; no Supabase restore or Stage B. |
 
-## SOCCER-WEB-001 — IN_PROGRESS
+## SOCCER-WEB-001 — TESTED
 
 Display the existing immutable Nations League test evidence on skcsai.co.za through existing owner authentication. All fixture and forecast data remains private; signed-out visitors see an access message. No Shadow output disclosure, recalculation, new provider calls, production prediction writes, subscription/sign-in behaviour changes or production scope expansion. Preserve existing HOLD gates and unrelated work.
 
 Definition of Done: Exact version/hash-verified Azure snapshot and prediction batch; 52 upcoming-at-cutoff fixtures, 38 saved forecasts and 14 holds accurately projected; pre-kickoff timestamps and test/snapshot freshness visible; no mock fallback; owner-only forecast access and public denial tested; staged then verified custom-domain deployment; focused tests, rollback and Control Center evidence.
+
+Closure: TESTED on 12 November 2026. Rolling 8-day lifecycle Hub restored over real saved evidence; all 38 accepted fixtures expose the sealed 1/X/2 probability split through a hash-pinned private Vercel projection; focused suite 11/11 PASS; production deployment dpl_9r9asVUnawjznjSFcDToD2DZBNKp READY on skcsai.co.za and www.skcsai.co.za; signed-out evidence remains blocked. Further customer prediction-market expansion is separate work.
