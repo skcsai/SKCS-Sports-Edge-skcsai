@@ -4,7 +4,7 @@
   "generated_at": "2026-07-05",
   "source_ledger": "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
   "project_policy": "The Master Project Register owns project/workstream truth. Exact project_id to ledger.task_id overlaps must mirror canonical Control Center sequencing state. Files are assets, not automatically projects.",
-  "project_count": 61,
+  "project_count": 62,
   "projects": [
     {
       "project_id": "ECC-001",
@@ -4125,6 +4125,80 @@
         "Runtime activation of 70-<75 review-zone promotion using player-v-player H2H, referee-v-team history and weather remains HOLD until those evidence families are governed, transported and quality-proven. The Governor fails closed rather than pretending these factors exist."
       ],
       "workstream": "Football public-readiness governance"
+    },
+    {
+      "project_id": "SOCCER-MARKETS-001",
+      "project_name": "Complete football market catalogue and probability contract",
+      "category": "Football public-readiness markets",
+      "description": "Establish one complete governed football market catalogue across 1X2, Secondary Outcomes, Same Match Bet, and Double Chance & Combinations, with market-specific probability semantics and evidence/H2H mapping.",
+      "why_it_matters": "The current repository has fragmented market definitions and some legacy heuristic scorers; public release requires one source of truth and truthful probabilities for every market shown to customers.",
+      "current_status": "IN_PROGRESS",
+      "priority": "critical",
+      "startable": true,
+      "blocked_by": [
+        "SOCCER-GATE-001"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "prediction-markets",
+        "probability-engine",
+        "market-routing",
+        "website",
+        "governance"
+      ],
+      "related_tasks": [
+        "SOCCER-WEB-002",
+        "SOCCER-GATE-001",
+        "PDM-001",
+        "EPRV-001-C4"
+      ],
+      "related_contracts": [
+        "control-center/SOCCER-MARKETS-001_COMPLETE_FOOTBALL_MARKET_CATALOGUE_AND_PROBABILITY_CONTRACT.v1.md"
+      ],
+      "related_files": [
+        "backend/config/predictionOutcomes.js",
+        "backend/utils/secondaryMarketSelector.js",
+        "backend/services/safeHavenSelector.js",
+        "backend/services/marketScoringEngine.js",
+        "backend/routes/predictions.js",
+        "public/js/sports-match-hub-evidence.js"
+      ],
+      "related_tables": [],
+      "known_issues": [
+        "No single canonical football market registry exists.",
+        "Secondary market support differs between allowlists and code paths.",
+        "Current generic/seeded heuristic scoring paths are not suitable as public probability authority.",
+        "Same Match Bet support is partial and joint probability modelling is not yet proven across all allowed leg families.",
+        "Player/referee/weather contextual transport is incomplete for several market families."
+      ],
+      "required_decisions": [],
+      "completion_definition": "Canonical registry, alias normalization, truthful probability semantics, market-specific model/evidence mapping, joint-event combination engine, no-fabrication proof, tests and Control Center PASS.",
+      "proof_required": [
+        "All four tabs fully catalogued",
+        "Each market family has probability semantics",
+        "H2H/context relevance mapped by event type",
+        "No universal threshold copied across markets",
+        "No marginal multiplication for joint markets",
+        "No heuristic/default public probabilities"
+      ],
+      "risks_if_ignored": [
+        "Customers could see incomplete or misleading market coverage.",
+        "Different code paths could assign incompatible names or probabilities to the same market.",
+        "H2H/context evidence could be applied to the wrong type of outcome."
+      ],
+      "recommended_order": 62,
+      "next_action": "Implement the canonical football market registry first.",
+      "owner_note": "Stephen requires complete market-family treatment, not example-driven additions.",
+      "last_updated": "2026-11-12",
+      "governed_by_control_task_id": "SOCCER-MARKETS-001",
+      "current_evidence": [
+        "Contract registered before runtime implementation.",
+        "Repository and external market catalogue audit completed."
+      ],
+      "open_gaps": [
+        "Registry and probability-engine implementation pending."
+      ],
+      "workstream": "Football public-readiness markets"
     }
   ]
 }
