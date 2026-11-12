@@ -484,6 +484,97 @@
     return section;
   }
 
+  function renderSameMatchOffers(f){
+    var section=node('div',undefined,'smb-builder');
+    section.appendChild(node('h3','Same Match Bet','fixture-probabilities__title'));
+    section.appendChild(node('p','SKCS selects and ranks the strongest compatible multi-market combinations for this fixture.','fixture-evidence'));
+    var smb=f.same_match_offers;
+    if(!smb||!smb.sizes){
+      section.appendChild(renderUnavailableMarket('Same Match Bet','Insufficient data'));
+      return section;
+    }
+
+    var sizes=[4,6,8];
+    var tabs=node('div',undefined,'smb-size-tabs');
+    tabs.setAttribute('role','tablist');
+    tabs.setAttribute('aria-label','Same Match Bet leg count');
+    var panel=node('div',undefined,'smb-size-panel');
+    panel.setAttribute('role','tabpanel');
+    var firstAvailable=sizes.find(function(size){
+      var slot=smb.sizes[String(size)];
+      return slot&&slot.available;
+    });
+    var active=firstAvailable||4;
+    var buttons={};
+
+    function tierClass(id){
+      return id==='TIER_1'?'smb-tier--one':id==='TIER_2'?'smb-tier--two':'smb-tier--three';
+    }
+
+    function paint(){
+      sizes.forEach(function(size){
+        var slot=smb.sizes[String(size)]||{available:false};
+        var button=buttons[size];
+        var selected=size===active&&slot.available;
+        button.className='smb-size-tab'+(selected?' smb-size-tab--active':'')+(!slot.available?' smb-size-tab--disabled':'');
+        button.setAttribute('aria-selected',selected?'true':'false');
+        button.setAttribute('aria-disabled',slot.available?'false':'true');
+        button.disabled=!slot.available;
+        button.textContent=slot.available?(size+'-Leg'):(size+'-Leg · Insufficient data');
+      });
+
+      panel.replaceChildren();
+      var slot=smb.sizes[String(active)];
+      if(!slot||!slot.available){
+        panel.appendChild(node('p','Insufficient data','smb-insufficient'));
+        return;
+      }
+
+      var list=node('div',undefined,'smb-offers');
+      slot.offers.forEach(function(offer,index){
+        var card=node('article',undefined,'smb-offer');
+        var head=node('div',undefined,'smb-offer__head');
+        head.append(
+          node('span','#'+(index+1)+' '+offer.tier_label,'smb-tier '+tierClass(offer.tier_id)),
+          node('strong',Number(offer.joint_probability_pct).toFixed(2)+'%','smb-offer__probability')
+        );
+        card.appendChild(head);
+        card.appendChild(node('p','Joint probability','smb-offer__caption'));
+
+        var legs=node('ol',undefined,'smb-offer__legs');
+        offer.legs.forEach(function(leg){
+          var item=node('li',undefined,'smb-offer__leg');
+          item.append(
+            node('span',leg.label,'smb-offer__leg-label'),
+            node('span',Number(leg.probability_pct).toFixed(2)+'%','smb-offer__leg-probability')
+          );
+          legs.appendChild(item);
+        });
+        card.appendChild(legs);
+        list.appendChild(card);
+      });
+      panel.appendChild(list);
+    }
+
+    sizes.forEach(function(size){
+      var button=node('button',size+'-Leg','smb-size-tab');
+      button.type='button';
+      button.setAttribute('role','tab');
+      button.addEventListener('click',function(){
+        var slot=smb.sizes[String(size)];
+        if(!slot||!slot.available)return;
+        active=size;
+        paint();
+      });
+      buttons[size]=button;
+      tabs.appendChild(button);
+    });
+
+    section.append(tabs,panel);
+    paint();
+    return section;
+  }
+
   function renderFixtureMarketTabs(f,probs){
     var shell=node('section',undefined,'fixture-market-tabs');
     shell.setAttribute('aria-label','Expected outcome markets');
@@ -520,10 +611,7 @@
           'Every listed market has its own probability semantics. A percentage appears only when its governed pre-match distribution has been saved for this fixture.'
         ));
       }else if(active==='same-match'){
-        panel.appendChild(renderMarketCatalogue(
-          f,'SAME_MATCH_BET','Same Match Bet',
-          'Same Match percentages are joint-event probabilities from common match simulations; SKCS never multiplies marginal percentages as though the legs were independent.'
-        ));
+        panel.appendChild(renderSameMatchOffers(f));
       }else{
         var dc=renderDoubleChanceMarket(f,probs);
         dc.appendChild(renderMarketCatalogue(
