@@ -484,3 +484,30 @@ Remaining fail-closed boundaries:
 - sparse-evidence fixture families remain unavailable rather than using defaults.
 
 No new 1X2 prediction is required and the existing sealed pre-match 1X2 must not be recollected or rewritten.
+
+
+## W7 checkpoint — ranked Same Match customer presentation
+
+Owner correction: the customer Same Match tab must not expose the raw two-leg combination inventory. That inventory is an internal candidate pool.
+
+Locked customer presentation:
+- sub-tabs: **4-Leg / 6-Leg / 8-Leg**;
+- generate candidate combinations from the full eligible governed market pool;
+- contradiction-screen before ranking;
+- calculate a correlation-aware joint probability;
+- return at most the top three offers for each available size;
+- Tier 1 = **Statistical Edge** (>=25%);
+- Tier 2 = **Speculative Edge** (15–<25%);
+- Tier 3 = **High-Variance Play** (8–<15%);
+- suppress <8%;
+- unavailable size tab = greyed **Insufficient data** only.
+
+W7 pre-match proof:
+- generated `2026-11-12T14:10:52.703Z` before earliest 19:00 SAST kickoff;
+- projection SHA-256 `0be14df273654f52944bbaf4e0511d406f60199e8e125cbac0228ab098fe109c`;
+- 38 fixtures;
+- 4-leg available 32/38, 6-leg 19/38, 8-leg 10/38;
+- focused regression **56/56 PASS**;
+- Production remains W6 until W7 Preview runtime acceptance passes.
+
+The owner-provided Same Bet Builder benchmark also demonstrates additional normal builder market families beyond the current canonical registry. Those missing families remain part of SOCCER-MARKETS-001 scope and prevent formal project closure until catalogued/modelled or explicitly governed unavailable.
