@@ -30,7 +30,12 @@
     .fixture-market-empty{padding:1rem;border:1px dashed var(--smh-border);border-radius:var(--smh-radius);background:var(--smh-panel-soft)}
     .fixture-market-empty h4{margin:0 0 .45rem;color:var(--smh-text)}
     .fixture-market-empty p{margin:.3rem 0;color:var(--smh-muted);line-height:1.55}
-    @media(max-width:800px){.fixture-market-tabs__list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+    .fixture-market-catalogue{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.65rem;margin-top:.85rem}
+    .fixture-market-family{padding:.85rem;border:1px solid var(--smh-border);border-radius:var(--smh-radius);background:var(--smh-panel-soft)}
+    .fixture-market-family--pending{border-style:dashed}
+    .fixture-market-family__title{margin:0 0 .35rem;color:var(--smh-text);font-size:.84rem}
+    .fixture-market-family__status{margin:.15rem 0 .35rem;color:var(--smh-muted);font-size:.75rem;font-weight:700}
+    @media(max-width:800px){.fixture-market-tabs__list{grid-template-columns:repeat(2,minmax(0,1fr))}.fixture-market-catalogue{grid-template-columns:1fr}}
     @media(max-width:600px){.fixture-probabilities__grid{grid-template-columns:1fr}.fixture-market-tabs__list{grid-template-columns:1fr}}
   </style>
 </head>
