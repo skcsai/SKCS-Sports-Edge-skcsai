@@ -3919,6 +3919,69 @@
       "next_action": "CLOSED / TESTED. Preserve the four-tab market UI and fail-closed evidence law. Populate Same Match Bet, Secondary Outcomes and combination markets only when a separate governed prediction-market pipeline seals valid pre-match probabilities.",
       "owner_note": "Stephen approved the four-window layout: 1X2, Same Match Bet, Secondary Outcomes, Double Chance & Combinations.",
       "last_updated": "2026-11-12"
+    },
+    {
+      "task_id": "SOCCER-GATE-001",
+      "task_name": "1X2 publication, fallback and market consistency governor",
+      "workstream": "Football public-readiness governance",
+      "description": "Implement the provisional 1X2 publication bands and customer-market routing law: 75%+ strong zone, 70-<75% review zone requiring independent corroboration, below 70% fallback to independently valid customer markets, and HOLD on hard veto. Preserve customer choice across all four market families and block only genuine logical contradictions. Remove synthetic/default secondary confidence from customer publication paths.",
+      "status": "IN_PROGRESS",
+      "startable": true,
+      "priority": "critical",
+      "blocked_by": [
+        "SOCCER-WEB-002"
+      ],
+      "blocks": [],
+      "affected_layers": [
+        "prediction-governance",
+        "market-routing",
+        "website evidence visibility",
+        "public-readiness"
+      ],
+      "related_contracts": [
+        "control-center/SOCCER-GATE-001_1X2_PUBLICATION_FALLBACK_AND_MARKET_CONSISTENCY_CONTRACT.v1.md",
+        "governance/contracts/player_driven_prediction_overlay.v1.md",
+        "control-center/EPRV-001_C4_SCOUT_CONTEXT_TRANSPORT_FIELD_CONTRACT.v1.md"
+      ],
+      "affected_files": [
+        "backend/services/primaryMarketPublicationGovernor.js",
+        "backend/services/contradictionGovernance.js",
+        "backend/services/marketIntelligence.js",
+        "backend/services/aiPipeline.js",
+        "public/js/sports-match-hub-evidence.js",
+        "tests/soccer-gate-001-market-publication-governor.test.js",
+        "tests/nations-league-website.test.js",
+        "control-center/EDGE_BUILD_CONTROL_LEDGER.v1.json",
+        "control-center/EDGE_MASTER_PROJECT_REGISTER.v1.json",
+        "control-center/EDGE_PROJECT_BACKLOG.md",
+        "control-center/EDGE_PROJECT_DEPENDENCY_MAP.md"
+      ],
+      "affected_tables": [],
+      "completion_definition": "Deterministic publication Governor implements strong/review/fallback/hold without altering model probability; review promotion requires independent corroboration; customer market order is 1X2, Secondary Outcomes, Same Match Bet, Double Chance & Combinations; logical contradiction checks do not suppress compatible customer choices; synthetic/default secondary confidence generation is removed from publication path; focused tests, Control Center checks and live custom-domain verification pass.",
+      "proof_required": [
+        "Contract registered before code changes",
+        "75% and 70% boundary tests",
+        "73.22% review-zone example remains 73.22% when review-qualified",
+        "Independent-factor and double-count tests",
+        "Logical contradiction matrix tests",
+        "No fabricated secondary confidence",
+        "Website tab-order proof",
+        "Preview and production verification",
+        "Control Center synchronization"
+      ],
+      "current_evidence": [
+        "Owner clarification 2026-11-12: four markets are independently customer-selectable; 1X2 failure routes preference to Secondary Outcomes but does not make other markets valid automatically.",
+        "Owner selected provisional 1X2 operating bands: 70-75% review range and above 75% strong range, subject to supporting context and later calibration.",
+        "Existing Edge code already contains contradiction governance and secondary-market selection.",
+        "Inspection found legacy hard-coded secondary confidence defaults (81/79/78 and fallback-derived values) that conflict with the no-fabrication publication law.",
+        "PDM-001 already reserves player-v-player/player-interaction modelling for future governed work; EPRV-001-C4 transports team H2H/form/availability only when separately activated."
+      ],
+      "open_gaps": [
+        "Implement deterministic governor, repair publication contradiction semantics, remove synthetic secondary defaults from customer publication path, reorder live tabs, test and deploy."
+      ],
+      "next_action": "Implement focused SOCCER-GATE-001 code and tests on isolated branch; do not start public launch or unrelated work.",
+      "owner_note": "Stephen clarified the fallback/customer-choice relationship and requested Control Center governance on 2026-11-12.",
+      "last_updated": "2026-11-12"
     }
   ]
 }
