@@ -439,17 +439,24 @@ Governed football customer-market publication law implemented and verified.
 
 **HOLD boundary:** player-v-player H2H, referee-v-team history and weather cannot yet promote a 70-<75% review-band fixture because those evidence families are not all live governed transport inputs. The Governor fails closed until a separate evidence-transport/quality mini-project proves them.
 
-## SOCCER-MARKETS-001 — IN_PROGRESS
+## SOCCER-MARKETS-001 — IN_PROGRESS / W5 DEPLOYMENT HOLD
 
 Create one governed football market catalogue across **1X2 → Secondary Outcomes → Same Match Bet → Double Chance & Combinations**.
 
-Rules:
-- Each market family has its own probability semantics and publication gate.
-- The 70–75% review band belongs to 1X2 only.
-- Player/team/referee/weather H2H/context is mapped by event type, not applied generically.
-- Same Match and Double Chance combinations require real joint probabilities, not multiplication of marginals.
-- Legacy generic/default/seeded scoring paths are not accepted as public probability authority.
-- Markets with insufficient evidence remain unavailable rather than fabricated.
+Current proof:
+- Canonical registry and registry-driven four-tab Hub are implemented.
+- Production currently has the earlier W2 market build; a runtime Preview probe proved W2 decodes 38 private saved fixtures.
+- Private W5 source evidence: 38 sealed fixtures, 46 teams, 361 historical fixture-stat records; source SHA-256 `f008903b9e6f2a13b711333a2d9257389acf52792dcb849a98724f67db418953`.
+- W5 generated pre-match at `2026-11-12T09:48:00.201Z`; 38/38 fixtures; 19–27 populated market families per fixture; Türkiye–Belgium has 27.
+- W5 projection SHA-256 `9e97104599d845aabdabd963e47f7d195ac7c53e8d0c6d4bff262a801d58296d`.
+- Event-specific H2H is applied to the matching event model (for example corners/cards), not generically to every market.
+- Final canonical source regression: **91/91 PASS**, zero failures/skips.
+- W5 Vercel Secret is staged for Production and Preview, but a new deployment is blocked by Vercel's `api-deployments-free-per-day` hard quota. W5 is therefore **not claimed live**.
 
-Definition of Done: canonical machine-readable registry; alias normalization; complete four-tab catalogue; market-specific probability/evidence/model/contradiction metadata; joint-event engine contract; no-fabrication proof; focused tests and Control Center PASS.
+Fail-closed boundaries:
+- Player props remain unavailable without governed lineup / expected-minutes / player-event evidence.
+- Penalty, red-card and booking-points markets remain unavailable without governed referee/event evidence.
+- Cross-process Same Match combinations (for example goals + corners/cards/player props) require a validated common joint simulation; marginal percentages must never simply be multiplied.
+
+Next action: stay inside SOCCER-MARKETS-001. Do not recollect the sealed 1X2. When Vercel permits another deployment, deploy W5 to Preview once, verify W5/38-fixture/family counts and authenticated Hub rendering, then fast-forward to main only if Preview passes. Continue only the missing evidence/model work required for fail-closed market families.
 
