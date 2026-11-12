@@ -608,32 +608,10 @@ function normalizeSecondaryPredictionToken(market, prediction) {
     return '';
 }
 
-function secondaryFallbackDefaultsForOutcome(primaryOutcome, fallbackConfidence = 78) {
-    const baseConfidence = clamp(Number(fallbackConfidence) || 78, 65, 95);
-    const normalizedOutcome = normalizePrediction(primaryOutcome) || 'home_win';
-
-    const homeWinDefaults = [
-        { market: 'double_chance_1x', prediction: '1x', confidence: Math.max(80, baseConfidence) },
-        { market: 'draw_no_bet_home', prediction: 'home', confidence: Math.max(80, baseConfidence - 2) },
-        { market: 'over_1_5', prediction: 'over', confidence: Math.max(75, baseConfidence - 3) },
-        { market: 'under_4_5', prediction: 'under', confidence: Math.max(75, baseConfidence - 4) }
-    ];
-    const awayWinDefaults = [
-        { market: 'double_chance_x2', prediction: 'x2', confidence: Math.max(80, baseConfidence) },
-        { market: 'draw_no_bet_away', prediction: 'away', confidence: Math.max(80, baseConfidence - 2) },
-        { market: 'over_1_5', prediction: 'over', confidence: Math.max(75, baseConfidence - 3) },
-        { market: 'under_4_5', prediction: 'under', confidence: Math.max(75, baseConfidence - 4) }
-    ];
-    const drawDefaults = [
-        { market: 'double_chance_1x', prediction: '1x', confidence: Math.max(80, baseConfidence - 1) },
-        { market: 'double_chance_x2', prediction: 'x2', confidence: Math.max(80, baseConfidence - 1) },
-        { market: 'under_3_5', prediction: 'under', confidence: Math.max(75, baseConfidence - 2) },
-        { market: 'btts_no', prediction: 'no', confidence: Math.max(75, baseConfidence - 3) }
-    ];
-
-    if (normalizedOutcome === 'away_win') return awayWinDefaults;
-    if (normalizedOutcome === 'draw') return drawDefaults;
-    return homeWinDefaults;
+function secondaryFallbackDefaultsForOutcome(_primaryOutcome, _fallbackConfidence = 78) {
+    // SOCCER-GATE-001: fallback changes market preference; it never fabricates
+    // a market or confidence. Real secondary candidates must be independently scored.
+    return [];
 }
 
 function buildMandatorySecondaryInsights({
@@ -655,16 +633,17 @@ function buildMandatorySecondaryInsights({
 
         const prediction = normalizeSecondaryPredictionToken(market, item.prediction);
         const confidence = normalizeCandidateConfidencePercent(item);
+        const probability = Number(item.probability);
         const key = `${market}:${prediction}`;
-        if (!prediction || seen.has(key)) return;
+        // Customer-visible secondary markets require their own real scored probability
+        // and confidence. A primary confidence must never be copied into another market.
+        if (!prediction || seen.has(key) || !Number.isFinite(confidence) || !Number.isFinite(probability)) return;
         seen.add(key);
         picked.push({
             market,
             prediction,
-            confidence: Number.isFinite(confidence) ? confidence : clamp(Number(primaryConfidence) - 3, 70, 95),
-            probability: Number.isFinite(Number(item.probability))
-                ? Number(item.probability)
-                : (Number.isFinite(confidence) ? confidence / 100 : null),
+            confidence,
+            probability,
             category: item.category || null,
             priority_tier: item.priority_tier || null,
             source: sourceLabel
@@ -672,9 +651,9 @@ function buildMandatorySecondaryInsights({
     };
 
     buildSecondaryInsights(candidates, selectedMarket).forEach((item) => pushUnique(item, 'ranked'));
-    ensureArray(ruleOf4).forEach((item) => pushUnique(item, 'rule_of_4'));
-    secondaryFallbackDefaultsForOutcome(primaryOutcome, primaryConfidence).forEach((item) => pushUnique(item, 'fallback_defaults'));
-    getStandardSecondaryMarkets({}, normalizePrediction(primaryOutcome)).forEach((item) => pushUnique(item, 'standard_defaults'));
+    // Legacy rule-of-4/default fallbacks are intentionally not customer publication
+    // sources unless they carry an independently scored probability (pushUnique enforces this).
+    ensureArray(ruleOf4).forEach((item) => pushUnique(item, 'governed_rule_of_4'));
 
     return picked
         .sort((a, b) => Number(b.confidence || 0) - Number(a.confidence || 0))
