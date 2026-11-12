@@ -522,3 +522,26 @@ The owner-provided Same Bet Builder benchmark also demonstrates additional norma
 - Production build contains the ranked 4/6/8 Same Match renderer and grey Insufficient-data states.
 - The prior raw two-leg Same Match inventory presentation is no longer the customer Same Match view.
 - SOCCER-MARKETS-001 remains IN_PROGRESS because the owner benchmark exposed additional builder market families that still require canonical catalogue/model coverage before formal closure.
+
+
+## Owner correction — Same Match tab semantics
+
+The prior W7 customer presentation is superseded and must not be treated as the final design.
+
+Locked naming:
+- **4-Leg - Statistical Edge**
+- **6-Leg - Speculative Edge**
+- **8-Leg - High-Variance Play**
+
+The tier name is determined by leg count, not by the resulting joint probability band.
+
+Selection law:
+- the customer Same Match product must draw from a broad eligible fixture-market pool, not a narrow list of near-identical safe outcomes;
+- standard Double Chance is eligible as a Same Match ingredient when logically compatible;
+- multiple alternative lines from the same market family may compete as candidates, but a finished combination must not stack mutually exclusive or redundant selections from the same settlement group;
+- the top three displayed combinations for a leg size must be meaningfully different from one another rather than one-leg variations of the same story;
+- unconfirmed player/goalkeeper props are excluded from customer Same Match selection while current-fixture player eligibility/expected-minutes remains HOLD;
+- player props may re-enter only when that publication gate is proven;
+- sparse or unsupported builder sizes remain greyed as **Insufficient data**.
+
+The current live W7 combinations generated before this correction remain immutable evidence; they must not be recomputed after kickoff. Future/fresh pre-match packages must use the corrected selector.
