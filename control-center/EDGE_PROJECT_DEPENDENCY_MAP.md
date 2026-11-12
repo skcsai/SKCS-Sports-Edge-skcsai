@@ -407,3 +407,9 @@ Status: TESTED
 Governed by: ESEC-001-I6
 Blocked by: ESA-001, ESEC-001-I5, SEM-GOV-001D-UI3-I10
 Blocks: none
+
+## SOCCER-WEB-001 — IN_PROGRESS
+
+Display the existing immutable Nations League test evidence on skcsai.co.za through existing owner authentication. All fixture and forecast data remains private; signed-out visitors see an access message. No Shadow output disclosure, recalculation, new provider calls, production prediction writes, subscription/sign-in behaviour changes or production scope expansion. Preserve existing HOLD gates and unrelated work.
+
+Definition of Done: Exact version/hash-verified Azure snapshot and prediction batch; 52 upcoming-at-cutoff fixtures, 38 saved forecasts and 14 holds accurately projected; pre-kickoff timestamps and test/snapshot freshness visible; no mock fallback; owner-only forecast access and public denial tested; staged then verified custom-domain deployment; focused tests, rollback and Control Center evidence.

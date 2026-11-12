@@ -1,43 +1,43 @@
 # EDGE ASSET REPOSITORY MAP
 EAC_PROJECT_ID: EAC-001
 MANIFEST_SCHEMA_VERSION: 1.0.0
-TOTAL_GOVERNED_ASSETS: 1081
-TOTAL_BATCHED_ASSETS: 1081
+TOTAL_GOVERNED_ASSETS: 1088
+TOTAL_BATCHED_ASSETS: 1088
 FULLY_CLASSIFIED_ASSETS: 0
-CLASSIFICATION_PENDING_ASSETS: 1081
+CLASSIFICATION_PENDING_ASSETS: 1088
 CLOSURE_READY: NO
 
 CURRENT_STATE_COUNTS
-- CURRENT: 140
+- CURRENT: 146
 - PARALLEL: 0
 - LEGACY: 0
-- HISTORICAL_EVIDENCE: 0
+- HISTORICAL_EVIDENCE: 1
 - STALE_OR_SUPERSEDED: 58
 - UNKNOWN: 883
 - GENERATED: 0
 
 FUNCTIONAL_GROUP_COUNTS
-- TEST_PROOF: 169
+- TEST_PROOF: 171
 - SCRIPT_TOOL: 164
 - DOCUMENTATION_KNOWLEDGE: 143
 - PROVIDER_INTEGRATION: 119
 - DATABASE_MIGRATION: 100
 - GENERATED_OUTPUT: 65
 - DEPLOYMENT_OPERATIONS: 55
-- FRONTEND_UI: 46
+- FRONTEND_UI: 47
 - DATABASE: 42
 - PREDICTION: 30
 - GOVERNANCE: 27
 - SCHEDULER_BACKGROUND: 25
-- API_ROUTE: 18
+- API_ROUTE: 20
 - ACCA: 17
 - BACKEND_RUNTIME: 16
 - PUBLIC_ASSET: 10
+- CONTROL_CENTER: 9
 - AI_EDGEMIND: 8
-- CONTROL_CENTER: 8
 - GRADING_ACCURACY: 7
+- SERVICE: 5
 - SECURITY_SUBSCRIBER: 4
-- SERVICE: 4
 - SCOUT_FIP: 2
 - UNCATEGORIZED: 2
 
@@ -48,18 +48,18 @@ RELATIONSHIP_TAG_COUNTS
 - DATABASE: 275
 - SQL: 240
 - PROVIDER: 205
-- TEST_PROOF: 180
-- DOCUMENTATION: 178
-- API: 173
+- TEST_PROOF: 182
+- DOCUMENTATION: 179
+- API: 175
 - AUDIT: 113
-- UI: 112
+- UI: 113
 - PREDICTION: 110
 - MIGRATION: 106
 - OBSERVABILITY: 99
 - SECURITY: 93
 - DEPLOYMENT: 76
 - GENERATED: 75
-- SERVICE: 64
+- SERVICE: 65
 - ROUTE: 61
 - CONFIGURATION: 54
 - FIP: 39
@@ -75,10 +75,10 @@ RELATIONSHIP_TAG_COUNTS
 - CONTROLLER: 2
 - RPC: 1
 
-NEXT_VALIDATION_NON_EMPTY_ASSETS: 1081
+NEXT_VALIDATION_NON_EMPTY_ASSETS: 1088
 
 BATCH_COMPLETION_SUMMARY
-- B01 | CONTROL_CENTER | ASSET_COUNT=65 | CLASSIFIED=0 | PENDING=65
+- B01 | CONTROL_CENTER | ASSET_COUNT=66 | CLASSIFIED=0 | PENDING=66
 - B02 | BACKEND_DIRECT_FILES | ASSET_COUNT=14 | CLASSIFIED=0 | PENDING=14
 - B03 | BACKEND_ROUTES_AND_CONTROLLERS | ASSET_COUNT=28 | CLASSIFIED=0 | PENDING=28
 - B04 | BACKEND_UTILS_SEMANTIC_CORE_AND_TEST | ASSET_COUNT=46 | CLASSIFIED=0 | PENDING=46
@@ -98,15 +98,15 @@ BATCH_COMPLETION_SUMMARY
 - B18 | SKCS_KNOWLEDGE_GOV_AND_AUDIT | ASSET_COUNT=23 | CLASSIFIED=0 | PENDING=23
 - B19 | SKCS_KNOWLEDGE_KNOWLEDGE | ASSET_COUNT=17 | CLASSIFIED=0 | PENDING=17
 - B20 | SKCS_KNOWLEDGE_PROVIDERS | ASSET_COUNT=18 | CLASSIFIED=0 | PENDING=18
-- B21 | PUBLIC_UI | ASSET_COUNT=70 | CLASSIFIED=0 | PENDING=70
+- B21 | PUBLIC_UI | ASSET_COUNT=71 | CLASSIFIED=0 | PENDING=71
 - B22 | SUPABASE_MIGRATIONS | ASSET_COUNT=65 | CLASSIFIED=0 | PENDING=65
 - B23 | DB_SQL_AND_SUPABASE_OTHER | ASSET_COUNT=19 | CLASSIFIED=0 | PENDING=19
-- B24 | TESTS | ASSET_COUNT=76 | CLASSIFIED=0 | PENDING=76
+- B24 | TESTS | ASSET_COUNT=78 | CLASSIFIED=0 | PENDING=78
 - B25 | SCRATCH | ASSET_COUNT=2 | CLASSIFIED=0 | PENDING=2
 - B26 | DEPLOYMENT_CI | ASSET_COUNT=3 | CLASSIFIED=0 | PENDING=3
 - B27 | ARCHIVE | ASSET_COUNT=58 | CLASSIFIED=0 | PENDING=58
 - B28 | ROOT_NON_MD_TXT_FILES | ASSET_COUNT=55 | CLASSIFIED=0 | PENDING=55
-- B29 | DOT_TOOL_DIRS_AND_SMALL_DIRS | ASSET_COUNT=54 | CLASSIFIED=0 | PENDING=54
+- B29 | DOT_TOOL_DIRS_AND_SMALL_DIRS | ASSET_COUNT=57 | CLASSIFIED=0 | PENDING=57
 
 PER_ASSET_BY_BATCH
 
@@ -177,6 +177,7 @@ PER_ASSET_BY_BATCH
 | control-center/SEM-GOV-001D-UI3-I7_GOVERNED_FIP_INTAKE_ADAPTER_IMPLEMENTATION_PACKET.v1.md | Seals isolated governed FIP intake adapter implementation scope and Definition of Done. | DOCUMENTATION_KNOWLEDGE | CURRENT | ["DOCUMENTATION","GOVERNANCE","SERVICE"] | ["Documents adapter orchestration","Documents identity resolver law","Documents no HTTP route boundary","Verifies gates BLOCKED"] | npm run test:sem-gov-001d-ui3-i7 after UI3-I7 packet or registration change |
 | control-center/SEM-GOV-001D-UI3-I8_DURABLE_INTAKE_EVIDENCE_STORAGE_IMPLEMENTATION_PACKET.v1.md | Seals durable intake evidence storage design, retention law, security, and non-execution boundary. | DOCUMENTATION_KNOWLEDGE | CURRENT | ["DOCUMENTATION","GOVERNANCE","DATABASE"] | ["PASS WITH CORRECTION","17 columns","Migration NOT APPLIED","All gates BLOCKED"] | npm run test:sem-gov-001d-ui3-i8 after packet change |
 | control-center/SEM-GOV-001D-UI3-I9_PRODUCTION_COMPOSITION_AND_M2M_AUTH_FOUNDATION_PACKET.v1.md | Seals composition root and M2M auth foundation with fail-closed boundaries. | DOCUMENTATION_KNOWLEDGE | CURRENT | ["DOCUMENTATION","GOVERNANCE","SECURITY"] | ["PASS","No route","Feature flag disabled","All gates BLOCKED"] | npm run test:sem-gov-001d-ui3-i9 after packet change |
+| control-center/SOCCER-WEB-001_WEBSITE_EVIDENCE_PACKET.v1.md | SOCCER-WEB-001 website evidence visibility and verification. | CONTROL_CENTER | CURRENT | ["DOCUMENTATION"] | ["Exact source and runtime role reviewed under SOCCER-WEB-001."] | Verify exact staged website bytes, private owner authentication and unchanged production defaults before closure. |
 | control-center/SPM-001_UNIFIED_SUBSCRIPTION_MODEL_PROPOSAL.v1.md | Control Center governance or proposal artifact for the Edge project identified by its filename. | CONTROL_CENTER | UNKNOWN | ["GOVERNANCE","DOCUMENTATION"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 
 ## B02 BACKEND_DIRECT_FILES
@@ -920,6 +921,7 @@ PER_ASSET_BY_BATCH
 | public/js/semantic-drift-dashboard.js | Public JavaScript/JSX frontend helper or component: semantic-drift-dashboard.js. | FRONTEND_UI | UNKNOWN | ["UI","SCRIPT_TOOL"] | ["Fast skim: public/js/semantic-drift-dashboard.js under public/ indicates browser-delivered UI asset.","Filename suggests frontend script/component code delivered to browser.","Top chunk first line: (function () {"] | Trace frontend references, build/deployment consumers, and production runtime use; then reconcile classification evidence before any final lifecycle decision. |
 | public/js/smh-hub-master-rulebook.js | Public JavaScript/JSX frontend helper or component: smh-hub-master-rulebook.js. | FRONTEND_UI | UNKNOWN | ["UI","SCRIPT_TOOL"] | ["Fast skim: public/js/smh-hub-master-rulebook.js under public/ indicates browser-delivered UI asset.","Filename suggests frontend script/component code delivered to browser.","Top chunk first line: // Master Rulebook Secondary Market Processing for smh-hub.js"] | Verify actual frontend references and whether smh-hub-master-rulebook.js remains current vs superseded. |
 | public/js/smh-hub.js | Public JavaScript/JSX frontend helper or component: smh-hub.js. | FRONTEND_UI | UNKNOWN | ["UI","SCRIPT_TOOL"] | ["Fast skim: public/js/smh-hub.js under public/ indicates browser-delivered UI asset.","Filename suggests frontend script/component code delivered to browser.","Top chunk first line: /**"] | Trace frontend references, build/deployment consumers, and production runtime use; then reconcile classification evidence before any final lifecycle decision. |
+| public/js/sports-match-hub-evidence.js | SOCCER-WEB-001 website evidence visibility and verification. | FRONTEND_UI | CURRENT | ["UI"] | ["Exact source and runtime role reviewed under SOCCER-WEB-001."] | Verify exact staged website bytes, private owner authentication and unchanged production defaults before closure. |
 | public/js/sports-match-hub-mock-data.js | Deterministic mock fixtures covering all lifecycle states. | FRONTEND_UI | CURRENT | ["UI","GOVERNANCE"] | ["public_fixture_id only","No fixture_uid confidence or probability"] | npm run test:sem-gov-001d-ui2 after mock data changes |
 | public/js/sports-match-hub.js | Hub UI controller: day tabs, filters, fixture cards, detail, a11y. | FRONTEND_UI | CURRENT | ["UI","GOVERNANCE"] | ["No fetch XMLHttpRequest supabase or /api/","URL state for day and filters"] | npm run test:sem-gov-001d-ui2 after controller changes |
 | public/js/supabase-bundle.js | Public JavaScript/JSX frontend helper or component: supabase-bundle.js. | FRONTEND_UI | UNKNOWN | ["UI","SCRIPT_TOOL"] | ["Fast skim: public/js/supabase-bundle.js under public/ indicates browser-delivered UI asset.","Filename suggests frontend script/component code delivered to browser.","Top chunk first line: var supabase = (() => {"] | Trace frontend references, build/deployment consumers, and production runtime use; then reconcile classification evidence before any final lifecycle decision. |
@@ -1074,6 +1076,7 @@ PER_ASSET_BY_BATCH
 | tests/fip-storage-policy-service.test.js | Focused Node test coverage for EST-001 Supabase storage-policy enforcement, including R1/R2 minimal records, full FIP body blocking, audit-only rejection handling, and storage budget thresholds. | TEST_PROOF | CURRENT | ["TEST_PROOF","SCOUT","FIP","DATABASE","GOVERNANCE"] | ["Verifies accepted EFI intake produces minimal R1 provenance and R2 audit records only.","Verifies full FIP body, Scout mirror, provider payload, markets, context, and fixture body data are not persisted in EST records.","Verifies rejected EFI intake creates audit-only records and Supabase hard block prevents new EST records."] | EST-001-I1: run node --test tests/fip-storage-policy-service.test.js after any EST storage policy change. |
 | tests/fixture-display-metadata-persistence-service.test.js | Guards gate-before-DB, upsert law, retention sync, SQL structure, and query bounds. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE","DATABASE"] | ["Proves zero DB on blocked gate","Proves idempotency and stale law","Proves migration static structure","Proves query count bound"] | npm run test:sem-gov-001d-ui3-i5 after UI3-I5 service or migration change |
 | tests/fixture-identity-resolver-service.test.js | Guards alias resolution, lifecycle confirmation, and bounded query law. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE"] | ["Verifies scout_fixture_id namespace","Verifies no fixture_uid minting","Verifies bounded queries"] | npm run test:sem-gov-001d-ui3-i7 after resolver change |
+| tests/fixtures/sports-match-hub-ui2.html | Frozen UI2 mock page for historical acceptance tests; never served by the active website. | TEST_PROOF | HISTORICAL_EVIDENCE | ["TEST_PROOF"] | ["Exact source and runtime role reviewed under SOCCER-WEB-001."] | Verify exact staged website bytes, private owner authentication and unchanged production defaults before closure. |
 | tests/governed-fip-intake-adapter.test.js | Guards gate-before-downstream, D3 DTO bounds, idempotency, and evidence interface. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE","SERVICE"] | ["Verifies FIP-001 canonical intake","Verifies no aiPipeline","Verifies blocked gates"] | npm run test:sem-gov-001d-ui3-i7 after adapter change |
 | tests/governed-fip-intake-composition.test.js | Verifies fail-closed defaults, component exposure, and zero DB on disabled feature. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE"] | ["Feature flag disabled default","Zero DB on reject","No route surface"] | npm run test:sem-gov-001d-ui3-i9 after composition change |
 | tests/helpers/ui3-i11-gate-b-harness.js | Focused automated proof for the governed Edge project indicated by the path and filename. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
@@ -1081,6 +1084,7 @@ PER_ASSET_BY_BATCH
 | tests/helpers/ui3-i11-in-memory-database.js | Focused automated proof for the governed Edge project indicated by the path and filename. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | tests/lifecycle-governor.test.js | Focused Node test coverage for SEM-GOV-001B-I3 pure Lifecycle Governor foundation: gate-before-flag, SAST window, admission, transitions, idempotency, rollover plan, and module isolation from DB, Supabase, SQL, and protected pipeline modules. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE","RULEBOOK"] | ["Verifies evaluateGovernorGate fail-closed ordering and feature-flag normalization.","Verifies eight-day SAST labels, football-only admission, 15-minute processing tolerance, legal transition matrix, deterministic SHA-256 idempotency, and rollover duplicate/gap rejection.","Verifies lifecycleGovernor.js source excludes DB, Supabase, SQL, predictions_raw, direct1x2_prediction_final, fixture_context_cache, aiPipeline, fipIntakeService, and syncService imports."] | SEM-GOV-001B-I3: run node --test tests/lifecycle-governor.test.js after any lifecycle governor evaluator change. |
 | tests/lifecycle-persistence-service.test.js | Focused Node test coverage for lifecycle persistence admission cap, idempotency, alias safety, atomic transitions, gate-before-DB law, and migration static validation. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE","DATABASE"] | ["Gate and feature-flag rejection causes zero withTransaction calls.","Admission 50 succeeds and 51 returns DAILY_ADMISSION_CAP_REACHED.","Alternate alias and durable idempotency reuse do not consume additional slots.","Migration static tests verify six tables and no prediction table alteration."] | SEM-GOV-001B-I4: run npm run test:lifecycle-persistence after any persistence service or migration change. |
+| tests/nations-league-website.test.js | SOCCER-WEB-001 website evidence visibility and verification. | TEST_PROOF | CURRENT | ["TEST_PROOF"] | ["Exact source and runtime role reviewed under SOCCER-WEB-001."] | Verify exact staged website bytes, private owner authentication and unchanged production defaults before closure. |
 | tests/p1-b01-configured-fip-input.test.js | Verifies governed Scout FIP configured input, provider bypass, mapped-envelope-only flow, atomic batch rejection and request-contract validation. | TEST_PROOF | CURRENT | ["TEST_PROOF","SCOUT","FIP","RUNTIME","GOVERNANCE","PROVIDER"] | ["Exercises resolveConfiguredPredictionInput via aiPipeline.__test with injected provider and intake dependencies.","Verifies provider path remains active when fip_envelopes is absent and is bypassed when a valid PROOF_FIXTURE batch is supplied.","Verifies atomic batch rejection, malformed request-contract rejection, and mapped-envelope-only output without calling external providers."] | P1-B01: run node --test tests/p1-b01-configured-fip-input.test.js after any governed Scout FIP configured-input or aiPipeline intake-routing change. |
 | tests/sem-gov-001-lifecycle-contract.test.js | Tests the SEM-GOV-001A Unified Sports Intelligence Lifecycle contract and its Control Center registration without importing or mutating runtime code. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE"] | ["Test reads SEM-GOV-001 contract and verifies canonical lifecycle law sections.","Test verifies ledger unified_lifecycle_governor BLOCKED and SEM-GOV-001A registration.","Test verifies package control-center test suite includes the focused SEM-GOV proof."] | Run node --test tests/sem-gov-001-lifecycle-contract.test.js and npm run control:verify after any SEM-GOV-001 contract or sequencing change. |
 | tests/sem-gov-001b-governor-foundation-packet.test.js | Tests the SEM-GOV-001B-I2 Lifecycle Governor foundation implementation packet and its Control Center registration without importing or mutating runtime code. | TEST_PROOF | CURRENT | ["TEST_PROOF","GOVERNANCE"] | ["Test verifies I2 packet sections and that future runtime files do not exist on disk.","Test verifies ledger registers SEM-GOV-001B-I2 APPROVED with all gates BLOCKED.","Test verifies package control-center test suite includes the focused I2 proof."] | Run node --test tests/sem-gov-001b-governor-foundation-packet.test.js and npm run control:verify after any I2 packet or sequencing change. |
@@ -1263,6 +1267,8 @@ PER_ASSET_BY_BATCH
 | .qwen/settings.json.orig | Local Qwen AI-assistant settings configuration defining allowed command permissions for development-tool operation. | DOCUMENTATION_KNOWLEDGE | UNKNOWN | ["CONFIGURATION","GOVERNANCE"] | ["Path under B29: .qwen/settings.json.orig","First skim: {\r\n  \"permissions\": {\r\n    \"allow\": [\r\n      \"Bash(npm run *)\"\r\n    ]\r\n  }\r\n}"] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |
 | .stakpak/data/local.db | Local retained data asset (embedded DB) stored under .stakpak for tooling/reference. | GENERATED_OUTPUT | UNKNOWN | ["GENERATED"] | ["Path under B29: .stakpak/data/local.db","First skim: Binary database file under .stakpak/data/."] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |
 | .windsurf/workflows/env.md | Tool/config documentation and workflow definitions retained for local assistance. | DOCUMENTATION_KNOWLEDGE | UNKNOWN | ["DOCUMENTATION","GOVERNANCE","CONFIGURATION"] | ["Path under B29: .windsurf/workflows/env.md","First skim: Skim unavailable (no readable text)"] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |
+| api/auth/me.js | SOCCER-WEB-001 website evidence visibility and verification. | API_ROUTE | CURRENT | ["API"] | ["Exact source and runtime role reviewed under SOCCER-WEB-001."] | Verify exact staged website bytes, private owner authentication and unchanged production defaults before closure. |
+| api/evidence/nations-league.js | SOCCER-WEB-001 website evidence visibility and verification. | API_ROUTE | CURRENT | ["API"] | ["Exact source and runtime role reviewed under SOCCER-WEB-001."] | Verify exact staged website bytes, private owner authentication and unchanged production defaults before closure. |
 | api/pipeline/run-full.js | API pipeline runner script for full Edge processing (route-layer entrypoint). | API_ROUTE | UNKNOWN | ["API","ROUTE"] | ["Path under B29: api/pipeline/run-full.js","First skim: 'use strict';\r\n\r\nfunction normalizeHost(value) {\r\n    if (!value) return null;\r\n    return String(value).trim().replace(/\\/+$/, '');\r\n}\r\n\r\nfunction extractBeare???"] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |
 | dolphin-server/Dockerfile | Container build recipe defining how the Dolphin server is packaged. | DEPLOYMENT_OPERATIONS | UNKNOWN | ["DEPLOYMENT","CONFIGURATION"] | ["Path under B29: dolphin-server/Dockerfile","First skim: # Dockerfile for Dolphin 3.0 Llama 3.2 3B Server on Render\r\nFROM ghcr.io/ggml-org/llama.cpp:server\r\n\r\n# Download the Dolphin model (Q4_K_M for faster inference,???"] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |
 | dolphin-server/README.md | Dolphin server documentation retained for operational context. | DOCUMENTATION_KNOWLEDGE | UNKNOWN | ["DOCUMENTATION","GOVERNANCE"] | ["Path under B29: dolphin-server/README.md","First skim: # Dolphin AI Server for SKCS EdgeMind\r\n\r\nThis directory contains the Docker configuration for deploying the Dolphin 3.0 Llama 3.2 3B model on Render as a web se???"] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |
@@ -1273,6 +1279,7 @@ PER_ASSET_BY_BATCH
 | js/supabase-bundle.js | Bundled Supabase client asset intended for browser/public consumption. | PUBLIC_ASSET | UNKNOWN | ["PUBLIC_ASSET","GENERATED"] | ["Path under B29: js/supabase-bundle.js","First skim: /**\n * First-Party Supabase Bundle\n * Bundled locally to avoid tracking prevention issues with CDN\n */\n\n// Import Supabase client from node_modules (bundled)\n//???"] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |
 | js/supabase-client-src.js | Supabase client integration source used to connect runtime components. | PROVIDER_INTEGRATION | UNKNOWN | ["PROVIDER","SERVICE"] | ["Path under B29: js/supabase-client-src.js","First skim: import { createClient } from '@supabase/supabase-js';\r\n\r\nconst supabaseUrl = window.SUPABASE_URL \|\| 'https://ghzjntdvaptuxfpvhybb.supabase.co';\r\nconst supabaseA???"] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |
 | js/supabase-init.js | Supabase initialization helper wiring client configuration for runtime usage. | BACKEND_RUNTIME | UNKNOWN | ["SERVICE","PROVIDER"] | ["Path under B29: js/supabase-init.js","First skim: // SKCS AI Sports Edge - Supabase Client Initialization\r\n// Load directly from CDN to avoid ITP issues with localStorage\r\n\r\n(function() {\r\n    'use strict';\r\n  ???"] | Later compare this B29 tool/config asset against current non-B29 runtime wiring (route/provider/service activation) to validate retention and overlap; confirm classification evidence accuracy. |
+| lib/nationsLeagueWebsiteSnapshot.js | SOCCER-WEB-001 website evidence visibility and verification. | SERVICE | CURRENT | ["SERVICE"] | ["Exact source and runtime role reviewed under SOCCER-WEB-001."] | Verify exact staged website bytes, private owner authentication and unchanged production defaults before closure. |
 | local-tools/e2e-001e/app.js | Local-only visual or proof harness asset for governed Scout-to-Edge or FIP marriage testing. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","UI","SCOUT","FIP","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | local-tools/e2e-001e/index.html | Local-only visual or proof harness asset for governed Scout-to-Edge or FIP marriage testing. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","UI","SCOUT","FIP","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |
 | local-tools/e2e-001e/styles.css | Local-only visual or proof harness asset for governed Scout-to-Edge or FIP marriage testing. | TEST_PROOF | UNKNOWN | ["TEST_PROOF","UI","SCOUT","FIP","GOVERNANCE"] | ["EAC-001 classification uses tracked path/project naming and existing Control Center/ESA/EPR evidence; current_state remains UNKNOWN and no final lifecycle decision is made."] | Resolve ownership, purpose, consumers, dependencies, database role, Scout/FIP relationship, conflicts, and governed outcome during project review. |

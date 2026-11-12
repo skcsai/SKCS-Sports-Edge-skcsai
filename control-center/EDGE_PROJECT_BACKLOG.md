@@ -64,3 +64,9 @@ A repository file is an asset. It is not automatically a project.
 | ESEC-001-I4 | Production Secret Provisioning and Rotation Proof | Subscriber and Security Boundary | TESTED | critical | ESEC-001-I4 | CLOSED / HOLD. Seven credentials provisioned securely; temporary write role revoked; cron-secret and skcs-refresh-key explicitly blocked; RLS separate; no deployment or Stage B. |
 | ESEC-001-I5 | Azure Scheduler and Refresh Credential Boundary Resolution | Subscriber and Security Boundary | TESTED | critical | ESEC-001-I5 | CLOSED / HOLD. Azure uses ADMIN_API_KEY for refresh/operator auth; Azure-only cron-secret created securely; temporary write role revoked; RLS remains separate; no deployment or Stage B. |
 | ESEC-001-I6 | RLS-001 Server-Only Table Boundary and Privilege Hardening | Subscriber and Security Boundary | TESTED | critical | ESEC-001-I6 | CLOSED / HOLD — source hardening proven; live migration apply deferred to next authorized active database target; no Supabase restore or Stage B. |
+
+## SOCCER-WEB-001 — IN_PROGRESS
+
+Display the existing immutable Nations League test evidence on skcsai.co.za through existing owner authentication. All fixture and forecast data remains private; signed-out visitors see an access message. No Shadow output disclosure, recalculation, new provider calls, production prediction writes, subscription/sign-in behaviour changes or production scope expansion. Preserve existing HOLD gates and unrelated work.
+
+Definition of Done: Exact version/hash-verified Azure snapshot and prediction batch; 52 upcoming-at-cutoff fixtures, 38 saved forecasts and 14 holds accurately projected; pre-kickoff timestamps and test/snapshot freshness visible; no mock fallback; owner-only forecast access and public denial tested; staged then verified custom-domain deployment; focused tests, rollback and Control Center evidence.

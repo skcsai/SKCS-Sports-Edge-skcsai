@@ -1,3 +1,4 @@
+// UI2 static acceptance is preserved against its frozen fixture. The active evidence page is covered by nations-league-website.test.js.
 'use strict';
 
 const test = require('node:test');
@@ -6,7 +7,7 @@ const fs = require('node:fs');
 const path = require('node:path');
 
 const ROOT = path.resolve(__dirname, '..');
-const HTML_PATH = path.join(ROOT, 'public/sports-match-hub.html');
+const HTML_PATH = path.join(ROOT, 'tests/fixtures/sports-match-hub-ui2.html');
 const CSS_PATH = path.join(ROOT, 'public/css/sports-match-hub.css');
 const JS_PATH = path.join(ROOT, 'public/js/sports-match-hub.js');
 
@@ -56,7 +57,7 @@ test('CSS defines dark dashboard shell and touch targets', () => {
 });
 
 test('HTML defines four numbered control groups and dashboard regions', () => {
-  const html = read('public/sports-match-hub.html');
+  const html = read('tests/fixtures/sports-match-hub-ui2.html');
   assert.match(html, /data-control="1"/);
   assert.match(html, /data-control="2"/);
   assert.match(html, /data-control="3"/);
@@ -71,7 +72,7 @@ test('HTML defines four numbered control groups and dashboard regions', () => {
 });
 
 test('HTML supports viewport states via query parameters', () => {
-  const html = read('public/sports-match-hub.html');
+  const html = read('tests/fixtures/sports-match-hub-ui2.html');
   assert.match(html, /ui-state-demo/);
   for (const state of ['loading', 'empty', 'stale', 'unavailable', 'error']) {
     assert.match(html, new RegExp('value="' + state + '"'));
@@ -117,7 +118,7 @@ test('fixture table headers and mobile card treatment are defined', () => {
 
 for (const vp of VIEWPORTS) {
   test(`static structure supports ${vp.name} viewport (${vp.width}px)`, () => {
-    const html = read('public/sports-match-hub.html');
+    const html = read('tests/fixtures/sports-match-hub-ui2.html');
     const css = read('public/css/sports-match-hub.css');
     assert.match(html, /viewport/);
     if (vp.width <= 767) {
@@ -137,7 +138,7 @@ for (const vp of VIEWPORTS) {
 
 for (const state of UI_STATES) {
   test(`UI state "${state}" is representable in static demo`, () => {
-    const html = read('public/sports-match-hub.html');
+    const html = read('tests/fixtures/sports-match-hub-ui2.html');
     const js = read('public/js/sports-match-hub.js');
     if (state === 'detail') {
       assert.match(js, /detail/);
@@ -167,7 +168,7 @@ test('no horizontal overflow guards in mobile CSS', () => {
 });
 
 test('visual contract prevents light-page and card-grid regression', () => {
-  const html = read('public/sports-match-hub.html');
+  const html = read('tests/fixtures/sports-match-hub-ui2.html');
   const css = read('public/css/sports-match-hub.css');
   assert.doesNotMatch(html, /class="smh-context"/);
   assert.doesNotMatch(html, /class="smh-filters filter-sheet"/);

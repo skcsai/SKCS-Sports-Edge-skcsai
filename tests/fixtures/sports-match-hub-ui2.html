@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sports Match Hub — SKCS AI</title>
+  <meta name="description" content="Football fixture lifecycle status in South Africa (SAST). Informational only — not betting advice.">
+  <link rel="icon" href="data:,">
+  <link href="css/sports-match-hub.css" rel="stylesheet">
+</head>
+<body class="smh-page">
+  <a class="smh-skip" href="#smh-main">Skip to main content</a>
+
+  <header class="smh-header">
+    <div class="smh-header__inner">
+      <a class="smh-logo" href="index.html">SKCS AI Sports Edge</a>
+      <button type="button" class="smh-nav-toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+        Menu
+      </button>
+      <nav class="site-nav" id="site-nav" aria-label="Primary">
+        <a href="index.html">Home</a>
+        <a href="sports-match-hub.html" aria-current="page">Sports Match Hub</a>
+        <a href="accuracy.html">Match Intelligence</a>
+        <a href="subscribe">Subscribe</a>
+        <a href="login.html">Login</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="smh-main" id="smh-main">
+    <div class="smh-dashboard-layout">
+      <div class="smh-dashboard">
+        <section class="smh-hub-header" aria-labelledby="smh-title">
+          <div class="smh-hub-header__brand">
+            <h1 id="smh-title">Sports Match Hub</h1>
+            <p class="smh-hub-header__subtitle">
+              <span class="smh-hub-header__brand-icon" aria-hidden="true"></span>
+              SKCS AI Sports Edge
+            </p>
+          </div>
+          <div class="smh-hub-header__actions">
+            <div class="smh-system-status" role="status">
+              <span class="smh-system-status__label">STATUS</span>
+              <span class="smh-system-status__value" id="system-status-text">Ready</span>
+              <span class="smh-system-status__dot" aria-hidden="true"></span>
+            </div>
+            <button type="button" class="smh-edgemind-trigger btn btn--outline" id="edgemind-trigger" aria-controls="edgemind-panel">
+              EdgeMind BOT
+            </button>
+          </div>
+        </section>
+
+        <section class="smh-control-strip" aria-label="Hub controls">
+          <div class="smh-control-group" data-control="1">
+            <span class="smh-control-group__number" aria-hidden="true">1</span>
+            <label class="smh-control-group__label" for="control-sport">Sport</label>
+            <select id="control-sport" class="smh-control-select" disabled aria-disabled="true">
+              <option value="football" selected>Football</option>
+            </select>
+          </div>
+
+          <div class="smh-control-group" data-control="2">
+            <span class="smh-control-group__number" aria-hidden="true">2</span>
+            <label class="smh-control-group__label" for="filter-competition">Competition</label>
+            <select id="filter-competition" class="smh-control-select">
+              <option value="">All Competitions</option>
+            </select>
+          </div>
+
+          <div class="smh-control-group smh-control-group--days" data-control="3">
+            <span class="smh-control-group__number" aria-hidden="true">3</span>
+            <span class="smh-control-group__label" id="day-tabs-label">Date — Rolling 8-Day Window</span>
+            <div class="day-tabs" id="day-tabs" role="tablist" aria-labelledby="day-tabs-label"></div>
+          </div>
+
+          <div class="smh-control-group" data-control="4">
+            <span class="smh-control-group__number" aria-hidden="true">4</span>
+            <label class="smh-control-group__label" for="filter-lifecycle">View — Lifecycle State</label>
+            <select id="filter-lifecycle" class="smh-control-select">
+              <option value="">Active (In Review)</option>
+              <option value="VISIBLE">Listed</option>
+              <option value="UNDER_REVIEW">Under Review</option>
+              <option value="HELD">On Hold</option>
+              <option value="ELIMINATED">Not Publishing</option>
+              <option value="FINAL_APPROVED">Review Complete</option>
+              <option value="CANCELLED">Cancelled</option>
+              <option value="POSTPONED">Postponed</option>
+              <option value="ARCHIVED">Archived</option>
+            </select>
+          </div>
+        </section>
+
+        <section class="smh-controls-secondary" aria-label="Additional filters">
+          <button type="button" class="smh-filter-toggle" id="filter-toggle" aria-expanded="false" aria-controls="filter-sheet">
+            More filters
+          </button>
+          <div class="filter-sheet" id="filter-sheet" hidden>
+            <label for="filter-team">Team search</label>
+            <input type="search" id="filter-team" class="smh-control-input" autocomplete="off" placeholder="Min. 2 characters">
+
+            <label for="filter-archive">Show</label>
+            <select id="filter-archive" class="smh-control-select">
+              <option value="active">Active fixtures</option>
+              <option value="archived">Archived only</option>
+              <option value="all">All</option>
+            </select>
+
+            <div class="smh-demo-panel" aria-label="UI state demonstration">
+              <label for="ui-state-demo">Preview UI state (static demo)</label>
+              <select id="ui-state-demo" class="smh-control-select">
+                <option value="normal">Normal results</option>
+                <option value="loading">Initial loading</option>
+                <option value="refresh">Incremental refresh</option>
+                <option value="empty">Empty day</option>
+                <option value="no_match">No filter matches</option>
+                <option value="stale">Stale data banner</option>
+                <option value="unavailable">Hub unavailable</option>
+                <option value="lifecycle_unavailable">Lifecycle unavailable</option>
+                <option value="no_data">No production data</option>
+                <option value="error">Unexpected error</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="filter-chips" id="filter-chips" aria-live="polite"></div>
+          <button type="button" class="btn btn--ghost" id="clear-filters" hidden>Clear all filters</button>
+        </section>
+
+        <section class="smh-funnel-panel" aria-labelledby="funnel-heading">
+          <h2 id="funnel-heading" class="smh-panel-heading">Lifecycle Funnel Summary</h2>
+          <div class="smh-funnel" id="lifecycle-funnel"></div>
+          <div class="smh-movement" id="movement-counters" aria-label="Lifecycle movement counters"></div>
+        </section>
+
+        <div class="smh-main-grid">
+          <section class="smh-fixtures-panel" aria-label="Fixture results">
+            <div class="smh-meta">
+              <span id="result-count" aria-live="polite"></span>
+              <span id="freshness-indicator"></span>
+            </div>
+            <div id="fixture-panel"></div>
+          </section>
+
+          <aside class="smh-edgemind-panel" id="edgemind-panel" aria-labelledby="edgemind-heading">
+            <h2 id="edgemind-heading" class="smh-panel-heading">EdgeMind BOT</h2>
+            <div id="edgemind-content"></div>
+          </aside>
+        </div>
+
+        <section class="smh-legend-panel" aria-labelledby="legend-heading">
+          <h2 id="legend-heading" class="smh-visually-hidden">Lifecycle legend</h2>
+          <div class="smh-legend" id="lifecycle-legend"></div>
+        </section>
+      </div>
+
+      <aside class="smh-guide-rail" aria-labelledby="guide-heading">
+        <h2 id="guide-heading" class="smh-panel-heading">How to use this Hub</h2>
+        <ol class="smh-guide-list">
+          <li><strong>Sport</strong> — Football is the governed sport in UI2.</li>
+          <li><strong>Competition</strong> — Narrow fixtures by league or cup.</li>
+          <li><strong>Date</strong> — Select Today through Day 8 in the rolling SAST window.</li>
+          <li><strong>View</strong> — Filter by lifecycle state such as Listed or Under Review.</li>
+          <li><strong>Funnel</strong> — See how fixtures progress through governed review stages.</li>
+          <li><strong>Movement</strong> — Daily counters for admissions, moves, holds, and outcomes.</li>
+          <li><strong>Fixtures</strong> — Inspect kickoff, stage, state, and plain-language status.</li>
+          <li><strong>EdgeMind BOT</strong> — Static mock explanation for the selected day only.</li>
+        </ol>
+        <div class="smh-key-principles">
+          <h3>Key Principles</h3>
+          <ul>
+            <li>One lifecycle everywhere</li>
+            <li>Rolling 8-day funnel</li>
+            <li>Transparency without revealing predictions</li>
+            <li>Same language across all pages and features</li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
+    <div id="status-announcer" class="smh-visually-hidden" aria-live="polite" aria-atomic="true"></div>
+  </main>
+
+  <footer class="smh-footer">
+    <p>Times shown in SAST (Africa/Johannesburg). UI2 static demonstration — governed mock data only.</p>
+    <p><a href="terms.html">Terms</a> · <a href="privacy.html">Privacy</a></p>
+  </footer>
+
+  <script src="js/sports-match-hub-mock-data.js"></script>
+  <script src="js/sports-match-hub.js"></script>
+</body>
+</html>

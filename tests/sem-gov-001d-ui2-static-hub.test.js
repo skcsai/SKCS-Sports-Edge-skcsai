@@ -1,3 +1,4 @@
+// UI2 static acceptance is preserved against its frozen fixture. The active evidence page is covered by nations-league-website.test.js.
 'use strict';
 
 const test = require('node:test');
@@ -8,7 +9,7 @@ const path = require('node:path');
 const ROOT = path.resolve(__dirname, '..');
 
 const FRONTEND_FILES = [
-  'public/sports-match-hub.html',
+  'tests/fixtures/sports-match-hub-ui2.html',
   'public/css/sports-match-hub.css',
   'public/js/sports-match-hub.js',
   'public/js/sports-match-hub-mock-data.js'
@@ -71,7 +72,7 @@ test('UI2 frontend files exist and page references approved assets only', () => 
   for (const rel of FRONTEND_FILES) {
     assert.ok(fs.existsSync(path.join(ROOT, rel)), `missing ${rel}`);
   }
-  const html = read('public/sports-match-hub.html');
+  const html = read('tests/fixtures/sports-match-hub-ui2.html');
   assert.match(html, /sports-match-hub\.css/);
   assert.match(html, /sports-match-hub-mock-data\.js/);
   assert.match(html, /sports-match-hub\.js/);
@@ -124,7 +125,7 @@ test('mock fixtures exclude prohibited internal fields', () => {
 });
 
 test('hub page includes required landmarks and ARIA structures', () => {
-  const html = read('public/sports-match-hub.html');
+  const html = read('tests/fixtures/sports-match-hub-ui2.html');
   assert.match(html, /<header\b/);
   assert.match(html, /<nav\b/);
   assert.match(html, /<main\b/);
@@ -144,7 +145,7 @@ test('hub page includes required landmarks and ARIA structures', () => {
 });
 
 test('dark dashboard visual contract is present in HTML and CSS', () => {
-  const html = read('public/sports-match-hub.html');
+  const html = read('tests/fixtures/sports-match-hub-ui2.html');
   const css = read('public/css/sports-match-hub.css');
   assert.match(html, /smh-dashboard/);
   assert.match(html, /smh-control-strip/);

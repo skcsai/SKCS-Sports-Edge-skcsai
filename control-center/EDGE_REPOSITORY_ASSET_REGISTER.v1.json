@@ -5,8 +5,8 @@
   "source_command": "git ls-files",
   "coverage_policy": "Every tracked repository path must be REGISTERED_ASSET or EXPLICITLY_EXCLUDED. Registration records existence and governance visibility; it does not assert correctness, currency, approval, permanence, consumer presence, or Scout/FIP compatibility.",
   "unclassified_tracked_paths_allowed": false,
-  "tracked_path_count": 1082,
-  "registered_asset_count": 1081,
+  "tracked_path_count": 1089,
+  "registered_asset_count": 1088,
   "explicit_exclusion_count": 1,
   "assets": [
     {
@@ -37017,6 +37017,250 @@
       "classification_evidence": [
         "6/6 focused tests PASS on 2026-11-08.",
         "Scans public assets and supabase-js calls for forbidden target-table access."
+      ]
+    },
+    {
+      "asset_path": "api/auth/me.js",
+      "asset_type": "SOURCE_CODE",
+      "asset_role": "APPLICATION_SOURCE",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "CURRENT_AUTHORITY",
+      "current_state": "CURRENT",
+      "owner_project_id": "SOCCER-WEB-001",
+      "governed_by_control_task_id": "SOCCER-WEB-001",
+      "related_assets": [
+        "control-center/SOCCER-WEB-001_WEBSITE_EVIDENCE_PACKET.v1.md"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [
+        "public/js/sports-match-hub-evidence.js"
+      ],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [
+        "Vercel owner-only website evidence viewer"
+      ],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "REGISTERED",
+      "next_validation": "Verify exact staged website bytes, private owner authentication and unchanged production defaults before closure.",
+      "notes": "Authorized website visibility source. All forecasts are immutable non-production test records. No scoring or database writes.",
+      "purpose_description": "SOCCER-WEB-001 website evidence visibility and verification.",
+      "functional_group": "API_ROUTE",
+      "relationship_tags": [
+        "API"
+      ],
+      "classification_evidence": [
+        "Exact source and runtime role reviewed under SOCCER-WEB-001."
+      ]
+    },
+    {
+      "asset_path": "api/evidence/nations-league.js",
+      "asset_type": "SOURCE_CODE",
+      "asset_role": "APPLICATION_SOURCE",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "CURRENT_AUTHORITY",
+      "current_state": "CURRENT",
+      "owner_project_id": "SOCCER-WEB-001",
+      "governed_by_control_task_id": "SOCCER-WEB-001",
+      "related_assets": [
+        "control-center/SOCCER-WEB-001_WEBSITE_EVIDENCE_PACKET.v1.md"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [
+        "public/js/sports-match-hub-evidence.js"
+      ],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [
+        "Vercel owner-only website evidence viewer"
+      ],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "REGISTERED",
+      "next_validation": "Verify exact staged website bytes, private owner authentication and unchanged production defaults before closure.",
+      "notes": "Authorized website visibility source. All forecasts are immutable non-production test records. No scoring or database writes.",
+      "purpose_description": "SOCCER-WEB-001 website evidence visibility and verification.",
+      "functional_group": "API_ROUTE",
+      "relationship_tags": [
+        "API"
+      ],
+      "classification_evidence": [
+        "Exact source and runtime role reviewed under SOCCER-WEB-001."
+      ]
+    },
+    {
+      "asset_path": "control-center/SOCCER-WEB-001_WEBSITE_EVIDENCE_PACKET.v1.md",
+      "asset_type": "DOCUMENTATION",
+      "asset_role": "CONTROL_CENTER_DOCUMENT",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "CURRENT_AUTHORITY",
+      "current_state": "CURRENT",
+      "owner_project_id": "SOCCER-WEB-001",
+      "governed_by_control_task_id": "SOCCER-WEB-001",
+      "related_assets": [
+        "control-center/SOCCER-WEB-001_WEBSITE_EVIDENCE_PACKET.v1.md"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [
+        "SOCCER-WEB-001 website evidence verification"
+      ],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "REGISTERED",
+      "next_validation": "Verify exact staged website bytes, private owner authentication and unchanged production defaults before closure.",
+      "notes": "Authorized website visibility source. All forecasts are immutable non-production test records. No scoring or database writes.",
+      "purpose_description": "SOCCER-WEB-001 website evidence visibility and verification.",
+      "functional_group": "CONTROL_CENTER",
+      "relationship_tags": [
+        "DOCUMENTATION"
+      ],
+      "classification_evidence": [
+        "Exact source and runtime role reviewed under SOCCER-WEB-001."
+      ]
+    },
+    {
+      "asset_path": "lib/nationsLeagueWebsiteSnapshot.js",
+      "asset_type": "SOURCE_CODE",
+      "asset_role": "APPLICATION_SOURCE",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "CURRENT_AUTHORITY",
+      "current_state": "CURRENT",
+      "owner_project_id": "SOCCER-WEB-001",
+      "governed_by_control_task_id": "SOCCER-WEB-001",
+      "related_assets": [
+        "control-center/SOCCER-WEB-001_WEBSITE_EVIDENCE_PACKET.v1.md"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [
+        "SOCCER-WEB-001 website evidence verification"
+      ],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "REGISTERED",
+      "next_validation": "Verify exact staged website bytes, private owner authentication and unchanged production defaults before closure.",
+      "notes": "Authorized website visibility source. All forecasts are immutable non-production test records. No scoring or database writes.",
+      "purpose_description": "SOCCER-WEB-001 website evidence visibility and verification.",
+      "functional_group": "SERVICE",
+      "relationship_tags": [
+        "SERVICE"
+      ],
+      "classification_evidence": [
+        "Exact source and runtime role reviewed under SOCCER-WEB-001."
+      ]
+    },
+    {
+      "asset_path": "public/js/sports-match-hub-evidence.js",
+      "asset_type": "SOURCE_CODE",
+      "asset_role": "APPLICATION_SOURCE",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "CURRENT_AUTHORITY",
+      "current_state": "CURRENT",
+      "owner_project_id": "SOCCER-WEB-001",
+      "governed_by_control_task_id": "SOCCER-WEB-001",
+      "related_assets": [
+        "control-center/SOCCER-WEB-001_WEBSITE_EVIDENCE_PACKET.v1.md"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [
+        "SOCCER-WEB-001 website evidence verification"
+      ],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [
+        "Vercel owner-only website evidence viewer"
+      ],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "REGISTERED",
+      "next_validation": "Verify exact staged website bytes, private owner authentication and unchanged production defaults before closure.",
+      "notes": "Authorized website visibility source. All forecasts are immutable non-production test records. No scoring or database writes.",
+      "purpose_description": "SOCCER-WEB-001 website evidence visibility and verification.",
+      "functional_group": "FRONTEND_UI",
+      "relationship_tags": [
+        "UI"
+      ],
+      "classification_evidence": [
+        "Exact source and runtime role reviewed under SOCCER-WEB-001."
+      ]
+    },
+    {
+      "asset_path": "tests/fixtures/sports-match-hub-ui2.html",
+      "asset_type": "TEST",
+      "asset_role": "TEST",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "CURRENT_AUTHORITY",
+      "current_state": "HISTORICAL_EVIDENCE",
+      "owner_project_id": "SOCCER-WEB-001",
+      "governed_by_control_task_id": "SOCCER-WEB-001",
+      "related_assets": [
+        "control-center/SOCCER-WEB-001_WEBSITE_EVIDENCE_PACKET.v1.md"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [
+        "SOCCER-WEB-001 website evidence verification"
+      ],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "REGISTERED",
+      "next_validation": "Verify exact staged website bytes, private owner authentication and unchanged production defaults before closure.",
+      "notes": "Authorized website visibility source. All forecasts are immutable non-production test records. No scoring or database writes.",
+      "purpose_description": "Frozen UI2 mock page for historical acceptance tests; never served by the active website.",
+      "functional_group": "TEST_PROOF",
+      "relationship_tags": [
+        "TEST_PROOF"
+      ],
+      "classification_evidence": [
+        "Exact source and runtime role reviewed under SOCCER-WEB-001."
+      ]
+    },
+    {
+      "asset_path": "tests/nations-league-website.test.js",
+      "asset_type": "TEST",
+      "asset_role": "TEST",
+      "source_state": "COMMITTED_REPOSITORY",
+      "authority_class": "CURRENT_AUTHORITY",
+      "current_state": "CURRENT",
+      "owner_project_id": "SOCCER-WEB-001",
+      "governed_by_control_task_id": "SOCCER-WEB-001",
+      "related_assets": [
+        "control-center/SOCCER-WEB-001_WEBSITE_EVIDENCE_PACKET.v1.md"
+      ],
+      "related_tables": [],
+      "related_functions": [],
+      "runtime_consumers": [
+        "SOCCER-WEB-001 website evidence verification"
+      ],
+      "runtime_dependencies": [],
+      "database_objects": [],
+      "deployment_surface": [],
+      "goes_somewhere": "YES",
+      "known_conflicts": [],
+      "validation_status": "REGISTERED",
+      "next_validation": "Verify exact staged website bytes, private owner authentication and unchanged production defaults before closure.",
+      "notes": "Authorized website visibility source. All forecasts are immutable non-production test records. No scoring or database writes.",
+      "purpose_description": "SOCCER-WEB-001 website evidence visibility and verification.",
+      "functional_group": "TEST_PROOF",
+      "relationship_tags": [
+        "TEST_PROOF"
+      ],
+      "classification_evidence": [
+        "Exact source and runtime role reviewed under SOCCER-WEB-001."
       ]
     }
   ],

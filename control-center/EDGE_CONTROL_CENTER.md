@@ -553,7 +553,7 @@ Required state snapshot:
   ],
   "eac_evidence_reusable": true,
   "eac_batch_manifest": "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
-  "total_governed_assets": 1081,
+  "total_governed_assets": 1088,
   "phase_0": {
     "status": "PHASE_CLOSED",
     "question": "What exact repository state is the cleanup programme starting from?",
@@ -562,7 +562,7 @@ Required state snapshot:
       "active_branch": "main",
       "head_commit": "7d21fc276629bb6aec056299d70e1541b462934f",
       "working_tree_status": "dirty_unrelated_changes_preserved",
-      "governed_asset_count": 1081,
+      "governed_asset_count": 1088,
       "eac_batch_manifest": "control-center/EDGE_ASSET_CLASSIFICATION_BATCHES.v1.json",
       "eac_batch_count": 29,
       "already_completed_or_removal_work": "Partial external sports provider removal (PARTIAL); EAC-001 B01-B29 classification inventory complete; prior Control Center per-asset investigations preserved as historical evidence",
@@ -10429,3 +10429,9 @@ Evidence:
 - ESEC-001 remains PARTIAL.
 - RLS-001 and runtime/deployment proof remain open.
 - Every runtime and marriage gate remains BLOCKED.
+
+## SOCCER-WEB-001 — IN_PROGRESS
+
+Display the existing immutable Nations League test evidence on skcsai.co.za through existing owner authentication. All fixture and forecast data remains private; signed-out visitors see an access message. No Shadow output disclosure, recalculation, new provider calls, production prediction writes, subscription/sign-in behaviour changes or production scope expansion. Preserve existing HOLD gates and unrelated work.
+
+Definition of Done: Exact version/hash-verified Azure snapshot and prediction batch; 52 upcoming-at-cutoff fixtures, 38 saved forecasts and 14 holds accurately projected; pre-kickoff timestamps and test/snapshot freshness visible; no mock fallback; owner-only forecast access and public denial tested; staged then verified custom-domain deployment; focused tests, rollback and Control Center evidence.
