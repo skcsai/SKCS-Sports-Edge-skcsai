@@ -206,7 +206,7 @@ function buildFixtureMarketProjection(input={}){
       {code:dc+'+O2.5',label:dc+' + Over 2.5',probability_pct:scoreEventProbability(cal.scoreline_cells,(h,a)=>pred(h,a)&&(h+a)>2.5)},
       {code:dc+'+U3.5',label:dc+' + Under 3.5',probability_pct:scoreEventProbability(cal.scoreline_cells,(h,a)=>pred(h,a)&&(h+a)<3.5)},
       {code:dc+'+BTTS-Y',label:dc+' + BTTS Yes',probability_pct:scoreEventProbability(cal.scoreline_cells,(h,a)=>pred(h,a)&&h>0&&a>0)},
-      {code:dc+'+BTTS-N',label:dc+' + BTTS No',probability_pct:scoreEventProbability(cal.scoreline_cells,(h,a)=>pred(h,a)&&!(h>0&&a>0)}
+      {code:dc+'+BTTS-N',label:dc+' + BTTS No',probability_pct:scoreEventProbability(cal.scoreline_cells,(h,a)=>pred(h,a)&&!(h>0&&a>0))}
     );
   }
 
