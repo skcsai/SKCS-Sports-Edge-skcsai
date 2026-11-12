@@ -9,8 +9,8 @@
   "supabase_storage_gate": "BLOCKED",
   "unified_lifecycle_governor": "BLOCKED",
   "provider_removal_state": "PARTIAL",
-  "current_workstream": "SEM-GOV-001 Unified Sports Intelligence Lifecycle",
-  "current_note": "Build Edge project-control foundations before resuming Scout FIP intake or mixed-provider runtime removal.",
+  "current_workstream": "EDGE-AZURE-CUTOVER-001",
+  "current_note": "Owner-authorized Azure production cutover is active; SOCCER-MARKETS-001 is on HOLD until Vercel is removed from the production path.",
   "tasks": [
     {
       "task_id": "ECC-001",
@@ -3996,11 +3996,12 @@
       "task_name": "Complete football market catalogue and probability contract",
       "workstream": "Football public-readiness markets",
       "description": "Create the canonical football market catalogue for all four customer tabs and bind every market family to truthful probability semantics, evidence/H2H inputs, model family, contradiction rules and market-specific publication gates.",
-      "status": "IN_PROGRESS",
+      "status": "HOLD",
       "startable": false,
       "priority": "critical",
       "blocked_by": [
-        "SOCCER-GATE-001"
+        "SOCCER-GATE-001",
+        "EDGE-AZURE-CUTOVER-001"
       ],
       "blocks": [],
       "affected_layers": [
@@ -4065,14 +4066,85 @@
         "Corrected focused regression: 57/57 PASS; Control Center checker PASS."
       ],
       "open_gaps": [
-        "Vercel Hobby daily deployment cap currently prevents deployment of the corrected Same Match selector.",
         "Current live W7 Same Match combinations were generated before the owner correction and remain immutable; do not recompute those fixtures after kickoff.",
         "Future/fresh pre-match packages must use the corrected 4/6/8 selector and broader builder market universe.",
         "Additional normal Same Bet Builder market families from the owner benchmark still require canonical catalogue/model coverage before formal closure.",
-        "Player-specific public publication remains HOLD until current-fixture lineup/eligibility and expected-minutes evidence is confirmed."
+        "Player-specific public publication remains HOLD until current-fixture lineup/eligibility and expected-minutes evidence is confirmed.",
+        "Production hosting remains on Vercel until EDGE-AZURE-CUTOVER-001 completes."
       ],
-      "next_action": "Remain inside SOCCER-MARKETS-001. When Vercel permits a new deployment, Preview the corrected selector, verify the 4-Leg - Statistical Edge / 6-Leg - Speculative Edge / 8-Leg - High-Variance Play labels and diversified top-three outputs, then promote only for fixtures whose corrected combinations were generated pre-match. Do not regenerate already-started fixture predictions after kickoff. Continue expanding the eligible builder market catalogue before formal closure.",
+      "next_action": "HOLD for EDGE-AZURE-CUTOVER-001. Resume market catalogue work only after Azure production cutover closes.",
       "owner_note": "Stephen explicitly instructed SKCS to treat each market family as a whole rather than only the examples raised in conversation.",
+      "last_updated": "2026-11-12"
+    },
+    {
+      "task_id": "EDGE-AZURE-CUTOVER-001",
+      "task_name": "Complete Edge/Web production cutover from Vercel to Azure",
+      "workstream": "Azure production cutover",
+      "description": "Move the SKCS public website and Edge web/API runtime completely from Vercel to the already-provisioned Azure platform, prove custom domains/TLS/runtime/auth/data integrations, preserve rollback, then retire Vercel production traffic.",
+      "status": "IN_PROGRESS",
+      "startable": true,
+      "priority": "critical",
+      "blocked_by": [],
+      "blocks": [
+        "SOCCER-MARKETS-001"
+      ],
+      "affected_layers": [
+        "hosting",
+        "deployment",
+        "container-apps",
+        "dns",
+        "tls",
+        "authentication",
+        "database-connectivity",
+        "storage",
+        "secrets",
+        "observability",
+        "website",
+        "api"
+      ],
+      "related_contracts": [
+        "control-center/EDGE-AZURE-CUTOVER-001_PRODUCTION_VERCEL_RETIREMENT_CONTRACT.v1.md"
+      ],
+      "affected_files": [
+        "Dockerfile",
+        "infra/azure/eops-001-a1/main.bicep",
+        "infra/azure/eops-001-a1/acr-pull.bicep",
+        "vercel.json",
+        "control-center/EDGE-AZURE-CUTOVER-001_PRODUCTION_VERCEL_RETIREMENT_CONTRACT.v1.md"
+      ],
+      "affected_tables": [],
+      "completion_definition": "Both skcsai.co.za and www.skcsai.co.za are served from Azure; website/API/auth/data integrations pass; Vercel receives no production traffic; rollback is proven; tests and Control Center checks pass.",
+      "proof_required": [
+        "Canonical Azure Container App target identified",
+        "Frozen payload commit recorded",
+        "Image built and pushed to governed ACR",
+        "Azure hostname smoke test PASS",
+        "Key Vault references proven",
+        "Azure PostgreSQL/storage integration PASS",
+        "Owner auth PASS",
+        "Signed-out private evidence denial PASS",
+        "Custom domains and TLS PASS",
+        "DNS no longer targets Vercel",
+        "Rollback proof",
+        "Focused tests PASS",
+        "Control Center PASS"
+      ],
+      "current_evidence": [
+        "Azure subscription is Enabled.",
+        "Six Edge Container Apps report provisioningState Succeeded.",
+        "C14 verification apps exist in rg-skcs-edge-verification-zan-001.",
+        "Azure PostgreSQL, ACR, Key Vault, Storage, Log Analytics, managed identities, networking and customer identity resources already exist.",
+        "Vercel currently serves the production custom domains.",
+        "Frozen application payload commit is 84e0fac1ef9eee281d0321a6a6d256cd018cb819."
+      ],
+      "open_gaps": [
+        "Canonical C14 production target still requires detailed runtime/ingress/revision proof.",
+        "Current Azure production image/revision must be reconciled to the frozen payload.",
+        "Custom-domain/TLS bindings and DNS cutover are not complete.",
+        "Vercel remains in the production path."
+      ],
+      "next_action": "Inspect C14 runtime/revision/ingress details, select the canonical target, reconcile production Bicep/configuration, then deploy the frozen application payload to Azure before any DNS change.",
+      "owner_note": "Stephen requires the production platform to be fully moved to Azure; Vercel is not to remain a production dependency.",
       "last_updated": "2026-11-12"
     }
   ]
