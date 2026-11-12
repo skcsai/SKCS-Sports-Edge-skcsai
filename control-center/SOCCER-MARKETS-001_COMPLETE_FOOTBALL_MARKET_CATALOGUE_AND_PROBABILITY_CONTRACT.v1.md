@@ -511,3 +511,14 @@ W7 pre-match proof:
 - Production remains W6 until W7 Preview runtime acceptance passes.
 
 The owner-provided Same Bet Builder benchmark also demonstrates additional normal builder market families beyond the current canonical registry. Those missing families remain part of SOCCER-MARKETS-001 scope and prevent formal project closure until catalogued/modelled or explicitly governed unavailable.
+
+
+## W7 Production acceptance — 12 November 2026
+
+- Preview `dpl_GA9hqSvr8bsTFPwx9h1aTKkoBvRA`: READY.
+- Private Blob runtime returned `SM001W7`, 38 fixtures, 40 market families and the pinned W7/source hashes.
+- Production `dpl_DF9TthytoB6SPW6xTJYz6RKZsCVN`: READY at commit `bb9358b0ea684b950b7ab15ba465988a289287e0`.
+- Custom domains: `www.skcsai.co.za`, `skcsai.co.za`.
+- Production build contains the ranked 4/6/8 Same Match renderer and grey Insufficient-data states.
+- The prior raw two-leg Same Match inventory presentation is no longer the customer Same Match view.
+- SOCCER-MARKETS-001 remains IN_PROGRESS because the owner benchmark exposed additional builder market families that still require canonical catalogue/model coverage before formal closure.
