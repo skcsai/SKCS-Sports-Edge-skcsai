@@ -353,16 +353,21 @@ function buildScorelineMarkets(target,scoreCells,projection){
   return out;
 }
 function mergeFamilies(a,b){const out={...a};for(const [k,v] of Object.entries(b||{}))out[k]=[...(out[k]||[]),...v];return out;}
-function buildCountMarkets(evidence,target,key,families,lines){
+function buildCountMarkets(evidence,target,key,families,config){
   const l=eventLambdas(evidence,target,key);if(!l)return {markets:{},model:null};
+  const totalLines=Array.isArray(config?.totalLines)?config.totalLines:[];
+  const teamLines=Array.isArray(config?.teamLines)?config.teamLines:totalLines;
+  const allLines=[...new Set([...totalLines,...teamLines])].sort((a,b)=>a-b);
   const grid=independentCountGrid(l.home,l.away);
-  const p=projectTwoTeamCountDistribution(grid,{lines});
+  const p=projectTwoTeamCountDistribution(grid,{lines:allLines});
   const out={},note='Pre-match '+key.replace(/_/g,' ')+' count model from recent team for/against histories; test-only and uncalibrated.';
-  for(const [line,v] of Object.entries(p.total)){
+  for(const line of totalLines){
+    const v=p.total[String(line)];
     addSelection(out,families.total,'O'+line,'Over '+line,v.over_pct,note);
     addSelection(out,families.total,'U'+line,'Under '+line,v.under_pct,note);
   }
-  for(const side of ['home','away'])for(const [line,v] of Object.entries(p[side])){
+  for(const side of ['home','away'])for(const line of teamLines){
+    const v=p[side][String(line)];
     const team=side==='home'?target.teams.home.name:target.teams.away.name;
     addSelection(out,families.team,side.toUpperCase()+'_O'+line,team+' over '+line,v.over_pct,note);
     addSelection(out,families.team,side.toUpperCase()+'_U'+line,team+' under '+line,v.under_pct,note);
@@ -402,9 +407,11 @@ function projectFixture(evidence,fixtureId){
   const projection=projectScoreline(scoreCells,{goal_lines:[0.5,1.5,2.5,3.5,4.5,5.5],team_goal_lines:[0.5,1.5,2.5,3.5]});
   let markets=buildScorelineMarkets(target,scoreCells,projection);
   const corners=buildCountMarkets(evidence,target,'corner_kicks',
-    {total:'corners_total',team:'corners_team',most:'corners_most',range:'corners_range',handicap:'corners_handicap'},[6.5,7.5,8.5,9.5,10.5,11.5,12.5]);
+    {total:'corners_total',team:'corners_team',most:'corners_most',range:'corners_range',handicap:'corners_handicap'},
+    {totalLines:[6.5,7.5,8.5,9.5,10.5,11.5,12.5],teamLines:[2.5,3.5,4.5,5.5,6.5]});
   const cards=buildCountMarkets(evidence,target,'yellow_cards',
-    {total:'cards_total',team:'cards_team',most:'cards_most'},[1.5,2.5,3.5,4.5,5.5,6.5]);
+    {total:'cards_total',team:'cards_team',most:'cards_most'},
+    {totalLines:[1.5,2.5,3.5,4.5,5.5,6.5],teamLines:[0.5,1.5,2.5,3.5]});
   markets=mergeFamilies(markets,corners.markets);
   markets=mergeFamilies(markets,cards.markets);
   const first=halfProjection(evidence,target,'FIRST');
