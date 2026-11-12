@@ -59,3 +59,15 @@ Evidence inspection was read-only against the immutable `SOCCER-UNL-001` batch a
 - Publication is blocked only by Vercel configuration authority: the connected Vercel credential returns HTTP 403 for both listing and creating project environment variables. The code fails safe and preserves the current website when `SOCCER_WEB_001_1X2_JSON` is absent. No private values were committed as a workaround.
 
 Exact remaining action: provision the validated probability projection as sensitive Vercel variable `SOCCER_WEB_001_1X2_JSON` for production/preview using an authorized Vercel account or CLI, then verify the authenticated owner view and publish the reviewed branch.
+
+
+### 1X2 release gate resolved
+
+- DeskMCP local Vercel CLI identity `sfynn13433-3427` was used only for Vercel configuration; the dirty historical Edge workspace was inspected and not modified.
+- `SOCCER_WEB_001_1X2_JSON` was provisioned as a Vercel **Secret** for Production and Preview. Vercel listing confirms the value is Hidden. The temporary local transfer file was deleted immediately after provisioning.
+- Fresh preview deployment `dpl_9g5NsFBBsmde9GmsDKqjUQq79KMG` from reviewed branch commit `474d110fe0df7e07a207e15e24a84d68cea9aa82` is READY.
+- Authenticated Vercel CLI preview delivery check: Hub HTML contains the restored day-tabs and Lifecycle Funnel Summary; deployed JS contains `Expected 1X2 outcome`, `outcome_probabilities_pct`, and the separate `governed confidence` label.
+- Preview application evidence endpoint remains closed to signed-out access and returns the existing Microsoft sign-in-required error.
+- Focused isolated tests remain 11/11 PASS. No fixture recollection, scoring rerun, Shadow call, API-SPORTS call, production prediction write or database mutation occurred.
+
+Production publication may now proceed only by non-force fast-forward from the previously verified production base `69c938c4c1919ae3fcdd61a82b742632a2c6f71d`, provided canonical main is still identical to that base.
