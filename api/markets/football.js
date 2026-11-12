@@ -1,6 +1,6 @@
 'use strict';
 
-const {families,TABS,STATUS}=require('../../backend/config/footballMarketRegistry');
+const {families,TABS,STATUS}=require('../../lib/footballMarketRegistry');
 
 module.exports=function handler(req,res){
   res.setHeader('Cache-Control','public, max-age=300, stale-while-revalidate=3600');
