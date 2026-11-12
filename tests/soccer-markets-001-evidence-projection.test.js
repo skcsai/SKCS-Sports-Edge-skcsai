@@ -69,7 +69,13 @@ test('Türkiye-Belgium evidence proof yields real goal/corner/card and joint pro
   assert.ok(p.market_probabilities.total_goals.length>=10);
   assert.ok(p.market_probabilities.btts.length===2);
   assert.ok(p.market_probabilities.correct_score.length===6);
+  assert.ok(p.market_probabilities.exact_total_goals.length>0);
+  assert.ok(p.market_probabilities.goal_range.length===4);
+  assert.ok(p.market_probabilities.team_to_score.length===4);
+  assert.ok(p.market_probabilities.winning_margin.length===5);
   assert.ok(p.market_probabilities.corners_total.length>0);
+  assert.ok(p.market_probabilities.corners_range.length===4);
+  assert.ok(p.market_probabilities.corners_handicap.length===4);
   assert.ok(p.market_probabilities.cards_total.length>0);
   assert.ok(p.market_probabilities.same_match_builder.length>0);
   assert.ok(p.market_probabilities.double_chance_combination.length>0);
