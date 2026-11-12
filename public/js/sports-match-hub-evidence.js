@@ -346,7 +346,35 @@
     if(familyId==='correct_score')return raw;
     if(familyId==='exact_total_goals')return raw+' total goals';
     if(familyId==='goal_range')return raw==='6-10'?'6+ goals':raw+' goals';
-    if(familyId==='draw_no_bet')return raw==='HOME_WIN'?home+' Draw No Bet':away+' Draw No Bet';
+    if(familyId==='draw_no_bet'){
+      if((m=raw.match(/^(HOME|AWAY)_(WIN|PUSH|LOSS)$/))){
+        var dnbTeam=m[1]==='HOME'?home:away;
+        return m[2]==='PUSH'?'Draw – push/refund':dnbTeam+' DNB – '+m[2].toLowerCase();
+      }
+    }
+    if((familyId==='handicap_asian'||familyId==='handicap_european')&&(m=raw.match(/^(HOME|AWAY)_([^_]+)_(WIN|DRAW|PUSH|LOSS)$/))){
+      return (m[1]==='HOME'?home:away)+' '+m[2]+' – '+m[3].toLowerCase();
+    }
+    if(familyId==='winning_margin'&&(m=raw.match(/^(HOME|AWAY)_(\d+)_(\d+|PLUS)$/))){
+      return (m[1]==='HOME'?home:away)+' by '+(m[3]==='PLUS'?m[2]+'+':m[2]===m[3]?m[2]:m[2]+'–'+m[3])+' goal'+(m[2]==='1'&&m[3]==='1'?'':'s');
+    }
+    if(familyId==='half_result'&&(m=raw.match(/^(FIRST|SECOND)_(HOME|DRAW|AWAY)$/))){
+      return (m[1]==='FIRST'?'1st':'2nd')+' half '+(m[2]==='HOME'?home+' win':m[2]==='AWAY'?away+' win':'draw');
+    }
+    if(familyId==='half_total_goals'&&(m=raw.match(/^(FIRST|SECOND)_([OU])(\d+(?:\.\d+)?)$/))){
+      return (m[1]==='FIRST'?'1st':'2nd')+' half '+(m[2]==='O'?'Over ':'Under ')+m[3]+' goals';
+    }
+    if(familyId==='half_btts'&&(m=raw.match(/^(FIRST|SECOND)_(YES|NO)$/))){
+      return (m[1]==='FIRST'?'1st':'2nd')+' half BTTS '+(m[2]==='YES'?'Yes':'No');
+    }
+    if(familyId==='team_win_either_half'&&(m=raw.match(/^(HOME|AWAY)_YES$/)))return (m[1]==='HOME'?home:away)+' to win either half';
+    if(familyId==='corners_range'){
+      if((m=raw.match(/^(\d+)_(\d+|PLUS)$/)))return m[2]==='PLUS'?m[1]+'+ corners':m[1]+'–'+m[2]+' corners';
+      if((m=raw.match(/^EXACT_(\d+)$/)))return 'Exactly '+m[1]+' corners';
+    }
+    if(familyId==='corners_handicap'&&(m=raw.match(/^(HOME|AWAY)_([^_]+)_(COVER|NO)$/))){
+      return (m[1]==='HOME'?home:away)+' corners '+m[2]+' – '+(m[3]==='COVER'?'cover':'not cover');
+    }
     if((familyId==='corners_total'||familyId==='cards_total')&&(m=raw.match(/^([OU])(\d+(?:\.\d+)?)$/)))return (m[1]==='O'?'Over ':'Under ')+m[2]+(familyId==='corners_total'?' corners':' yellow cards');
     if((familyId==='corners_team'||familyId==='cards_team')&&(m=raw.match(/^(HOME|AWAY)_([OU])(\d+(?:\.\d+)?)$/)))return (m[1]==='HOME'?home:away)+' '+(m[2]==='O'?'Over ':'Under ')+m[3]+(familyId==='corners_team'?' corners':' yellow cards');
     if(familyId==='corners_most'||familyId==='cards_most'){
