@@ -2,6 +2,7 @@
   'use strict';
 
   var data=null;
+  var marketRegistry=null;
   var selectedDay=0;
   var lifecycle='';
   var query='';
@@ -321,6 +322,64 @@
     return wrap;
   }
 
+  function registryFamilies(tab){
+    if(!marketRegistry||!Array.isArray(marketRegistry.families))return [];
+    return marketRegistry.families.filter(function(f){return f.tab===tab;});
+  }
+
+  function marketStatusText(status){
+    if(status==='ACTIVE')return 'Active governed probability';
+    if(status==='DERIVABLE')return 'Derived from governed probability';
+    return 'Requires governed market evidence';
+  }
+
+  function renderSavedMarketSelections(f,family){
+    var all=f.market_probabilities&&f.market_probabilities[family.id];
+    if(!Array.isArray(all)||!all.length)return null;
+    var wrap=node('div',undefined,'fixture-market-family');
+    wrap.appendChild(node('h4',family.label,'fixture-market-family__title'));
+    var grid=node('div',undefined,'fixture-probabilities__grid');
+    all.forEach(function(item){
+      var value=Number(item.probability_pct);
+      if(!Number.isFinite(value))return;
+      grid.appendChild(marketProbabilityCard(
+        item.code||item.outcome||'',
+        item.label||item.outcome||family.label,
+        value,
+        item.selected===true
+      ));
+    });
+    if(!grid.children.length)return null;
+    wrap.appendChild(grid);
+    if(all[0]&&all[0].evidence_note)wrap.appendChild(node('p',all[0].evidence_note,'fixture-evidence'));
+    return wrap;
+  }
+
+  function renderMarketCatalogue(f,tab,title,intro){
+    var section=node('div');
+    section.appendChild(node('h3',title,'fixture-probabilities__title'));
+    if(intro)section.appendChild(node('p',intro,'fixture-evidence'));
+    var families=registryFamilies(tab);
+    if(!families.length){
+      section.appendChild(renderUnavailableMarket(title,'The canonical football market registry could not be loaded for this tab.'));
+      return section;
+    }
+    var list=node('div',undefined,'fixture-market-catalogue');
+    families.forEach(function(family){
+      var saved=renderSavedMarketSelections(f,family);
+      if(saved){list.appendChild(saved);return;}
+      var card=node('article',undefined,'fixture-market-family fixture-market-family--pending');
+      card.appendChild(node('h4',family.label,'fixture-market-family__title'));
+      card.appendChild(node('p',marketStatusText(family.status),'fixture-market-family__status'));
+      var semantics=String(family.probability_semantics||'').replace(/_/g,' ').toLowerCase();
+      if(semantics)card.appendChild(node('p','Probability: '+semantics+'.','fixture-evidence'));
+      card.appendChild(node('p','No governed probability was saved for this fixture in the current canary.','fixture-evidence'));
+      list.appendChild(card);
+    });
+    section.appendChild(list);
+    return section;
+  }
+
   function render1X2Market(f,probs){
     var section=node('div');
     section.appendChild(node('h3','Expected 1X2 outcome','fixture-probabilities__title'));
@@ -391,20 +450,23 @@
       panel.replaceChildren();
       if(active==='1x2'){
         panel.appendChild(render1X2Market(f,probs));
-      }else if(active==='same-match'){
-        panel.appendChild(renderUnavailableMarket(
-          'Same Match Bet',
-          'No governed Same Match Bet joint probability was saved for this fixture in the current canary.',
-          'Examples that require a future sealed joint model: Match Result + Goals · Match Result + BTTS · Goals + BTTS.'
-        ));
       }else if(active==='secondary'){
-        panel.appendChild(renderUnavailableMarket(
-          'Secondary Outcomes',
-          'No governed secondary-market probability set was saved for this fixture in the current canary.',
-          'SKCS-recognised groups include Goals Over/Under · BTTS · Draw No Bet · Corners · Yellow Cards · First-Half markets. They will appear here only when Edge seals them pre-match and the existing governors accept them.'
+        panel.appendChild(renderMarketCatalogue(
+          f,'SECONDARY_OUTCOMES','Secondary Outcomes',
+          'Every listed market has its own probability semantics. A percentage appears only when its governed pre-match distribution has been saved for this fixture.'
+        ));
+      }else if(active==='same-match'){
+        panel.appendChild(renderMarketCatalogue(
+          f,'SAME_MATCH_BET','Same Match Bet',
+          'Same Match percentages are joint-event probabilities from common match simulations; SKCS never multiplies marginal percentages as though the legs were independent.'
         ));
       }else{
-        panel.appendChild(renderDoubleChanceMarket(f,probs));
+        var dc=renderDoubleChanceMarket(f,probs);
+        dc.appendChild(renderMarketCatalogue(
+          f,'DOUBLE_CHANCE_AND_COMBINATIONS','Double Chance combination catalogue',
+          'Standard 1X / 12 / X2 is available above. Combination percentages require their own governed joint-event evidence.'
+        ));
+        panel.appendChild(dc);
       }
       announce(definitions.find(function(def){return def.id===active;}).label+' tab selected');
     }
@@ -496,11 +558,12 @@
     renderFixtures();
   }
 
-  function display(snapshot){
+  function display(snapshot,registry){
     if(snapshot.schema_version!=='soccer-website-evidence-v1'||snapshot.test_only!==true||snapshot.fixtures.length!==52){
       throw Error('Unexpected evidence response');
     }
     data=snapshot;
+    marketRegistry=registry;
     showStatus('Saved test evidence');
     $('hub-account-link').textContent='Account';
     $('hub-account-link').href='subscription.html';
@@ -540,21 +603,33 @@
 
     message('Loading saved evidence','Retrieving the verified test snapshot.');
     try{
-      var response=await fetch('/api/evidence/nations-league',{
-        method:'GET',
-        headers:{Authorization:'Bearer '+token},
-        cache:'no-store',
-        credentials:'same-origin',
-        redirect:'error',
-        signal:AbortSignal.timeout(20000)
-      });
+      var responses=await Promise.all([
+        fetch('/api/evidence/nations-league',{
+          method:'GET',
+          headers:{Authorization:'Bearer '+token},
+          cache:'no-store',
+          credentials:'same-origin',
+          redirect:'error',
+          signal:AbortSignal.timeout(20000)
+        }),
+        fetch('/api/markets/football',{
+          method:'GET',
+          cache:'no-store',
+          credentials:'same-origin',
+          redirect:'error',
+          signal:AbortSignal.timeout(20000)
+        })
+      ]);
+      var response=responses[0],registryResponse=responses[1];
       if(response.status===401||response.status===403){
         showStatus('Sign-in required');
         message('Sign-in required','The current session cannot access these private test records. Sign in with the existing linked Microsoft account.',true);
         return;
       }
-      if(!response.ok)throw Error('Evidence unavailable');
-      display(await response.json());
+      if(!response.ok||!registryResponse.ok)throw Error('Evidence unavailable');
+      var registry=await registryResponse.json();
+      if(registry.schema_version!=='soccer-markets-001-registry-v1')throw Error('Market registry unavailable');
+      display(await response.json(),registry);
     }catch(e){
       showStatus('Evidence unavailable');
       message('Saved evidence unavailable','The test records could not be loaded. No mock fixtures or forecasts are being shown. Use Refresh evidence to try again.');
