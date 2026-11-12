@@ -3996,7 +3996,7 @@
       "task_name": "Complete football market catalogue and probability contract",
       "workstream": "Football public-readiness markets",
       "description": "Create the canonical football market catalogue for all four customer tabs and bind every market family to truthful probability semantics, evidence/H2H inputs, model family, contradiction rules and market-specific publication gates.",
-      "status": "HOLD",
+      "status": "BLOCKED",
       "startable": false,
       "priority": "critical",
       "blocked_by": [
@@ -4072,7 +4072,7 @@
         "Player-specific public publication remains HOLD until current-fixture lineup/eligibility and expected-minutes evidence is confirmed.",
         "Production hosting remains on Vercel until EDGE-AZURE-CUTOVER-001 completes."
       ],
-      "next_action": "HOLD for EDGE-AZURE-CUTOVER-001. Resume market catalogue work only after Azure production cutover closes.",
+      "next_action": "BLOCKED by EDGE-AZURE-CUTOVER-001. Resume market catalogue work only after Azure production cutover closes.",
       "owner_note": "Stephen explicitly instructed SKCS to treat each market family as a whole rather than only the examples raised in conversation.",
       "last_updated": "2026-11-12"
     },
