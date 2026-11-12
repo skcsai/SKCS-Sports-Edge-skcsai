@@ -145,6 +145,43 @@ function dcPredicate(dc){
   if(dc==='X2')return (h,a)=>a>=h;
   return (h,a)=>h!==a;
 }
+function totalGoalRangeSelections(cells){
+  const ranges=[
+    {code:'0-1',label:'0–1 goals',test:(h,a)=>(h+a)<=1},
+    {code:'2-3',label:'2–3 goals',test:(h,a)=>(h+a)>=2&&(h+a)<=3},
+    {code:'4-5',label:'4–5 goals',test:(h,a)=>(h+a)>=4&&(h+a)<=5},
+    {code:'6+',label:'6+ goals',test:(h,a)=>(h+a)>=6}
+  ];
+  return ranges.map(r=>({code:r.code,label:r.label,probability_pct:scoreEventProbability(cells,r.test)}));
+}
+function winningMarginSelections(cells){
+  const defs=[
+    {code:'HOME-1',label:'Home by exactly 1',test:(h,a)=>h-a===1},
+    {code:'HOME-2+',label:'Home by 2+',test:(h,a)=>h-a>=2},
+    {code:'DRAW',label:'Draw',test:(h,a)=>h===a},
+    {code:'AWAY-1',label:'Away by exactly 1',test:(h,a)=>a-h===1},
+    {code:'AWAY-2+',label:'Away by 2+',test:(h,a)=>a-h>=2}
+  ];
+  return defs.map(r=>({code:r.code,label:r.label,probability_pct:scoreEventProbability(cells,r.test)}));
+}
+function countRangeSelections(rows){
+  const total=(min,max)=>pct(rows.filter(r=>r.home_count+r.away_count>=min&&(max===Infinity||r.home_count+r.away_count<=max)).reduce((a,b)=>a+b.probability,0)*100);
+  return [
+    {code:'0-7',label:'0–7',probability_pct:total(0,7)},
+    {code:'8-10',label:'8–10',probability_pct:total(8,10)},
+    {code:'11-13',label:'11–13',probability_pct:total(11,13)},
+    {code:'14+',label:'14+',probability_pct:total(14,Infinity)}
+  ];
+}
+function cornerHandicapSelections(rows){
+  const p=test=>pct(rows.filter(r=>test(r.home_count,r.away_count)).reduce((a,b)=>a+b.probability,0)*100);
+  return [
+    {code:'HOME-1.5',label:'Home -1.5 corners',probability_pct:p((h,a)=>h-a>1.5)},
+    {code:'HOME+1.5',label:'Home +1.5 corners',probability_pct:p((h,a)=>h-a>-1.5)},
+    {code:'AWAY-1.5',label:'Away -1.5 corners',probability_pct:p((h,a)=>a-h>1.5)},
+    {code:'AWAY+1.5',label:'Away +1.5 corners',probability_pct:p((h,a)=>a-h>-1.5)}
+  ];
+}
 
 function buildFixtureMarketProjection(input={}){
   const sealed=input.sealed_1x2;
@@ -182,6 +219,18 @@ function buildFixtureMarketProjection(input={}){
     {code:'AWAY-YES',label:'Away win to nil',probability_pct:score.win_to_nil.away_yes_pct}
   ];
   market_probabilities.correct_score=topScoreSelections(score.exact_score,6);
+  market_probabilities.exact_total_goals=Object.entries(score.exact_total_goals)
+    .map(([goals,probability_pct])=>({code:goals,label:goals+' total goals',probability_pct}))
+    .sort((a,b)=>b.probability_pct-a.probability_pct)
+    .slice(0,7);
+  market_probabilities.goal_range=totalGoalRangeSelections(cal.scoreline_cells);
+  market_probabilities.team_to_score=[
+    {code:'HOME-YES',label:'Home team to score — Yes',probability_pct:pct(100-score.clean_sheet.away_yes_pct)},
+    {code:'HOME-NO',label:'Home team to score — No',probability_pct:score.clean_sheet.away_yes_pct},
+    {code:'AWAY-YES',label:'Away team to score — Yes',probability_pct:pct(100-score.clean_sheet.home_yes_pct)},
+    {code:'AWAY-NO',label:'Away team to score — No',probability_pct:score.clean_sheet.home_yes_pct}
+  ];
+  market_probabilities.winning_margin=winningMarginSelections(cal.scoreline_cells);
   const fav=favoriteOutcome(sealed);
   const favPred=outcomePredicate(fav);
   market_probabilities.same_match_builder=[
@@ -212,7 +261,8 @@ function buildFixtureMarketProjection(input={}){
   if(input.corner_evidence){
     const hc=weightedEventRate(input.corner_evidence.home);
     const ac=weightedEventRate(input.corner_evidence.away);
-    const corner=projectTwoTeamCountDistribution(countJoint(hc,ac,20),{lines:[6.5,7.5,8.5,9.5,10.5,11.5,12.5]});
+    const cornerCells=countJoint(hc,ac,20);
+    const corner=projectTwoTeamCountDistribution(cornerCells,{lines:[6.5,7.5,8.5,9.5,10.5,11.5,12.5]});
     market_probabilities.corners_total=lineSelections('C',corner.total,[6.5,7.5,8.5,9.5,10.5,11.5,12.5]);
     market_probabilities.corners_team=[
       ...lineSelections('HC',corner.home,[2.5,3.5,4.5,5.5,6.5]).map(x=>({...x,code:'H-'+x.code,label:'Home corners '+x.label.replace(/^(Over|Under) /,'$1 ')})),
@@ -223,6 +273,8 @@ function buildFixtureMarketProjection(input={}){
       {code:'DRAW',label:'Equal corners',probability_pct:corner.most.draw_pct},
       {code:'AWAY',label:'Away most corners',probability_pct:corner.most.away_pct}
     ];
+    market_probabilities.corners_range=countRangeSelections(cornerCells);
+    market_probabilities.corners_handicap=cornerHandicapSelections(cornerCells);
   }
 
   if(input.card_evidence){
